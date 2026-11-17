@@ -1,6 +1,11 @@
 {
-  "baseline": "1.3.24",
+  "baseline": "1.3.25",
   "files": [
+    {
+      "path": ".github/workflows/.github/workflows/project-bootstrap.yml",
+      "size": 2514,
+      "sha256": "47f9024ba65b4c1bf84430e8549ae55b0c8157adda05cedc71bd19e63b254a3b"
+    },
     {
       "path": ".gitignore",
       "size": 124,
@@ -8,8 +13,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 1233,
-      "sha256": "3ea6afce4477460998f7c8a95e411ac144eccc6aa808a291400aadf7f1baeefa"
+      "size": 2947,
+      "sha256": "055fa23abc63f6ebdd10c40e7282aed7c3e25f261b393dd06f7871ea11c619a3"
     },
     {
       "path": "CONTRIBUTING.md",
@@ -18,13 +23,13 @@
     },
     {
       "path": "README.md",
-      "size": 2540,
-      "sha256": "5a5a8fabbc81be8fcdb4052ccca89fa3362a0264e5ddb2fb97f194df6ff016d7"
+      "size": 2633,
+      "sha256": "edb1a5646378ef81893b8a1eb82323bb68e7436b22d1cb547703695944832830"
     },
     {
       "path": "android/AndroidManifest.xml",
-      "size": 1193,
-      "sha256": "d97064920138f31b3602942fb909485a964b0dac0a3a6dd873b15b07027e0e48"
+      "size": 1271,
+      "sha256": "4380b5b9d5a49236fe2cbd96c76cc5d98e48fc44f129c1abac788a6599403e54"
     },
     {
       "path": "android/res/drawable/ic_face.png",
@@ -108,8 +113,8 @@
     },
     {
       "path": "android/src/com/oneword/forest/BetaUpdater.java",
-      "size": 11348,
-      "sha256": "863fd1deabd435a0a0debe4e8f87365a067cf5246d1b0339f01f864efa22b19c"
+      "size": 12257,
+      "sha256": "759af84f7edb511b54059242735401491d3121fab16ad510da4ddb63539a848c"
     },
     {
       "path": "android/src/com/oneword/forest/GithubUpdatePolicy.java",
@@ -185,6 +190,11 @@
       "path": "web/assets/lib/three.module.js",
       "size": 1208839,
       "sha256": "4d01ed1c468372b16732fcecfeb2f463ac1b29b0fc296b2d64ec084e32876b39"
+    },
+    {
+      "path": "web/assets/licenses/ANIME-WALLPAPERS.txt",
+      "size": 367,
+      "sha256": "6afffe195f5d22a34a2de4e9d2644f4b12490346504f9e85fdf31ff524747392"
     },
     {
       "path": "web/assets/licenses/CREDITS.txt",
@@ -352,6 +362,11 @@
       "sha256": "57b8041bfe0d0f01430e4dbaad45e7ddddf0a9fc97317f90dbc51f7b0d9e1b5d"
     },
     {
+      "path": "web/assets/tex/loading-anime-preview.jpg",
+      "size": 579871,
+      "sha256": "6f6f0eb9ff8f5c36cd1a8376c9e9c3d5074d4a559df4469c82764019d93c75c4"
+    },
+    {
       "path": "web/assets/tex/loading-original.svg",
       "size": 1451,
       "sha256": "ff0a8c2dd57ae01acf4f7e8b53ad792039b896292aedbe7219a9523296b78a00"
@@ -360,6 +375,11 @@
       "path": "web/assets/tex/loading-world.jpg",
       "size": 94787,
       "sha256": "d57c5a9d25cb4c3d9d36a065b457916c1a6f4d7a4a2cb4e8ab75e04159e4fc51"
+    },
+    {
+      "path": "web/assets/tex/menu-anime-preview.jpg",
+      "size": 453431,
+      "sha256": "e37492f6337165ed64b91fbda2ea856ed7bcb00ea88d26b96425d44f04f1b951"
     },
     {
       "path": "web/assets/tex/normaltree-painted.png",
@@ -637,14 +657,19 @@
       "sha256": "ed7640f3f174c8980d5e7f3b820006dab8796d67456c876fa345fbe639c7b3dd"
     },
     {
+      "path": "web/assets/ui/tc-studio.png",
+      "size": 155412,
+      "sha256": "e02548fa9c6cb25b3a96f10c67d56df595ef8d0d07d06d28a1e83b4991222d2b"
+    },
+    {
       "path": "web/assets/utils/BufferGeometryUtils.js",
       "size": 31105,
       "sha256": "889ea11dacd78b15ed26ba7cb0371ceaeda0072f1ae556b44471e4aa259a86c3"
     },
     {
       "path": "web/index.html",
-      "size": 262962,
-      "sha256": "f7ae569684a3017ccce6edae3a0663c324e288ccc8db4e4bb581773dbd7b6610"
+      "size": 279903,
+      "sha256": "ece469625ad2340bce49c24c00334296cd4e290dc2406cfd80fb82b44a6531db"
     }
   ]
 }

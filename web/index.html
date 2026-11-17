@@ -339,6 +339,58 @@ body.playing:not(.gamePaused) #craftBtn{display:block}body.editingControls #craf
 #setPanel #settingActions{position:static!important;display:flex;align-items:center;gap:10px;flex-shrink:0;width:100%;padding:10px 0 0!important;background:none!important;border-top:1px solid #9ed5ee44;border-radius:0}#settingActions span{flex:1;margin-right:auto;color:#92b4ca;font:10px/1.4 sans-serif}#setPanel #settingActions button{width:auto;white-space:nowrap;margin:0;min-height:44px;padding:10px 18px;font-size:11px;flex:0 1 auto}#setPanel #saveClose{background:#693e4a}#setPanel #saveLobby{background:#2b5968}
 @media(max-height:430px){#setPanel.panel{padding-top:8px;gap:8px}#settingsHeader{padding-bottom:6px}#settingsHeader h3{font-size:19px}#settingsHeader .settingsEyebrow{font-size:8px}#settingsLayout{gap:16px}#settingsNav button{min-height:44px}#settingsContent h4{font-size:16px}.settingsIntro{margin-bottom:10px}#setPanel .settingRow{padding:8px 10px;margin-bottom:7px}#setPanel #settingActions{padding-top:7px!important}}
 @media(max-width:520px){#setPanel.panel{padding-left:12px;padding-right:12px}#settingsLayout{grid-template-columns:102px minmax(0,1fr);gap:12px}#settingsNav{padding-right:10px;gap:8px}#settingsNav button{font-size:10px;line-height:1.5;padding:10px 8px}#settingsHeader h3{font-size:19px}#setPanel .settingRow{grid-template-columns:1fr;gap:9px;padding:12px}#setPanel .selectOptions button{font-size:11px;padding:8px 10px}#settingActions span{display:none}#settingActions{justify-content:flex-end}#setPanel #settingActions button{flex:1;padding:10px 8px;font-size:10px}.settingsButtonRow{flex-direction:column}#setPanel .settingsButtonRow button{width:100%;padding:10px;font-size:10px}}
+/* Update gate: quiet loading text first, a finished game card only for a real update. */
+#betaUpdatePanel{background:radial-gradient(ellipse at 50% 30%,#1b547aa8,#030b17ec);backdrop-filter:blur(8px);overflow-y:auto;padding:16px}
+#betaUpdateCard{position:relative;overflow:hidden;max-height:calc(100dvh - 32px);overflow-y:auto;width:min(440px,94vw);padding:24px 28px 18px;border-radius:18px;border:1px solid #8ec8e588;background:radial-gradient(ellipse at 50% 0,#296184b3,transparent 55%),linear-gradient(155deg,#163b57,#081b30);box-shadow:inset 0 1px #d9f4ff5c,0 22px 70px #0009}
+#betaUpdateCard:before{content:'';position:absolute;top:0;left:20%;right:20%;height:2px;background:linear-gradient(90deg,transparent,#c5edff,transparent)}
+#betaUpdateMark{display:flex;align-items:center;justify-content:space-between;font-size:10px;letter-spacing:3px;color:#c3e1ee;margin-bottom:16px}#betaUpdateMark span{letter-spacing:2px;font-size:9px;padding:4px 7px;border:1px solid #9bcee15c;border-radius:4px;color:#a5d9ef}
+#betaUpdateSymbol{width:62px;height:62px;display:grid;place-items:center;margin:0 auto 14px;border-radius:17px;border:1px solid #88d1f680;background:linear-gradient(145deg,#376f91aa,#17436688);box-shadow:inset 0 1px #e0f9ff3b,0 8px 28px #03152766;color:#d0f0ff}#betaUpdateSymbol svg{width:40px;height:40px}
+#betaUpdatePhase{font-size:9px;letter-spacing:2.5px;color:#8ac9e7;font-weight:800;margin-bottom:7px}#betaUpdateTitle{font-size:28px;letter-spacing:.3px;margin:0 0 10px;color:#e1f3ff}#betaUpdateDetail{font-size:13px;line-height:1.6;max-width:340px;color:#b7d1e0;margin-bottom:19px}#betaUpdateActions button{width:100%;border-radius:9px;padding:13px 12px;background:linear-gradient(160deg,#4492bd,#245a80);border:1px solid #b3e5fa99;box-shadow:inset 0 1px #fff4,0 6px 18px #02132288;letter-spacing:1.5px;font-size:11px;color:#f0faff}
+#betaUpdateNote{font-size:8px;letter-spacing:1.8px;line-height:1.7;margin:17px 0 0;color:#a0bed0}#betaUpdateNote span{display:block;letter-spacing:.1px;font-size:10px;color:#829faf;margin-top:4px}
+@media(max-height:450px){#betaUpdateCard{padding:15px 24px 12px}#betaUpdateMark{margin-bottom:9px}#betaUpdateSymbol{width:44px;height:44px;margin-bottom:8px;border-radius:12px}#betaUpdateSymbol svg{width:30px;height:30px}#betaUpdateTitle{font-size:24px;margin-bottom:6px}#betaUpdateDetail{margin-bottom:12px}#betaUpdateNote{margin-top:10px}}
+
+/* Reversible art/UI preview. Background alone moves; hit targets never do. */
+#loading{background:#101b1c;isolation:isolate;--wall-x:0px;--wall-y:0px}
+#loading:before,#start:not(.choosing):before{content:'';position:fixed;inset:-16px;background-position:center;background-size:cover;z-index:-2;pointer-events:none;transform:translate3d(var(--wall-x,0px),var(--wall-y,0px),0);transition:transform .18s ease-out;will-change:transform}
+#loading:before{background-image:url('assets/tex/loading-anime-preview.jpg')}
+#loading:after,#start:not(.choosing):after{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,#06101265,transparent 58%),linear-gradient(0deg,#02090ede,transparent 26%)}
+#loading h1{position:absolute;left:7vw;top:36%;font-size:clamp(26px,4vw,48px);color:#f5f6ef;letter-spacing:7px;text-shadow:0 2px 22px #0009}
+#loading .barwrap{bottom:0;height:6px;background:#ffffff25;border:0;border-radius:0}#loading .bar{border-radius:0;background:linear-gradient(90deg,#d3d6c1,#f7fbef);box-shadow:0 0 10px #f4f8de60;transition:none}
+#loading .pct{bottom:23px;left:20px;right:70px;font:500 11px/1.4 sans-serif;color:#f1f2e8;letter-spacing:.25px;text-align:left;text-shadow:0 1px 4px #000}
+#loadNumber{position:absolute;bottom:21px;right:20px;font:500 14px/1.4 sans-serif;color:#f1f2e8;letter-spacing:1px;text-shadow:0 1px 4px #000}
+#start:not(.choosing){isolation:isolate;background:#091116;align-items:flex-start;text-align:left;padding-left:7vw;--wall-x:0px;--wall-y:0px}
+#start:not(.choosing):before{background-image:url('assets/tex/menu-anime-preview.jpg')}
+#start:not(.choosing):after{background:linear-gradient(90deg,#020a12b0,transparent 72%)}
+#start:not(.choosing)>h1{font-size:clamp(26px,3.5vw,42px);letter-spacing:6px;color:#f4f5ed;text-shadow:0 2px 16px #000;margin:0 0 8px}
+#start:not(.choosing)>.ver{font-size:10px;color:#d6dfdf;background:#0e171d66;border-color:#bdcdd342;letter-spacing:1px;margin-bottom:20px}
+#start:not(.choosing)>button{margin:6px 0!important;min-width:210px;width:min(30vw,300px);min-height:44px;font-size:11px!important;letter-spacing:1.6px;text-align:center}
+#start:not(.choosing)>br{display:none}
+.playbtn,.charCard,.equipChip,.selectOptions button,.visualOptions button,#setupBack,#joy,#atk,#bagBtn,#mapBtn,#setBtn,#freeLookBtn,#craftBtn,#quickbar button,#sprintBtn{background:linear-gradient(145deg,#f6fbff17,transparent 44%,#ffffff09)!important;border-color:#edf5f7a6!important;color:#f1f6f4!important;box-shadow:inset 0 1px 1px #ffffff40,inset 0 -1px 2px #00000020,0 2px 7px #00000025!important;text-shadow:0 1px 3px #0009}
+.playbtn:hover,.playbtn:focus-visible,.equipChip.on,.charCard.on,.selectOptions button[aria-pressed=true],.visualOptions button[aria-pressed=true],#quickbar button.on{background:linear-gradient(145deg,#f6fbff3d,#ffffff12)!important;border-color:#fff!important}
+#joy .thumb{background:radial-gradient(ellipse at 35% 22%,#f4fcff38,#e6f4f518 55%,#ffffff0f);border-color:#e6f1f4a6;box-shadow:inset 0 1px 2px #fff5}
+#betaUpdateCard{background:radial-gradient(ellipse at 50% 0,#aec7c126,transparent 55%),linear-gradient(155deg,#172c2df5,#0a151df5);border-color:#c3d3d699}#betaUpdatePanel{background:radial-gradient(ellipse at 50% 30%,#284446a8,#040c14ed)}#betaUpdateSymbol{background:linear-gradient(145deg,#d0e4e32a,#b2c6c416);border-color:#dcebef80;color:#edf7f6}#betaUpdateMark,#betaUpdateMark span,#betaUpdatePhase,#betaUpdateTitle,#betaUpdateDetail{color:#e1edec}#betaUpdateMark span{border-color:#b9d3ce66}
+@media(orientation:portrait){#loading:before{background-position:72% center}#loading h1{top:12%;left:8vw;font-size:26px;letter-spacing:5px}#start:not(.choosing){padding-left:8vw;justify-content:flex-end;padding-bottom:9vh}#start:not(.choosing):before{background-position:79% center}#start:not(.choosing):after{background:linear-gradient(0deg,#020a12f2,transparent 95%)}#start:not(.choosing)>button{width:68vw;max-width:320px}#start:not(.choosing)>h1{font-size:28px}#start:not(.choosing)>.ver{margin-bottom:15px;font-size:8px;max-width:80vw}}
+@media(prefers-reduced-motion:reduce){#loading:before,#start:not(.choosing):before{transform:none!important;transition:none;will-change:auto}}
+
+#studioIntro{position:fixed;inset:0;z-index:3000;background:#000;display:grid;place-items:center;pointer-events:auto}#studioIntro img{width:min(52vw,280px);height:auto;object-fit:contain;opacity:0;animation:studioSoftReveal 2.6s ease-in-out both}#studioIntro.hidden{display:none!important}@keyframes studioSoftReveal{0%{opacity:0;filter:brightness(.25)}35%,62%{opacity:1;filter:brightness(1)}100%{opacity:0;filter:brightness(.25)}}@media(prefers-reduced-motion:reduce){#studioIntro img{animation:none;opacity:1;filter:none}}
+#start:not(.choosing)>.tag,#start:not(.choosing)>.keys{display:none}#start:not(.choosing)>.foot{display:block;font-size:8px;line-height:1.5;color:#c7d3d0;opacity:.78;margin:18px 0 0;padding:0;max-width:290px;text-shadow:0 1px 4px #000}
+
+/* Complete neutral glass surfaces: paint only, all geometry and behaviour unchanged. */
+#setPanel.panel{background:linear-gradient(120deg,#10191bf7,#0b1317fa 60%,#1a2223f7);color:#edf2f0}
+#settingsHeader,#settingsNav,#setPanel #settingActions{border-color:#dbe8e344}
+.settingsEyebrow,.settingsIntro,.settingsNote,#settingActions span,#setPanel .settingRow small{color:#c1ceca}
+#setPanel #setHelp{color:#d7e2de!important}#setPanel .settingRow label{color:#edf2ef}
+#setPanel .settingRow{background:#ffffff05;border-color:#dce7e320}
+#settingsContent{scrollbar-color:#d7e3dd70 #0b1214}#setPanel .settingRow input{accent-color:#dce7df}#setSensValue{color:#dce7df}
+#settingsNav button,#setPanel #setClose,.controlToolbar button,.debugHead button,#drinkBtn,#sleepBtn,#pinQuick button,.statUpgrade button,#betaUpdateActions button,#profileBox button,#setPanel .secondary{background:linear-gradient(145deg,#f6fbff17,transparent 44%,#ffffff09)!important;border-color:#edf5f7a6!important;color:#f1f6f4!important;box-shadow:inset 0 1px 1px #ffffff40,inset 0 -1px 2px #00000020,0 2px 7px #00000025!important;text-shadow:0 1px 3px #0009}
+#settingsNav button[aria-selected=true]{background:linear-gradient(145deg,#f6fbff35,#ffffff0b)!important;border-color:#fff!important;box-shadow:inset 3px 0 #edf6ef,inset 0 1px 1px #ffffff40!important}
+#settingsNav button:focus-visible,#setPanel button:focus-visible{outline-color:#e5eee7}
+#bag.panel,#mapPanel.panel,#profileBox.panel{background:linear-gradient(145deg,#142020ee,#091114ef);border-color:#dbe8e373;color:#e6eee9}
+#betaDebug{background:#10191bef;border-color:#dce7e380;color:#e0ebe5}.debugHead,.controlToolbar{background:#152021f2;border-color:#dce7e380}.controlToolbar p{color:#c0ceca}
+#nameInput,#charSetup input,.controlToolbar select{background:#101a1bde!important;border-color:#d9e4df88!important;color:#edf4ef!important}
+.slot{background:linear-gradient(145deg,#e1eee91c,#ffffff06);border-color:#dbe8e355}.slot.sel{border-color:#f2f8f4!important;background:#ecf8ee22!important}
+#zoomActions,#zoomActions button{color:#e4eee8}#zoomActions svg{stroke:#e4eee8}
+
 </style>
 </head>
 <body><div id="healthNotice" role="status" aria-live="polite"></div><div id="weaponAim" aria-hidden="true"></div>
@@ -384,7 +436,7 @@ body.playing:not(.gamePaused) #craftBtn{display:block}body.editingControls #craf
 <div class="settingRow"><label for="setSens">Camera sensitivity <output id="setSensValue">1.0&#215;</output></label><input type="range" id="setSens" min="0.4" max="2" step="0.1" value="1"></div>
 <div class="settingsButtonRow"><button class="playbtn" id="controlsBtn">CUSTOMIZE LAYOUT</button><button class="playbtn secondary" id="controlsRecovery">RESET SAVED LAYOUT</button></div><p class="settingsNote">Enter your world to move and resize the gameplay controls.</p></section>
 <section data-settings-page="survivor" class="hidden"><h4>SURVIVOR</h4><p class="settingsIntro">View your survivor and manage your current session.</p><div class="settingsButtonRow"><button class="playbtn" id="profileBtn">PROFILE</button><button class="playbtn secondary" id="sosBtn">SOS - UNSTUCK</button></div><p class="settingsNote">Use SOS only if your survivor is stuck in the terrain.</p></section>
-<section data-settings-page="help" class="hidden"><h4>HELP &amp; BETA</h4><p class="settingsIntro">Your forest survival guide.</p><div id="setHelp" style="font-size:11px;line-height:1.6;margin-top:12px;max-width:420px;color:#baccdb">Move: joystick / WASD. Auto-run: hold the joystick and drag up to show its lock target. Reach the target and release there to lock. Release anywhere else to stop. Touch the joystick again to stop auto-run. Hold and drag the eye to look without steering; release to return. Move joystick to stop. Shift on keyboard. Look: drag. Attack: right button / Space. Bag: B. Quick tools: 1-3.<br>Drink at the river. Approach a coloured gate, then open Map to travel. Sleep at your placed bedroll.<br>Beta: original lowpoly enemies and animals; visual quality and phone performance are still being tested.</div><button id="debugBtn" class="playbtn secondary">BETA DEBUG CONSOLE</button></section>
+<section data-settings-page="help" class="hidden"><h4>HELP &amp; BETA</h4><p class="settingsIntro">Your forest survival guide.</p><div id="setHelp" style="font-size:11px;line-height:1.6;margin-top:12px;max-width:420px;color:#baccdb">Move: joystick / WASD. Auto-run: hold the joystick and drag up to show its lock target. Reach the target and release there to lock. Release anywhere else to stop. Touch the joystick again to stop auto-run. Hold and drag the eye to look without steering; release to return. Move joystick to stop. Shift on keyboard. Look: drag. Attack: right button / Space. Bag: B. Quick tools: 1-3.<br>Drink at the river. Approach a coloured gate, then open Map to travel. Sleep at your placed bedroll.<br>Beta: original lowpoly enemies and animals; visual quality and phone performance are still being tested.</div><div id="studioCredits" class="settingsNote"><h4>CREDITS</h4>Tamil Crafters Studio<br>Original game: Smiley, reused and modified with permission.<br>Models: VRoid Project + Quaternius (CC0). Textures: Poly Haven (CC0). Three.js (MIT).<br>Original menu music supplied by the app owner. Anime wallpaper illustrations prepared for this project.<br>Full third-party license and provenance notices are bundled with the game source.</div><button id="debugBtn" class="playbtn secondary">BETA DEBUG CONSOLE</button></section>
 </div></div>
 <footer id="settingActions"><span>Changes are saved on this device.</span><button class="playbtn closebtn" id="saveLobby">SAVE &amp; LOBBY</button><button id="saveClose" class="playbtn closebtn">SAVE &amp; CLOSE</button></footer>
 </div><div id="profileBox" class="hidden" style="max-width:360px"><label>Survivor name</label><input id="profileName" maxlength="16" style="width:160px;padding:7px;background:#0b2b47;color:white;border:1px solid #6ea6ca"><button id="profileNameSave" style="padding:7px;background:#174c70;color:white;border:1px solid #75bce4">SAVE NAME</button><div id="profileStats" style="font-size:11px;line-height:1.6"></div></div><div id="confirmPanel" class="panel hidden"><h3 id="confirmTitle">ARE YOU SURE?</h3><div id="confirmMsg" style="font-size:14px;opacity:.85;margin:6px 0 4px"></div>
@@ -393,10 +445,11 @@ body.playing:not(.gamePaused) #craftBtn{display:block}body.editingControls #craf
 <button id="freeLookBtn" aria-label="Hold and drag to look around without steering"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M2 16s5-9 14-9 14 9 14 9-5 9-14 9S2 16 2 16Z"/><circle cx="16" cy="16" r="5"/></svg></button><div id="sprintBtn" role="presentation" aria-hidden="true"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="m8 7 6 6 4 1 3 5 7 3v5H4v-7l3-5zM5 23h22M12 14l4 3m-6 0 4 3M2 8h5M1 12h4"/></svg></div><div id="sosNotice" class="hidden"></div><div id="toast"></div>
 <div id="flash"></div><aside id="betaDebug" class="hidden"><div class="debugHead">BETA DIAGNOSTICS <button id="debugClear">CLEAR</button><button id="debugClose">CLOSE</button></div><pre id="debugStats"></pre></aside>
 
+<div id="studioIntro" aria-label="Tamil Craft Studio"><img src="assets/ui/tc-studio.png" alt="Tamil Craft Studio" draggable="false"></div>
 <div class="overlay" id="loading">
   <h1>ONE WORLD</h1>
   <div class="barwrap"><div class="bar" id="loadBar"></div></div>
-  <div class="pct" id="loadPct">Loading forest... 0%</div>
+  <div class="pct" id="loadPct">Preparing world...</div><div id="loadNumber" aria-hidden="true">0%</div>
 </div>
 
 <div class="overlay hidden" id="start">
@@ -423,25 +476,30 @@ body.playing:not(.gamePaused) #craftBtn{display:block}body.editingControls #craf
     </div></div><button class="playbtn" id="beginBtn" style="margin-top:10px">DONE</button>
   </div>
   <div class="keys">Joystick to run | knife, axe and torch to survive | bag button for items<br>WASD / arrows to run | Space to attack | B for bag</div>
-  <div class="foot">One World by Smiley<br>Models: VRoid Project + Quaternius (CC0) | Textures: Poly Haven (CC0) | three.js (MIT)</div>
+  <div class="foot">Tamil Crafters Studio</div>
 </div>
 
 <div class="overlay hidden" id="over">
   <h1>THE WOLVES GOT YOU!</h1>
   <div id="overScore"></div>
   <button class="playbtn" id="againBtn"><svg viewBox="0 0 24 24" width="18" height="18" style="vertical-align:-3px;margin-right:8px"><path d="M12 5V1L5 8l7 7V11c4 0 7 3 7 7 0 1-.2 2-.5 3l2.5 1C21.6 21 22 19.6 22 18c0-5.5-4.5-10-10-10z M12 19c-4 0-7-3-7-7 0-1 .2-2 .5-3l-2.5-1C2.4 9 2 10.4 2 12c0 5.5 4.5 10 10 10z" fill="#d2e6f7" transform="scale(1,-1) translate(0,-24)"/></svg>PLAY AGAIN</button>
-  <div class="foot">One World by Smiley <svg viewBox="0 0 24 24" width="13" height="13" style="vertical-align:-2px"><path d="M12 21s-8-5.3-10-10C.5 7 3 4 6.5 4 9 4 11 6 12 7.5 13 6 15 4 17.5 4 21 4 23.5 7 22 11c-2 4.7-10 10-10 10z" fill="#5a92bf"/></svg></div>
+  <div class="foot">Tamil Crafters Studio <svg viewBox="0 0 24 24" width="13" height="13" style="vertical-align:-2px"><path d="M12 21s-8-5.3-10-10C.5 7 3 4 6.5 4 9 4 11 6 12 7.5 13 6 15 4 17.5 4 21 4 23.5 7 22 11c-2 4.7-10 10-10 10z" fill="#5a92bf"/></svg></div>
 </div>
 
 <button id="craftBtn" aria-label="Open crafting">CRAFTING</button><div id="craftPanel" class="hidden" role="dialog" aria-label="Crafting"><h3>CRAFTING</h3><p class="cap">Use materials from your inventory.</p><div id="craftList"></div><div id="craftFooter"><button id="craftClose" class="playbtn closebtn">CLOSE</button><button id="craftBag" class="playbtn closebtn">INVENTORY</button></div></div>
 <div id="worldLoading" class="overlay hidden"><h2>ENTERING ONE WORLD</h2><div id="joinProgress" style="position:absolute;bottom:0;left:0;height:4px;background:#91ccff;width:0%"></div><div id="joinPercent" style="position:absolute;bottom:12px;left:20px;font-size:12px">0%</div><div id="joinStage" role="status" aria-live="polite">Preparing terrain</div><button id="joinBack" class="playbtn hidden">BACK TO LOBBY</button></div>
-<div id="betaUpdatePanel" class="hidden" role="dialog" aria-modal="true" aria-label="Beta update"><div id="betaUpdateCard"><div id="betaUpdateMark">ONE WORLD</div><h2 id="betaUpdateTitle">Beta update</h2><p id="betaUpdateDetail" role="status" aria-live="polite">Checking for updates...</p><div id="betaUpdateActions"></div></div></div>
+<div id="betaUpdatePanel" class="hidden" role="dialog" aria-modal="true" aria-label="Beta update"><div id="betaUpdateCard"><div id="betaUpdateMark">ONE WORLD <span>BETA</span></div><div id="betaUpdateSymbol" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 8v23m-8-8 8 8 8-8M12 32v8h24v-8" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div id="betaUpdatePhase">NEW VERSION</div><h2 id="betaUpdateTitle">Beta update</h2><p id="betaUpdateDetail" role="status" aria-live="polite">Checking for updates...</p><div id="betaUpdateActions"></div><p id="betaUpdateNote">UPDATE REQUIRED TO PLAY<br><span>Install over this beta. Do not uninstall or clear data.</span></p></div></div>
 <script>
+window.oneworldIntroReady=new Promise(function(resolve){var root=document.getElementById('studioIntro'),reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;setTimeout(function(){root.classList.add('hidden');resolve();},reduce?700:2600);});
 window.oneworldUpdateUI=function(state,title,detail){
- var root=document.getElementById('betaUpdatePanel');if(!window.oneworldStartupUpdate||!oneworldStartupUpdate.pending)return;
- oneworldStartupUpdate.uiState=state;document.getElementById('loadPct').textContent={checking:'Checking beta updates...',available:'Update available',downloading:'Downloading update...',permission:'Installation permission needed',ready:'Update ready to install',error:'Update unavailable',returned:'Returned from installer'}[state]||'Beta update';
+ var root=document.getElementById('betaUpdatePanel'),startup=window.oneworldStartupUpdate;if(!startup||!startup.pending)return;
+ startup.uiState=state;document.getElementById('loadPct').textContent={checking:'Checking for beta updates...',available:'Update available',downloading:'Downloading update...',permission:'Installation permission needed',ready:'Update ready to install',error:'Update not installed',returned:'Update still required'}[state]||'Beta update';
+ if(state==='checking'){root.classList.add('hidden');return;}
+ // A panel is shown only after native validation finds an actual newer update.
+ if(state==='available')startup.required=true;if(!startup.required)return;
  root.classList.remove('hidden');document.getElementById('betaUpdateTitle').textContent=title;document.getElementById('betaUpdateDetail').textContent=detail;
- var actions={checking:[['later','LATER']],available:[['download','DOWNLOAD'],['later','LATER']],downloading:[['cancel','CANCEL']],permission:[['settings','OPEN SETTINGS'],['later','LATER']],ready:[['install','INSTALL'],['later','LATER']],error:[['later','CONTINUE OFFLINE']],returned:[['later','CONTINUE']]};
+ document.getElementById('betaUpdatePhase').textContent={available:'NEW VERSION',downloading:'SECURE DOWNLOAD',permission:'ANDROID PERMISSION',ready:'READY TO INSTALL',error:'RETRY NEEDED',returned:'INSTALLATION PENDING'}[state]||'BETA UPDATE';
+ var actions={available:[['download','DOWNLOAD UPDATE']],permission:[['settings','OPEN ANDROID SETTINGS']],ready:[['install','INSTALL UPDATE']],error:[['retry','RETRY UPDATE']],returned:[['retry','INSTALL AGAIN']]};
  var el=document.getElementById('betaUpdateActions');el.replaceChildren();(actions[state]||[]).forEach(function(v){var b=document.createElement('button');b.className='playbtn';b.textContent=v[1];b.dataset.action=v[0];b.onclick=function(){if(window.OneWorldNative&&typeof OneWorldNative.betaUpdateAction==='function')OneWorldNative.betaUpdateAction(v[0]);};el.appendChild(b);});
 };
 // Check once on the first loading page, before revealing the lobby.
@@ -451,14 +509,25 @@ window.oneworldStartupUpdate={pending:false,status:'not-started',id:1};
 window.oneworldStartupReady=new Promise(function(resolve){
  var state=window.oneworldStartupUpdate,native=window.OneWorldNative;
  window.oneworldEntryUpdateResult=function(id,status){
-  if(!state.pending||id!==state.id||['current','continue','unavailable'].indexOf(status)<0)return false;
-  state.pending=false;state.status=status;document.getElementById('betaUpdatePanel').classList.add('hidden');resolve(status);return true;
+  if(!state.pending||id!==state.id||['current','offline','unavailable'].indexOf(status)<0||state.required&&status!=='current')return false;
+  state.pending=false;state.status=status;if(status==='offline')document.getElementById('loadPct').textContent='Offline mode';else if(status==='unavailable')document.getElementById('loadPct').textContent='Update check unavailable';document.getElementById('betaUpdatePanel').classList.add('hidden');resolve(status);return true;
  };
  if(!native||typeof native.checkBetaAtEntry!=='function'){state.status='preview-unavailable';resolve(state.status);return;}
  state.pending=true;state.status='checking';
- document.getElementById('loadPct').textContent='Checking beta updates...';
+ document.getElementById('loadPct').textContent='Checking for beta updates...';
  try{native.checkBetaAtEntry(state.id);}catch(e){state.pending=false;state.status='unavailable';resolve(state.status);}
 });
+</script>
+<script>
+(function(){
+ var reduced=window.matchMedia('(prefers-reduced-motion: reduce)'),origin=null,last=0,x=0,y=0;
+ function current(){if(document.hidden||reduced.matches)return null;var l=document.getElementById('loading'),m=document.getElementById('start');if(!l.classList.contains('hidden'))return l;if(!m.classList.contains('hidden')&&!m.classList.contains('choosing'))return m;return null;}
+ function move(nx,ny){var target=current(),t=performance.now();if(!target||t-last<80)return;last=t;x=x*.65+Math.max(-8,Math.min(8,nx))*.35;y=y*.65+Math.max(-8,Math.min(8,ny))*.35;target.style.setProperty('--wall-x',x.toFixed(2)+'px');target.style.setProperty('--wall-y',y.toFixed(2)+'px');}
+ window.addEventListener('deviceorientation',function(e){if(!current()||!Number.isFinite(e.beta)||!Number.isFinite(e.gamma))return;if(!origin)origin={b:e.beta,g:e.gamma};var dx=e.gamma-origin.g,dy=e.beta-origin.b,angle=screen.orientation?screen.orientation.angle:0;if(Math.abs(angle)===90)move(dy*.32,-dx*.32);else move(-dx*.32,-dy*.32);},{passive:true});
+ window.addEventListener('devicemotion',function(e){if(!current()||!e.acceleration)return;var a=e.acceleration;if(Number.isFinite(a.x)&&Number.isFinite(a.y))move(-a.x*.7,a.y*.7);},{passive:true});
+ window.addEventListener('orientationchange',function(){origin=null;x=y=0;document.querySelectorAll('#loading,#start').forEach(function(t){t.style.setProperty('--wall-x','0px');t.style.setProperty('--wall-y','0px');});});
+ window.oneworldWallpaperMotion={preview:move,state:function(){return {x:x,y:y,active:!!current(),reduced:reduced.matches};}};
+})();
 </script>
 <script src="assets/lib/MenuMusic.js"></script>
 <script>
@@ -476,7 +545,7 @@ import { GLTFLoader } from './assets/lib/GLTFLoader.js';
 import { clone as skClone } from './assets/lib/SkeletonUtils.js';
 import { animeClips, applyAnimeColors, attachLeatherGarments, applyHairStyle, updateHairSway } from './assets/lib/AnimeCharacter.js';
 
-var BUILD_INFO={name:'1.3.24',code:null,native:false};
+var BUILD_INFO={name:'1.3.25',code:null,native:false};
 try{var nb=window.OneWorldNative;if(nb&&typeof nb.getBuildInfo==='function'){var bi=JSON.parse(nb.getBuildInfo());if(bi.package==='com.oneword.forest.beta'&&typeof bi.name==='string'&&/^\d+\.\d+\.\d+$/.test(bi.name)&&Number.isSafeInteger(bi.code)&&bi.code>0)BUILD_INFO={name:bi.name,code:bi.code,native:true};}}catch(e){}
 var DISPLAY_VERSION=BUILD_INFO.name+(BUILD_INFO.native?'':' preview');
 document.querySelector('#start .ver').textContent=DISPLAY_VERSION+' Beta - Work in progress';
@@ -500,9 +569,13 @@ const texLoader = new THREE.TextureLoader(manager);
 const A = { models: {}, tex: {} };
 const loadBar = document.getElementById('loadBar');
 const loadPct = document.getElementById('loadPct');
-manager.onProgress = function(url, done, total){ const p = Math.round(done/total*100); loadBar.style.width = Math.min(95,Math.round(p*.95))+'%'; loadPct.textContent = (window.oneworldStartupUpdate.pending?(window.oneworldStartupUpdate.uiState==='checking'||!window.oneworldStartupUpdate.uiState?'Checking beta updates...':document.getElementById('loadPct').textContent):'Loading assets... '+Math.min(95,Math.round(p*.95))+'%'); };
+manager.onProgress = function(url, done, total){
+ // File-count progress plus one real world-assembly unit. No elapsed-time fill.
+ var percent=Math.min(99,Math.floor(done/(Math.max(done,total)+1)*100));loadBar.style.width=percent+'%';document.getElementById('loadNumber').textContent=percent+'%';
+ loadPct.textContent=window.oneworldStartupUpdate.pending?(window.oneworldStartupUpdate.uiState==='checking'||!window.oneworldStartupUpdate.uiState?'Checking for beta updates...':document.getElementById('loadPct').textContent):(window.oneworldStartupUpdate.status==='offline'?'Offline mode - ':window.oneworldStartupUpdate.status==='unavailable'?'Update check unavailable - ':'')+'Preparing assets';
+};
 manager.onError = function(url){ window.__errors.push('asset load failed: '+url); };
-manager.onLoad = async function(){ await window.oneworldStartupReady;try { buildWorld();loadBar.style.width='100%';loadPct.textContent='World ready - 100%';setTimeout(function(){document.getElementById('loading').classList.add('hidden');},120); document.getElementById('start').classList.remove('hidden'); } catch(err){ window.__errors.push('buildWorld: '+(err && err.stack || err)); showLoadError(err); } };
+manager.onLoad = async function(){ await Promise.all([window.oneworldStartupReady,window.oneworldIntroReady]);try { buildWorld();loadBar.style.width='100%';document.getElementById('loadNumber').textContent='100%';loadPct.textContent=(window.oneworldStartupUpdate.status==='offline'?'Offline mode - ':'')+'World ready - 100%';setTimeout(function(){document.getElementById('loading').classList.add('hidden');document.getElementById('start').classList.remove('hidden');},180); } catch(err){ window.__errors.push('buildWorld: '+(err && err.stack || err)); showLoadError(err); } };
 window.addEventListener('unhandledrejection', function(e){ window.__errors.push('async: '+String(e.reason && e.reason.message || e.reason)); });
 function showLoadError(err){
   var msg = 'Load error: ' + (err && err.message ? err.message : String(err));
@@ -1178,6 +1251,47 @@ function cloneSkinnedMaterials(root){
   root.traverse(function(o){ if(o.isMesh || o.isSkinnedMesh){ o.material = Array.isArray(o.material) ? o.material.map(function(m){ return m.clone(); }) : o.material.clone(); o.castShadow = true; o.frustumCulled = false; } });
 }
 
+// Preserve the original character geometry and texture pixels. Unlit imported
+// VRoid materials otherwise stay full-bright at night while the world darkens.
+function prepareCharacterMaterials(root){
+ root.traverse(function(o){if(!o.isMesh)return;
+  function lit(old){if(!old.isMeshBasicMaterial)return old;
+   var m=new THREE.MeshStandardMaterial({roughness:.86,metalness:0});
+   ['name','map','alphaMap','transparent','opacity','alphaTest','side','depthWrite','depthTest','vertexColors','fog','toneMapped','premultipliedAlpha','blending','blendSrc','blendDst','blendEquation','polygonOffset','polygonOffsetFactor','polygonOffsetUnits'].forEach(function(k){if(old[k]!==undefined)m[k]=old[k];});
+   m.color.copy(old.color);m.userData=Object.assign({},old.userData);m.emissive.setHex(0);m.emissiveIntensity=0;
+   if(/Face|Eye|SKIN/.test(m.name)){
+    // Anime skin uses softer directional wrapping and less green ground bounce.
+    // All energy still comes from actual scene lights: no fullbright/emission.
+    m.onBeforeCompile=function(shader){
+     var hemiCode=THREE.ShaderChunk.lights_pars_begin.replace('mix( hemiLight.groundColor, hemiLight.skyColor, hemiDiffuseWeight )','mix( vec3(dot(hemiLight.groundColor,vec3(0.2126,0.7152,0.0722))), mix(hemiLight.skyColor,vec3(dot(hemiLight.skyColor,vec3(0.2126,0.7152,0.0722))),0.8), 0.78 )');
+     var skinCode=THREE.ShaderChunk.lights_physical_pars_fragment.replace('float dotNL = saturate( dot( geometry.normal, directLight.direction ) );','float dotNL = saturate( (dot( geometry.normal, directLight.direction ) + 0.7) / 1.7 );');
+     shader.fragmentShader=shader.fragmentShader.replace('#include <lights_pars_begin>',hemiCode).replace('#include <lights_physical_pars_fragment>',skinCode);
+    };m.customProgramCacheKey=function(){return 'survivor-soft-skin-v2';};
+   }return m;
+  }
+  o.material=Array.isArray(o.material)?o.material.map(lit):lit(o.material);o.receiveShadow=true;
+  (Array.isArray(o.material)?o.material:[o.material]).forEach(function(m){if(m.map)m.map.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());});
+ });
+}
+// Cache every vertex weighted to an actual ankle/toe bone. Evaluate the animated
+// soles against rendered triangle heights, not only the actor centre or ankles.
+var solePoint=new THREE.Vector3();
+function cacheSurvivorSoles(root){
+ var supports=[];root.traverse(function(o){if(!o.isSkinnedMesh||!o.visible)return;
+  var si=o.geometry.attributes.skinIndex,sw=o.geometry.attributes.skinWeight;if(!si||!sw)return;
+  var footBones={};o.skeleton.bones.forEach(function(b,i){if(/_(Foot|ToeBase)$/.test(b.name))footBones[i]=true;});
+  var ids=[];for(var i=0;i<si.count;i++){for(var k=0;k<4;k++){if(footBones[si[['getX','getY','getZ','getW'][k]](i)]&&sw[['getX','getY','getZ','getW'][k]](i)>.001){ids.push(i);break;}}}
+  if(ids.length)supports.push({mesh:o,ids:ids});
+ });root.userData.soleSupport=supports;
+}
+function supportSurvivorSoles(){
+ if(!charRoot||swimming)return 0;
+ var supports=charRoot.userData.soleSupport;if(!supports){cacheSurvivorSoles(charRoot);supports=charRoot.userData.soleSupport;}
+ player.updateMatrixWorld(true);var lift=0;
+ supports.forEach(function(s){s.mesh.skeleton.update();s.ids.forEach(function(i){s.mesh.getVertexPosition(i,solePoint);solePoint.applyMatrix4(s.mesh.matrixWorld);lift=Math.max(lift,surfaceY(solePoint.x,solePoint.z)+.012-solePoint.y);});});
+ if(lift>0){player.position.y+=lift;player.updateMatrixWorld(true);}return lift;
+}
+
 // ---------- player (KayKit animated character, boy/girl selectable) ----------
 var player = new THREE.Group();
 var charKind = 'boy', playerName = '';
@@ -1237,7 +1351,7 @@ function buildPlayerChar(kind){
   if(charRoot){ player.remove(charRoot); if(pAnim && pAnim.mixer){ pAnim.mixer.stopAllAction(); pAnim.mixer.uncacheRoot(charRoot); } }
   charRoot = skClone(A.models[kind].scene);
   charRoot.userData.baseRotation=charRoot.quaternion.clone();charRoot.userData.swimTilt=0;
-  cloneSkinnedMaterials(charRoot);
+  cloneSkinnedMaterials(charRoot);prepareCharacterMaterials(charRoot);
   applyAnimeColors(charRoot,charLook);
   normSkinnedChar(charRoot, 1.78);
   attachLeatherGarments(charRoot,kind);applyHairStyle(charRoot,charLook.style,kind);applyAnimeColors(charRoot,charLook);
@@ -1540,7 +1654,7 @@ function renderInvPreview(){
   if(!pvCam) pvCam = new THREE.PerspectiveCamera(32, cv.width/cv.height, 0.1, 60);
   if(!pvRT){ pvRT = new THREE.WebGLRenderTarget(cv.width, cv.height);pvRT.texture.colorSpace=THREE.SRGBColorSpace; pvBuf = new Uint8Array(cv.width*cv.height*4); }
   var ps=new THREE.Scene();ps.background=new THREE.Color(0x0b2037);ps.add(new THREE.HemisphereLight(0xf4f3e7,0x687b69,2));var dl=new THREE.DirectionalLight(0xffffff,2);dl.position.set(2,4,4);ps.add(dl);
-  var model=skClone(A.models[charKind].scene);cloneSkinnedMaterials(model);applyAnimeColors(model,charLook);normSkinnedChar(model,1.78);attachLeatherGarments(model,charKind);applyHairStyle(model,charLook.style,charKind);applyAnimeColors(model,charLook);model.visible=true;ps.add(model);var ma=animSet(model,A.models[charKind].animations);playAnim(ma,'Idle',0);ma.mixer.update(.1);
+  var model=skClone(A.models[charKind].scene);cloneSkinnedMaterials(model);prepareCharacterMaterials(model);applyAnimeColors(model,charLook);normSkinnedChar(model,1.78);attachLeatherGarments(model,charKind);applyHairStyle(model,charLook.style,charKind);applyAnimeColors(model,charLook);model.visible=true;ps.add(model);var ma=animSet(model,A.models[charKind].animations);playAnim(ma,'Idle',0);ma.mixer.update(.1);
   pvCam.position.set(.20,.95,3.55);pvCam.lookAt(0,.85,0);
   renderer.setRenderTarget(pvRT);renderer.render(ps,pvCam);renderer.readRenderTargetPixels(pvRT,0,0,cv.width,cv.height,pvBuf);renderer.setRenderTarget(null);ma.mixer.stopAllAction();ma.mixer.uncacheRoot(model);
   var ctx = cv.getContext('2d'), img = ctx.createImageData(cv.width, cv.height), row = cv.width*4;
@@ -2262,12 +2376,13 @@ function tick(dt){
 
     localWater=waterInfo(P.x,P.z);
     swimming=localWater.depth>(swimming?.9:1.15);
-    var gy = swimming ? localWater.surface-.95 : Math.max(groundY(P.x,P.z),groundY(P.x+.12,P.z),groundY(P.x-.12,P.z),groundY(P.x,P.z+.12),groundY(P.x,P.z-.12));
+    var gy = swimming ? localWater.surface-.95 : surfaceY(P.x,P.z);
     var sw = P.speed > 0 ? Math.sin(P.walk) : 0, idle = Math.sin(P.walk*0.5)*0.05;
     player.position.set(P.x, gy + Math.abs(sw)*0.018 + (P.speed>0?0:idle*0.4), P.z);
     player.rotation.y = P.rotY;
     charRoot.userData.swimTilt+=((swimming?-1.15:P.speed>4.5?.1:0)-charRoot.userData.swimTilt)*Math.min(1,8*dt);
     charRoot.quaternion.copy(charRoot.userData.baseRotation).multiply(swimTiltQ.setFromAxisAngle(swimTiltAxis,charRoot.userData.swimTilt));
+    supportSurvivorSoles();
     pShadow.visible=false;
     pShadow.position.set(P.x, gy + 0.04, P.z);
     if(P.invuln > 0)P.invuln-=dt;
@@ -2697,15 +2812,15 @@ var setupRenderer=null, setupScene=null, setupCamera=null, setupRoot=null, setup
 function buildSetupPreview(k){
  var cv=document.getElementById('charPreview');
  if(!setupRenderer){
-  setupRenderer=new THREE.WebGLRenderer({canvas:cv,alpha:true,antialias:true});setupRenderer.setPixelRatio(1);setupRenderer.outputColorSpace=THREE.SRGBColorSpace;
-  setupScene=new THREE.Scene();setupScene.add(new THREE.HemisphereLight(0xe9f4ff,0x4d5365,2.2));var previewKey=new THREE.DirectionalLight(0xffedd9,2.5);previewKey.position.set(-2,3,4);setupScene.add(previewKey);var previewRim=new THREE.DirectionalLight(0x9ad8ff,1.5);previewRim.position.set(2,2,-3);setupScene.add(previewRim);setupCamera=new THREE.PerspectiveCamera(32,1.2,.1,20);setupCamera.position.set(0,1.0,3.45);setupCamera.lookAt(0,.9,0);
+  setupRenderer=new THREE.WebGLRenderer({canvas:cv,alpha:true,antialias:true});setupRenderer.setPixelRatio(Math.min(2,window.devicePixelRatio||1));setupRenderer.outputColorSpace=THREE.SRGBColorSpace;
+  setupScene=new THREE.Scene();setupScene.add(new THREE.HemisphereLight(0xe9f4ff,0x4d5365,1.1));var previewKey=new THREE.DirectionalLight(0xffedd9,1.0);previewKey.position.set(-2,3,4);setupScene.add(previewKey);var previewRim=new THREE.DirectionalLight(0x9ad8ff,.5);previewRim.position.set(2,2,-3);setupScene.add(previewRim);setupCamera=new THREE.PerspectiveCamera(32,1.2,.1,20);setupCamera.position.set(0,1.0,3.45);setupCamera.lookAt(0,.9,0);
   cv.addEventListener('pointerdown',function(e){setupDrag=e.clientX;cv.setPointerCapture(e.pointerId);});
   cv.addEventListener('pointermove',function(e){if(setupDrag!==null){setupAngle-=(e.clientX-setupDrag)*.015;setupDrag=e.clientX;}});
   cv.addEventListener('pointerup',function(){setupDrag=null;});cv.addEventListener('pointercancel',function(){setupDrag=null;});
  }
  if(setupRoot)setupScene.remove(setupRoot);
  if(setupMixer){setupMixer.stopAllAction();setupMixer.uncacheRoot(setupMixer.getRoot());}
- setupRoot=skClone(A.models[k].scene);cloneSkinnedMaterials(setupRoot);normSkinnedChar(setupRoot,1.78);applyAnimeColors(setupRoot,charLook);attachLeatherGarments(setupRoot,k);applyHairStyle(setupRoot,charLook.style,k);applyAnimeColors(setupRoot,charLook);setupScene.add(setupRoot);
+ setupRoot=skClone(A.models[k].scene);cloneSkinnedMaterials(setupRoot);prepareCharacterMaterials(setupRoot);normSkinnedChar(setupRoot,1.78);applyAnimeColors(setupRoot,charLook);attachLeatherGarments(setupRoot,k);applyHairStyle(setupRoot,charLook.style,k);applyAnimeColors(setupRoot,charLook);setupScene.add(setupRoot);
  setupMixer=new THREE.AnimationMixer(setupRoot);setupMixer.clipAction(A.models[k].animations.find(function(c){return c.name==='Idle';})).play();
 }
 [['hairColor','hair'],['eyeColor','eye'],['skinColor','skin']].forEach(function(pair){
@@ -2727,7 +2842,7 @@ document.getElementById('zoomToggle').onclick=function(){setupFocus=(setupFocus=
 function renderSetupPreview(dt){
  if(!setupRenderer || document.getElementById('charSetup').classList.contains('hidden') || document.getElementById('start').classList.contains('hidden'))return;
  var cv=document.getElementById('charPreview'), w=Math.round(cv.clientWidth),h=Math.round(cv.clientHeight);
- if(cv.width!==w||cv.height!==h){setupRenderer.setSize(w,h,false);setupCamera.aspect=w/h;setupCamera.updateProjectionMatrix();}
+ if(setupRenderer.getSize(new THREE.Vector2()).x!==w||setupRenderer.getSize(new THREE.Vector2()).y!==h){setupRenderer.setSize(w,h,false);setupCamera.aspect=w/h;setupCamera.updateProjectionMatrix();}
  var close=setupFocus==='hair'||setupFocus==='eye';document.getElementById('zoomPlus').style.display=close?'none':'';document.getElementById('zoomToggle').setAttribute('aria-label',close?'Zoom to full body':'Zoom to head');var targetY=close?1.53:.88,dist=(close?1.25:Math.max(3.8,2.2/setupCamera.aspect))*setupZoom;setupCamera.position.lerp(new THREE.Vector3(0,targetY,dist),Math.min(1,dt*12));setupCamera.lookAt(0,targetY,0);setupRoot.rotation.y=setupAngle;setupMixer.update(dt);updateHairSway(setupRoot,dt,false);setupRenderer.render(setupScene,setupCamera);
 }
 
@@ -2946,7 +3061,7 @@ window.addEventListener('keydown',function(e){if(controlDraft&&e.code==='Escape'
 applyControlLayout();
 
 
-window.oneword = {entryUpdateState:function(){return {pending:window.oneworldStartupUpdate.pending,generation:window.oneworldStartupUpdate.id,status:window.oneworldStartupUpdate.status};},cancelEntryUpdateGate:cancelEntryUpdateGate,freeLookState:function(){return {active:freeLookActive,returning:freeLookReturning,travelYaw:movementViewYaw(),cameraYaw:cameraYaw,pointer:freeLookId};},readiness:function(){return {chunks:Object.keys(chunks).length,required:wantedChunks(true).length,missing:wantedChunks(true).filter(function(c){return !chunks[chunkKey(c[0],c[1])];}).length,joining:joiningWorld,structures:structGroup.children.length,structColliders:structColliders.length};},saveGame:saveGame,requestGameClose:requestGameClose,saveAndClose:saveAndClose,controlsState:function(){return {layout:JSON.parse(JSON.stringify(controlLayout)),draft:controlDraft?JSON.parse(JSON.stringify(controlDraft)):null,paused:paused};},lifecycleState:function(){return {suspended:appSuspended,frameHandle:frameHandle,paused:paused,respawn:respawnRequired,deathShown:deathShown};},respawnAt:respawnAt,movementInput:function(){return {autoRun:autoRun,sprint:sprintOn,joy:{x:joyVec.x,y:joyVec.y},pointer:joyId,blocked:joyBlocked,target:{x:joyTarget.x,y:joyTarget.y,r:joyTarget.r,ready:joyTargetReady,visible:sprintEl.classList.contains('available')}};},renderSetupPreview:renderSetupPreview,previewState:function(){return {root:setupRoot,camera:setupCamera,angle:setupAngle,focus:setupFocus,zoom:setupZoom};},startSos:startSos,sosState:function(){return sosPending;},safeSosSpot:safeSosSpot,solidFree:solidFree,testDeath:function(){P.hp=0;P.dead=true;gameOver();},nearestTree:function(){var best=null,dist=1e9;for(var k in chunks)(chunks[k].treeRefs||[]).forEach(function(t){var d=Math.hypot(t.x-P.x,t.z-P.z);if(d<dist){dist=d;best={x:t.x,z:t.z,key:t.key,hits:t.hits};}});return best;},debugInfo:function(){return {events:betaEvents.slice(),errors:window.__errors.slice(),frameCount:betaFrames.length};},getProgress:function(){return JSON.parse(JSON.stringify(progress));},spendPoint:spendPoint,progressLevel:progressLevel,testAddWall:function(x,y,z){var wall=new THREE.Mesh(new THREE.BoxGeometry(5,4,.25),new THREE.MeshStandardMaterial({color:0x52708a}));wall.position.set(x,y,z);wall.userData.cameraSolid=true;scene.add(wall);cameraWalls.push(wall);return wall.uuid;},soundEvents:soundEvents, testSound:sfx, beacons:beacons,travelBeacon:travelBeacon,weather:function(){return {kind:weatherKind,clock:weatherClock,wet:weatherWet};},setWeather:function(v){weatherOverride=v;},setWeatherClock:function(v){weatherClock=v;}, P: P, wolves: wolves, assets: A, renderer: renderer, deer: deer, critters: critters, eagles2: eagles2, player: player, slash: slash, scene: scene, camera: camera, THREE: THREE, groundY: groundY,surfaceY:surfaceY,groundMeshes:function(){return Object.values(chunks).map(c=>c.ground);},
+window.oneword = {supportSurvivorSoles:supportSurvivorSoles,entryUpdateState:function(){return {pending:window.oneworldStartupUpdate.pending,generation:window.oneworldStartupUpdate.id,status:window.oneworldStartupUpdate.status};},cancelEntryUpdateGate:cancelEntryUpdateGate,freeLookState:function(){return {active:freeLookActive,returning:freeLookReturning,travelYaw:movementViewYaw(),cameraYaw:cameraYaw,pointer:freeLookId};},readiness:function(){return {chunks:Object.keys(chunks).length,required:wantedChunks(true).length,missing:wantedChunks(true).filter(function(c){return !chunks[chunkKey(c[0],c[1])];}).length,joining:joiningWorld,structures:structGroup.children.length,structColliders:structColliders.length};},saveGame:saveGame,requestGameClose:requestGameClose,saveAndClose:saveAndClose,controlsState:function(){return {layout:JSON.parse(JSON.stringify(controlLayout)),draft:controlDraft?JSON.parse(JSON.stringify(controlDraft)):null,paused:paused};},lifecycleState:function(){return {suspended:appSuspended,frameHandle:frameHandle,paused:paused,respawn:respawnRequired,deathShown:deathShown};},respawnAt:respawnAt,movementInput:function(){return {autoRun:autoRun,sprint:sprintOn,joy:{x:joyVec.x,y:joyVec.y},pointer:joyId,blocked:joyBlocked,target:{x:joyTarget.x,y:joyTarget.y,r:joyTarget.r,ready:joyTargetReady,visible:sprintEl.classList.contains('available')}};},renderSetupPreview:renderSetupPreview,previewState:function(){return {root:setupRoot,camera:setupCamera,angle:setupAngle,focus:setupFocus,zoom:setupZoom};},startSos:startSos,sosState:function(){return sosPending;},safeSosSpot:safeSosSpot,solidFree:solidFree,testDeath:function(){P.hp=0;P.dead=true;gameOver();},nearestTree:function(){var best=null,dist=1e9;for(var k in chunks)(chunks[k].treeRefs||[]).forEach(function(t){var d=Math.hypot(t.x-P.x,t.z-P.z);if(d<dist){dist=d;best={x:t.x,z:t.z,key:t.key,hits:t.hits};}});return best;},debugInfo:function(){return {events:betaEvents.slice(),errors:window.__errors.slice(),frameCount:betaFrames.length};},getProgress:function(){return JSON.parse(JSON.stringify(progress));},spendPoint:spendPoint,progressLevel:progressLevel,testAddWall:function(x,y,z){var wall=new THREE.Mesh(new THREE.BoxGeometry(5,4,.25),new THREE.MeshStandardMaterial({color:0x52708a}));wall.position.set(x,y,z);wall.userData.cameraSolid=true;scene.add(wall);cameraWalls.push(wall);return wall.uuid;},soundEvents:soundEvents, testSound:sfx, beacons:beacons,travelBeacon:travelBeacon,weather:function(){return {kind:weatherKind,clock:weatherClock,wet:weatherWet};},setWeather:function(v){weatherOverride=v;},setWeatherClock:function(v){weatherClock=v;}, P: P, wolves: wolves, assets: A, renderer: renderer, deer: deer, critters: critters, eagles2: eagles2, player: player, slash: slash, scene: scene, camera: camera, THREE: THREE, groundY: groundY,surfaceY:surfaceY,groundMeshes:function(){return Object.values(chunks).map(c=>c.ground);},
   attack: function(){ tryAttack(); }, reset: function(){ resetGame(); },
   step: function(n, dt){ dt = dt || 0.05; for(var i = 0; i < n; i++){ now += dt; tick(dt); } },
   defeated: function(){ return wolvesDefeated; },
