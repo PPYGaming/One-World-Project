@@ -1,0 +1,38 @@
+name: Import audited 1.3.24 source and mirror release
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: project-initial-import-1324
+  cancel-in-progress: false
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Clone exact revision
+        run: |
+          git clone --depth 1 "https://github.com/$GITHUB_REPOSITORY.git" stage
+          cd stage
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+      - name: Verify source and mirrored signed artifacts
+        run: |
+          cd stage
+          python3 *assemble-project1324.py
+          python3 scripts/check-next-version.py --project PPYGaming/One-World-Beta --self-test
+      - name: Commit real editable source
+        run: |
+          cd stage
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add web android scripts docs README.md CONTRIBUTING.md CHANGELOG.md SOURCE-INVENTORY.json .gitignore
+          git commit -m "Import full audited One World 1.3.24 development source"
+      - name: Push source and publish existing numbered beta
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cd stage
+          gh auth setup-git
+          git push origin HEAD:main
+          gh release create v1.3.24 release/one-world-beta-1.3.24.apk release/beta-update.json release/one-world-project-source-1.3.24.zip docs/screenshots/1.3.24/*.png --repo "$GITHUB_REPOSITORY" --target "$(git rev-parse HEAD)" --prerelease --title "One World Beta 1.3.24 - fullscreen settings" --notes "Full editable development source baseline, numbered changelog, the exact existing signed 1.3.24 APK and update manifest, and clearly labeled browser preview screenshots. This mirrors the already-published update release without rebuilding or changing package, signature or version. Fullscreen game-style Settings with left categories, right scrolling options and top close. Native updater and game assets unchanged from 1.3.23. Browser/package tests are not phone layout, touch, graphics, audio, FPS or update/install proof. Original game by Smiley, modified with permission; retain bundled third-party notices and music provenance. Public source does not imply a blanket license over all code/assets. Collaborator access and enforced future dual-release automation are not configured. Existing update origin remains PPYGaming/One-World-Beta; do not uninstall or clear saved data."
