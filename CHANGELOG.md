@@ -1,3 +1,14 @@
+# 1.3.27 (versionCode 49)
+
+- Smaller free-look eye with bounded visual drag feedback and release centering.
+- Default-left Map/Crafting remain movable; saved custom layouts keep their entries.
+- Monochrome vector control icons, including Settings and outlined hand actions.
+- Fullscreen opaque map for current island. This is not the new island.
+- Compact mandatory update card retains loading wallpaper and existing verified update policy.
+- Music status and manual retry expose playback failures without changing saved volume or gameplay-only silence.
+
+Known limits: user's phone loading/menu silence is not reproduced or claimed fixed. Android install/update/audio/touch/performance remain device-unverified. Avatar poses are a separate collaborator task; inventory/equip/armor/new island are not in this build. No stable update.
+
 # 1.3.26 (versionCode 48)
 
 Testing beta, not stable. Same package and original signing certificate. Install over the existing beta without uninstalling or clearing app data.
