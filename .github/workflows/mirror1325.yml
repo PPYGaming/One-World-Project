@@ -35,4 +35,4 @@ jobs:
           cd stage
           gh auth setup-git
           git push origin HEAD:main
-          gh release create v1.3.25 release/one-world-beta-1.3.25.apk release/beta-update.json release/one-world-project-source-1.3.25.zip --repo "$GITHUB_REPOSITORY" --target "$(git rev-parse HEAD)" --prerelease --title "One World Beta 1.3.25 - character lighting, entry art and update gate" --notes-file release-notes1325.md
+          gh release create v1.3.25 release/one-world-beta-1.3.25.apk release/beta-update.json release/one-world-project-source-1.3.25.zip --repo "$GITHUB_REPOSITORY" --target "$(git rev-parse HEAD)" --prerelease --title "One World Beta 1.3.25 - character lighting, entry art and update gate" --notes-file "$(find . -maxdepth 1 -name '*release-notes1325.md' -print -quit)"
