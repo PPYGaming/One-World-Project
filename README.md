@@ -27,4 +27,4 @@ The original face/body/upper dress/model files, icon, package, save schema and n
 
 ## Testing releases
 
-This public development repository is https://github.com/PPYGaming/One-World-Project. The existing public update origin remains https://github.com/PPYGaming/One-World-Beta. Latest published baseline checked during preparation: 1.3.29 (51). Version 1.3.30 (52) is a local candidate, not a publication claim. New title art awaits owner visual review. Preview screenshots are in `docs/screenshots/1.3.24/`. Future collaborator access and enforced release automation are not configured yet.
+This public development repository is https://github.com/PPYGaming/One-World-Project. The existing public update origin remains https://github.com/PPYGaming/One-World-Beta. Latest published baseline checked during preparation: 1.3.30 (52), exact in both canonical repositories. Version 1.3.31 (53) corrects the owner-approved clothing shape. Publication and downloaded artifact verification are recorded separately from local checks. Preview screenshots are in `docs/screenshots/1.3.24/`. Future collaborator access and enforced release automation are not configured yet.
