@@ -350,6 +350,8 @@ body.playing:not(.gamePaused) #craftBtn{display:block}body.editingControls #craf
 @media(max-height:450px){#betaUpdateCard{padding:15px 24px 12px}#betaUpdateMark{margin-bottom:9px}#betaUpdateSymbol{width:44px;height:44px;margin-bottom:8px;border-radius:12px}#betaUpdateSymbol svg{width:30px;height:30px}#betaUpdateTitle{font-size:24px;margin-bottom:6px}#betaUpdateDetail{margin-bottom:12px}#betaUpdateNote{margin-top:10px}}
 
 /* Reversible art/UI preview. Background alone moves; hit targets never do. */
+#start.prewarming{display:flex!important;visibility:hidden!important}
+#loading,#start:not(.choosing){overflow:hidden;overflow:clip;overscroll-behavior:none;touch-action:none}
 #loading{background:#101b1c;isolation:isolate;--wall-x:0px;--wall-y:0px}
 #loading:before,#start:not(.choosing):before{content:'';position:fixed;inset:0 -16px -32px;background-position:center 14px;background-size:cover;background-repeat:no-repeat;background-color:#091116;z-index:-2;pointer-events:none;transform:translate3d(var(--wall-x,0px),var(--wall-y,0px),0);transition:none;will-change:transform}
 #loading:before{background-image:url('assets/tex/loading-anime-preview.jpg')}
@@ -594,7 +596,7 @@ import { GLTFLoader } from './assets/lib/GLTFLoader.js';
 import { clone as skClone } from './assets/lib/SkeletonUtils.js';
 import { animeClips, applyAnimeColors, attachLeatherGarments, applyHairStyle, updateHairSway } from './assets/lib/AnimeCharacter.js';
 
-var BUILD_INFO={name:'1.3.32',code:null,native:false};
+var BUILD_INFO={name:'1.3.33',code:null,native:false};
 try{var nb=window.OneWorldNative;if(nb&&typeof nb.getBuildInfo==='function'){var bi=JSON.parse(nb.getBuildInfo());if(bi.package==='com.oneword.forest.beta'&&typeof bi.name==='string'&&/^\d+\.\d+\.\d+$/.test(bi.name)&&Number.isSafeInteger(bi.code)&&bi.code>0)BUILD_INFO={name:bi.name,code:bi.code,native:true};}}catch(e){}
 var DISPLAY_VERSION=BUILD_INFO.name+(BUILD_INFO.native?'':' preview');
 document.querySelector('#start .ver').textContent=DISPLAY_VERSION+' Beta - Work in progress';
@@ -2897,6 +2899,7 @@ async function respawnAt(kind){
 var existingSave = loadSave();
 if(existingSave){ document.getElementById('playBtn').textContent = 'CONTINUE'; document.getElementById('newGameBtn').style.display = 'inline-block'; }
 var setupKind = 'boy';
+var setupPreviews=Object.create(null);
 var setupRenderer=null, setupScene=null, setupCamera=null, setupRoot=null, setupMixer=null, setupAngle=0, setupDrag=null,setupFocus="body",setupZoom=1;
 function buildSetupPreview(k){
  var cv=document.getElementById('charPreview');
@@ -2908,9 +2911,17 @@ function buildSetupPreview(k){
   cv.addEventListener('pointerup',function(){setupDrag=null;});cv.addEventListener('pointercancel',function(){setupDrag=null;});
  }
  if(setupRoot)setupScene.remove(setupRoot);
- if(setupMixer){setupMixer.stopAllAction();setupMixer.uncacheRoot(setupMixer.getRoot());}
- setupRoot=skClone(A.models[k].scene);cloneSkinnedMaterials(setupRoot);prepareCharacterMaterials(setupRoot);normSkinnedChar(setupRoot,1.78);applyAnimeColors(setupRoot,charLook);attachLeatherGarments(setupRoot,k);applyHairStyle(setupRoot,charLook.style,k);applyAnimeColors(setupRoot,charLook);setupScene.add(setupRoot);
- setupMixer=new THREE.AnimationMixer(setupRoot);setupMixer.clipAction(A.models[k].animations.find(function(c){return c.name==='Idle';})).play();
+ var cached=setupPreviews[k];
+ if(!cached){
+  var root=skClone(A.models[k].scene);cloneSkinnedMaterials(root);prepareCharacterMaterials(root);normSkinnedChar(root,1.78);applyAnimeColors(root,charLook);attachLeatherGarments(root,k);applyHairStyle(root,charLook.style,k);applyAnimeColors(root,charLook);
+  var mixer=new THREE.AnimationMixer(root);mixer.clipAction(A.models[k].animations.find(function(c){return c.name==='Idle';})).play();
+  cached=setupPreviews[k]={root:root,mixer:mixer,style:charLook.style};
+ }else{
+  if(cached.style!==charLook.style){applyHairStyle(cached.root,charLook.style,k);cached.style=charLook.style;}
+  applyAnimeColors(cached.root,charLook);
+ }
+ setupRoot=cached.root;setupMixer=cached.mixer;setupScene.add(setupRoot);
+
 }
 [['hairColor','hair'],['eyeColor','eye'],['skinColor','skin']].forEach(function(pair){
  document.getElementById(pair[0]).addEventListener('change',function(e){charLook[pair[1]]=e.target.value;setupFocus=pair[1];setupZoom=1;if(setupRoot)applyAnimeColors(setupRoot,charLook);});
@@ -2926,7 +2937,7 @@ function inlineChooser(id,kind){
 }
 [['hairStyle','style'],['hairColor','hair'],['eyeColor','eye'],['skinColor','skin'],['setFancyLeaves',null],['setQuality',null],['setShadows',null],['setWeather',null]].forEach(function(q){inlineChooser(q[0],q[1]);});
 
-document.getElementById('hairStyle').onchange=function(e){charLook.style=e.target.value;setupFocus='hair';setupZoom=1;if(setupRoot){applyHairStyle(setupRoot,charLook.style,setupKind);applyAnimeColors(setupRoot,charLook);}};
+document.getElementById('hairStyle').onchange=function(e){charLook.style=e.target.value;setupFocus='hair';setupZoom=1;if(setupRoot){applyHairStyle(setupRoot,charLook.style,setupKind);applyAnimeColors(setupRoot,charLook);if(setupPreviews[setupKind])setupPreviews[setupKind].style=charLook.style;}};
 document.getElementById('zoomToggle').onclick=function(){setupFocus=(setupFocus==='hair'||setupFocus==='eye')?'body':'hair';setupZoom=1;};
 function renderSetupPreview(dt){
  if(!setupRenderer || document.getElementById('charSetup').classList.contains('hidden') || document.getElementById('start').classList.contains('hidden'))return;
@@ -3184,6 +3195,15 @@ window.oneword = {supportSurvivorSoles:supportSurvivorSoles,entryUpdateState:fun
 
 await startupStage(90,'Applying saved graphics');
 applySettings();
+await startupStage(90,'Preparing survivor previews');
+// Warm both bounded preview entries at their actual layout size under the
+// existing loading screen. Visibility stays hidden until the chooser is used.
+var warmLobby=document.getElementById('start'),warmChooser=document.getElementById('charSetup'),warmVisibility=warmLobby.style.visibility;
+warmLobby.style.visibility='hidden';warmLobby.classList.add('prewarming','choosing');warmChooser.classList.remove('hidden');
+for(var previewKind of ['boy','girl']){
+ buildSetupPreview(previewKind);var warmCanvas=document.getElementById('charPreview'),warmWidth=Math.max(1,Math.round(warmCanvas.clientWidth)),warmHeight=Math.max(1,Math.round(warmCanvas.clientHeight));setupRenderer.setSize(warmWidth,warmHeight,false);setupCamera.aspect=warmWidth/warmHeight;setupCamera.updateProjectionMatrix();setupCamera.position.set(0,.88,Math.max(3.8,2.2/setupCamera.aspect));setupCamera.lookAt(0,.88,0);setupRoot.updateMatrixWorld(true);setupRenderer.render(setupScene,setupCamera);await window.oneworldYieldPaint();
+}
+buildSetupPreview(charKind||'boy');warmChooser.classList.add('hidden');warmLobby.classList.add('hidden');warmLobby.classList.remove('prewarming','choosing');warmLobby.style.visibility=warmVisibility;
 await startupStage(90,'Preparing first frame');
 camera.position.set(0, groundY(0,0) + 2.6, 5.0);
 drawHearts();

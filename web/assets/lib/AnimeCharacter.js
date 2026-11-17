@@ -524,7 +524,25 @@ function buildGirlReferenceCloth(body,upper=false){
  const envelopeCache=new Map();function envelope(y){const key=Math.round(y*1000);if(envelopeCache.has(key))return envelopeCache.get(key);let min=0;for(let i=0;i<ids.count;i++){const vi=ids.getX(i),vy=p.getY(vi);if(Math.abs(vy-y)<.018&&Math.abs(p.getX(vi))<.125)min=Math.min(min,p.getZ(vi));}envelopeCache.set(key,min-.006);return min-.006;}
  function emit(v,offset){let q=v.p.clone().addScaledVector(v.n,offset);if(upper&&v.p.z<.018){const front=THREE.MathUtils.smoothstep(-v.p.z,-.01,.065),across=1-THREE.MathUtils.smoothstep(Math.abs(v.p.x),.025,.075);const panelZ=envelope(v.p.y);q.z=THREE.MathUtils.lerp(q.z,Math.min(q.z,panelZ-(offset-.005)),front*across);}verts.push(...q.toArray());const nn=v.n.clone();if(upper&&v.p.z<.018){const a=(1-THREE.MathUtils.smoothstep(Math.abs(v.p.x),.025,.075))*THREE.MathUtils.smoothstep(-v.p.z,-.01,.055);nn.lerp(new THREE.Vector3(v.p.x*.9,0,-1).normalize(),a).normalize();}normals.push(...nn.toArray());const grain=.97+.025*Math.sin(v.p.x*380+v.p.y*270+v.p.z*180),seam=Math.min(Math.abs(distance(v,true)),Math.abs(distance(v,false)))<.0055,stitch=seam&&(Math.floor((v.p.x+v.p.z)*240)%2===0);const tint=stitch?1.10:grain;colours.push(tint,tint*.995,tint*.98);for(const[bi,w]of v.w){skin.push(bi);weights.push(w);}}
  for(let i=0;i<ids.count;i+=3){let vs=[vertex(ids.getX(i)),vertex(ids.getX(i+1)),vertex(ids.getX(i+2))];if(vs.some(v=>v.w.some(([b,w])=>w>.4&&/Arm|Hand|Thumb|Index|Middle|Ring|Little/.test(body.skeleton.bones[b]?.name||''))))continue;let poly=clip(clip(vs,false),true);for(let k=1;k+1<poly.length;k++)faces.push([poly[0],poly[k],poly[k+1]]);}
- if(upper){const frontVerts=faces.flat().filter(v=>v.p.z<-.06);let anchor=frontVerts.reduce((a,b)=>Math.abs(a.p.x)+Math.abs(a.p.y-1.16)<Math.abs(b.p.x)+Math.abs(b.p.y-1.16)?a:b);const flap=(x,y,z)=>{const join=frontVerts.reduce((a,b)=>Math.abs(a.p.x-x)+Math.abs(a.p.y-1.175)<Math.abs(b.p.x-x)+Math.abs(b.p.y-1.175)?a:b);return {p:new THREE.Vector3(x,y,z),n:new THREE.Vector3(0,0,-1),w:join.w.map(a=>[...a])};};faces.push([flap(-.033,1.185,-.137),flap(0,1.120,-.143),flap(.033,1.185,-.137)]);}
+ if(upper){
+  // Extend the actual lower hem to the approved tip. Every join vertex is
+  // interpolated from that hem, including its surface normal and skin weights.
+  // A separate flat plate can overlap in Y and still leave a depth gap.
+  // Split the base at both flap limits before sewing, so joined edges are
+  // exact full edges. Partial overlap would leave internal thickness walls.
+  function splitX(poly,x,left){const out=[];for(let i=0;i<poly.length;i++){const a=poly[i],b=poly[(i+1)%poly.length],da=(a.p.x-x)*(left?1:-1),db=(b.p.x-x)*(left?1:-1);if(da<=0)out.push(a);if((da<=0)!==(db<=0))out.push(mix(a,b,da/(da-db)));}return out;}
+  function floorPanel(poly){const out=[];for(let i=0;i<poly.length;i++){const a=poly[i],b=poly[(i+1)%poly.length],da=a.p.y-1.185,db=b.p.y-1.185;if(da>=0)out.push(a);if((da>=0)!==(db>=0))out.push(mix(a,b,da/(da-db)));}return out;}
+  const cut=[];
+  for(const tri of faces){const mid=splitX(splitX(tri,-.033,false),.033,true),polys=[splitX(tri,-.033,true),tri.every(v=>v.p.z<-.06)?floorPanel(mid):mid,splitX(tri,.033,false)];for(const poly of polys)for(let k=1;k+1<poly.length;k++)cut.push([poly[0],poly[k],poly[k+1]]);}
+  faces.length=0;for(const tri of cut)faces.push(tri);
+  const boundary=new Map();for(const tri of faces)for(let i=0;i<3;i++){const a=tri[i],b=tri[(i+1)%3],ka=key(a),kb=key(b),k=ka<kb?ka+'|'+kb:kb+'|'+ka;const e=boundary.get(k);if(e)e.count++;else boundary.set(k,{a,b,count:1});}
+  const joins=[...boundary.values()].filter(({a,b,count})=>count===1&&a.p.z<-.06&&b.p.z<-.06&&Math.abs(a.p.x)<=.033001&&Math.abs(b.p.x)<=.033001&&Math.max(a.p.y,b.p.y)<=1.185001);
+  if(!joins.length)throw new Error('Girl upper hem join was not found');
+  const near=joins.flatMap(e=>[e.a,e.b]).reduce((a,b)=>Math.abs(a.p.x)<Math.abs(b.p.x)?a:b),tip={p:new THREE.Vector3(0,1.120,-.143),n:new THREE.Vector3(0,0,-1),w:near.w.map(a=>[...a])};
+  for(const {a,b}of joins){const n=new THREE.Vector3().subVectors(b.p,a.p).cross(new THREE.Vector3().subVectors(tip.p,a.p));faces.push(n.z<0?[a,b,tip]:[b,a,tip]);}
+
+ }
+
  for(const tri of faces){for(const v of tri)emit(v,.010);for(const v of [...tri].reverse())emit(v,.005);for(let i=0;i<3;i++){let a=tri[i],b=tri[(i+1)%3],ka=key(a),kb=key(b),k=ka<kb?ka+'|'+kb:kb+'|'+ka;let e=edgeMap.get(k);if(e)e.count++;else edgeMap.set(k,{a,b,count:1});}}
  for(const {a,b,count}of edgeMap.values())if(count===1){emit(a,.010);emit(b,.010);emit(a,.005);emit(b,.010);emit(b,.005);emit(a,.005);}
  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(verts,3));g.setAttribute('normal',new THREE.Float32BufferAttribute(normals,3));g.setAttribute('skinIndex',new THREE.Uint16BufferAttribute(skin,4));g.setAttribute('skinWeight',new THREE.Float32BufferAttribute(weights,4));g.setAttribute('color',new THREE.Float32BufferAttribute(colours,3));let mat=garmentLeather();mat.color.setHex(0xbe8c60);mat.emissive.setHex(0x603218);mat.emissiveIntensity=.35;mat.vertexColors=true;mat.roughness=.95;const m=new THREE.SkinnedMesh(g,mat);m.name=upper?'LeatherBustWrap':'LeatherGirlShorts';m.bind(body.skeleton,body.bindMatrix);m.frustumCulled=false;return m;

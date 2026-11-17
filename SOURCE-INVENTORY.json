@@ -1,10 +1,10 @@
 {
-  "baseline": "1.3.32",
+  "baseline": "1.3.33",
   "sourceBase": {
-    "beta": "f2b3b1c71f0a36307301c490ca81b95470bf8b23",
-    "project": "cbcb40692310fe6ddf4f4a4bdcd5d9ce4d997032"
+    "beta": "fca6b7c7ba33141dba817bd3a625c4adbbc6d860",
+    "project": "b276df090ee6d5a5b6f2cc56de267e910fedb0f2"
   },
-  "status": "qualified narrow touch and garment join testing beta",
+  "status": "qualified causal scroll, surface join and bounded preview corrections; phone result pending",
   "files": [
     {
       "path": ".github/workflows/.github/workflows/project-bootstrap.yml",
@@ -18,8 +18,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 16380,
-      "sha256": "dff69d10254c0c1c25dade4589a851cf451985c4e174256e53dafffd9328f751"
+      "size": 18561,
+      "sha256": "d36d32f586b6104253b80cb9ea1c1b6a3339ccc4cc96b738d8c34a7317de3d94"
     },
     {
       "path": "CONTRIBUTING.md",
@@ -28,13 +28,13 @@
     },
     {
       "path": "README.md",
-      "size": 3141,
-      "sha256": "c4f121f50e1d149f291fed84106626b14298ffcb4cc21f60160eba0d6a61650c"
+      "size": 3226,
+      "sha256": "93c60e9ce57f2b78b6284b066f7f48cf9d4560eec67ed57dfce319acd646dbfb"
     },
     {
       "path": "android/AndroidManifest.xml",
       "size": 1298,
-      "sha256": "62cff9afafc07e560338a0a102b314861e97bb3de7cfc7fa0823e6a68e5db27c"
+      "sha256": "efa4e934caa2a5f31f3b85a9029c4506766b7cfd5f300b15d229322dbb7b7e52"
     },
     {
       "path": "android/res/drawable/ic_face.png",
@@ -147,6 +147,11 @@
       "sha256": "9824a57bc4056512085d22e8f4e68c58791da5d03ec9bff7a1c258bb47cf5c92"
     },
     {
+      "path": "docs/QA-1.3.33.md",
+      "size": 2181,
+      "sha256": "9f09c5602df7a7dddd4635156a29288be63b4fe801a560923837c2df1eedfab9"
+    },
+    {
       "path": "docs/screenshots/1.3.24/README.md",
       "size": 142,
       "sha256": "d617dcc0a6f0332bce0e5f85ae09c19b9b5bd2aaa2d561830609ff1b27badf6f"
@@ -178,8 +183,8 @@
     },
     {
       "path": "web/assets/lib/AnimeCharacter.js",
-      "size": 41467,
-      "sha256": "b226c9211e47aa8f2e9d125b59cb41ab5c6da2bfdd4ff38495c54b7e28a0017f"
+      "size": 43026,
+      "sha256": "858d5a231184b9521afb106153584458569e32b8845a13718ffc50f09e59af10"
     },
     {
       "path": "web/assets/lib/AppLifecycle.js",
@@ -713,8 +718,8 @@
     },
     {
       "path": "web/index.html",
-      "size": 297390,
-      "sha256": "f9d0a9c527466bab83882a3ce5ddf8cf1f8af093dede2f42f6776071af1b1068"
+      "size": 299126,
+      "sha256": "59778c808779d250ae59618ac9299a96cdbace4c0eb19beb2213477304b2b10f"
     }
   ]
 }
