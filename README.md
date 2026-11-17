@@ -23,8 +23,8 @@ Install Java 17 and Android SDK platform 36 plus build-tools 36.0.0. Set `ANDROI
 
 ## Current baseline and pending requests
 
-The original face/body/upper dress/model files, icon, package, save schema and native updater origin are preserved. Pending larger work includes hair qualification, skirt, contextual pickup, survival progression, inventory expansion and a new island. Intermittent startup crackle, the phone's 98% first-frame delay and recording autocut cause remain unresolved. Local browser and compile checks do not prove Android physical motion, playback or performance.
+The original face/body/upper dress/model files, icon, package, save schema and native updater origin are preserved. Pending larger work includes hair qualification, skirt, contextual pickup, survival progression, inventory expansion and a new island. Intermittent startup crackle and recording autocut cause remain unresolved. Loading pauses are intentionally gradual at the owner's request; an actual failure or hang is distinct. Local browser and compile checks do not prove Android physical motion, playback or performance.
 
 ## Testing releases
 
-This public development repository is https://github.com/PPYGaming/One-World-Project. The existing public update origin remains https://github.com/PPYGaming/One-World-Beta. Latest published baseline checked during preparation: 1.3.28 (50). Version 1.3.29 (51) is prepared locally, not a publication claim. Preview screenshots are in `docs/screenshots/1.3.24/`. Future collaborator access and enforced release automation are not configured yet.
+This public development repository is https://github.com/PPYGaming/One-World-Project. The existing public update origin remains https://github.com/PPYGaming/One-World-Beta. Latest published baseline checked during preparation: 1.3.29 (51). Version 1.3.30 (52) is a local candidate, not a publication claim. New title art awaits owner visual review. Preview screenshots are in `docs/screenshots/1.3.24/`. Future collaborator access and enforced release automation are not configured yet.

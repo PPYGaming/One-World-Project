@@ -1,5 +1,10 @@
 {
-  "baseline": "1.3.29",
+  "baseline": "1.3.30",
+  "sourceBase": {
+    "project": "02470743e88c2f014424261b40b95f7a07b458a6",
+    "beta": "7bf7e518cd8b30a34d1ff08fec0f42be9203634e"
+  },
+  "status": "qualified bug-fix testing beta",
   "files": [
     {
       "path": ".github/workflows/.github/workflows/project-bootstrap.yml",
@@ -13,8 +18,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 9409,
-      "sha256": "6e219d607c7e0e69719a315bdee98ab7c9666d9627eafd5f3bb901302d176a34"
+      "size": 12561,
+      "sha256": "a94b6fefb5c8a7d1edb746b4654e754a7e459fb42b5c814e37eccb87caa851a6"
     },
     {
       "path": "CONTRIBUTING.md",
@@ -23,13 +28,13 @@
     },
     {
       "path": "README.md",
-      "size": 2941,
-      "sha256": "f788955777ee33120c4b24a85a7bf45566cf090fc5dac261321f48ad1711af80"
+      "size": 3053,
+      "sha256": "ae63f5733d9b81df760ab260b1ad61508e0ab3b39e91d74dfada29835a96bc17"
     },
     {
       "path": "android/AndroidManifest.xml",
-      "size": 1271,
-      "sha256": "478575f937febba02ac741aeb4e454d9a0291123c7e8d3b2e78aacdd9a3dad0c"
+      "size": 1298,
+      "sha256": "3a381d85b9ed5760bd5ea76bfef22b279c08709febf215d3139e920a4bcb0fdb"
     },
     {
       "path": "android/res/drawable/ic_face.png",
@@ -113,8 +118,8 @@
     },
     {
       "path": "android/src/com/oneword/forest/BetaUpdater.java",
-      "size": 12257,
-      "sha256": "759af84f7edb511b54059242735401491d3121fab16ad510da4ddb63539a848c"
+      "size": 13232,
+      "sha256": "74a23e981d0b15faf512d6ec6f43147fb3c612ceaf19d6b2a6b979e53f3df39e"
     },
     {
       "path": "android/src/com/oneword/forest/GithubUpdatePolicy.java",
@@ -123,8 +128,13 @@
     },
     {
       "path": "android/src/com/oneword/forest/MainActivity.java",
-      "size": 10253,
-      "sha256": "d3a6478cb119de05ce145621fbd70131eb2fafe1efdc5ea80f15080a7af2c687"
+      "size": 11584,
+      "sha256": "17517a83d085495ee49e4ad232035b88370b9a3947de46f2cc6399d613e8eb58"
+    },
+    {
+      "path": "docs/QA-1.3.30.md",
+      "size": 3151,
+      "sha256": "4cc13814c82d0b4d5c4fbb692b12173c41c7e4e7e385313958b48a0265933e82"
     },
     {
       "path": "docs/screenshots/1.3.24/README.md",
@@ -158,8 +168,13 @@
     },
     {
       "path": "web/assets/lib/AnimeCharacter.js",
-      "size": 36622,
-      "sha256": "b92e850f90f9c58e0d0a93a470c100f012bb1a44250a04d28762bd5a3257f18f"
+      "size": 40036,
+      "sha256": "c3f1f6426786864778a6e5d993cdf7e97a42da7b8b915d935c46d86c6b50a307"
+    },
+    {
+      "path": "web/assets/lib/AppLifecycle.js",
+      "size": 2534,
+      "sha256": "2c701c23a0ad2ff340c6d95e030b6bfa6aec2e12f5f37f06adbe3855f9c12780"
     },
     {
       "path": "web/assets/lib/GLTFLoader.js",
@@ -200,6 +215,11 @@
       "path": "web/assets/licenses/CREDITS.txt",
       "size": 2658,
       "sha256": "4e4a1c260120ace74ecd0b2594b26515fc8d4dca11264baf6a946788487a0abe"
+    },
+    {
+      "path": "web/assets/licenses/TITLE-WALLPAPER.txt",
+      "size": 553,
+      "sha256": "503a632d77ece8809b37f2906311999e500715b93eb58dc065baa05eeb46f52d"
     },
     {
       "path": "web/assets/licenses/threejs-MIT.txt",
@@ -352,6 +372,11 @@
       "sha256": "4ed1fdf11bffcd9bd58e338a9a7d2c3a3de4933bc0e98cdbd3db2ff1d6eea5ea"
     },
     {
+      "path": "web/assets/tex/TAP-WALLPAPER.txt",
+      "size": 278,
+      "sha256": "b666b8c80d5980927b4702ae4bbc09c9788697a0404c0dd7467e2c2d426dece5"
+    },
+    {
       "path": "web/assets/tex/forest_floor.jpg",
       "size": 1329853,
       "sha256": "f12e5adea1741f9eb7a528bfc621f8267885b9530b74c3a8afdb823899bdbf0b"
@@ -390,6 +415,16 @@
       "path": "web/assets/tex/pine-painted.png",
       "size": 333662,
       "sha256": "bb6ff0fffbdd72ddd330f1d81f3cc957c6e7619024dec37421ef1c7e15dbd107"
+    },
+    {
+      "path": "web/assets/tex/tap-anime-girl-portrait.jpg",
+      "size": 299091,
+      "sha256": "5594c18e2d6a049fa4cecd89b7d5144302921459c5242848d74f9d05d57427a2"
+    },
+    {
+      "path": "web/assets/tex/tap-anime-girl.jpg",
+      "size": 537645,
+      "sha256": "a7a7e02870a4242e9ca95d6b17fa36edd7cd5ac18029fca23c44b20ea88db065"
     },
     {
       "path": "web/assets/ui/boy-eye-0.png",
@@ -668,8 +703,8 @@
     },
     {
       "path": "web/index.html",
-      "size": 292311,
-      "sha256": "91254d2d0b3557a8887928b5ab37b4b51cd00ce5d1d929a5fcce284da7d05754"
+      "size": 296316,
+      "sha256": "2990305cd6007819b3dbf8d0e8d776ee782c78fd0f41b79035415bc9d3b59c4f"
     }
   ]
 }

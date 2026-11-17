@@ -51,15 +51,20 @@ public class MainActivity extends Activity implements android.hardware.SensorEve
         MIME.put("jpeg", "image/jpeg"); MIME.put("png", "image/png");
         MIME.put("txt", "text/plain"); MIME.put("css", "text/css"); MIME.put("json", "application/json"); MIME.put("bin", "application/octet-stream"); MIME.put("gltf", "model/gltf+json");
     }
+    private void immersive(){
+        if(android.os.Build.VERSION.SDK_INT>=30){android.view.WindowInsetsController c=getWindow().getInsetsController();if(c!=null){c.setSystemBarsBehavior(android.view.WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);c.hide(android.view.WindowInsets.Type.systemBars());}}
+        else getWindow().getDecorView().setSystemUiVisibility(android.view.View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY|android.view.View.SYSTEM_UI_FLAG_FULLSCREEN|android.view.View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE|android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|android.view.View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+    }
+    @Override public void onWindowFocusChanged(boolean focus){super.onWindowFocusChanged(focus);if(focus)immersive();}
+    private void resetUpdater(){if(updater!=null)updater.close();updater=new BetaUpdater(this);updater.display=(state,title,detail)->{if(wv!=null&&!closing)wv.evaluateJavascript("window.oneworldUpdateUI&&window.oneworldUpdateUI("+org.json.JSONObject.quote(state)+","+org.json.JSONObject.quote(title)+","+org.json.JSONObject.quote(detail)+")",null);};}
     @Override public void onCreate(Bundle b) {
         super.onCreate(b);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        updater = new BetaUpdater(this);
+        resetUpdater();
         wv = new WebView(this);
         wv.setOverScrollMode(android.view.View.OVER_SCROLL_NEVER);
         sensors=(android.hardware.SensorManager)getSystemService(SENSOR_SERVICE);
         if(sensors!=null){wallpaperSensor=sensors.getDefaultSensor(android.hardware.Sensor.TYPE_GRAVITY);if(wallpaperSensor==null)wallpaperSensor=sensors.getDefaultSensor(android.hardware.Sensor.TYPE_ACCELEROMETER);}
-        updater.display=(state,title,detail)->{if(wv!=null&&!closing)wv.evaluateJavascript("window.oneworldUpdateUI&&window.oneworldUpdateUI("+org.json.JSONObject.quote(state)+","+org.json.JSONObject.quote(title)+","+org.json.JSONObject.quote(detail)+")",null);};
         WebSettings s = wv.getSettings();
         s.setJavaScriptEnabled(true);
         s.setDomStorageEnabled(true);
@@ -67,9 +72,11 @@ public class MainActivity extends Activity implements android.hardware.SensorEve
         s.setAllowContentAccess(false);
         s.setMediaPlaybackRequiresUserGesture(false);
         wv.addJavascriptInterface(new Object() {
+            @JavascriptInterface public void restartAtTitle(){ui.post(()->{if(wv==null||closing)return;wallpaperRequested=false;syncWallpaperSensor();resetUpdater();wv.stopLoading();wv.loadUrl(ORIGIN+"/index.html");});}
             @JavascriptInterface public void openStudioWebsite(){ui.post(()->{try{startActivity(new android.content.Intent(android.content.Intent.ACTION_VIEW,android.net.Uri.parse("https://tamilcraftersstudio.in/")));}catch(android.content.ActivityNotFoundException e){android.widget.Toast.makeText(MainActivity.this,"No browser is available",android.widget.Toast.LENGTH_SHORT).show();}});}
             @JavascriptInterface public void setWallpaperMotionActive(final boolean active){ui.post(()->{wallpaperRequested=active;syncWallpaperSensor();});}
             @JavascriptInterface public void betaUpdateAction(final String value){ui.post(()->updater.action(value));}
+            @JavascriptInterface public String getUpdateInfo(){return updater==null?"{}":updater.diagnostics();}
             @JavascriptInterface public String getBuildInfo(){try{android.content.pm.PackageInfo p=getPackageManager().getPackageInfo(getPackageName(),0);org.json.JSONObject j=new org.json.JSONObject();j.put("name",p.versionName);j.put("code",p.getLongVersionCode());j.put("package",p.packageName);return j.toString();}catch(Exception e){return "{}";}}
             @JavascriptInterface public void checkBetaAtEntry(final int id){ui.post(()->updater.entry(id,(n,result)->{if(wv!=null&&!closing)wv.evaluateJavascript("window.oneworldEntryUpdateResult&&window.oneworldEntryUpdateResult("+n+","+org.json.JSONObject.quote(result)+")",null);}));}
             @JavascriptInterface public void cancelBetaEntry(final int id){ui.post(()->updater.cancelEntry(id));}
@@ -78,7 +85,7 @@ public class MainActivity extends Activity implements android.hardware.SensorEve
             }
             @JavascriptInterface public void backHandled() { ui.post(new Runnable(){public void run(){if(backTimeout!=null)ui.removeCallbacks(backTimeout);}}); }
         }, "OneWorldNative");
-        setContentView(wv);
+        setContentView(wv);immersive();
         wv.setWebViewClient(new WebViewClient() {
             @Override public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest req) { return !ORIGIN.equals(req.getUrl().getScheme()+"://"+req.getUrl().getAuthority()); }
             @Override public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest req) {
@@ -104,15 +111,15 @@ public class MainActivity extends Activity implements android.hardware.SensorEve
     @Override protected void onPause() {
         foreground=false;syncWallpaperSensor();
         if (wv != null) {
-            wv.evaluateJavascript("if(window.oneworldLifecyclePause)window.oneworldLifecyclePause();", null);
+            wv.evaluateJavascript("if(window.oneworldLifecyclePause)window.oneworldLifecyclePause();", value->{if(!foreground&&wv!=null)wv.pauseTimers();});
             wv.onPause();
-            wv.pauseTimers();
+            ui.postDelayed(()->{if(!foreground&&wv!=null)wv.pauseTimers();},1500);
         }
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         super.onPause();
     }
     @Override protected void onResume() {
-        super.onResume();
+        super.onResume();immersive();
         foreground=true;syncWallpaperSensor();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         if(updater!=null)updater.resumed();

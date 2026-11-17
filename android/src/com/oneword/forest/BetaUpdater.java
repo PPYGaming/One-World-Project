@@ -17,21 +17,23 @@ import javax.net.ssl.HttpsURLConnection;
 final class BetaUpdater {
  static final String REPO="https://api.github.com/repos/PPYGaming/One-World-Beta";
  static final String CERT="02db85e55056e12097dcf84daa5739dac0d1a3551ba8bdc4b257a58408c4c744";
+ volatile String lastCheckStatus="not-started",lastCheckDetail="";volatile long lastCheckedAt=0;
+ String diagnostics(){try{JSONObject j=new JSONObject();j.put("status",lastCheckStatus);j.put("detail",lastCheckDetail);j.put("checkedAt",lastCheckedAt);return j.toString();}catch(Exception e){return "{}";}}
  final Activity a; final Handler ui=new Handler(Looper.getMainLooper());
  volatile boolean cancelled=false,busy=false; File ready; long readyVersion; String stage="idle";JSONObject offeredManifest,offeredApk;interface Display{void show(String state,String title,String detail);}Display display;
  interface EntryResult {void complete(int id,String result);}
  boolean mandatory=false;
  int entryId=-1;EntryResult entryResult;boolean entryFinished=false,installerOpened=false,permissionOpened=false;
  BetaUpdater(Activity owner){a=owner;}
- void entry(int id,EntryResult callback){if(entryId>=0||busy){callback.complete(id,"unavailable");return;}entryId=id;entryResult=callback;entryFinished=false;installerOpened=false;permissionOpened=false;cancelled=false;mandatory=false;if(!online()){finishEntry("offline");return;}show();}
+ void entry(int id,EntryResult callback){if(entryId>=0||busy){callback.complete(id,"unavailable");return;}entryId=id;entryResult=callback;entryFinished=false;installerOpened=false;permissionOpened=false;cancelled=false;mandatory=false;lastCheckedAt=System.currentTimeMillis();lastCheckDetail="";if(!online()){lastCheckDetail="Android did not report a validated internet connection.";finishEntry("offline");return;}show();}
  boolean online(){try{ConnectivityManager c=(ConnectivityManager)a.getSystemService(Context.CONNECTIVITY_SERVICE);NetworkCapabilities n=c.getNetworkCapabilities(c.getActiveNetwork());return n!=null&&n.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)&&n.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED);}catch(Exception e){return true;}}
- void finishEntry(String result){if(mandatory&&!result.equals("current"))return;if(entryId<0||entryFinished)return;entryFinished=true;cancelled=true;int id=entryId;EntryResult cb=entryResult;entryId=-1;entryResult=null;if(cb!=null)cb.complete(id,result);}
- void emit(String state,String title,String detail){ui.post(()->{if(entryFinished||cancelled)return;stage=state;if(display!=null)display.show(state,title,detail);});}
+ void finishEntry(String result){if(mandatory&&!result.equals("current"))return;if(entryId<0||entryFinished)return;lastCheckStatus=result;entryFinished=true;cancelled=true;int id=entryId;EntryResult cb=entryResult;entryId=-1;entryResult=null;if(cb!=null)cb.complete(id,result);}
+ void emit(String state,String title,String detail){ui.post(()->{if(entryFinished||cancelled)return;stage=state;lastCheckStatus=state;if(display!=null)display.show(state,title,detail);});}
  void cancelEntry(int id){if(entryId!=id)return;if(!mandatory)finishEntry("unavailable");}
  void resumed(){if(permissionOpened&&entryId>=0&&!entryFinished){permissionOpened=false;install();return;}if(installerOpened&&entryId>=0&&!entryFinished){installerOpened=false;install();if(!entryFinished)emit("returned","Update still required","If installation was cancelled, install the verified update to continue. Your saved world stays on this device.");}}
  void failEntry(String title,String text){if(cancelled||entryFinished)return;if(!mandatory){ui.post(()->finishEntry(online()?"unavailable":"offline"));return;}emit("error",title,"The update was not installed. Check your connection or free device storage, then retry. Your saved world has not been cleared.");}
  void show(){if(ready!=null&&ready.isFile()){install();return;}if(busy){finishEntry("unavailable");return;}begin();}
- void begin(){busy=true;cancelled=false;emit("checking","Beta update","Checking for updates...");new Thread(()->{try{if(!cancelled)check();}catch(Exception e){if(!cancelled)failEntry("Update unavailable","");}finally{busy=false;}},"beta-update").start();}
+ void begin(){busy=true;cancelled=false;lastCheckStatus="checking";emit("checking","Beta update","Checking for updates...");new Thread(()->{try{if(!cancelled)check();}catch(Exception e){if(!cancelled){lastCheckDetail=e.getClass().getSimpleName()+": "+String.valueOf(e.getMessage());if(lastCheckDetail.length()>240)lastCheckDetail=lastCheckDetail.substring(0,240);failEntry("Update unavailable","");}}finally{busy=false;}},"beta-update").start();}
  void text(String s){emit("checking","Beta update",s);}
  void action(String value){if(entryFinished||cancelled||entryId<0)return;
   // Once a verified newer release is offered, no later/cancel/continue bypass exists.
@@ -53,11 +55,12 @@ final class BetaUpdater {
  static JSONObject find(JSONArray list,String name)throws Exception{for(int i=0;i<list.length();i++){JSONObject o=list.getJSONObject(i);if(name.equals(o.optString("name"))&&"uploaded".equals(o.optString("state")))return o;}return null;}
  void check()throws Exception{
   text("Checking beta releases...");JSONObject repo=new JSONObject(new String(api(""),"UTF-8"));if(repo.getBoolean("private")||repo.getLong("id")!=1460312831L)throw new IOException("Expected public beta repository not found.");
-  JSONArray releases=new JSONArray(new String(api("/releases?per_page=30"),"UTF-8"));JSONObject best=null,bestApk=null;long installed=a.getPackageManager().getPackageInfo(a.getPackageName(),0).getLongVersionCode(),bestCode=installed;boolean validRelease=false;
-  for(int i=0;i<releases.length();i++){if(cancelled)return;JSONObject r=releases.getJSONObject(i);if(r.optBoolean("draft"))continue;JSONArray assets=r.getJSONArray("assets");JSONObject ma=find(assets,"beta-update.json");if(ma==null)continue;HttpsURLConnection c=asset(ma);JSONObject m;try{m=new JSONObject(new String(read(c.getInputStream(),65536),"UTF-8"));}finally{c.disconnect();}
+  JSONArray releases=new JSONArray(new String(api("/releases?per_page=30"),"UTF-8"));JSONObject best=null,bestApk=null;long installed=a.getPackageManager().getPackageInfo(a.getPackageName(),0).getLongVersionCode(),bestCode=installed;boolean validRelease=false;int unreadReleases=0;
+  for(int i=0;i<releases.length();i++){if(cancelled)return;try{JSONObject r=releases.getJSONObject(i);if(r.optBoolean("draft"))continue;JSONArray assets=r.getJSONArray("assets");JSONObject ma=find(assets,"beta-update.json");if(ma==null)continue;HttpsURLConnection c=asset(ma);JSONObject m;try{m=new JSONObject(new String(read(c.getInputStream(),65536),"UTF-8"));}finally{c.disconnect();}
    long version=m.getLong("versionCode");if(m.optInt("schema")!=1||!a.getPackageName().equals(m.getString("package"))||!CERT.equalsIgnoreCase(m.getString("signingCertificateSha256")))continue;JSONObject apk=find(assets,m.getString("apk"));if(apk==null||apk.getLong("size")!=m.getLong("size"))continue;if(!m.getString("sha256").matches("[a-fA-F0-9]{64}"))continue;validRelease=true;if(version<=bestCode)continue;best=m;bestApk=apk;bestCode=version;
-  }
+  }catch(Exception unread){unreadReleases++;lastCheckDetail="One or more release records could not be read ("+unread.getClass().getSimpleName()+").";}}
   if(!validRelease)throw new IOException("No verified beta release is published yet. Continue with this installed beta.");
+  if(best==null&&unreadReleases>0)throw new IOException("Could not verify all beta release records. Retry the update check.");
   if(best==null){ui.post(()->{if(!cancelled&&!entryFinished)finishEntry("current");});return;}
   final JSONObject manifest=best,apk=bestApk;
   offeredManifest=manifest;offeredApk=apk;mandatory=true;busy=false;emit("available","Beta "+manifest.optString("versionName"),String.format(java.util.Locale.ROOT,"%.1f MiB update. Keep your saved world.",apk.optLong("size")/1048576.0));

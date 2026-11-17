@@ -512,6 +512,21 @@ function buildGirlSkirt(body){
  for(const j of[0,levels.length-1])for(let i=0;i<N;i++){const a=j*N+i,b=j*N+(i+1)%N;ix.push(a,b,a+count,b,b+count,a+count);}
  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(v,3));g.setAttribute('skinIndex',new THREE.Uint16BufferAttribute(si,4));g.setAttribute('skinWeight',new THREE.Float32BufferAttribute(sw,4));g.setIndex(ix);g.computeVertexNormals();const m=new THREE.SkinnedMesh(g,garmentLeather());m.name='LeatherOuterSkirt';m.userData.drapeBase=new Float32Array(v);m.frustumCulled=false;m.bind(body.skeleton,body.bindMatrix);return m;
 }
+function buildGirlReferenceCloth(body,upper=false){
+ // Closed-thickness garment clipped from the original fitted body surface.
+ // Interpolated skin weights keep each leg attached without a rigid bridging box.
+ const src=body.geometry,p=src.attributes.position,no=src.attributes.normal,si=src.attributes.skinIndex,sw=src.attributes.skinWeight,ids=src.index;
+ const faces=[],edgeMap=new Map(),verts=[],normals=[],skin=[],weights=[],colours=[];
+ const vertex=i=>({p:new THREE.Vector3().fromBufferAttribute(p,i),n:new THREE.Vector3().fromBufferAttribute(no,i),w:Array.from({length:4},(_,k)=>[si.array[i*4+k],sw.array[i*4+k]])});
+ function mix(a,b,t){const wm=new Map();for(const [bi,w]of a.w)wm.set(bi,(wm.get(bi)||0)+w*(1-t));for(const [bi,w]of b.w)wm.set(bi,(wm.get(bi)||0)+w*t);let w=[...wm].sort((a,b)=>b[1]-a[1]).slice(0,4),total=w.reduce((a,b)=>a+b[1],0);w=w.map(([bi,v])=>[bi,v/total]);while(w.length<4)w.push([0,0]);return {p:a.p.clone().lerp(b.p,t),n:a.n.clone().lerp(b.n,t).normalize(),w};}
+ function distance(v,top){if(!upper){return v.p.y-(top?1.112:.780);}const front=THREE.MathUtils.clamp((.025-v.p.z)/.13,0,1),scoop=.008*Math.max(0,1-Math.abs(v.p.x)/.11)*front;const y=top?1.267+.027*front-scoop:1.202-.052*front;return v.p.y-y;}function clip(poly,top){let out=[];for(let i=0;i<poly.length;i++){let a=poly[i],b=poly[(i+1)%poly.length],da=distance(a,top),db=distance(b,top),ai=top?da<=0:da>=0,bi=top?db<=0:db>=0;if(ai)out.push(a);if(ai!==bi)out.push(mix(a,b,da/(da-db)));}return out;}
+ function key(v){return v.p.toArray().map(x=>Math.round(x*1e6)).join(',');}
+ function emit(v,offset){let q=v.p.clone().addScaledVector(v.n,offset);verts.push(...q.toArray());normals.push(...v.n.toArray());const grain=.97+.025*Math.sin(v.p.x*380+v.p.y*270+v.p.z*180),seam=Math.min(Math.abs(distance(v,true)),Math.abs(distance(v,false)))<.0055,stitch=seam&&(Math.floor((v.p.x+v.p.z)*240)%2===0);const tint=stitch?1.10:grain;colours.push(tint,tint*.995,tint*.98);for(const[bi,w]of v.w){skin.push(bi);weights.push(w);}}
+ for(let i=0;i<ids.count;i+=3){let vs=[vertex(ids.getX(i)),vertex(ids.getX(i+1)),vertex(ids.getX(i+2))];if(vs.some(v=>v.w.some(([b,w])=>w>.4&&/Arm|Hand|Thumb|Index|Middle|Ring|Little/.test(body.skeleton.bones[b]?.name||''))))continue;let poly=clip(clip(vs,false),true);for(let k=1;k+1<poly.length;k++)faces.push([poly[0],poly[k],poly[k+1]]);}
+ for(const tri of faces){for(const v of tri)emit(v,.010);for(const v of [...tri].reverse())emit(v,.005);for(let i=0;i<3;i++){let a=tri[i],b=tri[(i+1)%3],ka=key(a),kb=key(b),k=ka<kb?ka+'|'+kb:kb+'|'+ka;let e=edgeMap.get(k);if(e)e.count++;else edgeMap.set(k,{a,b,count:1});}}
+ for(const {a,b,count}of edgeMap.values())if(count===1){emit(a,.010);emit(b,.010);emit(a,.005);emit(b,.010);emit(b,.005);emit(a,.005);}
+ const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(verts,3));g.setAttribute('normal',new THREE.Float32BufferAttribute(normals,3));g.setAttribute('skinIndex',new THREE.Uint16BufferAttribute(skin,4));g.setAttribute('skinWeight',new THREE.Float32BufferAttribute(weights,4));g.setAttribute('color',new THREE.Float32BufferAttribute(colours,3));let mat=garmentLeather();mat.color.setHex(0xb98d60);mat.vertexColors=true;mat.roughness=1;const m=new THREE.SkinnedMesh(g,mat);m.name=upper?'LeatherBustWrap':'LeatherGirlShorts';m.bind(body.skeleton,body.bindMatrix);m.frustumCulled=false;return m;
+}
 function removeGirlCatEars(root){
   root.traverse(o=>{
     if(o.isMesh&&/_HAIR_02$/.test(o.material?.name||'')){o.visible=false;return;}
@@ -535,7 +550,7 @@ export function attachLeatherGarments(root,kind){
   root.traverse(o=>{if(!bodyMesh&&o.isSkinnedMesh&&/_SKIN/.test(o.material.name)&&/Body/.test(o.name))bodyMesh=o;});
   if(bodyMesh){if(kind!=='girl')root.add(buildConformalWrap(bodyMesh,true));}else if(hips)worldMountOn(hips,'GarmentMount_Hips').add(buildLoincloth());
   if(kind==='girl'){
-    if(bodyMesh){root.add(buildClosedCloth(bodyMesh,false));root.add(buildGirlSkirt(bodyMesh));}
+    if(bodyMesh){root.add(buildGirlReferenceCloth(bodyMesh,true));root.add(buildGirlReferenceCloth(bodyMesh));}
     removeGirlCatEars(root); // user 12:13: remove cat ears
   }
 }

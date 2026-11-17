@@ -6,7 +6,7 @@
 <title>One World</title>
 <style>
   * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-  html, body { overscroll-behavior:none; width:100%; height:100%; overflow:hidden; background:#0e1530; touch-action:none;
+  html, body { position:fixed; inset:0; overscroll-behavior:none; width:100%; height:100%; overflow:hidden; background:#0e1530; touch-action:none;
     font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif; user-select:none; -webkit-user-select:none; }
   #c { position:fixed; inset:0; display:block; }
 
@@ -369,7 +369,7 @@ body.playing:not(.gamePaused) #craftBtn{display:block}body.editingControls #craf
 .playbtn:hover,.playbtn:focus-visible,.equipChip.on,.charCard.on,.selectOptions button[aria-pressed=true],.visualOptions button[aria-pressed=true],#quickbar button.on{background:linear-gradient(145deg,#f6fbff3d,#ffffff12)!important;border-color:#fff!important}
 #joy .thumb{background:radial-gradient(ellipse at 35% 22%,#f4fcff38,#e6f4f518 55%,#ffffff0f);border-color:#e6f1f4a6;box-shadow:inset 0 1px 2px #fff5}
 #betaUpdateCard{background:radial-gradient(ellipse at 50% 0,#aec7c126,transparent 55%),linear-gradient(155deg,#172c2df5,#0a151df5);border-color:#c3d3d699}#betaUpdatePanel{background:radial-gradient(ellipse at 50% 30%,#284446a8,#040c14ed)}#betaUpdateSymbol{background:linear-gradient(145deg,#d0e4e32a,#b2c6c416);border-color:#dcebef80;color:#edf7f6}#betaUpdateMark,#betaUpdateMark span,#betaUpdatePhase,#betaUpdateTitle,#betaUpdateDetail{color:#e1edec}#betaUpdateMark span{border-color:#b9d3ce66}
-@media(orientation:portrait){#loading:before{background-position:right 14px;background-size:auto 58%}#loading h1{top:12%;left:8vw;font-size:26px;letter-spacing:5px}#start:not(.choosing){padding-left:8vw;justify-content:flex-end;padding-bottom:9vh}#start:not(.choosing):before{background-position:right 14px;background-size:auto 58%}#start:not(.choosing):after{background:linear-gradient(0deg,#020a12 35%,transparent 62%)}#loading:after{background:linear-gradient(0deg,#020a12 35%,transparent 62%)}#start:not(.choosing)>button{width:68vw;max-width:320px}#start:not(.choosing)>h1{font-size:28px}#start:not(.choosing)>.ver{margin-bottom:15px;font-size:8px;max-width:80vw}}
+@media(orientation:portrait){#loading:before{background-position:right 14px;background-size:auto 58%}#loading h1{top:64%;left:8vw;font-size:26px;letter-spacing:5px}#start:not(.choosing){padding-left:8vw;justify-content:flex-end;padding-bottom:9vh}#start:not(.choosing):before{background-position:right 14px;background-size:auto 58%}#start:not(.choosing):after{background:linear-gradient(0deg,#020a12 35%,transparent 62%)}#loading:after{background:linear-gradient(0deg,#020a12 35%,transparent 62%)}#start:not(.choosing)>button{width:68vw;max-width:320px}#start:not(.choosing)>h1{font-size:28px}#start:not(.choosing)>.ver{margin-bottom:15px;font-size:8px;max-width:80vw}}
 @media(prefers-reduced-motion:reduce){#loading:before,#start:not(.choosing):before{transform:none!important;transition:none;will-change:auto}}
 
 #studioIntro{position:fixed;inset:0;z-index:3000;background:#000;display:grid;place-items:center;pointer-events:auto}#studioIntro img{width:min(52vw,280px);height:auto;object-fit:contain;opacity:0;animation:studioSoftReveal 2.6s ease-in-out both}#studioIntro.hidden{display:none!important}@keyframes studioSoftReveal{0%{opacity:0;filter:brightness(.25)}35%,62%{opacity:1;filter:brightness(1)}100%{opacity:0;filter:brightness(.25)}}@media(prefers-reduced-motion:reduce){#studioIntro img{animation:none;opacity:1;filter:none}}
@@ -405,7 +405,18 @@ body.playing:not(.gamePaused) #craftBtn{display:block}body.editingControls #craf
 #betaUpdateTitle{font-size:21px;margin:5px 0 8px}#betaUpdateDetail{font-size:12px;line-height:1.4;margin:0 auto 10px}
 #betaUpdateActions button{min-height:40px;padding:9px 14px;font-size:11px;width:100%}
 #betaUpdateNote{font-size:9px;line-height:1.5;margin-top:9px}#betaUpdateNote span{font-size:10px}
-#tapToStart{position:fixed;inset:0;z-index:2900;background:#081014;display:flex;align-items:center;justify-content:center;flex-direction:column;color:#f3f6ee;gap:24px}#tapToStart h1{letter-spacing:7px;font-size:clamp(28px,6vw,48px)}#tapToStart button{background:transparent;color:inherit;border:1px solid #e3ede8aa;border-radius:8px;padding:16px 36px;font-size:14px;letter-spacing:3px;min-height:52px}#tapToStart p{font-size:11px;color:#b6c5bd}
+#tapToStart{position:fixed;inset:0;z-index:2900;background:#071012;isolation:isolate;cursor:pointer;touch-action:none;color:#eae6d9;overflow:hidden;outline:none}
+#tapToStart:before{content:'';position:absolute;inset:0;z-index:-2;background:#071012 url('assets/tex/tap-anime-girl.jpg') center 15%/cover no-repeat}
+#tapToStart:after{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,#030a0d66,transparent 55%),linear-gradient(0deg,#02090bd9,transparent 27%)}
+#tapToStart .titleMark{position:absolute;left:8vw;top:19%;width:min(37vw,480px);height:auto;filter:drop-shadow(0 3px 16px #000b);pointer-events:none}
+#tapToStart .titleStudio{position:absolute;left:8.3vw;top:calc(19% + min(18.6vw,242px));font:500 9px/1.5 sans-serif;letter-spacing:2.2px;text-transform:uppercase;color:#c1c5b8;pointer-events:none}
+#tapStartBtn{position:absolute;left:0;right:0;bottom:max(9vh,24px);text-align:center;font:500 clamp(11px,1.15vw,15px)/1.6 sans-serif;letter-spacing:3px;text-transform:uppercase;color:#f0eadc;text-shadow:0 1px 7px #000;pointer-events:none}
+#tapToStart.starting #tapStartBtn:before{content:'';display:inline-block;width:12px;height:12px;margin-right:12px;vertical-align:-2px;border:1px solid #dcdac450;border-top-color:#eeeadb;border-radius:50%;animation:titleSpinner 1s linear infinite}@keyframes titleSpinner{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){#tapToStart.starting #tapStartBtn:before{animation:none}}
+#tapToStart:focus-visible #tapStartBtn{text-decoration:underline;text-underline-offset:7px}
+@media(orientation:portrait){#tapToStart:before{background-image:url('assets/tex/tap-anime-girl-portrait.jpg');background-position:center 7vh;background-size:100% auto}#tapToStart:after{background:linear-gradient(0deg,#030b0f 37%,transparent 65%)}#tapToStart .titleMark{left:10vw;top:56%;width:66vw}#tapToStart .titleStudio{left:10.3vw;top:calc(56% + 33vw);font-size:8px}#tapStartBtn{bottom:9vh;font-size:11px;letter-spacing:2px}}
+
+#tapToStart h1.titleMark{font:700 clamp(28px,4.6vw,70px)/1.07 Georgia,serif;letter-spacing:.08em;color:#f0e9d5;margin:0;width:auto;max-width:48vw;text-shadow:0 3px 18px #000b}#tapToStart .titleStudio{top:calc(19% + 7vw)}@media(orientation:portrait){#tapToStart:before{background-position:center top;background-size:cover}#tapToStart h1.titleMark{top:65%;left:8vw;max-width:84vw;font-size:11vw}#tapToStart .titleStudio{top:calc(65% + 15vw);left:8.3vw}}
+
 </style>
 </head>
 <body><div id="healthNotice" role="status" aria-live="polite"></div><div id="weaponAim" aria-hidden="true"></div>
@@ -437,7 +448,7 @@ body.playing:not(.gamePaused) #craftBtn{display:block}body.editingControls #craf
 <button class="playbtn closebtn" id="bagClose" style="margin-top:14px">CLOSE</button></div></div>
 <div id="equipHud">HAND</div><div id="quickbar" aria-label="Quick equipment"></div><button id="drinkBtn">Drink fresh water</button>
 <button id="sleepBtn">SLEEP</button>
-<div id="controlEditor" class="hidden"><div id="controlSurface"></div><div class="controlToolbar"><select id="controlSelect" aria-label="Select control"></select><label>Size <span id="controlSizeValue"></span><br><input id="controlSize" type="range" min="50" max="200" value="100"></label><label>Opacity <span id="controlOpacityValue"></span><br><input id="controlOpacity" type="range" min="0" max="100" value="100"></label><button id="controlPanelMove">MOVE PANEL</button><button id="controlReset">RESET ALL</button><button id="controlCancel">CANCEL</button><button id="controlSave">SAVE</button><p>Drag any outlined control. Hidden controls stay outlined here. World paused. Layout is saved on this device. Settings is also available from the lobby.</p></div></div><div id="setPanel" class="panel hidden" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+<div id="controlEditor" class="hidden"><div id="controlSurface"></div><div class="controlToolbar"><select id="controlSelect" aria-label="Select control"></select><label>Size <span id="controlSizeValue"></span><br><input id="controlSize" type="range" min="50" max="200" value="100"></label><label>Opacity <span id="controlOpacityValue"></span><br><input id="controlOpacity" type="range" min="0" max="100" value="100"></label><button id="controlPanelMove">MOVE PANEL</button><button id="controlReset">RESET ALL</button><button id="controlCancel">CANCEL</button><button id="controlSave">SAVE</button><p id="controlPreviewLabel">Drag any outlined control. Hidden controls stay outlined here. Layout is saved on this device.</p></div></div><div id="setPanel" class="panel hidden" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
 <header id="settingsHeader"><div><span class="settingsEyebrow">ONE WORLD</span><h3 id="settingsTitle">GAME SETTINGS</h3></div><button id="setClose" class="playbtn" aria-label="Close settings">&#215;</button></header>
 <div id="settingsLayout"><nav id="settingsNav" aria-label="Settings categories">
 <button data-settings-tab="graphics" aria-selected="true">GRAPHICS</button><button data-settings-tab="controls" aria-selected="false">CONTROLS</button><button data-settings-tab="survivor" aria-selected="false">SURVIVOR</button><button data-settings-tab="audio" aria-selected="false">AUDIO</button><button data-settings-tab="profile" aria-selected="false">PROFILE</button><button data-settings-tab="help" aria-selected="false">HELP &amp; BETA</button><button data-settings-tab="about" aria-selected="false">ABOUT</button></nav>
@@ -449,9 +460,9 @@ body.playing:not(.gamePaused) #craftBtn{display:block}body.editingControls #craf
 <div class="settingRow"><label>Weather effects</label><select id="setWeather"><option value="auto">Automatic</option><option value="off">Off (lower visual load)</option></select></div></section>
 <section data-settings-page="controls" class="hidden"><h4>CONTROLS</h4><p class="settingsIntro">Adjust looking and arrange your touch controls.</p>
 <div class="settingRow"><label for="setSens">Camera sensitivity <output id="setSensValue">1.0&#215;</output></label><input type="range" id="setSens" min="0.4" max="2" step="0.1" value="1"></div>
-<div class="settingsButtonRow"><button class="playbtn" id="controlsBtn">CUSTOMIZE LAYOUT</button><button class="playbtn secondary" id="controlsRecovery">RESET SAVED LAYOUT</button></div><p class="settingsNote">Enter your world to move and resize the gameplay controls.</p></section>
+<div class="settingsButtonRow"><button class="playbtn" id="controlsBtn">CUSTOMIZE LAYOUT</button><button class="playbtn secondary" id="controlsRecovery">RESET SAVED LAYOUT</button></div><p class="settingsNote">Move and resize gameplay controls here, safely from the menu or a paused world.</p></section>
 <section data-settings-page="survivor" class="hidden"><h4>SURVIVOR</h4><p class="settingsIntro">View your survivor and manage your current session.</p><div class="settingsButtonRow"><button class="playbtn" id="profileBtn">PROFILE</button><button class="playbtn secondary" id="sosBtn">SOS - UNSTUCK</button></div><p class="settingsNote">Use SOS only if your survivor is stuck in the terrain.</p></section>
-<section data-settings-page="audio" class="hidden"><h4>AUDIO</h4><p class="settingsIntro">Adjust music and game effects separately.</p><div class="settingRow"><label for="musicVolume">Background music <output id="musicVolumeValue"></output></label><input id="musicVolume" type="range" min="0" max="100" step="1"></div><div class="settingRow"><label for="sfxVolume">Sound effects <output id="sfxVolumeValue"></output></label><input id="sfxVolume" type="range" min="0" max="100" step="1"></div><p id="musicPlaybackStatus" class="settingsNote" role="status"></p><p class="settingsNote">Music continues through all pregame panels and stops on world entry. Your music volume is kept. Device media volume and output are controlled by Android.</p></section><section data-settings-page="profile" class="hidden"><h4>PROFILE</h4><p class="settingsIntro">View your survivor profile.</p><button class="playbtn" id="menuProfileBtn">PROFILE</button></section><section data-settings-page="help" class="hidden"><h4>HELP &amp; BETA</h4><p class="settingsIntro">Your forest survival guide.</p><div id="setHelp" style="font-size:11px;line-height:1.6;margin-top:12px;max-width:420px;color:#baccdb">Move: joystick / WASD. Auto-run: hold the joystick and drag up to show its lock target. Reach the target and release there to lock. Release anywhere else to stop. Touch the joystick again to stop auto-run. Hold and drag the eye to look without steering; release to return. Move joystick to stop. Shift on keyboard. Look: drag. Attack: right button / Space. Bag: B. Quick tools: 1-3.<br>Drink at the river. Approach a coloured gate, then open Map to travel. Sleep at your placed bedroll.<br>Beta: original lowpoly enemies and animals; visual quality and phone performance are still being tested.</div><div id="studioCredits" class="settingsNote"><h4>CREDITS</h4>Tamil Crafters Studio<br>Original game: Smiley, reused and modified with permission.<br>Models: VRoid Project + Quaternius (CC0). Textures: Poly Haven (CC0). Three.js (MIT).<br>Original menu music supplied by the app owner. Anime wallpaper illustrations prepared for this project.<br>Full third-party license and provenance notices are bundled with the game source.</div><button id="debugBtn" class="playbtn secondary">BETA DEBUG CONSOLE</button></section><section data-settings-page="about" class="hidden"><h4>ABOUT</h4><h3 style="margin:18px 0 14px">AUTHORS</h3><article class="settingRow" style="display:flex;align-items:center;gap:16px;flex-wrap:wrap"><img src="assets/ui/tc-studio.png" alt="Tamil Crafters Studio" style="width:64px;height:64px;object-fit:contain"><div><h4 style="margin:0 0 8px">PPYGaming</h4><button id="authorStudioLink" class="playbtn secondary" style="padding:10px 14px;font-size:12px" aria-label="Open Tamil Crafters Studio website"><svg viewBox="0 0 24 24" width="16" height="16" style="vertical-align:-3px;margin-right:6px" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/><ellipse cx="12" cy="12" rx="4" ry="9" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3 12h18M5 7h14M5 17h14" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>Tamil Crafters Studio</button></div></article><p class="settingsNote">Third-party licenses and asset credits are listed separately in Help &amp; Beta.</p></section>
+<section data-settings-page="audio" class="hidden"><h4>AUDIO</h4><p class="settingsIntro">Adjust music and game effects separately.</p><div class="settingRow"><label for="musicVolume">Background music <output id="musicVolumeValue"></output></label><input id="musicVolume" type="range" min="0" max="100" step="1"></div><div class="settingRow"><label for="sfxVolume">Sound effects <output id="sfxVolumeValue"></output></label><input id="sfxVolume" type="range" min="0" max="100" step="1"></div><p id="musicPlaybackStatus" class="settingsNote" role="status"></p><p class="settingsNote">Music continues through all pregame panels and stops on world entry. Your music volume is kept. Device media volume and output are controlled by Android.</p></section><section data-settings-page="profile" class="hidden"><h4>PROFILE</h4><p class="settingsIntro">View your survivor profile.</p><button class="playbtn" id="menuProfileBtn">PROFILE</button></section><section data-settings-page="help" class="hidden"><h4>HELP &amp; BETA</h4><p class="settingsIntro">Your forest survival guide.</p><div id="setHelp" style="font-size:11px;line-height:1.6;margin-top:12px;max-width:420px;color:#baccdb">Move: joystick / WASD. Auto-run: hold the joystick and drag up to show its lock target. Reach the target and release there to lock. Release anywhere else to stop. Touch the joystick again to stop auto-run. Hold and drag the eye to look without steering; release to return. Move joystick to stop. Shift on keyboard. Look: drag. Attack: right button / Space. Bag: B. Quick tools: 1-3.<br>Drink at the river. Approach a coloured gate, then open Map to travel. Sleep at your placed bedroll.<br>Beta: original lowpoly enemies and animals; visual quality and phone performance are still being tested.</div><div id="studioCredits" class="settingsNote"><h4>CREDITS</h4>Tamil Crafters Studio<br>Original game: Smiley, reused and modified with permission.<br>Models: VRoid Project + Quaternius (CC0). Textures: Poly Haven (CC0). Three.js (MIT).<br>Original menu music supplied by the app owner. Anime wallpaper illustrations prepared for this project.<br>Full third-party license and provenance notices are bundled with the game source.</div><button id="debugBtn" class="playbtn secondary">BETA DEBUG CONSOLE</button></section><section data-settings-page="about" class="hidden"><h4>ABOUT</h4><p id="updateCheckStatus" class="settingsNote" role="status"></p><button id="retryUpdateCheck" class="playbtn secondary" style="font-size:12px">SAVE &amp; RESTART TO CHECK UPDATE</button><h3 style="margin:18px 0 14px">AUTHORS</h3><article class="settingRow" style="display:flex;align-items:center;gap:16px;flex-wrap:wrap"><img src="assets/ui/tc-studio.png" alt="Tamil Crafters Studio" style="width:64px;height:64px;object-fit:contain"><div><h4 style="margin:0 0 8px">PPYGaming</h4><button id="authorStudioLink" class="playbtn secondary" style="padding:10px 14px;font-size:12px" aria-label="Open Tamil Crafters Studio website"><svg viewBox="0 0 24 24" width="16" height="16" style="vertical-align:-3px;margin-right:6px" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/><ellipse cx="12" cy="12" rx="4" ry="9" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3 12h18M5 7h14M5 17h14" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>Tamil Crafters Studio</button></div></article><p class="settingsNote">Third-party licenses and asset credits are listed separately in Help &amp; Beta.</p></section>
 </div></div>
 <footer id="settingActions"><span>Changes are saved on this device.</span><button class="playbtn closebtn" id="saveLobby">SAVE &amp; LOBBY</button></footer>
 </div><div id="profileBox" class="hidden" style="max-width:360px"><label>Survivor name</label><input id="profileName" maxlength="16" style="width:160px;padding:7px;background:#0b2b47;color:white;border:1px solid #6ea6ca"><button id="profileNameSave" style="padding:7px;background:#174c70;color:white;border:1px solid #75bce4">SAVE NAME</button><div id="profileStats" style="font-size:11px;line-height:1.6"></div></div><div id="confirmPanel" class="panel hidden"><h3 id="confirmTitle">ARE YOU SURE?</h3><div id="confirmMsg" style="font-size:14px;opacity:.85;margin:6px 0 4px"></div>
@@ -460,7 +471,7 @@ body.playing:not(.gamePaused) #craftBtn{display:block}body.editingControls #craf
 <button id="freeLookBtn" aria-label="Hold and drag to look around without steering"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M2 16s5-9 14-9 14 9 14 9-5 9-14 9S2 16 2 16Z"/><circle cx="16" cy="16" r="5"/></svg></button><div id="sprintBtn" role="presentation" aria-hidden="true"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="m8 7 6 6 4 1 3 5 7 3v5H4v-7l3-5zM5 23h22M12 14l4 3m-6 0 4 3M2 8h5M1 12h4"/></svg></div><div id="sosNotice" class="hidden"></div><div id="toast"></div>
 <div id="flash"></div><aside id="betaDebug" class="hidden"><div class="debugHead">BETA DIAGNOSTICS <button id="debugClear">CLEAR</button><button id="debugClose">CLOSE</button></div><pre id="debugStats"></pre></aside>
 
-<div id="tapToStart" class="hidden" role="dialog" aria-label="Tap to start"><h1>ONE WORLD</h1><button id="tapStartBtn">TAP TO START</button><p>Tamil Crafters Studio</p></div>
+<div id="tapToStart" class="hidden" role="button" tabindex="0" aria-label="Tap anywhere to start One World"><h1 class="titleMark">ONE WORLD</h1><p class="titleStudio">Tamil Crafters Studio</p><span id="tapStartBtn">Tap anywhere to start</span></div>
 <div id="studioIntro" aria-label="Tamil Craft Studio"><img src="assets/ui/tc-studio.png" alt="Tamil Craft Studio" draggable="false"></div>
 <div class="overlay" id="loading">
   <h1>ONE WORLD</h1>
@@ -505,6 +516,7 @@ body.playing:not(.gamePaused) #craftBtn{display:block}body.editingControls #craf
 <button id="craftBtn" aria-label="Open crafting"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="m8 5 7 3 9 15-4 3-9-15-6-2zM5 25l14-14m0-5 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div id="craftPanel" class="hidden" role="dialog" aria-label="Crafting"><h3>CRAFTING</h3><p class="cap">Use materials from your inventory.</p><div id="craftList"></div><div id="craftFooter"><button id="craftClose" class="playbtn closebtn">CLOSE</button><button id="craftBag" class="playbtn closebtn">INVENTORY</button></div></div>
 <div id="worldLoading" class="overlay hidden"><h2>ENTERING ONE WORLD</h2><div id="joinProgress" style="position:absolute;bottom:0;left:0;height:4px;background:#91ccff;width:0%"></div><div id="joinPercent" style="position:absolute;bottom:12px;left:20px;font-size:12px">0%</div><div id="joinStage" role="status" aria-live="polite">Preparing terrain</div><button id="joinBack" class="playbtn hidden">BACK TO LOBBY</button></div>
 <div id="betaUpdatePanel" class="hidden" role="dialog" aria-modal="true" aria-label="Beta update"><div id="betaUpdateCard"><div id="betaUpdateMark">ONE WORLD <span>BETA</span></div><div id="betaUpdateSymbol" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 8v23m-8-8 8 8 8-8M12 32v8h24v-8" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div id="betaUpdatePhase">NEW VERSION</div><h2 id="betaUpdateTitle">Beta update</h2><p id="betaUpdateDetail" role="status" aria-live="polite">Checking for updates...</p><div id="betaUpdateActions"></div><p id="betaUpdateNote">UPDATE REQUIRED TO PLAY<br><span>Install over this beta. Do not uninstall or clear data.</span></p></div></div>
+<script src="assets/lib/AppLifecycle.js"></script>
 <script>
 // Paint the wallpaper before releasing the logo, then begin startup work only
 // after a real browser paint. No elapsed-time percentage or forced loading hold.
@@ -515,7 +527,7 @@ window.oneworldLoadingPainted=new Promise(function(resolve){
  var art=new Image();art.src='assets/tex/loading-anime-preview.jpg';
  var decoded=art.decode?art.decode().catch(function(){}):new Promise(function(done){art.onload=art.onerror=done;});
  window.oneworldIntroReady=new Promise(function(introDone){var root=document.getElementById('studioIntro'),reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  setTimeout(async function(){await decoded;root.classList.add('hidden');window.oneworldTrace('logo-hidden');introDone();var gate=document.getElementById('tapToStart'),button=document.getElementById('tapStartBtn');gate.classList.remove('hidden');window.oneworldTrace('tap-visible');button.focus({preventScroll:true});var entered=false;button.addEventListener('click',async function(){if(entered)return;entered=true;gate.classList.add('hidden');window.oneworldTrace('tap-accepted');if(window.oneworldMenuMusic)window.oneworldMenuMusic.sync();await window.oneworldYieldPaint();await window.oneworldYieldPaint();window.oneworldTrace('loading-painted');resolve();},{once:true});},reduce?700:2600);
+  setTimeout(async function(){await decoded;root.classList.add('hidden');window.oneworldTrace('logo-hidden');introDone();var gate=document.getElementById('tapToStart'),button=document.getElementById('tapStartBtn');gate.classList.remove('hidden');window.oneworldTrace('tap-visible');gate.focus({preventScroll:true});var entered=false;gate.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();gate.click();}});gate.addEventListener('click',async function(){if(entered)return;entered=true;window.oneworldTrace('tap-accepted');gate.classList.add('starting');button.textContent='Preparing...';window.oneworldTrace('tap-feedback');if(window.oneworldMenuMusic)window.oneworldMenuMusic.sync();await window.oneworldYieldPaint();await new Promise(function(done){setTimeout(done,650);});gate.classList.add('hidden');if(window.oneworldMenuMusic)window.oneworldMenuMusic.sync();await window.oneworldYieldPaint();await window.oneworldYieldPaint();window.oneworldTrace('loading-painted');resolve();},{once:true});},reduce?700:2600);
  });
 });
 window.oneworldUpdateUI=function(state,title,detail){
@@ -530,8 +542,6 @@ window.oneworldUpdateUI=function(state,title,detail){
  var el=document.getElementById('betaUpdateActions');el.replaceChildren();(actions[state]||[]).forEach(function(v){var b=document.createElement('button');b.className='playbtn';b.textContent=v[1];b.dataset.action=v[0];b.onclick=function(){if(window.OneWorldNative&&typeof OneWorldNative.betaUpdateAction==='function')OneWorldNative.betaUpdateAction(v[0]);};el.appendChild(b);});
 };
 // Check once on the first loading page, before revealing the lobby.
-window.oneworldLifecyclePause=function(){if(window.oneworldMenuMusic)oneworldMenuMusic.suspend(true);};
-window.oneworldLifecycleResume=function(){if(window.oneworldMenuMusic&&!document.hidden)oneworldMenuMusic.suspend(false);};
 window.oneworldStartupUpdate={pending:false,status:'not-started',id:1};
 window.oneworldStartupReady=window.oneworldLoadingPainted.then(function(){return new Promise(function(resolve){
  var state=window.oneworldStartupUpdate,native=window.OneWorldNative;
@@ -579,7 +589,7 @@ import { GLTFLoader } from './assets/lib/GLTFLoader.js';
 import { clone as skClone } from './assets/lib/SkeletonUtils.js';
 import { animeClips, applyAnimeColors, attachLeatherGarments, applyHairStyle, updateHairSway } from './assets/lib/AnimeCharacter.js';
 
-var BUILD_INFO={name:'1.3.29',code:null,native:false};
+var BUILD_INFO={name:'1.3.30',code:null,native:false};
 try{var nb=window.OneWorldNative;if(nb&&typeof nb.getBuildInfo==='function'){var bi=JSON.parse(nb.getBuildInfo());if(bi.package==='com.oneword.forest.beta'&&typeof bi.name==='string'&&/^\d+\.\d+\.\d+$/.test(bi.name)&&Number.isSafeInteger(bi.code)&&bi.code>0)BUILD_INFO={name:bi.name,code:bi.code,native:true};}}catch(e){}
 var DISPLAY_VERSION=BUILD_INFO.name+(BUILD_INFO.native?'':' preview');
 document.querySelector('#start .ver').textContent=DISPLAY_VERSION+' Beta - Work in progress';
@@ -605,15 +615,14 @@ const texLoader = new THREE.TextureLoader(manager);
 const A = { models: {}, tex: {} };
 const loadBar = document.getElementById('loadBar');
 const loadPct = document.getElementById('loadPct');
-var assetProgress=0;
-manager.onProgress = function(url, done, total){
- // File-count progress plus one real world-assembly unit. No elapsed-time fill.
- var percent=assetProgress=Math.max(assetProgress,Math.min(70,Math.floor(done/(Math.max(done,total)+1)*70)));loadBar.style.width=percent+'%';document.getElementById('loadNumber').textContent=percent+'%';
- loadPct.textContent=window.oneworldStartupUpdate.pending?(window.oneworldStartupUpdate.uiState==='checking'||!window.oneworldStartupUpdate.uiState?'Checking for beta updates...':document.getElementById('loadPct').textContent):(window.oneworldStartupUpdate.status==='offline'?'Offline mode - ':window.oneworldStartupUpdate.status==='unavailable'?'Update check unavailable - ':'')+'Preparing assets';
-};
-manager.onError = function(url){ window.__errors.push('asset load failed: '+url); };
-async function startupStage(percent,label){loadBar.style.width=percent+'%';document.getElementById('loadNumber').textContent=percent+'%';if(!window.oneworldStartupUpdate.pending)loadPct.textContent=(window.oneworldStartupUpdate.status==='offline'?'Offline mode - ':'')+label;window.oneworldTrace(label);await window.oneworldYieldPaint();}
-manager.onLoad = async function(){try {await buildWorld();await startupStage(99,'Checking entry readiness');await window.oneworldStartupReady;await startupStage(100,'World ready - 100%');await window.oneworldYieldPaint();document.getElementById('loading').classList.add('hidden');document.getElementById('start').classList.remove('hidden');window.oneworldTrace('menu-visible');}catch(err){window.__errors.push('buildWorld: '+(err&&err.stack||err));showLoadError(err);}};
+var assetProgress=0,assetReadShown=false,startupPercent=0,startupPresentation=Promise.resolve();
+manager.onProgress=function(url,done,total){assetProgress=done/Math.max(done,total);if(!assetReadShown&&done>0){assetReadShown=true;startupStage(20,'Reading bundled models and textures');}};
+manager.onError=function(url){window.__errors.push('asset load failed: '+url);};
+function startupStage(percent,label){
+ startupPresentation=startupPresentation.then(async function(){var changed=percent>startupPercent;startupPercent=Math.max(startupPercent,percent);loadBar.style.width=startupPercent+'%';document.getElementById('loadNumber').textContent=startupPercent+'%';if(!window.oneworldStartupUpdate.pending)loadPct.textContent=(window.oneworldStartupUpdate.status==='offline'?'Offline mode - ':window.oneworldStartupUpdate.status==='unavailable'?'Update check unavailable - ':'')+label;window.oneworldTrace(label);window.oneworldStartupTrace[window.oneworldStartupTrace.length-1].percent=startupPercent;await window.oneworldYieldPaint();if(changed)await new Promise(function(done){setTimeout(done,480);});});
+ return startupPresentation;
+}
+manager.onLoad=async function(){try{await startupStage(50,'Bundled assets ready; checking beta readiness');await window.oneworldStartupReady;await buildWorld();await startupStage(90,'Entry readiness complete');await startupStage(100,'World ready - 100%');await window.oneworldYieldPaint();document.getElementById('loading').classList.add('hidden');document.getElementById('start').classList.remove('hidden');window.oneworldTrace('menu-visible');}catch(err){window.__errors.push('buildWorld: '+(err&&err.stack||err));showLoadError(err);}};
 window.addEventListener('unhandledrejection', function(e){ window.__errors.push('async: '+String(e.reason && e.reason.message || e.reason)); });
 function showLoadError(err){
   var msg = 'Load error: ' + (err && err.message ? err.message : String(err));
@@ -622,6 +631,7 @@ function showLoadError(err){
   loadPct.style.whiteSpace = 'pre-wrap'; loadPct.style.fontSize = '11px'; loadPct.style.padding = '0 18px'; loadPct.style.lineHeight = '1.5';
 }
 
+await startupStage(10,'Opening bundled game assets');
 [['normaltree','assets/models/normaltree.glb'],['pine','assets/models/pine.glb'],['rocks','assets/models/rocks.glb'],
  ['grass','assets/models/grass.glb'],['flowers','assets/models/flowers.glb'],['wolf','assets/models/wolf.glb'],
  ['deer','assets/models/deer.glb'],['boy','assets/models/anime-boy.glb'],['girl','assets/models/anime-girl.glb'],
@@ -658,7 +668,7 @@ texLoader.load('assets/tex/forest_floor.jpg', function(t){ A.tex.floor = t; });
 
 // ============================================================
 async function buildWorld(){
-await startupStage(72,'Preparing game renderer');
+await startupStage(50,'Preparing game renderer');
 // ---------- basics ----------
 var canvas = document.getElementById('c');
 var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, powerPreference: 'high-performance' });
@@ -789,7 +799,7 @@ function groundSlope(x, z){ var e=0.6, c=groundY(x,z); return Math.max(Math.abs(
 A.tex.ground.wrapS = A.tex.ground.wrapT = THREE.RepeatWrapping;
 A.tex.ground.repeat.set(11, 11);
 if ('colorSpace' in A.tex.ground) A.tex.ground.colorSpace = THREE.SRGBColorSpace;
-await startupStage(76,'Preparing world systems');
+await startupStage(50,'Preparing world systems');
 // ---------- chunked island world (seeded, streamed around player) ----------
 var WORLD_SEED = 20261115, CHUNK = 128;
 function hash3(a, b, c){
@@ -1088,7 +1098,7 @@ function landSpotNear(cx, cz, minD, maxD){
   return [cx, cz];
 }
 
-await startupStage(80,'Preparing forest materials');
+await startupStage(50,'Preparing forest materials');
 // ---------- GLB decor instancing ----------
 function forestNoise(x, z){ return fbm(x*0.018+31.7, z*0.018+17.2, 3); }
 
@@ -1175,7 +1185,7 @@ function buildInstanced(glbKey, names, places, opts){
   return out;
 }
 
-await startupStage(83,'Preparing sky and lighting');
+await startupStage(80,'Preparing sky and lighting');
 // ---------- stars + fireflies ----------
 var stars = (function(){
   var n = 350, pos = new Float32Array(n*3);
@@ -1334,7 +1344,7 @@ function supportSurvivorSoles(){
  if(lift>0){player.position.y+=lift;player.updateMatrixWorld(true);}return lift;
 }
 
-await startupStage(86,'Preparing survivor');
+await startupStage(80,'Preparing survivor');
 // ---------- player (KayKit animated character, boy/girl selectable) ----------
 var player = new THREE.Group();
 var charKind = 'boy', playerName = '';
@@ -1453,7 +1463,7 @@ scene.add(player);
 var pShadow = blobShadow(0.55); pShadow.visible=false; // player disc removed; real sun shadow is optional
 var P = { x: 0, z: 0, rotY: 0, walk: 0, speed: 0, hp: 6, maxHp: 6, atkT: -9, atkCd: 0.55, invuln: 0, dead: false, stam: 100, food: 100, water: 100, temp: 50, hpF: 0 };
 
-await startupStage(89,'Preparing saved settings');
+await startupStage(80,'Preparing saved settings');
 // ---------- settings (persisted), inventory, world save ----------
 var SET_KEY = 'oneword-settings-v1', SAVE_KEY = 'oneword-save-v1';
 var settings = { quality: 'medium', sens: 1 }; // default medium: mid-range phone smoothness first (user-reported stutter)
@@ -1857,7 +1867,7 @@ function burst(x, y, z, n){
   parts.userData.life = 0;
 }
 
-await startupStage(92,'Preparing wildlife');
+await startupStage(80,'Preparing wildlife');
 // ---------- wolves (animated GLB replaces box wolf) ----------
 function healthBar(){
   var g = new THREE.Group();
@@ -2011,7 +2021,7 @@ for(var bi=0; bi<5; bi++){
   birds.push({ mesh: bg2, wl: wl, wr: wr, a: rand(0,Math.PI*2), r: rand(14,40), h: rand(9,16), speed: rand(0.15,0.35)*(Math.random()<0.5?-1:1), flap: rand(0,6) });
 }
 
-await startupStage(95,'Preparing controls');
+await startupStage(80,'Preparing controls');
 // ---------- input ----------
 var keys = {};
 function typingTarget(e){ return e.target && /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName); }
@@ -2168,7 +2178,7 @@ function resetGame(){
   wolvesDefeated = 0; wolfEl.textContent = 'Wolves 0';
   wolves.forEach(function(w){ spawnWolf(w); });
   for(var oldChunk in chunks)disposeChunk(oldChunk);
-  dayT=0.08;inv=[]; choppedTrees = {}; minedNodes = {}; harvestedBushes = {}; armorName = null; armorTier = 0; armorHits = 0; updateArmorVisual(); renderBag(); clearSave(); setEquip('hand');
+  dayT=0.08;inv=[]; choppedTrees = {}; minedNodes = {}; harvestedBushes = {}; armorName = null; armorTier = 0; armorHits = 0; updateArmorVisual(); renderBag(); setEquip('hand');
   campfirePos = null; bedPos = null; structColliders = []; fireFlame = null; fireLight = null;
   structGroup.clear();
   playAnim(pAnim, 'Idle', 0.1);
@@ -2323,7 +2333,7 @@ var sleepBtn = null;
 var CYCLE = 240, dayT = 0.08, camZoom = 1; // 0=dawn 0.25=noon 0.5=dusk 0.75=midnight
 
 // ---------- main loop ----------
-var last=performance.now(),lastDebugPaint=0,lastGameRender=0,frameHandle=0,appSuspended=false,needsWorldRender=true;
+var last=performance.now(),lastDebugPaint=0,lastGameRender=0,frameHandle=0,appSuspended=!!window.oneworldAppLifecycle.state.suspended,needsWorldRender=true;
 var betaFrames=[],betaTick=[],betaRender=[],lastFrameMetrics={};
 function ringSample(a,v){a.push(v);if(a.length>120)a.shift();}
 function percentile(a,p){if(!a.length)return 0;var b=a.slice().sort(function(x,y){return x-y;});return b[Math.min(b.length-1,Math.floor((b.length-1)*p))];}
@@ -2961,28 +2971,28 @@ document.getElementById('playBtn').addEventListener('click', function(){
 });
 // Beta entry-only update boundary. Native verification/download is a separate flow.
 function cancelEntryUpdateGate(){} // No world-entry update work remains.
-var joiningWorld=false,entryCameraT=0;
+var joiningWorld=false,entryCameraT=0,joinToken=0;
 function joinProgress(n){document.getElementById('joinProgress').style.width=n+'%';document.getElementById('joinPercent').textContent=n+'%';}
 function yieldJoinPaint(){return new Promise(function(resolve){setTimeout(resolve,32);});}
 async function joinReadyWorld(prepare,message){
- if(joiningWorld)return;joiningWorld=true;running=false;document.body.classList.remove('playing');
+ if(joiningWorld)return;var attempt=++joinToken;function activeJoin(){if(appSuspended||attempt!==joinToken)throw new Error("App backgrounded during world preparation");}joiningWorld=true;running=false;document.body.classList.remove('playing');
  var previousSave=localStorage.getItem(SAVE_KEY);var overlay=document.getElementById('worldLoading'),stage=document.getElementById('joinStage');overlay.classList.remove('hidden');document.getElementById('joinBack').classList.add('hidden');stage.textContent='Preparing survivor and saved world';joinProgress(0);
  try{
-  betaLog('World join: prepare survivor/save');await yieldJoinPaint();prepare();joinProgress(20);stage.textContent='Building terrain, plants and wildlife';await yieldJoinPaint();
+  betaLog('World join: prepare survivor/save');await yieldJoinPaint();activeJoin();prepare();joinProgress(20);stage.textContent='Building terrain, plants and wildlife';await yieldJoinPaint();activeJoin();
   resetMovementInput();
   var joinCells=wantedChunks(true);
   for(var ji=0;ji<joinCells.length;ji++){
    var cell=joinCells[ji];if(!chunks[chunkKey(cell[0],cell[1])])buildChunk(cell[0],cell[1]);
-   joinProgress(20+Math.round((ji+1)/joinCells.length*30));stage.textContent='Preparing nearby terrain and movement '+(ji+1)+'/'+joinCells.length;await yieldJoinPaint();
+   joinProgress(20+Math.round((ji+1)/joinCells.length*30));stage.textContent='Preparing nearby terrain and movement '+(ji+1)+'/'+joinCells.length;await yieldJoinPaint();activeJoin();
   }
   player.position.set(P.x,groundY(P.x,P.z),P.z);camera.position.set(P.x+Math.sin(cameraYaw)*5,groundY(P.x,P.z)+2.9,P.z+Math.cos(cameraYaw)*5);camera.lookAt(P.x,groundY(P.x,P.z)+1.35,P.z);scene.updateMatrixWorld(true);
   if(!Object.values(chunks).some(function(c){return !!c.ground;}))throw new Error('Terrain is not ready');
-  joinProgress(50);stage.textContent='Preparing materials and lighting';await yieldJoinPaint();
+  joinProgress(50);stage.textContent='Preparing materials and lighting';await yieldJoinPaint();activeJoin();
   renderer.compile(scene,camera);joinProgress(90);
-  renderer.render(scene,camera);betaLog('World ready: terrain/materials/first render');joinProgress(100);stage.textContent='World ready';await yieldJoinPaint();
+  renderer.render(scene,camera);betaLog('World ready: terrain/materials/first render');joinProgress(100);stage.textContent='World ready';await yieldJoinPaint();activeJoin();
   document.getElementById('start').classList.add('hidden');document.getElementById('over').classList.add('hidden');document.getElementById('charSetup').classList.add('hidden');document.getElementById('playBtn').style.display='';document.getElementById('setLobbyBtn').style.display='';document.getElementById('quitLobbyBtn').style.display='';
   menuMusicWorld(true);running=true;entryCameraT=1.2;document.body.classList.add('playing');sprintHint(true);last=performance.now();saveGame();overlay.classList.add('hidden');needsWorldRender=true;if(respawnRequired){P.dead=true;gameOver();}else toast(message||'World ready');
- }catch(err){if(previousSave!==null)localStorage.setItem(SAVE_KEY,previousSave);stage.textContent='Could not enter world: '+err.message+'. Your last saved world is unchanged.';document.getElementById('joinBack').classList.remove('hidden');window.__errors.push('join: '+err.message);}
+ }catch(err){if(previousSave!==null&&localStorage.getItem(SAVE_KEY)!==previousSave)localStorage.setItem(SAVE_KEY,previousSave);if(appSuspended||attempt!==joinToken)return;stage.textContent='Could not enter world: '+err.message+'. Your last saved world is unchanged.';document.getElementById('joinBack').classList.remove('hidden');window.__errors.push('join: '+err.message);}
  finally{joiningWorld=false;}
 }
 document.getElementById('joinBack').addEventListener('click',function(){cancelEntryUpdateGate();document.getElementById('worldLoading').classList.add('hidden');document.getElementById('start').classList.remove('hidden');});
@@ -3030,9 +3040,17 @@ document.getElementById('mapCanvas').addEventListener('pointerdown', function(e)
 document.getElementById('mapClose').addEventListener('click', toggleMap);
 window.addEventListener('keydown', function(e){ if(typingTarget(e)) return; if(e.code === 'KeyM') toggleMap(); });
 window.addEventListener('keydown', function(e){ if(typingTarget(e)) return; if(e.code === 'KeyB' || e.code === 'KeyI') toggleBag(); });
+function updateCheckStatus(){
+ var el=document.getElementById('updateCheckStatus'),info=null;
+ try{if(window.OneWorldNative&&typeof OneWorldNative.getUpdateInfo==='function')info=JSON.parse(OneWorldNative.getUpdateInfo());}catch(e){}
+ var labels={current:'No newer verified beta was found.',offline:'Update was not checked: Android reported offline.',unavailable:'Update check failed. This does not mean the beta is current.',checking:'Checking beta releases...',available:'A verified newer beta is available.','not-started':'Update check has not started.'};
+ el.textContent='Installed: '+DISPLAY_VERSION+(BUILD_INFO.native?' (code '+BUILD_INFO.code+')':'')+'. '+(info?(labels[info.status]||('Update: '+info.status))+((info.status==='unavailable'||info.status==='offline')&&info.detail?' '+info.detail:''):'Update checks run in the Android beta.');
+}
+document.getElementById('retryUpdateCheck').onclick=function(){window.oneworldLifecyclePause();window.oneworldLifecycleResume();};
 var settingsTab='graphics';
 function showSettingsTab(name){
  if(!['graphics','controls','survivor','profile','audio','help','about'].includes(name))return;
+ if(name==='about')updateCheckStatus();
  settingsTab=name;document.querySelectorAll('[data-settings-tab]').forEach(function(b){b.setAttribute('aria-selected',String(b.dataset.settingsTab===name));});
  document.querySelectorAll('[data-settings-page]').forEach(function(e){e.classList.toggle('hidden',e.dataset.settingsPage!==name);});
  document.getElementById('settingsContent').scrollTop=0;
@@ -3081,10 +3099,11 @@ if(('ontouchstart' in window) || navigator.maxTouchPoints > 0) document.body.cla
 
 // debug/verification hook (harmless)
 window.previewTest=function(){renderSetupPreview(.05);};
-window.oneworldLifecyclePause=function(){if(appSuspended)return;appSuspended=true;menuMusicSuspend(true);if(frameHandle)cancelAnimationFrame(frameHandle);frameHandle=0;resetMovementInput();saveGame();if(AC&&AC.state==='running')AC.suspend().catch(function(){});};
-window.oneworldLifecycleResume=function(){if(document.hidden||closingGame)return;appSuspended=false;menuMusicSuspend(false);last=performance.now();needsWorldRender=true;scheduleFrame();};
-document.addEventListener('visibilitychange',function(){if(document.hidden)window.oneworldLifecyclePause();else window.oneworldLifecycleResume();});
-window.addEventListener('pagehide',window.oneworldLifecyclePause);window.addEventListener('pageshow',window.oneworldLifecycleResume);
+window.oneworldAppLifecycle.configure({
+ save:saveGame,
+ pause:function(){appSuspended=true;joinToken++;respawnToken++;respawnBusy=false;menuMusicSuspend(true);if(frameHandle)cancelAnimationFrame(frameHandle);frameHandle=0;resetMovementInput();if(AC&&AC.state==='running')AC.suspend().catch(function(){});},
+ resume:function(){if(closingGame)return;appSuspended=false;menuMusicSuspend(false);last=performance.now();needsWorldRender=true;scheduleFrame();}
+});
 // Exit navigation stays inside this beta and never clears the saved world.
 var closingGame=false,setupPreviousLook=null;
 function setupToLobby(){document.getElementById('charSetup').classList.add('hidden');document.getElementById('start').classList.remove('choosing');['playBtn','setLobbyBtn','quitLobbyBtn'].forEach(function(id){document.getElementById(id).style.display='';});document.getElementById('newGameBtn').style.display=loadSave()?'inline-block':'none';if(setupPreviousLook){charLook=JSON.parse(JSON.stringify(setupPreviousLook));setupPreviousLook=null;}}
@@ -3118,7 +3137,7 @@ try{var savedControls=JSON.parse(localStorage.getItem(CONTROL_KEY)||'{}');contro
 function controlRect(v,id){var w=Math.min(innerWidth,v.w*v.s),h=Math.min(innerHeight,v.h*v.s);if(id==='joy'){var fit=Math.min(1,Math.max(50,innerHeight-90)/h);w*=fit;h*=fit;}return {w:w,h:h,x:controlClamp(v.x*innerWidth-w/2,0,innerWidth-w),y:controlClamp(v.y*innerHeight-h/2,id==='joy'?Math.min(86,innerHeight-h):0,innerHeight-h)};}
 function clearControlStyle(el){if(!el)return;['position','left','top','right','bottom','width','height','transform','opacity','box-sizing'].forEach(function(k){el.style.removeProperty(k);});}
 function applyControlLayout(){if(!controlDefs||!controlLayout)return;controlDefs.forEach(function(d){var el=controlEl(d[0]),v=controlLayout[d[0]];if(!el||!v)return;var r=controlRect(v,d[0]);var p={position:'fixed',left:r.x+'px',top:r.y+'px',right:'auto',bottom:'auto',width:r.w+'px',height:r.h+'px',transform:'none',opacity:String(v.o),'box-sizing':'border-box'};Object.keys(p).forEach(function(k){el.style.setProperty(k,p[k],'important');});});}
-function defaultControl(id){if(id==='sprintBtn'){var j=defaultControl('joy');return {x:j.x,y:Math.max(35,j.y*innerHeight-j.h/2-99)/innerHeight,w:54,h:54,s:1,o:1};}var el=controlEl(id);if(!el)return {x:.5,y:.5,w:48,h:48,s:1,o:1};var old=el.getAttribute('style');clearControlStyle(el);el.style.setProperty('display','block','important');var r=el.getBoundingClientRect();if(old===null)el.removeAttribute('style');else el.setAttribute('style',old);if(!r.width||!r.height)return {x:.5,y:.5,w:48,h:48,s:1,o:1};return {x:(r.left+r.width/2)/innerWidth,y:(r.top+r.height/2)/innerHeight,w:r.width,h:r.height,s:1,o:1};}
+function defaultControl(id){if(id==='sprintBtn'){var j=defaultControl('joy');return {x:j.x,y:Math.max(35,j.y*innerHeight-j.h/2-99)/innerHeight,w:54,h:54,s:1,o:1};}var el=controlEl(id);if(!el)return {x:.5,y:.5,w:48,h:48,s:1,o:1};var parent=id.indexOf('quick')===0?document.getElementById('quickbar'):null,parentOld=parent?parent.getAttribute('style'):null;if(parent){parent.style.setProperty('display','flex','important');parent.style.setProperty('visibility','hidden','important');}var old=el.getAttribute('style');clearControlStyle(el);el.style.setProperty('display','block','important');var r=el.getBoundingClientRect();if(old===null)el.removeAttribute('style');else el.setAttribute('style',old);if(parent){if(parentOld===null)parent.removeAttribute('style');else parent.setAttribute('style',parentOld);}if(!r.width||!r.height)return {x:.5,y:.5,w:48,h:48,s:1,o:1};return {x:(r.left+r.width/2)/innerWidth,y:(r.top+r.height/2)/innerHeight,w:r.width,h:r.height,s:1,o:1};}
 function controlSelect(id){controlSelected=id;document.getElementById('controlSelect').value=id;var v=controlDraft[id];document.getElementById('controlSize').value=Math.round(v.s*100);document.getElementById('controlOpacity').value=Math.round(v.o*100);document.getElementById('controlSizeValue').textContent=Math.round(v.s*100)+'%';document.getElementById('controlOpacityValue').textContent=Math.round(v.o*100)+'%';document.querySelectorAll('.controlProxy').forEach(function(b){b.classList.toggle('chosen',b.dataset.control===id);});}
 function drawControlEditor(){var surface=document.getElementById('controlSurface');surface.innerHTML='';controlDefs.forEach(function(d){var v=controlDraft[d[0]],r=controlRect(v,d[0]),b=document.createElement('div');b.className='controlProxy';b.dataset.control=d[0];b.style.cssText='left:'+r.x+'px;top:'+r.y+'px;width:'+r.w+'px;height:'+r.h+'px;';b.innerHTML='<span>'+({'setBtn':'SET','bagBtn':'BAG','quick0':'Q1','quick1':'Q2','quick2':'Q3'}[d[0]]||d[1])+'</span><small>'+Math.round(v.o*100)+'%</small>';b.style.background='rgba(20,55,76,'+Math.max(.18,v.o*.65)+')';surface.appendChild(b);});controlSelect(controlSelected);}
 function openControlEditor(){if(!running){toast('Enter your world to arrange the gameplay controls.');return;}resetMovementInput();controlDraft={};controlDefs.forEach(function(d){controlDraft[d[0]]=Object.assign({},controlLayout[d[0]]||defaultControl(d[0]));});document.getElementById('setPanel').classList.add('hidden');document.getElementById('controlEditor').classList.remove('hidden');document.body.classList.add('editingControls');drawControlEditor();updatePause();}
@@ -3158,9 +3177,9 @@ window.oneword = {supportSurvivorSoles:supportSurvivorSoles,entryUpdateState:fun
   toggleMap: toggleMap, renderMap: renderMap, biomeAt: biomeAt, ensureChunks: ensureChunks, ISLAND_R: ISLAND_R, chunkCount: function(){ return Object.keys(chunks).length; }, chunkColliders: function(k){ return chunks[k] ? chunks[k].colliders : null; },
   toggleUserMark: toggleUserMark, setEquip: setEquip, getChopped: function(){ return Object.keys(choppedTrees).length; }, craft: craftRecipe, countItem: countItem, setChar: buildPlayerChar, getChar: function(){ return charKind; }, setName: function(n){ playerName = String(n || '').slice(0, 16); }, getName: function(){ return playerName; }, nearestBushDist: function(kind){ var b = 1e9, hit = null; for(var k in chunks){ var r = chunks[k]; if(!r.bushRefs) continue; r.bushRefs.forEach(function(o){if(kind==='berry'&&o.type==='fibre'||kind==='fibre'&&o.type!=='fibre')return; var d = Math.hypot(o.x - P.x, o.z - P.z); if(d < b){ b = d; hit = o; } }); } return hit ? { d: b, x: hit.x, z: hit.z,type:hit.type } : null; }, nearestOreDist: function(){ var b = 1e9, hit = null; for(var k in chunks){ var r = chunks[k]; if(!r.oreRefs) continue; r.oreRefs.forEach(function(o){ var d = Math.hypot(o.x - P.x, o.z - P.z); if(d < b){ b = d; hit = o; } }); } return hit ? { d: b, ore: hit.ore, x: hit.x, z: hit.z } : null; }, nearestTreeDist: function(){ var b = 1e9; for(var k in chunks){ var r = chunks[k]; if(!r.treeRefs) continue; r.treeRefs.forEach(function(t){ var d = Math.hypot(t.x - P.x, t.z - P.z); if(d < b) b = d; }); } return b; }, placeKit: placeKit, riverCenterX: riverCenterX, riverBedY: riverBedY, rawGroundY: rawGroundY, inRiver: inRiver, riverRunPts: function(){ return riverWaterRuns.reduce(function(a, r){ return a + r.length; }, 0); }, renderBag: renderBag, isTorchLit: function(){ return !!(torchFlame && torchFlame.userData.group && torchFlame.userData.group.visible); }, riverRunCount: function(){ return riverWaterRuns.length; }, setCamYaw: function(v){ cameraYaw = v; }, setCamPitch: function(v){ cameraPitch = Math.max(-1.15, Math.min(1.25, v)); }, setCamZoom: function(v){ camZoom = Math.max(0.15, Math.min(1, v)); }, eatSelected: eatSelected, saveGame: saveGame, getArmor: function(){ return armorName; }, getStats: function(){ return { stam: Math.round(P.stam*10)/10, food: Math.round(P.food*10)/10, temp: Math.round(P.temp*10)/10 }; }, setStats: function(o){ if(!o) return; if(typeof o.stam === 'number') P.stam = Math.max(0, Math.min(100, o.stam)); if(typeof o.food === 'number') P.food = Math.max(0, Math.min(100, o.food)); if(typeof o.temp === 'number') P.temp = Math.max(0, Math.min(100, o.temp)); drawVitals(); }, ambientTemp: function(){ return currentAmb; }, armorTest: armorBlocks, wearArmor: function(n){ var i = inv.findIndex(function(it){ return it.name === n; }); if(i < 0) return false; selSlot = i; wearSelected(); return armorName === n; }, trySleep: trySleep, addItem: addItem, selectSlot: function(i){ selSlot = i; renderBag(); }, getCampfire: function(){ return campfirePos; }, setDayT: function(v){ dayT = v; }, getEquip: function(){ return equipped; }, waterInfo:waterInfo, isSwimming:function(){return swimming;}, renderInvPreview: renderInvPreview, getMarks: function(){ return userMarks.slice(); }, setBed: function(x, z){ bedPos = { x: x, z: z }; }, getBed: function(){ return bedPos; } };
 
-await startupStage(97,'Applying saved graphics');
+await startupStage(90,'Applying saved graphics');
 applySettings();
-await startupStage(98,'Preparing first frame');
+await startupStage(90,'Preparing first frame');
 camera.position.set(0, groundY(0,0) + 2.6, 5.0);
 drawHearts();
 frame();
