@@ -1412,7 +1412,19 @@ function buildPlayerChar(kind){
   // CC0 anime source outfits are already skinned to the body. No rigid pelt shells.
   updateArmorVisual();
   playAnim(pAnim,'Idle',0);pAnim.mixer.update(.001);charRoot.updateMatrixWorld(true);
-  if(propMount){var handQ=handSlotR.getWorldQuaternion(new THREE.Quaternion()),playerQ=player.getWorldQuaternion(new THREE.Quaternion());propMount.quaternion.copy(handQ.invert().multiply(playerQ));charRoot.updateMatrixWorld(true);var finger=charRoot.getObjectByName('J_Bip_R_Middle1');if(finger){var grip=propMount.worldToLocal(finger.getWorldPosition(new THREE.Vector3()));[knifeProp,axePropM,pickProp].forEach(function(prop){if(prop)prop.position.copy(grip);});}if(torchFlame)attachTorchToMount();}
+  if(propMount){
+    // Calibrate the upright handle in Idle once, then inherit wrist motion.
+    var handQ=handSlotR.getWorldQuaternion(new THREE.Quaternion()),playerQ=player.getWorldQuaternion(new THREE.Quaternion());
+    propMount.userData.gripRotation=handQ.invert().multiply(playerQ);
+    var middle=charRoot.getObjectByName('J_Bip_R_Middle1'),index=charRoot.getObjectByName('J_Bip_R_Index1');
+    if(middle){
+      var grip=middle.getWorldPosition(new THREE.Vector3());
+      if(index)grip.lerp(index.getWorldPosition(new THREE.Vector3()),.5);
+      propMount.position.copy(handSlotR.worldToLocal(grip));
+    }
+    [knifeProp,axePropM,pickProp].forEach(function(prop){if(prop){prop.position.set(0,0,0);prop.quaternion.copy(propMount.userData.gripRotation);}});
+    if(torchFlame)attachTorchToMount();
+  }
 }
 buildPlayerChar('boy');
 scene.add(player);
@@ -1604,7 +1616,7 @@ function attachTorchToMount(){
   var g = torchFlame && torchFlame.userData.group;
   if(!g || !propMount) return;
   propMount.add(g);
-  var f=charRoot.getObjectByName('J_Bip_R_Middle1');if(f){charRoot.updateMatrixWorld(true);g.position.copy(propMount.worldToLocal(f.getWorldPosition(new THREE.Vector3())));}else g.position.set(0,.05,0); g.rotation.set(0, 0, 0); g.scale.setScalar(1);
+  g.position.set(0,0,0);g.quaternion.copy(propMount.userData.gripRotation||new THREE.Quaternion());g.scale.setScalar(1);
 }
 function applyEquipVisibility(){
   document.body.classList.toggle('weaponEquipped',equipped==='knife'||equipped==='axe'||equipped==='pickaxe');
@@ -2321,6 +2333,8 @@ function tick(dt){
   if(paused) return;
   updateFreeLookReturn(dt);
 
+  // Visual cadence only. P.speed, displacement and attack clocks are untouched.
+  ['Walk','Run'].forEach(function(n){var action=pAnim.actions[n];if(action)action.timeScale=pAnim.current===n?THREE.MathUtils.clamp(P.speed/(n==='Run'?4.2:2.5),.65,1.7):1;});
   pAnim.mixer.update(dt);updateHairSway(charRoot,dt,P.speed>.1,P.speed>4);
   if(charRoot&&equipped!=='hand')charRoot.traverse(function(b){
     if(b.isBone&&/_R_(Index|Middle|Ring|Little)[123]$/.test(b.name))b.rotation.z=-.85;
@@ -2330,7 +2344,15 @@ function tick(dt){
    var ua=charRoot.getObjectByName('J_Bip_R_UpperArm'),la=charRoot.getObjectByName('J_Bip_R_LowerArm'),hand=charRoot.getObjectByName('J_Bip_R_Hand'),up=new THREE.Vector3(0,1,0),forward=new THREE.Vector3(0,0,1).applyAxisAngle(up,P.rotY),right=new THREE.Vector3(-1,0,0).applyAxisAngle(up,P.rotY);
    if(ua&&la&&hand){var shoulder=ua.getWorldPosition(new THREE.Vector3());aimBone(ua,la,shoulder.clone().addScaledVector(right,.12).addScaledVector(up,-.2).addScaledVector(forward,.17));var elbow=la.getWorldPosition(new THREE.Vector3());aimBone(la,hand,elbow.clone().addScaledVector(up,.26).addScaledVector(forward,.12));}
   }
-  if(torchFlame&&propMount){var tg=torchFlame.userData.group;propMount.updateMatrixWorld(true);tg.quaternion.copy(propMount.getWorldQuaternion(new THREE.Quaternion())).invert();}
+  if(torchFlame&&propMount&&equipped==='torch'){
+    // Keep the torch above the closed grip, not inverted into the forearm.
+    // Only its visual tilt changes on a strike; equipment/action state is read-only.
+    var torchAttack=Math.max(0,Math.min(1,(now-P.atkT)/.48));
+    var torchPitch=now-P.atkT<.48?Math.sin(torchAttack*Math.PI)*.75:0;
+    var torchWorld=player.getWorldQuaternion(new THREE.Quaternion()).multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1,0,0),torchPitch));
+    propMount.updateWorldMatrix(true,false);
+    torchFlame.userData.group.quaternion.copy(propMount.getWorldQuaternion(new THREE.Quaternion()).invert().multiply(torchWorld));
+  }
   wolves.forEach(function(w){ w.mesh.userData.anim.mixer.update(dt); });
   deer.forEach(function(d){ d.mesh.userData.anim.mixer.update(dt); });
   critters.forEach(function(c){ var mdx = P.x - c.x, mdz = P.z - c.z; if(mdx*mdx + mdz*mdz < 16900) c.mesh.userData.anim.mixer.update(dt); });
