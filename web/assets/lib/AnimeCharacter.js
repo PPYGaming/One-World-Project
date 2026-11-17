@@ -547,4 +547,4 @@ export function applyPrimitiveOutfit(root,look,kind){
       o.material.needsUpdate=true;
     }
   });
-                                                                   }
+}
