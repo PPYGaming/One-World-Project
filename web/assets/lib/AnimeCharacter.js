@@ -47,7 +47,7 @@ export function animeClips(root){
           if(b.name.endsWith('LowerLeg'))x=knee;
           if(b.name.endsWith('Foot'))x=-hip-knee+(stance?Math.sin(progress*Math.PI)*.08:-.08);
           }
-          if(b.name.endsWith('UpperArm')){x=-Math.sin(t)*amp*.78;z=sgn*1.43;}
+          if(b.name.endsWith('UpperArm')){x=-Math.sin(t)*amp*.78;z=sgn*1.30;}
           if(b.name.endsWith('LowerArm')){y=-sgn*(name==='Run'?(.95+.12*Math.sin(t)):(.3+.08*Math.sin(t)));z=0;}
           if(b.name.endsWith('Head')){y=Math.sin(a)*.025;x=Math.sin(a*2)*.012;}
           if(b.name.endsWith('Spine')){y=Math.sin(a)*.045;z=Math.cos(a)*.008;}
@@ -61,7 +61,7 @@ export function animeClips(root){
         }
         if(/Slash|Chop|Punch/.test(name)){
           const s=Math.sin(u*Math.PI);
-          // Aim in the rig's forward (+Z) plane, rather than rotating the
+          // Aim in the rig's forward (-Z) plane, rather than rotating the
           // lowered arm about its old T-pose axis (which produced a side swipe).
           const upper=rig.J_Bip_R_UpperArm;
           const lower=rig.J_Bip_R_LowerArm;
