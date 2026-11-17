@@ -1,5 +1,5 @@
 {
-  "baseline": "1.3.27",
+  "baseline": "1.3.28",
   "files": [
     {
       "path": ".github/workflows/.github/workflows/project-bootstrap.yml",
@@ -13,8 +13,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 6088,
-      "sha256": "8ae76377ffa472abf497d0d637c08ecd2dfcc07495d123318f8c0bdc4984d386"
+      "size": 7487,
+      "sha256": "cc607d28ed99f43bf457d8893ba04f51f2c0e5e5a108a621ab51f3b67e03cbfd"
     },
     {
       "path": "CONTRIBUTING.md",
@@ -24,12 +24,12 @@
     {
       "path": "README.md",
       "size": 2758,
-      "sha256": "aa2d3b26ffb4771beb635f75af1d6ffd8a173090fe49e54eff18d4ebe6983c24"
+      "sha256": "2ff81ffeb8f7b8fea49b9955971d62a85f6dade1d6fd60ef997f3a7c1d6a399b"
     },
     {
       "path": "android/AndroidManifest.xml",
       "size": 1271,
-      "sha256": "36bfa548afc7567157c88d673fae5a9c8724a563ae3e56db5fe1e82726f2fab7"
+      "sha256": "1ca9c8662d4ca8a5c71b86841d4d856b76954de2e4d52df2e213917d00e28357"
     },
     {
       "path": "android/res/drawable/ic_face.png",
@@ -103,8 +103,8 @@
     },
     {
       "path": "android/src/com/oneword/forest/AssetRange.java",
-      "size": 1577,
-      "sha256": "57b88177215947a2623e21d67c8413365c272b0d778712a2e6a875570d61a4e2"
+      "size": 2459,
+      "sha256": "762fbce224d36bf0dca639c00de12f2d46915429efad16dd19e5275dc04ca222"
     },
     {
       "path": "android/src/com/oneword/forest/BetaUpdateProvider.java",
@@ -168,8 +168,8 @@
     },
     {
       "path": "web/assets/lib/MenuMusic.js",
-      "size": 2204,
-      "sha256": "48fa28d69f5034cc062e9b20b4ec04a6d0c49cf2d0b2d75832f172eff63f11f5"
+      "size": 2924,
+      "sha256": "15bf62b96844a53b70fffadd18532dd02c8f5fdb3850d968af76850abab09756"
     },
     {
       "path": "web/assets/lib/Mutants.js",
@@ -668,8 +668,8 @@
     },
     {
       "path": "web/index.html",
-      "size": 288069,
-      "sha256": "d9ad090d5e7698f121cce1365a944f2a19e62139745e212208eb5a6d3bfc70a0"
+      "size": 287774,
+      "sha256": "ef3bd8fdf28eb3e5933dd56ebc872852ee7405781207e3f446fd84e1b1c20aff"
     }
   ]
 }

@@ -1,6 +1,6 @@
 # One World Project
 
-Development source for Karthi's modified One World Android beta. Current source baseline: **1.3.27 (versionCode 49)**. Smaller moving eye control, movable default-left Map/Crafting, monochrome vector control icons, fullscreen current map and compact blocking update dialog over loading art. Music diagnostics/retry added; phone silence is not claimed fixed.
+Development source for Karthi's modified One World Android beta. Current source baseline: **1.3.28 (versionCode 50)**. Smaller moving eye control, movable default-left Map/Crafting, monochrome vector control icons, fullscreen current map and compact blocking update dialog over loading art. Music diagnostics/retry added; phone silence is not claimed fixed.
 
 This is a testing beta, not a stable release. Original game by Smiley, used and modified with permission. Preserve the asset and third-party notices in `web/assets/licenses/` and the music provenance in `web/assets/music/PROVENANCE.txt`. This repository does not grant a blanket license over all game code or the AI-generated track.
 

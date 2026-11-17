@@ -3,6 +3,20 @@ import java.io.*;
 import java.util.*;
 import android.webkit.WebResourceResponse;
 final class AssetRange {
+ // WebView seeks every intercepted stream by the original request Range.
+ // Keep that seek virtual while reads expose only the requested body bytes.
+ // This prevents a nonzero offset from being applied to the sliced body twice.
+ // Chromium: components/embedder_support/android/util/input_stream_reader.cc
+ static final class WebViewRangeStream extends ByteArrayInputStream {
+  private long seekCredit;
+  WebViewRangeStream(byte[] data,int first,int count){super(data,first,count);seekCredit=first;}
+  @Override public synchronized int available(){return (int)Math.min(Integer.MAX_VALUE,seekCredit+super.available());}
+  @Override public synchronized long skip(long n){
+   if(n<=0)return 0;long credit=Math.min(n,seekCredit);seekCredit-=credit;
+   return credit+super.skip(n-credit);
+  }
+ }
+
  static long[] bounds(String range,int length){
   if(range==null)return new long[]{0,length-1,200};
   if(!range.matches("bytes=\\d*-\\d*"))return null;
@@ -17,6 +31,6 @@ final class AssetRange {
   byte[] data=out.toByteArray();long[] b=bounds(range,data.length);Map<String,String> h=new HashMap<>();h.put("Accept-Ranges","bytes");
   if(b==null){h.put("Content-Range","bytes */"+data.length);return new WebResourceResponse(mime,null,416,"Range Not Satisfiable",h,new ByteArrayInputStream(new byte[0]));}
   int first=(int)b[0],count=(int)(b[1]-b[0]+1);h.put("Content-Length",String.valueOf(count));if(b[2]==206)h.put("Content-Range","bytes "+first+"-"+b[1]+"/"+data.length);
-  return new WebResourceResponse(mime,null,(int)b[2],b[2]==206?"Partial Content":"OK",h,new ByteArrayInputStream(data,first,count));
+  return new WebResourceResponse(mime,null,(int)b[2],b[2]==206?"Partial Content":"OK",h,range!=null&&range.matches("bytes=\\d+-\\d*")?new WebViewRangeStream(data,first,count):new ByteArrayInputStream(data,first,count));
  }
 }
