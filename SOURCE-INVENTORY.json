@@ -1,5 +1,5 @@
 {
-  "baseline": "1.3.28",
+  "baseline": "1.3.29",
   "files": [
     {
       "path": ".github/workflows/.github/workflows/project-bootstrap.yml",
@@ -13,8 +13,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 7487,
-      "sha256": "cc607d28ed99f43bf457d8893ba04f51f2c0e5e5a108a621ab51f3b67e03cbfd"
+      "size": 9409,
+      "sha256": "6e219d607c7e0e69719a315bdee98ab7c9666d9627eafd5f3bb901302d176a34"
     },
     {
       "path": "CONTRIBUTING.md",
@@ -23,13 +23,13 @@
     },
     {
       "path": "README.md",
-      "size": 2758,
-      "sha256": "2ff81ffeb8f7b8fea49b9955971d62a85f6dade1d6fd60ef997f3a7c1d6a399b"
+      "size": 2941,
+      "sha256": "f788955777ee33120c4b24a85a7bf45566cf090fc5dac261321f48ad1711af80"
     },
     {
       "path": "android/AndroidManifest.xml",
       "size": 1271,
-      "sha256": "1ca9c8662d4ca8a5c71b86841d4d856b76954de2e4d52df2e213917d00e28357"
+      "sha256": "478575f937febba02ac741aeb4e454d9a0291123c7e8d3b2e78aacdd9a3dad0c"
     },
     {
       "path": "android/res/drawable/ic_face.png",
@@ -123,8 +123,8 @@
     },
     {
       "path": "android/src/com/oneword/forest/MainActivity.java",
-      "size": 7092,
-      "sha256": "e17abfd18fc5d4a0b81100530e07b88fdab73ed38d650df39cccb35a81465595"
+      "size": 10253,
+      "sha256": "d3a6478cb119de05ce145621fbd70131eb2fafe1efdc5ea80f15080a7af2c687"
     },
     {
       "path": "docs/screenshots/1.3.24/README.md",
@@ -158,8 +158,8 @@
     },
     {
       "path": "web/assets/lib/AnimeCharacter.js",
-      "size": 33767,
-      "sha256": "032404fca33159ffa7c3c98de887ba7ca8837d0d7257c2734a83076b47b95924"
+      "size": 36622,
+      "sha256": "b92e850f90f9c58e0d0a93a470c100f012bb1a44250a04d28762bd5a3257f18f"
     },
     {
       "path": "web/assets/lib/GLTFLoader.js",
@@ -443,28 +443,28 @@
     },
     {
       "path": "web/assets/ui/boy-skin-0.png",
-      "size": 8928,
-      "sha256": "d1bb36d33b5fb0a074df62927db4aa19a4ee11d87af693b72ee6fa29d8ef0432"
+      "size": 10832,
+      "sha256": "90b52632c4558683fb9c33a98d87bcc7946b29a39ddcf916ccf6b6da4420e403"
     },
     {
       "path": "web/assets/ui/boy-skin-1.png",
-      "size": 8930,
-      "sha256": "37ea29426325bc550107937289294ededcccc3f2dca6b6d67e9a0adb80b5a843"
+      "size": 10608,
+      "sha256": "ceacafbe0a0557c3321245b670037c4e7720f631518ab3c8740edd2ec5619c83"
     },
     {
       "path": "web/assets/ui/boy-skin-2.png",
-      "size": 7905,
-      "sha256": "c91f78dbfeb8a1ca9276c94a4adb9cf15b2f3f2bcfe081add88eb7afce7b4f42"
+      "size": 10065,
+      "sha256": "55774d7d80a39d8ebc56bcd2a2316ff911a6125f28e98186abb20f77959cc7ee"
     },
     {
       "path": "web/assets/ui/boy-skin-3.png",
-      "size": 6022,
-      "sha256": "c231a1ff9722f1f5cf99735112137146953c0449d653e7e925aceff9041f9714"
+      "size": 9255,
+      "sha256": "17a2b63bb739dd90d17e420ad84eddf78765b6e0b9e4645826874d86e98b254a"
     },
     {
       "path": "web/assets/ui/boy-skin-4.png",
-      "size": 3711,
-      "sha256": "3e306015c47faca4e526b9d56927e4e4390ab667da436dfaaf532e147da89811"
+      "size": 8651,
+      "sha256": "f2de75bbf68ea313202e6992103c9fa12377a693cea58e8ca9ddfd4ebe784b2d"
     },
     {
       "path": "web/assets/ui/boy-style-0.png",
@@ -558,28 +558,28 @@
     },
     {
       "path": "web/assets/ui/girl-skin-0.png",
-      "size": 9144,
-      "sha256": "4b442a3aecbb027ae8e45b8513a19a5c9783bae45b46ae32b8efacb85192d2cd"
+      "size": 10975,
+      "sha256": "362898a3f0d413518029cd905b5f2d60bee509363c868ce0186a43bba5c1e960"
     },
     {
       "path": "web/assets/ui/girl-skin-1.png",
-      "size": 9139,
-      "sha256": "36a9d05137ff53445a8f181fa9038179b01b40f1b0508f16a46580e3203c4f14"
+      "size": 10704,
+      "sha256": "49f7f8607eb0ff95742b1f3e9eaaf6786b5e543798504d54a416bf0322708102"
     },
     {
       "path": "web/assets/ui/girl-skin-2.png",
-      "size": 8217,
-      "sha256": "11ed0f82fb57a7e8b482e139b02b023cd232fa2681e0537318c6028c821852fc"
+      "size": 10246,
+      "sha256": "2d6d38b2011c6cbf225963a1c12c4dae4827f315fef7cbcfa9296020f318b03a"
     },
     {
       "path": "web/assets/ui/girl-skin-3.png",
-      "size": 6096,
-      "sha256": "d4abe167ffa549350e697b73b23530b9dbca909f6b0cdedbffb0873786c92ce8"
+      "size": 9487,
+      "sha256": "47e0ba4eaca73a58a12c7bfd4581a33c0e7702e5e829c4b99cb48b124c170519"
     },
     {
       "path": "web/assets/ui/girl-skin-4.png",
-      "size": 3415,
-      "sha256": "4f1bd91241c3cfc398c7800311a0ff5433b203b71589b9a85df1ed05eb7ada87"
+      "size": 8735,
+      "sha256": "bda4737c6e847e0b19c68147b38e2848471ea08437be707e3528a482f897bd98"
     },
     {
       "path": "web/assets/ui/girl-style-0.png",
@@ -668,8 +668,8 @@
     },
     {
       "path": "web/index.html",
-      "size": 287774,
-      "sha256": "ef3bd8fdf28eb3e5933dd56ebc872852ee7405781207e3f446fd84e1b1c20aff"
+      "size": 292311,
+      "sha256": "91254d2d0b3557a8887928b5ab37b4b51cd00ce5d1d929a5fcce284da7d05754"
     }
   ]
 }

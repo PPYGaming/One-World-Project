@@ -13,12 +13,36 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements android.hardware.SensorEventListener {
     private WebView wv;
     private BetaUpdater updater;
     private final android.os.Handler ui = new android.os.Handler(android.os.Looper.getMainLooper());
     private Runnable backTimeout;
     private boolean closing=false;
+    private android.hardware.SensorManager sensors;
+    private android.hardware.Sensor wallpaperSensor;
+    private boolean wallpaperRequested=false,foreground=false,wallpaperListening=false,haveGravity=false,haveCenter=false;
+    private final float[] gravity=new float[3];
+    private float wallpaperCenter;
+    private int wallpaperRotation=-1;
+    private long lastWallpaperSend=0;
+    private void syncWallpaperSensor(){
+        boolean wanted=foreground&&wallpaperRequested&&!closing&&sensors!=null&&wallpaperSensor!=null;
+        if(wanted&&!wallpaperListening){haveGravity=false;haveCenter=false;lastWallpaperSend=0;wallpaperListening=sensors.registerListener(this,wallpaperSensor,50000);}
+        else if(!wanted&&wallpaperListening){sensors.unregisterListener(this);wallpaperListening=false;haveCenter=false;}
+    }
+    @Override public void onAccuracyChanged(android.hardware.Sensor sensor,int accuracy){}
+    @Override public void onSensorChanged(android.hardware.SensorEvent event){
+        if(!wallpaperListening||wv==null||closing||event.values.length<3)return;
+        for(int i=0;i<3;i++){float v=event.values[i];if(!Float.isFinite(v))return;gravity[i]=haveGravity&&event.sensor.getType()==android.hardware.Sensor.TYPE_ACCELEROMETER?gravity[i]*.82f+v*.18f:v;}
+        haveGravity=true;
+        int rotation=getWindowManager().getDefaultDisplay().getRotation();
+        float horizontal=rotation==android.view.Surface.ROTATION_90?-gravity[1]:rotation==android.view.Surface.ROTATION_270?gravity[1]:rotation==android.view.Surface.ROTATION_180?-gravity[0]:gravity[0];
+        if(!haveCenter||rotation!=wallpaperRotation){wallpaperCenter=horizontal;wallpaperRotation=rotation;haveCenter=true;}
+        long time=android.os.SystemClock.uptimeMillis();if(time-lastWallpaperSend<50)return;lastWallpaperSend=time;
+        float offset=Math.max(-8f,Math.min(8f,(horizontal-wallpaperCenter)*3.2f));
+        wv.evaluateJavascript("window.oneworldNativeWallpaper&&window.oneworldNativeWallpaper("+Float.toString(offset)+")",null);
+    }
     private static final String ORIGIN = "https://appassets.androidplatform.net";
     private static final Map<String, String> MIME = new HashMap<>();
     static {
@@ -32,6 +56,9 @@ public class MainActivity extends Activity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         updater = new BetaUpdater(this);
         wv = new WebView(this);
+        wv.setOverScrollMode(android.view.View.OVER_SCROLL_NEVER);
+        sensors=(android.hardware.SensorManager)getSystemService(SENSOR_SERVICE);
+        if(sensors!=null){wallpaperSensor=sensors.getDefaultSensor(android.hardware.Sensor.TYPE_GRAVITY);if(wallpaperSensor==null)wallpaperSensor=sensors.getDefaultSensor(android.hardware.Sensor.TYPE_ACCELEROMETER);}
         updater.display=(state,title,detail)->{if(wv!=null&&!closing)wv.evaluateJavascript("window.oneworldUpdateUI&&window.oneworldUpdateUI("+org.json.JSONObject.quote(state)+","+org.json.JSONObject.quote(title)+","+org.json.JSONObject.quote(detail)+")",null);};
         WebSettings s = wv.getSettings();
         s.setJavaScriptEnabled(true);
@@ -40,6 +67,8 @@ public class MainActivity extends Activity {
         s.setAllowContentAccess(false);
         s.setMediaPlaybackRequiresUserGesture(false);
         wv.addJavascriptInterface(new Object() {
+            @JavascriptInterface public void openStudioWebsite(){ui.post(()->{try{startActivity(new android.content.Intent(android.content.Intent.ACTION_VIEW,android.net.Uri.parse("https://tamilcraftersstudio.in/")));}catch(android.content.ActivityNotFoundException e){android.widget.Toast.makeText(MainActivity.this,"No browser is available",android.widget.Toast.LENGTH_SHORT).show();}});}
+            @JavascriptInterface public void setWallpaperMotionActive(final boolean active){ui.post(()->{wallpaperRequested=active;syncWallpaperSensor();});}
             @JavascriptInterface public void betaUpdateAction(final String value){ui.post(()->updater.action(value));}
             @JavascriptInterface public String getBuildInfo(){try{android.content.pm.PackageInfo p=getPackageManager().getPackageInfo(getPackageName(),0);org.json.JSONObject j=new org.json.JSONObject();j.put("name",p.versionName);j.put("code",p.getLongVersionCode());j.put("package",p.packageName);return j.toString();}catch(Exception e){return "{}";}}
             @JavascriptInterface public void checkBetaAtEntry(final int id){ui.post(()->updater.entry(id,(n,result)->{if(wv!=null&&!closing)wv.evaluateJavascript("window.oneworldEntryUpdateResult&&window.oneworldEntryUpdateResult("+n+","+org.json.JSONObject.quote(result)+")",null);}));}
@@ -73,6 +102,7 @@ public class MainActivity extends Activity {
         wv.loadUrl(ORIGIN + "/index.html");
     }
     @Override protected void onPause() {
+        foreground=false;syncWallpaperSensor();
         if (wv != null) {
             wv.evaluateJavascript("if(window.oneworldLifecyclePause)window.oneworldLifecyclePause();", null);
             wv.onPause();
@@ -83,6 +113,7 @@ public class MainActivity extends Activity {
     }
     @Override protected void onResume() {
         super.onResume();
+        foreground=true;syncWallpaperSensor();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         if(updater!=null)updater.resumed();
         if (wv != null) {
@@ -92,6 +123,7 @@ public class MainActivity extends Activity {
         }
     }
     @Override protected void onDestroy() {
+        closing=true;foreground=false;syncWallpaperSensor();
         if(updater!=null)updater.close();
         if(backTimeout!=null)ui.removeCallbacks(backTimeout);
         if (wv != null) {

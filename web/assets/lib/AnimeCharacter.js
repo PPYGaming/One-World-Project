@@ -6,6 +6,7 @@ export function animeClips(root){
   const clips=[];
   const names=['Idle','Run','Walk','Punch','Slash','Chop','Death','Swim'];
   const bones=[];root.traverse(b=>{if(b.isBone) bones.push(b);});
+  const rig=Object.fromEntries(bones.map(b=>[b.name,b]));
   names.forEach(name=>{
     const duration= name==='Death'?1.1 : /Slash|Chop|Punch/.test(name)?0.48 : name==='Run'?0.65 : name==='Walk'?1.1 : name==='Swim'?1.4 : 2.4;
     const tracks=[]; const samples=33;
@@ -24,11 +25,30 @@ export function animeClips(root){
         }
         if(name==='Run'||name==='Walk'){
           const t=(left?0:Math.PI)+a,amp=name==='Run'?0.72:0.36;
-          if(b.name.endsWith('UpperLeg'))x=Math.sin(t)*amp;
-          if(b.name.endsWith('LowerLeg'))x=-Math.max(0,-Math.sin(t))*amp*(name==='Run'?1.8:1.4);
-          if(b.name.endsWith('Foot'))x=Math.max(0,Math.sin(t))*0.15;
-          if(b.name.endsWith('UpperArm')){x=-Math.sin(t)*amp;z=sgn*1.23;}
-          if(b.name.endsWith('LowerArm')){y=-sgn*(name==='Run'?(.92+.18*Math.sin(t)):(.26+.10*Math.sin(t)));z=0;}
+          // A planted backstroke followed by a clear, bent-knee recovery.
+          // Solve the two leg segments to an ankle path instead of coupling
+          // knee flex to the thigh sine (which lifted both soles mid-stride).
+          if(/(UpperLeg|LowerLeg|Foot)$/.test(b.name)){
+          const phase=((u+(left?0:.5))%1),run=name==='Run';
+          const stride=run?.37:.24,stance=phase<.5;
+          const progress=stance?phase*2:(phase-.5)*2;
+          const forward=stance?stride*(1-2*progress):-stride*Math.cos(progress*Math.PI);
+          const height=-(run?.84:.88)+(stance?0:Math.sin(progress*Math.PI)*(run?.23:.12));
+          const thigh=rig['J_Bip_'+(left?'L':'R')+'_LowerLeg'];
+          const shin=rig['J_Bip_'+(left?'L':'R')+'_Foot'];
+          const l1=thigh?thigh.position.length():.39,l2=shin?shin.position.length():.46;
+          // Paths above are in normalized survivor metres; source bones are
+          // rescaled by normSkinnedChar. Keep this ratio local to the rig.
+          const scale=(l1+l2)/.94,fy=height*scale,fz=forward*scale;
+          const d=Math.min(l1+l2-.002,Math.hypot(fy,fz));
+          const hip=Math.atan2(fz,-fy)+Math.acos(THREE.MathUtils.clamp((l1*l1+d*d-l2*l2)/(2*l1*d),-1,1));
+          const knee=-Math.acos(THREE.MathUtils.clamp((d*d-l1*l1-l2*l2)/(2*l1*l2),-1,1));
+          if(b.name.endsWith('UpperLeg'))x=hip;
+          if(b.name.endsWith('LowerLeg'))x=knee;
+          if(b.name.endsWith('Foot'))x=-hip-knee+(stance?Math.sin(progress*Math.PI)*.08:-.08);
+          }
+          if(b.name.endsWith('UpperArm')){x=-Math.sin(t)*amp*.78;z=sgn*1.30;}
+          if(b.name.endsWith('LowerArm')){y=-sgn*(name==='Run'?(.95+.12*Math.sin(t)):(.3+.08*Math.sin(t)));z=0;}
           if(b.name.endsWith('Head')){y=Math.sin(a)*.025;x=Math.sin(a*2)*.012;}
           if(b.name.endsWith('Spine')){y=Math.sin(a)*.045;z=Math.cos(a)*.008;}
           if(b.name.endsWith('Hips'))z=Math.cos(a)*.006;
@@ -41,9 +61,20 @@ export function animeClips(root){
         }
         if(/Slash|Chop|Punch/.test(name)){
           const s=Math.sin(u*Math.PI);
-          if(b.name==='J_Bip_R_UpperArm'){z=-1.1+s*0.7;x=-s*1.65;}
-          if(b.name==='J_Bip_R_LowerArm')y=.15+s*.7;
-          if(b.name==='J_Bip_C_Chest')y=-Math.sin(u*Math.PI*2)*0.26;
+          // Aim in the rig's forward (-Z) plane, rather than rotating the
+          // lowered arm about its old T-pose axis (which produced a side swipe).
+          const upper=rig.J_Bip_R_UpperArm;
+          const lower=rig.J_Bip_R_LowerArm;
+          const hand=rig.J_Bip_R_Hand;
+          if(upper&&lower&&hand&&(b===upper||b===lower)){
+            const thrust=name==='Punch',lift=thrust?.80:1.04;
+            const upperDir=new THREE.Vector3(.16,-1+s*lift,-.04-s*.98).normalize();
+            const uq=new THREE.Quaternion().setFromUnitVectors(lower.position.clone().normalize(),upperDir);
+            const lowerDir=new THREE.Vector3(.06,-.87+s*(thrust?.9:.65),-.2-s*.9).normalize().applyQuaternion(uq.clone().invert());
+            const aq=b===upper?uq:new THREE.Quaternion().setFromUnitVectors(hand.position.clone().normalize(),lowerDir);
+            const ae=new THREE.Euler().setFromQuaternion(aq);x=ae.x;y=ae.y;z=ae.z;
+          }
+          if(b.name==='J_Bip_C_Chest')y=-Math.sin(u*Math.PI*2)*0.06;
           if(/_R_(Index|Middle|Ring|Little)[123]$/.test(b.name))z=-0.8;
         }
         if(name==='Death'){
@@ -55,6 +86,12 @@ export function animeClips(root){
         const q=new THREE.Quaternion().setFromEuler(new THREE.Euler(x,y,z));values.push(q.x,q.y,q.z,q.w);times.push(u*duration);
       }
       tracks.push(new THREE.QuaternionKeyframeTrack(b.name+'.quaternion',times,values));
+      if(b.name==='J_Bip_C_Hips'&&(name==='Run'||name==='Walk')){
+        // Keep a flexed stance within reach; the unchanged sole-support pass
+        // still makes the final terrain contact correction. No root motion.
+        const y=b.position.y-(name==='Run'?.13:.09);
+        tracks.push(new THREE.VectorKeyframeTrack(b.name+'.position',[0,duration],[b.position.x,y,b.position.z,b.position.x,y,b.position.z]));
+      }
     });
     clips.push(new THREE.AnimationClip(name,duration,tracks));
   });
@@ -69,7 +106,10 @@ function recolorMap(map,hex,kind){
  const c=document.createElement('canvas');c.width=map.image.width;c.height=map.image.height;
  const ctx=c.getContext('2d',{willReadFrequently:true});ctx.drawImage(map.image,0,0);
  const img=ctx.getImageData(0,0,c.width,c.height),d=img.data;
- const col=new THREE.Color(hex); // convert back to display-space bytes for texture painting
+ // Keep the saved Light warm option ID while giving it a distinct warm tint.
+ // #ffe7d8 was the reference divisor itself, so that choice used to be identical to Original.
+ const tint=kind==='skin'&&hex.toLowerCase()==='#ffe7d8'?'#eac6ae':hex;
+ const col=new THREE.Color(tint); // convert back to display-space bytes for texture painting
  col.convertLinearToSRGB(); const rgb=[col.r*255,col.g*255,col.b*255];
  for(let i=0;i<d.length;i+=4){
    if(kind==='skin'){d[i]=d[i]*rgb[0]/255;d[i+1]=d[i+1]*rgb[1]/231;d[i+2]=d[i+2]*rgb[2]/216;}

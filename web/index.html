@@ -6,7 +6,7 @@
 <title>One World</title>
 <style>
   * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-  html, body { width:100%; height:100%; overflow:hidden; background:#0e1530; touch-action:none;
+  html, body { overscroll-behavior:none; width:100%; height:100%; overflow:hidden; background:#0e1530; touch-action:none;
     font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif; user-select:none; -webkit-user-select:none; }
   #c { position:fixed; inset:0; display:block; }
 
@@ -351,7 +351,7 @@ body.playing:not(.gamePaused) #craftBtn{display:block}body.editingControls #craf
 
 /* Reversible art/UI preview. Background alone moves; hit targets never do. */
 #loading{background:#101b1c;isolation:isolate;--wall-x:0px;--wall-y:0px}
-#loading:before,#start:not(.choosing):before{content:'';position:fixed;inset:-16px;background-position:center;background-size:cover;z-index:-2;pointer-events:none;transform:translate3d(var(--wall-x,0px),var(--wall-y,0px),0);transition:transform .18s ease-out;will-change:transform}
+#loading:before,#start:not(.choosing):before{content:'';position:fixed;inset:0 -16px -32px;background-position:center 14px;background-size:cover;background-repeat:no-repeat;background-color:#091116;z-index:-2;pointer-events:none;transform:translate3d(var(--wall-x,0px),var(--wall-y,0px),0);transition:none;will-change:transform}
 #loading:before{background-image:url('assets/tex/loading-anime-preview.jpg')}
 #loading:after,#start:not(.choosing):after{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,#06101265,transparent 58%),linear-gradient(0deg,#02090ede,transparent 26%)}
 #loading h1{position:absolute;left:7vw;top:36%;font-size:clamp(26px,4vw,48px);color:#f5f6ef;letter-spacing:7px;text-shadow:0 2px 22px #0009}
@@ -369,7 +369,7 @@ body.playing:not(.gamePaused) #craftBtn{display:block}body.editingControls #craf
 .playbtn:hover,.playbtn:focus-visible,.equipChip.on,.charCard.on,.selectOptions button[aria-pressed=true],.visualOptions button[aria-pressed=true],#quickbar button.on{background:linear-gradient(145deg,#f6fbff3d,#ffffff12)!important;border-color:#fff!important}
 #joy .thumb{background:radial-gradient(ellipse at 35% 22%,#f4fcff38,#e6f4f518 55%,#ffffff0f);border-color:#e6f1f4a6;box-shadow:inset 0 1px 2px #fff5}
 #betaUpdateCard{background:radial-gradient(ellipse at 50% 0,#aec7c126,transparent 55%),linear-gradient(155deg,#172c2df5,#0a151df5);border-color:#c3d3d699}#betaUpdatePanel{background:radial-gradient(ellipse at 50% 30%,#284446a8,#040c14ed)}#betaUpdateSymbol{background:linear-gradient(145deg,#d0e4e32a,#b2c6c416);border-color:#dcebef80;color:#edf7f6}#betaUpdateMark,#betaUpdateMark span,#betaUpdatePhase,#betaUpdateTitle,#betaUpdateDetail{color:#e1edec}#betaUpdateMark span{border-color:#b9d3ce66}
-@media(orientation:portrait){#loading:before{background-position:72% center}#loading h1{top:12%;left:8vw;font-size:26px;letter-spacing:5px}#start:not(.choosing){padding-left:8vw;justify-content:flex-end;padding-bottom:9vh}#start:not(.choosing):before{background-position:79% center}#start:not(.choosing):after{background:linear-gradient(0deg,#020a12f2,transparent 95%)}#start:not(.choosing)>button{width:68vw;max-width:320px}#start:not(.choosing)>h1{font-size:28px}#start:not(.choosing)>.ver{margin-bottom:15px;font-size:8px;max-width:80vw}}
+@media(orientation:portrait){#loading:before{background-position:right 14px;background-size:auto 58%}#loading h1{top:12%;left:8vw;font-size:26px;letter-spacing:5px}#start:not(.choosing){padding-left:8vw;justify-content:flex-end;padding-bottom:9vh}#start:not(.choosing):before{background-position:right 14px;background-size:auto 58%}#start:not(.choosing):after{background:linear-gradient(0deg,#020a12 35%,transparent 62%)}#loading:after{background:linear-gradient(0deg,#020a12 35%,transparent 62%)}#start:not(.choosing)>button{width:68vw;max-width:320px}#start:not(.choosing)>h1{font-size:28px}#start:not(.choosing)>.ver{margin-bottom:15px;font-size:8px;max-width:80vw}}
 @media(prefers-reduced-motion:reduce){#loading:before,#start:not(.choosing):before{transform:none!important;transition:none;will-change:auto}}
 
 #studioIntro{position:fixed;inset:0;z-index:3000;background:#000;display:grid;place-items:center;pointer-events:auto}#studioIntro img{width:min(52vw,280px);height:auto;object-fit:contain;opacity:0;animation:studioSoftReveal 2.6s ease-in-out both}#studioIntro.hidden{display:none!important}@keyframes studioSoftReveal{0%{opacity:0;filter:brightness(.25)}35%,62%{opacity:1;filter:brightness(1)}100%{opacity:0;filter:brightness(.25)}}@media(prefers-reduced-motion:reduce){#studioIntro img{animation:none;opacity:1;filter:none}}
@@ -405,6 +405,7 @@ body.playing:not(.gamePaused) #craftBtn{display:block}body.editingControls #craf
 #betaUpdateTitle{font-size:21px;margin:5px 0 8px}#betaUpdateDetail{font-size:12px;line-height:1.4;margin:0 auto 10px}
 #betaUpdateActions button{min-height:40px;padding:9px 14px;font-size:11px;width:100%}
 #betaUpdateNote{font-size:9px;line-height:1.5;margin-top:9px}#betaUpdateNote span{font-size:10px}
+#tapToStart{position:fixed;inset:0;z-index:2900;background:#081014;display:flex;align-items:center;justify-content:center;flex-direction:column;color:#f3f6ee;gap:24px}#tapToStart h1{letter-spacing:7px;font-size:clamp(28px,6vw,48px)}#tapToStart button{background:transparent;color:inherit;border:1px solid #e3ede8aa;border-radius:8px;padding:16px 36px;font-size:14px;letter-spacing:3px;min-height:52px}#tapToStart p{font-size:11px;color:#b6c5bd}
 </style>
 </head>
 <body><div id="healthNotice" role="status" aria-live="polite"></div><div id="weaponAim" aria-hidden="true"></div>
@@ -439,7 +440,7 @@ body.playing:not(.gamePaused) #craftBtn{display:block}body.editingControls #craf
 <div id="controlEditor" class="hidden"><div id="controlSurface"></div><div class="controlToolbar"><select id="controlSelect" aria-label="Select control"></select><label>Size <span id="controlSizeValue"></span><br><input id="controlSize" type="range" min="50" max="200" value="100"></label><label>Opacity <span id="controlOpacityValue"></span><br><input id="controlOpacity" type="range" min="0" max="100" value="100"></label><button id="controlPanelMove">MOVE PANEL</button><button id="controlReset">RESET ALL</button><button id="controlCancel">CANCEL</button><button id="controlSave">SAVE</button><p>Drag any outlined control. Hidden controls stay outlined here. World paused. Layout is saved on this device. Settings is also available from the lobby.</p></div></div><div id="setPanel" class="panel hidden" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
 <header id="settingsHeader"><div><span class="settingsEyebrow">ONE WORLD</span><h3 id="settingsTitle">GAME SETTINGS</h3></div><button id="setClose" class="playbtn" aria-label="Close settings">&#215;</button></header>
 <div id="settingsLayout"><nav id="settingsNav" aria-label="Settings categories">
-<button data-settings-tab="graphics" aria-selected="true">GRAPHICS</button><button data-settings-tab="controls" aria-selected="false">CONTROLS</button><button data-settings-tab="survivor" aria-selected="false">SURVIVOR</button><button data-settings-tab="audio" aria-selected="false">AUDIO</button><button data-settings-tab="profile" aria-selected="false">PROFILE</button><button data-settings-tab="help" aria-selected="false">HELP &amp; BETA</button></nav>
+<button data-settings-tab="graphics" aria-selected="true">GRAPHICS</button><button data-settings-tab="controls" aria-selected="false">CONTROLS</button><button data-settings-tab="survivor" aria-selected="false">SURVIVOR</button><button data-settings-tab="audio" aria-selected="false">AUDIO</button><button data-settings-tab="profile" aria-selected="false">PROFILE</button><button data-settings-tab="help" aria-selected="false">HELP &amp; BETA</button><button data-settings-tab="about" aria-selected="false">ABOUT</button></nav>
 <div id="settingsContent">
 <section data-settings-page="graphics"><h4>GRAPHICS</h4><p class="settingsIntro">Choose the detail level for this device.</p>
 <div class="settingRow"><label>Graphics quality</label><select id="setQuality"><option value="low">Low</option><option value="medium">Medium</option><option value="high">High</option></select></div>
@@ -450,7 +451,7 @@ body.playing:not(.gamePaused) #craftBtn{display:block}body.editingControls #craf
 <div class="settingRow"><label for="setSens">Camera sensitivity <output id="setSensValue">1.0&#215;</output></label><input type="range" id="setSens" min="0.4" max="2" step="0.1" value="1"></div>
 <div class="settingsButtonRow"><button class="playbtn" id="controlsBtn">CUSTOMIZE LAYOUT</button><button class="playbtn secondary" id="controlsRecovery">RESET SAVED LAYOUT</button></div><p class="settingsNote">Enter your world to move and resize the gameplay controls.</p></section>
 <section data-settings-page="survivor" class="hidden"><h4>SURVIVOR</h4><p class="settingsIntro">View your survivor and manage your current session.</p><div class="settingsButtonRow"><button class="playbtn" id="profileBtn">PROFILE</button><button class="playbtn secondary" id="sosBtn">SOS - UNSTUCK</button></div><p class="settingsNote">Use SOS only if your survivor is stuck in the terrain.</p></section>
-<section data-settings-page="audio" class="hidden"><h4>AUDIO</h4><p class="settingsIntro">Adjust music and game effects separately.</p><div class="settingRow"><label for="musicVolume">Background music <output id="musicVolumeValue"></output></label><input id="musicVolume" type="range" min="0" max="100" step="1"></div><div class="settingRow"><label for="sfxVolume">Sound effects <output id="sfxVolumeValue"></output></label><input id="sfxVolume" type="range" min="0" max="100" step="1"></div><p id="musicPlaybackStatus" class="settingsNote" role="status"></p><p class="settingsNote">Music plays only in loading and the main menu. Your music volume is kept. Device media volume and output are controlled by Android.</p></section><section data-settings-page="profile" class="hidden"><h4>PROFILE</h4><p class="settingsIntro">View your survivor profile.</p><button class="playbtn" id="menuProfileBtn">PROFILE</button></section><section data-settings-page="help" class="hidden"><h4>HELP &amp; BETA</h4><p class="settingsIntro">Your forest survival guide.</p><div id="setHelp" style="font-size:11px;line-height:1.6;margin-top:12px;max-width:420px;color:#baccdb">Move: joystick / WASD. Auto-run: hold the joystick and drag up to show its lock target. Reach the target and release there to lock. Release anywhere else to stop. Touch the joystick again to stop auto-run. Hold and drag the eye to look without steering; release to return. Move joystick to stop. Shift on keyboard. Look: drag. Attack: right button / Space. Bag: B. Quick tools: 1-3.<br>Drink at the river. Approach a coloured gate, then open Map to travel. Sleep at your placed bedroll.<br>Beta: original lowpoly enemies and animals; visual quality and phone performance are still being tested.</div><div id="studioCredits" class="settingsNote"><h4>CREDITS</h4>Tamil Crafters Studio<br>Original game: Smiley, reused and modified with permission.<br>Models: VRoid Project + Quaternius (CC0). Textures: Poly Haven (CC0). Three.js (MIT).<br>Original menu music supplied by the app owner. Anime wallpaper illustrations prepared for this project.<br>Full third-party license and provenance notices are bundled with the game source.</div><button id="debugBtn" class="playbtn secondary">BETA DEBUG CONSOLE</button></section>
+<section data-settings-page="audio" class="hidden"><h4>AUDIO</h4><p class="settingsIntro">Adjust music and game effects separately.</p><div class="settingRow"><label for="musicVolume">Background music <output id="musicVolumeValue"></output></label><input id="musicVolume" type="range" min="0" max="100" step="1"></div><div class="settingRow"><label for="sfxVolume">Sound effects <output id="sfxVolumeValue"></output></label><input id="sfxVolume" type="range" min="0" max="100" step="1"></div><p id="musicPlaybackStatus" class="settingsNote" role="status"></p><p class="settingsNote">Music continues through all pregame panels and stops on world entry. Your music volume is kept. Device media volume and output are controlled by Android.</p></section><section data-settings-page="profile" class="hidden"><h4>PROFILE</h4><p class="settingsIntro">View your survivor profile.</p><button class="playbtn" id="menuProfileBtn">PROFILE</button></section><section data-settings-page="help" class="hidden"><h4>HELP &amp; BETA</h4><p class="settingsIntro">Your forest survival guide.</p><div id="setHelp" style="font-size:11px;line-height:1.6;margin-top:12px;max-width:420px;color:#baccdb">Move: joystick / WASD. Auto-run: hold the joystick and drag up to show its lock target. Reach the target and release there to lock. Release anywhere else to stop. Touch the joystick again to stop auto-run. Hold and drag the eye to look without steering; release to return. Move joystick to stop. Shift on keyboard. Look: drag. Attack: right button / Space. Bag: B. Quick tools: 1-3.<br>Drink at the river. Approach a coloured gate, then open Map to travel. Sleep at your placed bedroll.<br>Beta: original lowpoly enemies and animals; visual quality and phone performance are still being tested.</div><div id="studioCredits" class="settingsNote"><h4>CREDITS</h4>Tamil Crafters Studio<br>Original game: Smiley, reused and modified with permission.<br>Models: VRoid Project + Quaternius (CC0). Textures: Poly Haven (CC0). Three.js (MIT).<br>Original menu music supplied by the app owner. Anime wallpaper illustrations prepared for this project.<br>Full third-party license and provenance notices are bundled with the game source.</div><button id="debugBtn" class="playbtn secondary">BETA DEBUG CONSOLE</button></section><section data-settings-page="about" class="hidden"><h4>ABOUT</h4><h3 style="margin:18px 0 14px">AUTHORS</h3><article class="settingRow" style="display:flex;align-items:center;gap:16px;flex-wrap:wrap"><img src="assets/ui/tc-studio.png" alt="Tamil Crafters Studio" style="width:64px;height:64px;object-fit:contain"><div><h4 style="margin:0 0 8px">PPYGaming</h4><button id="authorStudioLink" class="playbtn secondary" style="padding:10px 14px;font-size:12px" aria-label="Open Tamil Crafters Studio website"><svg viewBox="0 0 24 24" width="16" height="16" style="vertical-align:-3px;margin-right:6px" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/><ellipse cx="12" cy="12" rx="4" ry="9" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3 12h18M5 7h14M5 17h14" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>Tamil Crafters Studio</button></div></article><p class="settingsNote">Third-party licenses and asset credits are listed separately in Help &amp; Beta.</p></section>
 </div></div>
 <footer id="settingActions"><span>Changes are saved on this device.</span><button class="playbtn closebtn" id="saveLobby">SAVE &amp; LOBBY</button></footer>
 </div><div id="profileBox" class="hidden" style="max-width:360px"><label>Survivor name</label><input id="profileName" maxlength="16" style="width:160px;padding:7px;background:#0b2b47;color:white;border:1px solid #6ea6ca"><button id="profileNameSave" style="padding:7px;background:#174c70;color:white;border:1px solid #75bce4">SAVE NAME</button><div id="profileStats" style="font-size:11px;line-height:1.6"></div></div><div id="confirmPanel" class="panel hidden"><h3 id="confirmTitle">ARE YOU SURE?</h3><div id="confirmMsg" style="font-size:14px;opacity:.85;margin:6px 0 4px"></div>
@@ -459,6 +460,7 @@ body.playing:not(.gamePaused) #craftBtn{display:block}body.editingControls #craf
 <button id="freeLookBtn" aria-label="Hold and drag to look around without steering"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M2 16s5-9 14-9 14 9 14 9-5 9-14 9S2 16 2 16Z"/><circle cx="16" cy="16" r="5"/></svg></button><div id="sprintBtn" role="presentation" aria-hidden="true"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="m8 7 6 6 4 1 3 5 7 3v5H4v-7l3-5zM5 23h22M12 14l4 3m-6 0 4 3M2 8h5M1 12h4"/></svg></div><div id="sosNotice" class="hidden"></div><div id="toast"></div>
 <div id="flash"></div><aside id="betaDebug" class="hidden"><div class="debugHead">BETA DIAGNOSTICS <button id="debugClear">CLEAR</button><button id="debugClose">CLOSE</button></div><pre id="debugStats"></pre></aside>
 
+<div id="tapToStart" class="hidden" role="dialog" aria-label="Tap to start"><h1>ONE WORLD</h1><button id="tapStartBtn">TAP TO START</button><p>Tamil Crafters Studio</p></div>
 <div id="studioIntro" aria-label="Tamil Craft Studio"><img src="assets/ui/tc-studio.png" alt="Tamil Craft Studio" draggable="false"></div>
 <div class="overlay" id="loading">
   <h1>ONE WORLD</h1>
@@ -513,7 +515,7 @@ window.oneworldLoadingPainted=new Promise(function(resolve){
  var art=new Image();art.src='assets/tex/loading-anime-preview.jpg';
  var decoded=art.decode?art.decode().catch(function(){}):new Promise(function(done){art.onload=art.onerror=done;});
  window.oneworldIntroReady=new Promise(function(introDone){var root=document.getElementById('studioIntro'),reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  setTimeout(async function(){await decoded;root.classList.add('hidden');window.oneworldTrace('logo-hidden');introDone();await window.oneworldYieldPaint();await window.oneworldYieldPaint();window.oneworldTrace('loading-painted');resolve();},reduce?700:2600);
+  setTimeout(async function(){await decoded;root.classList.add('hidden');window.oneworldTrace('logo-hidden');introDone();var gate=document.getElementById('tapToStart'),button=document.getElementById('tapStartBtn');gate.classList.remove('hidden');window.oneworldTrace('tap-visible');button.focus({preventScroll:true});var entered=false;button.addEventListener('click',async function(){if(entered)return;entered=true;gate.classList.add('hidden');window.oneworldTrace('tap-accepted');if(window.oneworldMenuMusic)window.oneworldMenuMusic.sync();await window.oneworldYieldPaint();await window.oneworldYieldPaint();window.oneworldTrace('loading-painted');resolve();},{once:true});},reduce?700:2600);
  });
 });
 window.oneworldUpdateUI=function(state,title,detail){
@@ -545,13 +547,19 @@ window.oneworldStartupReady=window.oneworldLoadingPainted.then(function(){return
 </script>
 <script>
 (function(){
- var reduced=window.matchMedia('(prefers-reduced-motion: reduce)'),origin=null,last=0,x=0,y=0;
- function current(){if(document.hidden||reduced.matches)return null;var l=document.getElementById('loading'),m=document.getElementById('start');if(!l.classList.contains('hidden'))return l;if(!m.classList.contains('hidden')&&!m.classList.contains('choosing'))return m;return null;}
- function move(nx,ny){var target=current(),t=performance.now();if(!target||t-last<80)return;last=t;x=x*.65+Math.max(-8,Math.min(8,nx))*.35;y=y*.65+Math.max(-8,Math.min(8,ny))*.35;target.style.setProperty('--wall-x',x.toFixed(2)+'px');target.style.setProperty('--wall-y',y.toFixed(2)+'px');}
- window.addEventListener('deviceorientation',function(e){if(!current()||!Number.isFinite(e.beta)||!Number.isFinite(e.gamma))return;if(!origin)origin={b:e.beta,g:e.gamma};var dx=e.gamma-origin.g,dy=e.beta-origin.b,angle=screen.orientation?screen.orientation.angle:0;if(Math.abs(angle)===90)move(dy*.32,-dx*.32);else move(-dx*.32,-dy*.32);},{passive:true});
- window.addEventListener('devicemotion',function(e){if(!current()||!e.acceleration)return;var a=e.acceleration;if(Number.isFinite(a.x)&&Number.isFinite(a.y))move(-a.x*.7,a.y*.7);},{passive:true});
- window.addEventListener('orientationchange',function(){origin=null;x=y=0;document.querySelectorAll('#loading,#start').forEach(function(t){t.style.setProperty('--wall-x','0px');t.style.setProperty('--wall-y','0px');});});
- window.oneworldWallpaperMotion={preview:move,state:function(){return {x:x,y:y,active:!!current(),reduced:reduced.matches};}};
+ var reduced=window.matchMedia('(prefers-reduced-motion: reduce)'),origin=null,x=0,targetX=0,frame=0,lastNative=0,nativeActive=null;
+ var native=window.OneWorldNative,hasNative=!!(native&&typeof native.setWallpaperMotionActive==='function');
+ function current(){if(document.hidden||reduced.matches||!document.getElementById('studioIntro').classList.contains('hidden')||!document.getElementById('tapToStart').classList.contains('hidden'))return null;var l=document.getElementById('loading'),m=document.getElementById('start');if(!l.classList.contains('hidden'))return l;if(!m.classList.contains('hidden')&&!m.classList.contains('choosing'))return m;return null;}
+ function paint(){frame=0;var target=current();if(!target)return;x+=(targetX-x)*.30;if(Math.abs(targetX-x)<.015)x=targetX;target.style.setProperty('--wall-x',x.toFixed(2)+'px');target.style.setProperty('--wall-y','0px');if(x!==targetX)frame=requestAnimationFrame(paint);}
+ function move(nx){if(!current()||!Number.isFinite(nx))return;targetX=Math.max(-8,Math.min(8,nx));if(!frame)frame=requestAnimationFrame(paint);}
+ function reset(){origin=null;x=targetX=0;if(frame)cancelAnimationFrame(frame);frame=0;document.querySelectorAll('#loading,#start').forEach(function(t){t.style.setProperty('--wall-x','0px');t.style.setProperty('--wall-y','0px');});}
+ function sync(){var active=!!current();if(hasNative&&nativeActive!==active){nativeActive=active;native.setWallpaperMotionActive(active);}if(!active)reset();else if(!frame)frame=requestAnimationFrame(paint);}
+ window.oneworldNativeWallpaper=function(value){lastNative=performance.now();move(Number(value));};
+ // Browser-only preview fallback. Android uses its explicit sensor bridge. No pointer/drag input.
+ window.addEventListener('deviceorientation',function(e){if(hasNative||!current()||!Number.isFinite(e.beta)||!Number.isFinite(e.gamma))return;if(!origin)origin={b:e.beta,g:e.gamma};var angle=screen.orientation?screen.orientation.angle:0,delta=Math.abs(angle)===90?e.beta-origin.b:e.gamma-origin.g;move(delta*.40);},{passive:true});
+ window.addEventListener('orientationchange',reset);document.addEventListener('visibilitychange',sync);reduced.addEventListener('change',sync);
+ new MutationObserver(sync).observe(document.body,{subtree:true,attributes:true,attributeFilter:['class']});
+ window.oneworldWallpaperMotion={preview:move,state:function(){return {x:x,y:0,targetX:targetX,active:!!current(),reduced:reduced.matches,native:hasNative,lastNative:lastNative};}};sync();
 })();
 </script>
 <script src="assets/lib/MenuMusic.js"></script>
@@ -571,7 +579,7 @@ import { GLTFLoader } from './assets/lib/GLTFLoader.js';
 import { clone as skClone } from './assets/lib/SkeletonUtils.js';
 import { animeClips, applyAnimeColors, attachLeatherGarments, applyHairStyle, updateHairSway } from './assets/lib/AnimeCharacter.js';
 
-var BUILD_INFO={name:'1.3.27',code:null,native:false};
+var BUILD_INFO={name:'1.3.29',code:null,native:false};
 try{var nb=window.OneWorldNative;if(nb&&typeof nb.getBuildInfo==='function'){var bi=JSON.parse(nb.getBuildInfo());if(bi.package==='com.oneword.forest.beta'&&typeof bi.name==='string'&&/^\d+\.\d+\.\d+$/.test(bi.name)&&Number.isSafeInteger(bi.code)&&bi.code>0)BUILD_INFO={name:bi.name,code:bi.code,native:true};}}catch(e){}
 var DISPLAY_VERSION=BUILD_INFO.name+(BUILD_INFO.native?'':' preview');
 document.querySelector('#start .ver').textContent=DISPLAY_VERSION+' Beta - Work in progress';
@@ -1426,7 +1434,19 @@ function buildPlayerChar(kind){
   // CC0 anime source outfits are already skinned to the body. No rigid pelt shells.
   updateArmorVisual();
   playAnim(pAnim,'Idle',0);pAnim.mixer.update(.001);charRoot.updateMatrixWorld(true);
-  if(propMount){var handQ=handSlotR.getWorldQuaternion(new THREE.Quaternion()),playerQ=player.getWorldQuaternion(new THREE.Quaternion());propMount.quaternion.copy(handQ.invert().multiply(playerQ));charRoot.updateMatrixWorld(true);var finger=charRoot.getObjectByName('J_Bip_R_Middle1');if(finger){var grip=propMount.worldToLocal(finger.getWorldPosition(new THREE.Vector3()));[knifeProp,axePropM,pickProp].forEach(function(prop){if(prop)prop.position.copy(grip);});}if(torchFlame)attachTorchToMount();}
+  if(propMount){
+    // Calibrate the upright handle in Idle once, then inherit wrist motion.
+    var handQ=handSlotR.getWorldQuaternion(new THREE.Quaternion()),playerQ=player.getWorldQuaternion(new THREE.Quaternion());
+    propMount.userData.gripRotation=handQ.invert().multiply(playerQ);
+    var middle=charRoot.getObjectByName('J_Bip_R_Middle1'),index=charRoot.getObjectByName('J_Bip_R_Index1');
+    if(middle){
+      var grip=middle.getWorldPosition(new THREE.Vector3());
+      if(index)grip.lerp(index.getWorldPosition(new THREE.Vector3()),.5);
+      propMount.position.copy(handSlotR.worldToLocal(grip));
+    }
+    [knifeProp,axePropM,pickProp].forEach(function(prop){if(prop){prop.position.set(0,0,0);prop.quaternion.copy(propMount.userData.gripRotation);}});
+    if(torchFlame)attachTorchToMount();
+  }
 }
 buildPlayerChar('boy');
 scene.add(player);
@@ -1618,7 +1638,7 @@ function attachTorchToMount(){
   var g = torchFlame && torchFlame.userData.group;
   if(!g || !propMount) return;
   propMount.add(g);
-  var f=charRoot.getObjectByName('J_Bip_R_Middle1');if(f){charRoot.updateMatrixWorld(true);g.position.copy(propMount.worldToLocal(f.getWorldPosition(new THREE.Vector3())));}else g.position.set(0,.05,0); g.rotation.set(0, 0, 0); g.scale.setScalar(1);
+  g.position.set(0,0,0);g.quaternion.copy(propMount.userData.gripRotation||new THREE.Quaternion());g.scale.setScalar(1);
 }
 function applyEquipVisibility(){
   document.body.classList.toggle('weaponEquipped',equipped==='knife'||equipped==='axe'||equipped==='pickaxe');
@@ -1689,7 +1709,7 @@ function renderInvPreview(){
   var density=Math.min(3,Math.max(2,window.devicePixelRatio||1)),pw=Math.round(132*density),ph=Math.round(168*density);if(cv.width!==pw||cv.height!==ph){cv.width=pw;cv.height=ph;}
   if(!pvCam) pvCam = new THREE.PerspectiveCamera(32, cv.width/cv.height, 0.1, 60);
   if(!pvRT){ pvRT = new THREE.WebGLRenderTarget(cv.width, cv.height);pvRT.texture.colorSpace=THREE.SRGBColorSpace; pvBuf = new Uint8Array(cv.width*cv.height*4); }
-  var ps=new THREE.Scene();ps.background=new THREE.Color(0x0b2037);ps.add(new THREE.HemisphereLight(0xf4f3e7,0x687b69,2));var dl=new THREE.DirectionalLight(0xffffff,2);dl.position.set(2,4,4);ps.add(dl);
+  var ps=new THREE.Scene();ps.background=new THREE.Color(0x0b2037);ps.add(new THREE.HemisphereLight(0xe9f4ff,0x4d5365,.75));var dl=new THREE.DirectionalLight(0xffedd9,.80);dl.position.set(-2,3,4);ps.add(dl);var rim=new THREE.DirectionalLight(0x9ad8ff,.25);rim.position.set(2,2,-3);ps.add(rim);
   var model=skClone(A.models[charKind].scene);cloneSkinnedMaterials(model);prepareCharacterMaterials(model);applyAnimeColors(model,charLook);normSkinnedChar(model,1.78);attachLeatherGarments(model,charKind);applyHairStyle(model,charLook.style,charKind);applyAnimeColors(model,charLook);model.visible=true;ps.add(model);var ma=animSet(model,A.models[charKind].animations);playAnim(ma,'Idle',0);ma.mixer.update(.1);
   pvCam.position.set(.20,.95,3.55);pvCam.lookAt(0,.85,0);
   renderer.setRenderTarget(pvRT);renderer.render(ps,pvCam);renderer.readRenderTargetPixels(pvRT,0,0,cv.width,cv.height,pvBuf);renderer.setRenderTarget(null);ma.mixer.stopAllAction();ma.mixer.uncacheRoot(model);
@@ -2072,8 +2092,9 @@ document.getElementById('atk').addEventListener('pointerdown', function(e){ e.st
 // ---------- audio ----------
 function menuMusicVisible(id){var e=document.getElementById(id);return e&&!e.classList.contains('hidden');}
 function syncMenuMusicScope(){
- var allow=!running&&!appSuspended&&!closingGame&&(menuMusicVisible('loading')||menuMusicVisible('worldLoading')||menuMusicVisible('start'));
- ['profileBox','confirmPanel','betaDebug','controlEditor','mapPanel','bag','craftPanel','over'].forEach(function(id){if(menuMusicVisible(id))allow=false;});
+ // Pregame panels do not change ownership of music. Only actual world entry,
+ // app backgrounding or closing may stop it; UI visibility is not an audio gate.
+ var allow=!running&&!appSuspended&&!closingGame;
  if(window.oneworldMenuMusic)window.oneworldMenuMusic.world(!allow);
 }
 function menuMusicWorld(v){if(window.oneworldMenuMusic)window.oneworldMenuMusic.world(v);}
@@ -2337,6 +2358,8 @@ function tick(dt){
   if(paused) return;
   updateFreeLookReturn(dt);
 
+  // Visual cadence only. P.speed, displacement and attack clocks are untouched.
+  ['Walk','Run'].forEach(function(n){var action=pAnim.actions[n];if(action)action.timeScale=pAnim.current===n?THREE.MathUtils.clamp(P.speed/(n==='Run'?4.2:2.5),.65,1.7):1;});
   pAnim.mixer.update(dt);updateHairSway(charRoot,dt,P.speed>.1,P.speed>4);
   if(charRoot&&equipped!=='hand')charRoot.traverse(function(b){
     if(b.isBone&&/_R_(Index|Middle|Ring|Little)[123]$/.test(b.name))b.rotation.z=-.85;
@@ -2346,7 +2369,15 @@ function tick(dt){
    var ua=charRoot.getObjectByName('J_Bip_R_UpperArm'),la=charRoot.getObjectByName('J_Bip_R_LowerArm'),hand=charRoot.getObjectByName('J_Bip_R_Hand'),up=new THREE.Vector3(0,1,0),forward=new THREE.Vector3(0,0,1).applyAxisAngle(up,P.rotY),right=new THREE.Vector3(-1,0,0).applyAxisAngle(up,P.rotY);
    if(ua&&la&&hand){var shoulder=ua.getWorldPosition(new THREE.Vector3());aimBone(ua,la,shoulder.clone().addScaledVector(right,.12).addScaledVector(up,-.2).addScaledVector(forward,.17));var elbow=la.getWorldPosition(new THREE.Vector3());aimBone(la,hand,elbow.clone().addScaledVector(up,.26).addScaledVector(forward,.12));}
   }
-  if(torchFlame&&propMount){var tg=torchFlame.userData.group;propMount.updateMatrixWorld(true);tg.quaternion.copy(propMount.getWorldQuaternion(new THREE.Quaternion())).invert();}
+  if(torchFlame&&propMount&&equipped==='torch'){
+    // Keep the torch above the closed grip, not inverted into the forearm.
+    // Only its visual tilt changes on a strike; equipment/action state is read-only.
+    var torchAttack=Math.max(0,Math.min(1,(now-P.atkT)/.48));
+    var torchPitch=now-P.atkT<.48?Math.sin(torchAttack*Math.PI)*.75:0;
+    var torchWorld=player.getWorldQuaternion(new THREE.Quaternion()).multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1,0,0),torchPitch));
+    propMount.updateWorldMatrix(true,false);
+    torchFlame.userData.group.quaternion.copy(propMount.getWorldQuaternion(new THREE.Quaternion()).invert().multiply(torchWorld));
+  }
   wolves.forEach(function(w){ w.mesh.userData.anim.mixer.update(dt); });
   deer.forEach(function(d){ d.mesh.userData.anim.mixer.update(dt); });
   critters.forEach(function(c){ var mdx = P.x - c.x, mdz = P.z - c.z; if(mdx*mdx + mdz*mdz < 16900) c.mesh.userData.anim.mixer.update(dt); });
@@ -2856,7 +2887,7 @@ function buildSetupPreview(k){
  var cv=document.getElementById('charPreview');
  if(!setupRenderer){
   setupRenderer=new THREE.WebGLRenderer({canvas:cv,alpha:true,antialias:true});setupRenderer.setPixelRatio(Math.min(2,window.devicePixelRatio||1));setupRenderer.outputColorSpace=THREE.SRGBColorSpace;
-  setupScene=new THREE.Scene();setupScene.add(new THREE.HemisphereLight(0xe9f4ff,0x4d5365,1.1));var previewKey=new THREE.DirectionalLight(0xffedd9,1.0);previewKey.position.set(-2,3,4);setupScene.add(previewKey);var previewRim=new THREE.DirectionalLight(0x9ad8ff,.5);previewRim.position.set(2,2,-3);setupScene.add(previewRim);setupCamera=new THREE.PerspectiveCamera(32,1.2,.1,20);setupCamera.position.set(0,1.0,3.45);setupCamera.lookAt(0,.9,0);
+  setupScene=new THREE.Scene();setupScene.add(new THREE.HemisphereLight(0xe9f4ff,0x4d5365,.75));var previewKey=new THREE.DirectionalLight(0xffedd9,.80);previewKey.position.set(-2,3,4);setupScene.add(previewKey);var previewRim=new THREE.DirectionalLight(0x9ad8ff,.25);previewRim.position.set(2,2,-3);setupScene.add(previewRim);setupCamera=new THREE.PerspectiveCamera(32,1.2,.1,20);setupCamera.position.set(0,1.0,3.45);setupCamera.lookAt(0,.9,0);
   cv.addEventListener('pointerdown',function(e){setupDrag=e.clientX;cv.setPointerCapture(e.pointerId);});
   cv.addEventListener('pointermove',function(e){if(setupDrag!==null){setupAngle-=(e.clientX-setupDrag)*.015;setupDrag=e.clientX;}});
   cv.addEventListener('pointerup',function(){setupDrag=null;});cv.addEventListener('pointercancel',function(){setupDrag=null;});
@@ -2966,6 +2997,7 @@ document.getElementById('confirmYes').addEventListener('click', function(){
 document.getElementById('confirmNo').addEventListener('click', function(){
   document.getElementById('confirmPanel').classList.add('hidden'); confirmAction = null; updatePause();
 });
+document.getElementById('authorStudioLink').onclick=function(){if(window.OneWorldNative&&typeof OneWorldNative.openStudioWebsite==='function')OneWorldNative.openStudioWebsite();else window.open('https://tamilcraftersstudio.in/','_blank','noopener,noreferrer');};
 document.getElementById('actEquip').onclick=function(){var e=selectedTool();if(e){setEquip(e);renderBag();saveGame();}};
 document.getElementById('drinkBtn').onclick=function(){var wi=waterInfo(P.x,P.z);if(wi.river&&wi.depth>0){P.water=100;drawVitals();saveGame();toast('Water restored');}};
 document.querySelectorAll('#pinQuick button').forEach(function(b){b.onclick=function(){var e=selectedTool()||equipped;quickSlots[+b.dataset.q]=e;renderQuickbar();saveGame();toast(e+' in slot '+(+b.dataset.q+1));};});
@@ -3000,7 +3032,7 @@ window.addEventListener('keydown', function(e){ if(typingTarget(e)) return; if(e
 window.addEventListener('keydown', function(e){ if(typingTarget(e)) return; if(e.code === 'KeyB' || e.code === 'KeyI') toggleBag(); });
 var settingsTab='graphics';
 function showSettingsTab(name){
- if(!['graphics','controls','survivor','profile','audio','help'].includes(name))return;
+ if(!['graphics','controls','survivor','profile','audio','help','about'].includes(name))return;
  settingsTab=name;document.querySelectorAll('[data-settings-tab]').forEach(function(b){b.setAttribute('aria-selected',String(b.dataset.settingsTab===name));});
  document.querySelectorAll('[data-settings-page]').forEach(function(e){e.classList.toggle('hidden',e.dataset.settingsPage!==name);});
  document.getElementById('settingsContent').scrollTop=0;

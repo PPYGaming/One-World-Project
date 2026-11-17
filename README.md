@@ -1,6 +1,6 @@
 # One World Project
 
-Development source for Karthi's modified One World Android beta. Current source baseline: **1.3.28 (versionCode 50)**. Smaller moving eye control, movable default-left Map/Crafting, monochrome vector control icons, fullscreen current map and compact blocking update dialog over loading art. Music diagnostics/retry added; phone silence is not claimed fixed.
+Development source for the modified One World Android beta. Current prepared source baseline: **1.3.29 (versionCode 51)**. Cumulative reviewed poses, distinct skin options and matched preview lighting, native sensor-only wallpaper movement, head-safe wallpaper framing, uninterrupted pregame-panel music, studio/tap/loading/home flow and own-brand About card. See CHANGELOG.md for test scope and unresolved device issues.
 
 This is a testing beta, not a stable release. Original game by Smiley, used and modified with permission. Preserve the asset and third-party notices in `web/assets/licenses/` and the music provenance in `web/assets/music/PROVENANCE.txt`. This repository does not grant a blanket license over all game code or the AI-generated track.
 
@@ -23,8 +23,8 @@ Install Java 17 and Android SDK platform 36 plus build-tools 36.0.0. Set `ANDROI
 
 ## Current baseline and pending requests
 
-1.3.24 changes only Settings layout and Android version metadata relative to 1.3.23. Native updater code and bundled game assets are unchanged. The new referenced island, saved-world strategy and possible removal of SAVE & CLOSE are not implemented here. Published package checks do not prove every phone graphics mode, FPS, audio lifecycle or update/download/install behavior.
+The original face/body/upper dress/model files, icon, package, save schema and native updater origin are preserved. Pending larger work includes hair qualification, skirt, contextual pickup, survival progression, inventory expansion and a new island. Intermittent startup crackle, the phone's 98% first-frame delay and recording autocut cause remain unresolved. Local browser and compile checks do not prove Android physical motion, playback or performance.
 
 ## Testing releases
 
-This public development repository is https://github.com/PPYGaming/One-World-Project. The existing public update origin remains https://github.com/PPYGaming/One-World-Beta. Current numbered release: 1.3.24 (46), mirrored without rebuilding or changing its signature. Preview screenshots are in `docs/screenshots/1.3.24/`. Future collaborator access and enforced release automation are not configured yet.
+This public development repository is https://github.com/PPYGaming/One-World-Project. The existing public update origin remains https://github.com/PPYGaming/One-World-Beta. Latest published baseline checked during preparation: 1.3.28 (50). Version 1.3.29 (51) is prepared locally, not a publication claim. Preview screenshots are in `docs/screenshots/1.3.24/`. Future collaborator access and enforced release automation are not configured yet.
