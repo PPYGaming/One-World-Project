@@ -25,7 +25,14 @@ public class MainActivity extends Activity implements android.hardware.SensorEve
     private final float[] gravity=new float[3];
     private float wallpaperCenter;
     private int wallpaperRotation=-1;
-    private long lastWallpaperSend=0;
+    private long lastWallpaperSend=0,wallpaperTouchQuietUntil=0;
+    private boolean wallpaperTouching=false;
+    @Override public boolean dispatchTouchEvent(android.view.MotionEvent event){
+        int action=event.getActionMasked();
+        if(action==android.view.MotionEvent.ACTION_DOWN||action==android.view.MotionEvent.ACTION_POINTER_DOWN){wallpaperTouching=true;haveCenter=false;}
+        if(action==android.view.MotionEvent.ACTION_UP||action==android.view.MotionEvent.ACTION_CANCEL){wallpaperTouching=false;wallpaperTouchQuietUntil=android.os.SystemClock.uptimeMillis()+300;haveCenter=false;haveGravity=false;}
+        return super.dispatchTouchEvent(event);
+    }
     private void syncWallpaperSensor(){
         boolean wanted=foreground&&wallpaperRequested&&!closing&&sensors!=null&&wallpaperSensor!=null;
         if(wanted&&!wallpaperListening){haveGravity=false;haveCenter=false;lastWallpaperSend=0;wallpaperListening=sensors.registerListener(this,wallpaperSensor,50000);}
@@ -34,13 +41,15 @@ public class MainActivity extends Activity implements android.hardware.SensorEve
     @Override public void onAccuracyChanged(android.hardware.Sensor sensor,int accuracy){}
     @Override public void onSensorChanged(android.hardware.SensorEvent event){
         if(!wallpaperListening||wv==null||closing||event.values.length<3)return;
-        for(int i=0;i<3;i++){float v=event.values[i];if(!Float.isFinite(v))return;gravity[i]=haveGravity&&event.sensor.getType()==android.hardware.Sensor.TYPE_ACCELEROMETER?gravity[i]*.82f+v*.18f:v;}
+        if(wallpaperTouching||android.os.SystemClock.uptimeMillis()<wallpaperTouchQuietUntil){haveCenter=false;return;}
+        for(int i=0;i<3;i++){float v=event.values[i];if(!Float.isFinite(v))return;gravity[i]=haveGravity?gravity[i]*.82f+v*.18f:v;}
         haveGravity=true;
         int rotation=getWindowManager().getDefaultDisplay().getRotation();
         float horizontal=rotation==android.view.Surface.ROTATION_90?-gravity[1]:rotation==android.view.Surface.ROTATION_270?gravity[1]:rotation==android.view.Surface.ROTATION_180?-gravity[0]:gravity[0];
         if(!haveCenter||rotation!=wallpaperRotation){wallpaperCenter=horizontal;wallpaperRotation=rotation;haveCenter=true;}
         long time=android.os.SystemClock.uptimeMillis();if(time-lastWallpaperSend<50)return;lastWallpaperSend=time;
-        float offset=Math.max(-8f,Math.min(8f,(horizontal-wallpaperCenter)*3.2f));
+        float delta=horizontal-wallpaperCenter;float clean=Math.abs(delta)<.08f?0f:Math.copySign(Math.abs(delta)-.08f,delta);
+        float offset=Math.max(-4f,Math.min(4f,clean*1.6f));
         wv.evaluateJavascript("window.oneworldNativeWallpaper&&window.oneworldNativeWallpaper("+Float.toString(offset)+")",null);
     }
     private static final String ORIGIN = "https://appassets.androidplatform.net";

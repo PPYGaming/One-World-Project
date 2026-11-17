@@ -557,19 +557,24 @@ window.oneworldStartupReady=window.oneworldLoadingPainted.then(function(){return
 </script>
 <script>
 (function(){
- var reduced=window.matchMedia('(prefers-reduced-motion: reduce)'),origin=null,x=0,targetX=0,frame=0,lastNative=0,nativeActive=null;
+ var reduced=window.matchMedia('(prefers-reduced-motion: reduce)'),origin=null,x=0,targetX=0,frame=0,lastNative=0,nativeActive=null,touches=new Set(),quietUntil=0,resumeOrigin=null,resumeX=0;
  var native=window.OneWorldNative,hasNative=!!(native&&typeof native.setWallpaperMotionActive==='function');
  function current(){if(document.hidden||reduced.matches||!document.getElementById('studioIntro').classList.contains('hidden')||!document.getElementById('tapToStart').classList.contains('hidden'))return null;var l=document.getElementById('loading'),m=document.getElementById('start');if(!l.classList.contains('hidden'))return l;if(!m.classList.contains('hidden')&&!m.classList.contains('choosing'))return m;return null;}
  function paint(){frame=0;var target=current();if(!target)return;x+=(targetX-x)*.30;if(Math.abs(targetX-x)<.015)x=targetX;target.style.setProperty('--wall-x',x.toFixed(2)+'px');target.style.setProperty('--wall-y','0px');if(x!==targetX)frame=requestAnimationFrame(paint);}
- function move(nx){if(!current()||!Number.isFinite(nx))return;targetX=Math.max(-8,Math.min(8,nx));if(!frame)frame=requestAnimationFrame(paint);}
- function reset(){origin=null;x=targetX=0;if(frame)cancelAnimationFrame(frame);frame=0;document.querySelectorAll('#loading,#start').forEach(function(t){t.style.setProperty('--wall-x','0px');t.style.setProperty('--wall-y','0px');});}
+ function blocked(){return touches.size>0||performance.now()<quietUntil;}
+ function move(nx){if(blocked()||!current()||!Number.isFinite(nx))return;targetX=Math.max(-8,Math.min(8,nx));if(!frame)frame=requestAnimationFrame(paint);}
+ function reset(){origin=null;resumeOrigin=null;resumeX=0;x=targetX=0;if(frame)cancelAnimationFrame(frame);frame=0;document.querySelectorAll('#loading,#start').forEach(function(t){t.style.setProperty('--wall-x','0px');t.style.setProperty('--wall-y','0px');});}
  function sync(){var active=!!current();if(hasNative&&nativeActive!==active){nativeActive=active;native.setWallpaperMotionActive(active);}if(!active)reset();else if(!frame)frame=requestAnimationFrame(paint);}
- window.oneworldNativeWallpaper=function(value){lastNative=performance.now();move(Number(value));};
+ window.oneworldNativeWallpaper=function(value){lastNative=performance.now();if(blocked())return;var n=Number(value);if(!Number.isFinite(n))return;if(resumeOrigin===null)resumeOrigin=n;move(resumeX+n-resumeOrigin);};
+ function touchStart(e){if(e.pointerType==='mouse'&&e.buttons===0)return;touches.add(e.pointerId);quietUntil=Infinity;targetX=x;if(frame)cancelAnimationFrame(frame);frame=0;origin=null;resumeOrigin=null;resumeX=x;}
+ function touchEnd(e){touches.delete(e.pointerId);if(!touches.size){quietUntil=performance.now()+300;origin=null;resumeOrigin=null;resumeX=x;}}
+ window.addEventListener('pointerdown',touchStart,{capture:true,passive:true});window.addEventListener('pointerup',touchEnd,{capture:true,passive:true});window.addEventListener('pointercancel',touchEnd,{capture:true,passive:true});
+ window.addEventListener('blur',function(){touches.clear();quietUntil=performance.now()+300;origin=null;resumeOrigin=null;resumeX=x;});
  // Browser-only preview fallback. Android uses its explicit sensor bridge. No pointer/drag input.
- window.addEventListener('deviceorientation',function(e){if(hasNative||!current()||!Number.isFinite(e.beta)||!Number.isFinite(e.gamma))return;if(!origin)origin={b:e.beta,g:e.gamma};var angle=screen.orientation?screen.orientation.angle:0,delta=Math.abs(angle)===90?e.beta-origin.b:e.gamma-origin.g;move(delta*.40);},{passive:true});
+ window.addEventListener('deviceorientation',function(e){if(hasNative||blocked()||!current()||!Number.isFinite(e.beta)||!Number.isFinite(e.gamma))return;if(!origin)origin={b:e.beta,g:e.gamma};var angle=screen.orientation?screen.orientation.angle:0,delta=Math.abs(angle)===90?e.beta-origin.b:e.gamma-origin.g;move(resumeX+delta*.20);},{passive:true});
  window.addEventListener('orientationchange',reset);document.addEventListener('visibilitychange',sync);reduced.addEventListener('change',sync);
  new MutationObserver(sync).observe(document.body,{subtree:true,attributes:true,attributeFilter:['class']});
- window.oneworldWallpaperMotion={preview:move,state:function(){return {x:x,y:0,targetX:targetX,active:!!current(),reduced:reduced.matches,native:hasNative,lastNative:lastNative};}};sync();
+ window.oneworldWallpaperMotion={preview:move,state:function(){return {x:x,y:0,targetX:targetX,active:!!current(),reduced:reduced.matches,native:hasNative,lastNative:lastNative,touches:touches.size,blocked:blocked()};}};sync();
 })();
 </script>
 <script src="assets/lib/MenuMusic.js"></script>
@@ -589,7 +594,7 @@ import { GLTFLoader } from './assets/lib/GLTFLoader.js';
 import { clone as skClone } from './assets/lib/SkeletonUtils.js';
 import { animeClips, applyAnimeColors, attachLeatherGarments, applyHairStyle, updateHairSway } from './assets/lib/AnimeCharacter.js';
 
-var BUILD_INFO={name:'1.3.31',code:null,native:false};
+var BUILD_INFO={name:'1.3.32',code:null,native:false};
 try{var nb=window.OneWorldNative;if(nb&&typeof nb.getBuildInfo==='function'){var bi=JSON.parse(nb.getBuildInfo());if(bi.package==='com.oneword.forest.beta'&&typeof bi.name==='string'&&/^\d+\.\d+\.\d+$/.test(bi.name)&&Number.isSafeInteger(bi.code)&&bi.code>0)BUILD_INFO={name:bi.name,code:bi.code,native:true};}}catch(e){}
 var DISPLAY_VERSION=BUILD_INFO.name+(BUILD_INFO.native?'':' preview');
 document.querySelector('#start .ver').textContent=DISPLAY_VERSION+' Beta - Work in progress';

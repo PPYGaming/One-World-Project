@@ -1,10 +1,10 @@
 {
-  "baseline": "1.3.31",
+  "baseline": "1.3.32",
   "sourceBase": {
-    "beta": "7ee59dae870928a09c5dc376e816894f450fb129",
-    "project": "8a7105d500037c0744c593d936cff3c47fc006c0"
+    "beta": "f2b3b1c71f0a36307301c490ca81b95470bf8b23",
+    "project": "cbcb40692310fe6ddf4f4a4bdcd5d9ce4d997032"
   },
-  "status": "qualified clothing correction testing beta",
+  "status": "qualified narrow touch and garment join testing beta",
   "files": [
     {
       "path": ".github/workflows/.github/workflows/project-bootstrap.yml",
@@ -18,8 +18,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 14350,
-      "sha256": "1e9043e800d587856f92aa526ae9c3aec4070346afc60996f92c4c80cb47ed58"
+      "size": 16380,
+      "sha256": "dff69d10254c0c1c25dade4589a851cf451985c4e174256e53dafffd9328f751"
     },
     {
       "path": "CONTRIBUTING.md",
@@ -28,13 +28,13 @@
     },
     {
       "path": "README.md",
-      "size": 3138,
-      "sha256": "20bddc48ec4044c521b2c9e06f9eda3a0ed3fdccd72bdeb07c0d90338d1dcdf0"
+      "size": 3141,
+      "sha256": "c4f121f50e1d149f291fed84106626b14298ffcb4cc21f60160eba0d6a61650c"
     },
     {
       "path": "android/AndroidManifest.xml",
       "size": 1298,
-      "sha256": "771636f21eb9f75c25da821acc1a5e2998171600dda52ee3bf07975aeba98849"
+      "sha256": "62cff9afafc07e560338a0a102b314861e97bb3de7cfc7fa0823e6a68e5db27c"
     },
     {
       "path": "android/res/drawable/ic_face.png",
@@ -128,8 +128,8 @@
     },
     {
       "path": "android/src/com/oneword/forest/MainActivity.java",
-      "size": 11584,
-      "sha256": "17517a83d085495ee49e4ad232035b88370b9a3947de46f2cc6399d613e8eb58"
+      "size": 12374,
+      "sha256": "f598ce104c978b85a269a6350efed6cdcba88a08253751cea16c64c7d7925451"
     },
     {
       "path": "docs/QA-1.3.30.md",
@@ -140,6 +140,11 @@
       "path": "docs/QA-1.3.31.md",
       "size": 1789,
       "sha256": "051af48870db61cb63f4bb7ae2f989a5a6b4c4f526bbdfbe58ce85d91994e945"
+    },
+    {
+      "path": "docs/QA-1.3.32.md",
+      "size": 2030,
+      "sha256": "9824a57bc4056512085d22e8f4e68c58791da5d03ec9bff7a1c258bb47cf5c92"
     },
     {
       "path": "docs/screenshots/1.3.24/README.md",
@@ -173,8 +178,8 @@
     },
     {
       "path": "web/assets/lib/AnimeCharacter.js",
-      "size": 41340,
-      "sha256": "8d91424bb22823a30d3afec97d6de0682e3d987d692372830c8caa3c3c2e82cc"
+      "size": 41467,
+      "sha256": "b226c9211e47aa8f2e9d125b59cb41ab5c6da2bfdd4ff38495c54b7e28a0017f"
     },
     {
       "path": "web/assets/lib/AppLifecycle.js",
@@ -708,8 +713,8 @@
     },
     {
       "path": "web/index.html",
-      "size": 296316,
-      "sha256": "3019c55871aa70e437d5bf134705f465c1a32e4fe4479a8068b0b365f09206b9"
+      "size": 297390,
+      "sha256": "f9d0a9c527466bab83882a3ce5ddf8cf1f8af093dede2f42f6776071af1b1068"
     }
   ]
 }
