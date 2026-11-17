@@ -1,3 +1,18 @@
+# 1.3.26 (versionCode 48)
+
+Testing beta, not stable. Same package and original signing certificate. Install over the existing beta without uninstalling or clearing app data.
+
+- Startup order corrected: studio logo, decoded loading wallpaper, actual asset/preparation progress, update readiness, then menu. Heavy asset work starts after loading has painted. Preparation yields between stages. Progress does not run backwards and 100 means preparation and entry check are complete.
+- Settings: Save & Close removed. Save & Lobby is the sole in-game footer action at the right. Survivor/SOS and session save actions are hidden in menu Settings; Profile remains available.
+- Audio: separate persistent Background music and Sound effects volume controls. Music controls the bundled menu track; all existing synthesized game effects pass through the SFX master gain, including wood/stone, steps, water, breath, hit/hurt, thunder, eating/cooking and death effects. No new sound library added.
+- Existing update gate, offline startup rules, saved-world keys, original character geometry, upper dress and app icon retained. Stable app unchanged.
+
+Verified: unsigned/signed Android build, original certificate and package/code48, extracted-payload checks; 110 gameplay regression checks, 114 updater UI checks, 25 Settings/audio functional checks, 20 viewport previews, master-gain routing/mute and monotonic progress instrumentation. Actual browser-captured frames show loading before preload and the 98% preparation frame before first rendering. These are browser previews, not phone proof.
+Remaining limitation: first render is still synchronous. Software-render tests paused about 2 seconds without capture and about 7 seconds while screen capture was active; this is not proof of device lag being cured. The supplied Android recording proved the old25 startup defect, not this26 fix. Android install/update, startup timing, touch, sensor motion, sound and performance of26 still need actual device verification. Android requires normal install approval.
+
+Full editable source and prior numbered history retained. Original game by Smiley, modified with permission. Retain bundled third-party notices and music provenance. No blanket license is granted over all code/assets. No signing keys or secrets included.
+
+
 # 1.3.25 (versionCode 47)
 
 Testing beta, not stable. Same package and original signing certificate. Install over the existing beta without uninstalling or clearing app data.

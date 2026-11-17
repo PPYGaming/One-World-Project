@@ -11,7 +11,7 @@
    pending=true;var id=++generation;
    try{var result=audio.play();Promise.resolve(result).then(function(){if(id!==generation){if(!allowed())audio.pause();return;}pending=false;if(!allowed())pause(world||closed);},function(){if(id===generation)pending=false;});}catch(e){pending=false;}
   }
-  return {sync:sync,world:function(v){world=!!v;sync();},suspend:function(v){suspended=!!v;sync();},close:function(){closed=true;pause(true);},state:function(){return {world:world,suspended:suspended,closed:closed,pending:pending,paused:audio.paused};}};
+  return {volume:function(v){audio.volume=Math.max(0,Math.min(1,Number(v)||0));},sync:sync,world:function(v){world=!!v;sync();},suspend:function(v){suspended=!!v;sync();},close:function(){closed=true;pause(true);},state:function(){return {world:world,suspended:suspended,closed:closed,pending:pending,paused:audio.paused};}};
  }
  root.createOneWorldMenuMusic=createMenuMusic;
 })(window);

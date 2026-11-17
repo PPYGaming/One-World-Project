@@ -425,7 +425,7 @@ body.playing:not(.gamePaused) #craftBtn{display:block}body.editingControls #craf
 <div id="controlEditor" class="hidden"><div id="controlSurface"></div><div class="controlToolbar"><select id="controlSelect" aria-label="Select control"></select><label>Size <span id="controlSizeValue"></span><br><input id="controlSize" type="range" min="50" max="200" value="100"></label><label>Opacity <span id="controlOpacityValue"></span><br><input id="controlOpacity" type="range" min="0" max="100" value="100"></label><button id="controlPanelMove">MOVE PANEL</button><button id="controlReset">RESET ALL</button><button id="controlCancel">CANCEL</button><button id="controlSave">SAVE</button><p>Drag any outlined control. Hidden controls stay outlined here. World paused. Layout is saved on this device. Settings is also available from the lobby.</p></div></div><div id="setPanel" class="panel hidden" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
 <header id="settingsHeader"><div><span class="settingsEyebrow">ONE WORLD</span><h3 id="settingsTitle">GAME SETTINGS</h3></div><button id="setClose" class="playbtn" aria-label="Close settings">&#215;</button></header>
 <div id="settingsLayout"><nav id="settingsNav" aria-label="Settings categories">
-<button data-settings-tab="graphics" aria-selected="true">GRAPHICS</button><button data-settings-tab="controls" aria-selected="false">CONTROLS</button><button data-settings-tab="survivor" aria-selected="false">SURVIVOR</button><button data-settings-tab="help" aria-selected="false">HELP &amp; BETA</button></nav>
+<button data-settings-tab="graphics" aria-selected="true">GRAPHICS</button><button data-settings-tab="controls" aria-selected="false">CONTROLS</button><button data-settings-tab="survivor" aria-selected="false">SURVIVOR</button><button data-settings-tab="audio" aria-selected="false">AUDIO</button><button data-settings-tab="profile" aria-selected="false">PROFILE</button><button data-settings-tab="help" aria-selected="false">HELP &amp; BETA</button></nav>
 <div id="settingsContent">
 <section data-settings-page="graphics"><h4>GRAPHICS</h4><p class="settingsIntro">Choose the detail level for this device.</p>
 <div class="settingRow"><label>Graphics quality</label><select id="setQuality"><option value="low">Low</option><option value="medium">Medium</option><option value="high">High</option></select></div>
@@ -436,9 +436,9 @@ body.playing:not(.gamePaused) #craftBtn{display:block}body.editingControls #craf
 <div class="settingRow"><label for="setSens">Camera sensitivity <output id="setSensValue">1.0&#215;</output></label><input type="range" id="setSens" min="0.4" max="2" step="0.1" value="1"></div>
 <div class="settingsButtonRow"><button class="playbtn" id="controlsBtn">CUSTOMIZE LAYOUT</button><button class="playbtn secondary" id="controlsRecovery">RESET SAVED LAYOUT</button></div><p class="settingsNote">Enter your world to move and resize the gameplay controls.</p></section>
 <section data-settings-page="survivor" class="hidden"><h4>SURVIVOR</h4><p class="settingsIntro">View your survivor and manage your current session.</p><div class="settingsButtonRow"><button class="playbtn" id="profileBtn">PROFILE</button><button class="playbtn secondary" id="sosBtn">SOS - UNSTUCK</button></div><p class="settingsNote">Use SOS only if your survivor is stuck in the terrain.</p></section>
-<section data-settings-page="help" class="hidden"><h4>HELP &amp; BETA</h4><p class="settingsIntro">Your forest survival guide.</p><div id="setHelp" style="font-size:11px;line-height:1.6;margin-top:12px;max-width:420px;color:#baccdb">Move: joystick / WASD. Auto-run: hold the joystick and drag up to show its lock target. Reach the target and release there to lock. Release anywhere else to stop. Touch the joystick again to stop auto-run. Hold and drag the eye to look without steering; release to return. Move joystick to stop. Shift on keyboard. Look: drag. Attack: right button / Space. Bag: B. Quick tools: 1-3.<br>Drink at the river. Approach a coloured gate, then open Map to travel. Sleep at your placed bedroll.<br>Beta: original lowpoly enemies and animals; visual quality and phone performance are still being tested.</div><div id="studioCredits" class="settingsNote"><h4>CREDITS</h4>Tamil Crafters Studio<br>Original game: Smiley, reused and modified with permission.<br>Models: VRoid Project + Quaternius (CC0). Textures: Poly Haven (CC0). Three.js (MIT).<br>Original menu music supplied by the app owner. Anime wallpaper illustrations prepared for this project.<br>Full third-party license and provenance notices are bundled with the game source.</div><button id="debugBtn" class="playbtn secondary">BETA DEBUG CONSOLE</button></section>
+<section data-settings-page="audio" class="hidden"><h4>AUDIO</h4><p class="settingsIntro">Adjust music and game effects separately.</p><div class="settingRow"><label for="musicVolume">Background music <output id="musicVolumeValue"></output></label><input id="musicVolume" type="range" min="0" max="100" step="1"></div><div class="settingRow"><label for="sfxVolume">Sound effects <output id="sfxVolumeValue"></output></label><input id="sfxVolume" type="range" min="0" max="100" step="1"></div></section><section data-settings-page="profile" class="hidden"><h4>PROFILE</h4><p class="settingsIntro">View your survivor profile.</p><button class="playbtn" id="menuProfileBtn">PROFILE</button></section><section data-settings-page="help" class="hidden"><h4>HELP &amp; BETA</h4><p class="settingsIntro">Your forest survival guide.</p><div id="setHelp" style="font-size:11px;line-height:1.6;margin-top:12px;max-width:420px;color:#baccdb">Move: joystick / WASD. Auto-run: hold the joystick and drag up to show its lock target. Reach the target and release there to lock. Release anywhere else to stop. Touch the joystick again to stop auto-run. Hold and drag the eye to look without steering; release to return. Move joystick to stop. Shift on keyboard. Look: drag. Attack: right button / Space. Bag: B. Quick tools: 1-3.<br>Drink at the river. Approach a coloured gate, then open Map to travel. Sleep at your placed bedroll.<br>Beta: original lowpoly enemies and animals; visual quality and phone performance are still being tested.</div><div id="studioCredits" class="settingsNote"><h4>CREDITS</h4>Tamil Crafters Studio<br>Original game: Smiley, reused and modified with permission.<br>Models: VRoid Project + Quaternius (CC0). Textures: Poly Haven (CC0). Three.js (MIT).<br>Original menu music supplied by the app owner. Anime wallpaper illustrations prepared for this project.<br>Full third-party license and provenance notices are bundled with the game source.</div><button id="debugBtn" class="playbtn secondary">BETA DEBUG CONSOLE</button></section>
 </div></div>
-<footer id="settingActions"><span>Changes are saved on this device.</span><button class="playbtn closebtn" id="saveLobby">SAVE &amp; LOBBY</button><button id="saveClose" class="playbtn closebtn">SAVE &amp; CLOSE</button></footer>
+<footer id="settingActions"><span>Changes are saved on this device.</span><button class="playbtn closebtn" id="saveLobby">SAVE &amp; LOBBY</button></footer>
 </div><div id="profileBox" class="hidden" style="max-width:360px"><label>Survivor name</label><input id="profileName" maxlength="16" style="width:160px;padding:7px;background:#0b2b47;color:white;border:1px solid #6ea6ca"><button id="profileNameSave" style="padding:7px;background:#174c70;color:white;border:1px solid #75bce4">SAVE NAME</button><div id="profileStats" style="font-size:11px;line-height:1.6"></div></div><div id="confirmPanel" class="panel hidden"><h3 id="confirmTitle">ARE YOU SURE?</h3><div id="confirmMsg" style="font-size:14px;opacity:.85;margin:6px 0 4px"></div>
 <button class="playbtn closebtn" id="confirmYes" style="background:#a04434">YES, ERASE</button>
 <button class="playbtn closebtn" id="confirmNo">CANCEL</button></div>
@@ -490,7 +490,18 @@ body.playing:not(.gamePaused) #craftBtn{display:block}body.editingControls #craf
 <div id="worldLoading" class="overlay hidden"><h2>ENTERING ONE WORLD</h2><div id="joinProgress" style="position:absolute;bottom:0;left:0;height:4px;background:#91ccff;width:0%"></div><div id="joinPercent" style="position:absolute;bottom:12px;left:20px;font-size:12px">0%</div><div id="joinStage" role="status" aria-live="polite">Preparing terrain</div><button id="joinBack" class="playbtn hidden">BACK TO LOBBY</button></div>
 <div id="betaUpdatePanel" class="hidden" role="dialog" aria-modal="true" aria-label="Beta update"><div id="betaUpdateCard"><div id="betaUpdateMark">ONE WORLD <span>BETA</span></div><div id="betaUpdateSymbol" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 8v23m-8-8 8 8 8-8M12 32v8h24v-8" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div id="betaUpdatePhase">NEW VERSION</div><h2 id="betaUpdateTitle">Beta update</h2><p id="betaUpdateDetail" role="status" aria-live="polite">Checking for updates...</p><div id="betaUpdateActions"></div><p id="betaUpdateNote">UPDATE REQUIRED TO PLAY<br><span>Install over this beta. Do not uninstall or clear data.</span></p></div></div>
 <script>
-window.oneworldIntroReady=new Promise(function(resolve){var root=document.getElementById('studioIntro'),reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;setTimeout(function(){root.classList.add('hidden');resolve();},reduce?700:2600);});
+// Paint the wallpaper before releasing the logo, then begin startup work only
+// after a real browser paint. No elapsed-time percentage or forced loading hold.
+window.oneworldYieldPaint=function(){return new Promise(function(resolve){requestAnimationFrame(function(){requestAnimationFrame(function(){setTimeout(resolve,0);});});});};
+window.oneworldStartupTrace=[];
+window.oneworldTrace=function(phase){window.oneworldStartupTrace.push({phase:phase,time:performance.now()});};
+window.oneworldLoadingPainted=new Promise(function(resolve){
+ var art=new Image();art.src='assets/tex/loading-anime-preview.jpg';
+ var decoded=art.decode?art.decode().catch(function(){}):new Promise(function(done){art.onload=art.onerror=done;});
+ window.oneworldIntroReady=new Promise(function(introDone){var root=document.getElementById('studioIntro'),reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  setTimeout(async function(){await decoded;root.classList.add('hidden');window.oneworldTrace('logo-hidden');introDone();await window.oneworldYieldPaint();await window.oneworldYieldPaint();window.oneworldTrace('loading-painted');resolve();},reduce?700:2600);
+ });
+});
 window.oneworldUpdateUI=function(state,title,detail){
  var root=document.getElementById('betaUpdatePanel'),startup=window.oneworldStartupUpdate;if(!startup||!startup.pending)return;
  startup.uiState=state;document.getElementById('loadPct').textContent={checking:'Checking for beta updates...',available:'Update available',downloading:'Downloading update...',permission:'Installation permission needed',ready:'Update ready to install',error:'Update not installed',returned:'Update still required'}[state]||'Beta update';
@@ -506,7 +517,7 @@ window.oneworldUpdateUI=function(state,title,detail){
 window.oneworldLifecyclePause=function(){if(window.oneworldMenuMusic)oneworldMenuMusic.suspend(true);};
 window.oneworldLifecycleResume=function(){if(window.oneworldMenuMusic&&!document.hidden)oneworldMenuMusic.suspend(false);};
 window.oneworldStartupUpdate={pending:false,status:'not-started',id:1};
-window.oneworldStartupReady=new Promise(function(resolve){
+window.oneworldStartupReady=window.oneworldLoadingPainted.then(function(){return new Promise(function(resolve){
  var state=window.oneworldStartupUpdate,native=window.OneWorldNative;
  window.oneworldEntryUpdateResult=function(id,status){
   if(!state.pending||id!==state.id||['current','offline','unavailable'].indexOf(status)<0||state.required&&status!=='current')return false;
@@ -515,8 +526,8 @@ window.oneworldStartupReady=new Promise(function(resolve){
  if(!native||typeof native.checkBetaAtEntry!=='function'){state.status='preview-unavailable';resolve(state.status);return;}
  state.pending=true;state.status='checking';
  document.getElementById('loadPct').textContent='Checking for beta updates...';
- try{native.checkBetaAtEntry(state.id);}catch(e){state.pending=false;state.status='unavailable';resolve(state.status);}
-});
+ try{window.oneworldTrace('update-check-start');native.checkBetaAtEntry(state.id);}catch(e){state.pending=false;state.status='unavailable';resolve(state.status);}
+});});
 </script>
 <script>
 (function(){
@@ -533,8 +544,9 @@ window.oneworldStartupReady=new Promise(function(resolve){
 <script>
 // Pregame-only bundled menu track.
 // Original Gemini-generated track supplied by the app owner. Not CC0/MIT.
+var audioLevels={music:.32,sfx:1};try{var savedAudio=JSON.parse(localStorage.getItem('oneworld.audio.v1'));['music','sfx'].forEach(function(k){if(savedAudio&&typeof savedAudio[k]==='number'&&Number.isFinite(savedAudio[k]))audioLevels[k]=Math.max(0,Math.min(1,savedAudio[k]));});}catch(e){}
 window.oneworldMenuMusic=createOneWorldMenuMusic('assets/music/iris-of-the-end.ogg');
-window.oneworldMenuMusic.sync();
+window.oneworldMenuMusic.volume(audioLevels.music);window.oneworldMenuMusic.sync();
 </script>
 <script type="importmap">{"imports":{"three":"./assets/lib/three.module.js"}}</script>
 <script type="module">
@@ -545,7 +557,7 @@ import { GLTFLoader } from './assets/lib/GLTFLoader.js';
 import { clone as skClone } from './assets/lib/SkeletonUtils.js';
 import { animeClips, applyAnimeColors, attachLeatherGarments, applyHairStyle, updateHairSway } from './assets/lib/AnimeCharacter.js';
 
-var BUILD_INFO={name:'1.3.25',code:null,native:false};
+var BUILD_INFO={name:'1.3.26',code:null,native:false};
 try{var nb=window.OneWorldNative;if(nb&&typeof nb.getBuildInfo==='function'){var bi=JSON.parse(nb.getBuildInfo());if(bi.package==='com.oneword.forest.beta'&&typeof bi.name==='string'&&/^\d+\.\d+\.\d+$/.test(bi.name)&&Number.isSafeInteger(bi.code)&&bi.code>0)BUILD_INFO={name:bi.name,code:bi.code,native:true};}}catch(e){}
 var DISPLAY_VERSION=BUILD_INFO.name+(BUILD_INFO.native?'':' preview');
 document.querySelector('#start .ver').textContent=DISPLAY_VERSION+' Beta - Work in progress';
@@ -563,19 +575,23 @@ window.addEventListener('error', function(e){ window.__errors.push(String(e.mess
 // ============================================================
 
 // ---------- preload ----------
+await window.oneworldLoadingPainted;
+window.oneworldTrace('assets-start');
 const manager = new THREE.LoadingManager();
 const gl = new GLTFLoader(manager);
 const texLoader = new THREE.TextureLoader(manager);
 const A = { models: {}, tex: {} };
 const loadBar = document.getElementById('loadBar');
 const loadPct = document.getElementById('loadPct');
+var assetProgress=0;
 manager.onProgress = function(url, done, total){
  // File-count progress plus one real world-assembly unit. No elapsed-time fill.
- var percent=Math.min(99,Math.floor(done/(Math.max(done,total)+1)*100));loadBar.style.width=percent+'%';document.getElementById('loadNumber').textContent=percent+'%';
+ var percent=assetProgress=Math.max(assetProgress,Math.min(70,Math.floor(done/(Math.max(done,total)+1)*70)));loadBar.style.width=percent+'%';document.getElementById('loadNumber').textContent=percent+'%';
  loadPct.textContent=window.oneworldStartupUpdate.pending?(window.oneworldStartupUpdate.uiState==='checking'||!window.oneworldStartupUpdate.uiState?'Checking for beta updates...':document.getElementById('loadPct').textContent):(window.oneworldStartupUpdate.status==='offline'?'Offline mode - ':window.oneworldStartupUpdate.status==='unavailable'?'Update check unavailable - ':'')+'Preparing assets';
 };
 manager.onError = function(url){ window.__errors.push('asset load failed: '+url); };
-manager.onLoad = async function(){ await Promise.all([window.oneworldStartupReady,window.oneworldIntroReady]);try { buildWorld();loadBar.style.width='100%';document.getElementById('loadNumber').textContent='100%';loadPct.textContent=(window.oneworldStartupUpdate.status==='offline'?'Offline mode - ':'')+'World ready - 100%';setTimeout(function(){document.getElementById('loading').classList.add('hidden');document.getElementById('start').classList.remove('hidden');},180); } catch(err){ window.__errors.push('buildWorld: '+(err && err.stack || err)); showLoadError(err); } };
+async function startupStage(percent,label){loadBar.style.width=percent+'%';document.getElementById('loadNumber').textContent=percent+'%';if(!window.oneworldStartupUpdate.pending)loadPct.textContent=(window.oneworldStartupUpdate.status==='offline'?'Offline mode - ':'')+label;window.oneworldTrace(label);await window.oneworldYieldPaint();}
+manager.onLoad = async function(){try {await buildWorld();await startupStage(99,'Checking entry readiness');await window.oneworldStartupReady;await startupStage(100,'World ready - 100%');await window.oneworldYieldPaint();document.getElementById('loading').classList.add('hidden');document.getElementById('start').classList.remove('hidden');window.oneworldTrace('menu-visible');}catch(err){window.__errors.push('buildWorld: '+(err&&err.stack||err));showLoadError(err);}};
 window.addEventListener('unhandledrejection', function(e){ window.__errors.push('async: '+String(e.reason && e.reason.message || e.reason)); });
 function showLoadError(err){
   var msg = 'Load error: ' + (err && err.message ? err.message : String(err));
@@ -619,7 +635,8 @@ texLoader.load('assets/tex/forest_floor.jpg', function(t){ A.tex.floor = t; });
 [['normaltree','paintedNormal'],['pine','paintedPine']].forEach(function(e){texLoader.load('assets/tex/'+e[0]+'-painted.png',function(t){t.flipY=false;t.colorSpace=THREE.SRGBColorSpace;A.tex[e[1]]=t;});});
 
 // ============================================================
-function buildWorld(){
+async function buildWorld(){
+await startupStage(72,'Preparing game renderer');
 // ---------- basics ----------
 var canvas = document.getElementById('c');
 var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, powerPreference: 'high-performance' });
@@ -750,6 +767,7 @@ function groundSlope(x, z){ var e=0.6, c=groundY(x,z); return Math.max(Math.abs(
 A.tex.ground.wrapS = A.tex.ground.wrapT = THREE.RepeatWrapping;
 A.tex.ground.repeat.set(11, 11);
 if ('colorSpace' in A.tex.ground) A.tex.ground.colorSpace = THREE.SRGBColorSpace;
+await startupStage(76,'Preparing world systems');
 // ---------- chunked island world (seeded, streamed around player) ----------
 var WORLD_SEED = 20261115, CHUNK = 128;
 function hash3(a, b, c){
@@ -1048,6 +1066,7 @@ function landSpotNear(cx, cz, minD, maxD){
   return [cx, cz];
 }
 
+await startupStage(80,'Preparing forest materials');
 // ---------- GLB decor instancing ----------
 function forestNoise(x, z){ return fbm(x*0.018+31.7, z*0.018+17.2, 3); }
 
@@ -1134,6 +1153,7 @@ function buildInstanced(glbKey, names, places, opts){
   return out;
 }
 
+await startupStage(83,'Preparing sky and lighting');
 // ---------- stars + fireflies ----------
 var stars = (function(){
   var n = 350, pos = new Float32Array(n*3);
@@ -1292,6 +1312,7 @@ function supportSurvivorSoles(){
  if(lift>0){player.position.y+=lift;player.updateMatrixWorld(true);}return lift;
 }
 
+await startupStage(86,'Preparing survivor');
 // ---------- player (KayKit animated character, boy/girl selectable) ----------
 var player = new THREE.Group();
 var charKind = 'boy', playerName = '';
@@ -1398,6 +1419,7 @@ scene.add(player);
 var pShadow = blobShadow(0.55); pShadow.visible=false; // player disc removed; real sun shadow is optional
 var P = { x: 0, z: 0, rotY: 0, walk: 0, speed: 0, hp: 6, maxHp: 6, atkT: -9, atkCd: 0.55, invuln: 0, dead: false, stam: 100, food: 100, water: 100, temp: 50, hpF: 0 };
 
+await startupStage(89,'Preparing saved settings');
 // ---------- settings (persisted), inventory, world save ----------
 var SET_KEY = 'oneword-settings-v1', SAVE_KEY = 'oneword-save-v1';
 var settings = { quality: 'medium', sens: 1 }; // default medium: mid-range phone smoothness first (user-reported stutter)
@@ -1801,6 +1823,7 @@ function burst(x, y, z, n){
   parts.userData.life = 0;
 }
 
+await startupStage(92,'Preparing wildlife');
 // ---------- wolves (animated GLB replaces box wolf) ----------
 function healthBar(){
   var g = new THREE.Group();
@@ -1954,6 +1977,7 @@ for(var bi=0; bi<5; bi++){
   birds.push({ mesh: bg2, wl: wl, wr: wr, a: rand(0,Math.PI*2), r: rand(14,40), h: rand(9,16), speed: rand(0.15,0.35)*(Math.random()<0.5?-1:1), flap: rand(0,6) });
 }
 
+await startupStage(95,'Preparing controls');
 // ---------- input ----------
 var keys = {};
 function typingTarget(e){ return e.target && /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName); }
@@ -2042,15 +2066,18 @@ function menuMusicWorld(v){if(window.oneworldMenuMusic)window.oneworldMenuMusic.
 new MutationObserver(syncMenuMusicScope).observe(document.body,{subtree:true,attributes:true,attributeFilter:['class']});
 function menuMusicSuspend(v){if(window.oneworldMenuMusic)window.oneworldMenuMusic.suspend(v);}
 ['pointerdown','keydown'].forEach(function(type){document.addEventListener(type,function(){syncMenuMusicScope();if(window.oneworldMenuMusic)window.oneworldMenuMusic.sync();},{capture:true});});
-var AC = null;
+var AC = null,sfxMaster=null;
+function applyAudioLevels(){if(window.oneworldMenuMusic)window.oneworldMenuMusic.volume(audioLevels.music);if(sfxMaster&&AC)sfxMaster.gain.setValueAtTime(audioLevels.sfx,AC.currentTime);}
+function syncAudioControls(){['music','sfx'].forEach(function(k){document.getElementById(k+'Volume').value=Math.round(audioLevels[k]*100);document.getElementById(k+'VolumeValue').textContent=Math.round(audioLevels[k]*100)+'%';});}
+['music','sfx'].forEach(function(k){document.getElementById(k+'Volume').addEventListener('input',function(){audioLevels[k]=Math.max(0,Math.min(1,Number(this.value)/100));try{localStorage.setItem('oneworld.audio.v1',JSON.stringify(audioLevels));}catch(e){toast('Could not save audio setting');}applyAudioLevels();syncAudioControls();});});applyAudioLevels();
 var noiseBufferCache={},soundEvents=[],stepSoundT=0,breathSoundT=0,wasSwimming=false;
 function sfx(kind){
  try{
   if(!AC)AC=new(window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume();
-  var t=AC.currentTime,noiseKinds={step:[.12,550,.10],wood:[.18,1100,.18],stone:[.24,3200,.13],water:[.5,800,.12],breath:[.65,700,.055],hit:[.1,1200,.10],hurt:[.16,500,.09],thunder:[2,110,.14],eat:[.18,1500,.08],cook:[.16,2100,.06],die:[.3,250,.07]};
+  if(!sfxMaster){sfxMaster=AC.createGain();sfxMaster.connect(AC.destination);applyAudioLevels();}var t=AC.currentTime,noiseKinds={step:[.12,550,.10],wood:[.18,1100,.18],stone:[.24,3200,.13],water:[.5,800,.12],breath:[.65,700,.055],hit:[.1,1200,.10],hurt:[.16,500,.09],thunder:[2,110,.14],eat:[.18,1500,.08],cook:[.16,2100,.06],die:[.3,250,.07]};
   var cfg=noiseKinds[kind]||noiseKinds.hit,dur=cfg[0],n=Math.floor(AC.sampleRate*dur),buf=noiseBufferCache[kind];if(!buf){buf=AC.createBuffer(1,n,AC.sampleRate);var a=buf.getChannelData(0);for(var i=0;i<n;i++)a[i]=(Math.random()*2-1)*(kind==='breath'?Math.sin(Math.PI*i/n):1);noiseBufferCache[kind]=buf;}
-  var src=AC.createBufferSource();src.buffer=buf;var filter=AC.createBiquadFilter();filter.type=kind==='stone'?'highpass':'lowpass';filter.frequency.setValueAtTime(cfg[1],t);var gain=AC.createGain();gain.gain.setValueAtTime(.001,t);gain.gain.linearRampToValueAtTime(cfg[2],t+.012);gain.gain.exponentialRampToValueAtTime(.001,t+dur);src.connect(filter);filter.connect(gain);gain.connect(AC.destination);src.start(t);src.stop(t+dur);
-  if(kind==='wood'||kind==='stone'||kind==='step'){var o=AC.createOscillator(),g=AC.createGain();o.type='sine';o.frequency.setValueAtTime(kind==='stone'?1600:kind==='wood'?145:65,t);o.frequency.exponentialRampToValueAtTime(kind==='stone'?600:45,t+.12);g.gain.setValueAtTime(kind==='step'?.035:.065,t);g.gain.exponentialRampToValueAtTime(.001,t+.14);o.connect(g);g.connect(AC.destination);o.start(t);o.stop(t+.15);}
+  var src=AC.createBufferSource();src.buffer=buf;var filter=AC.createBiquadFilter();filter.type=kind==='stone'?'highpass':'lowpass';filter.frequency.setValueAtTime(cfg[1],t);var gain=AC.createGain();gain.gain.setValueAtTime(.001,t);gain.gain.linearRampToValueAtTime(cfg[2],t+.012);gain.gain.exponentialRampToValueAtTime(.001,t+dur);src.connect(filter);filter.connect(gain);gain.connect(sfxMaster);src.start(t);src.stop(t+dur);
+  if(kind==='wood'||kind==='stone'||kind==='step'){var o=AC.createOscillator(),g=AC.createGain();o.type='sine';o.frequency.setValueAtTime(kind==='stone'?1600:kind==='wood'?145:65,t);o.frequency.exponentialRampToValueAtTime(kind==='stone'?600:45,t+.12);g.gain.setValueAtTime(kind==='step'?.035:.065,t);g.gain.exponentialRampToValueAtTime(.001,t+.14);o.connect(g);g.connect(sfxMaster);o.start(t);o.stop(t+.15);}
   soundEvents.push(kind);if(soundEvents.length>80)soundEvents.shift();
  }catch(err){}
 }
@@ -2957,7 +2984,7 @@ window.addEventListener('keydown', function(e){ if(typingTarget(e)) return; if(e
 window.addEventListener('keydown', function(e){ if(typingTarget(e)) return; if(e.code === 'KeyB' || e.code === 'KeyI') toggleBag(); });
 var settingsTab='graphics';
 function showSettingsTab(name){
- if(!['graphics','controls','survivor','help'].includes(name))return;
+ if(!['graphics','controls','survivor','profile','audio','help'].includes(name))return;
  settingsTab=name;document.querySelectorAll('[data-settings-tab]').forEach(function(b){b.setAttribute('aria-selected',String(b.dataset.settingsTab===name));});
  document.querySelectorAll('[data-settings-page]').forEach(function(e){e.classList.toggle('hidden',e.dataset.settingsPage!==name);});
  document.getElementById('settingsContent').scrollTop=0;
@@ -2965,9 +2992,13 @@ function showSettingsTab(name){
 document.querySelectorAll('[data-settings-tab]').forEach(function(b){b.addEventListener('click',function(){showSettingsTab(b.dataset.settingsTab);});});
 function updateSensitivityLabel(){document.getElementById('setSensValue').textContent=Number(document.getElementById('setSens').value).toFixed(1)+'×';}
 document.getElementById('setSens').addEventListener('input',updateSensitivityLabel);
-document.getElementById('settingsNav').addEventListener('keydown',function(e){if(!['ArrowDown','ArrowUp','Home','End'].includes(e.key))return;e.preventDefault();var b=Array.from(this.querySelectorAll('button')),i=b.indexOf(document.activeElement);i=e.key==='Home'?0:e.key==='End'?b.length-1:(i+(e.key==='ArrowDown'?1:-1)+b.length)%b.length;b[i].focus();b[i].click();});
+document.getElementById('settingsNav').addEventListener('keydown',function(e){if(!['ArrowDown','ArrowUp','Home','End'].includes(e.key))return;e.preventDefault();var b=Array.from(this.querySelectorAll('button')).filter(function(e){return !e.classList.contains('hidden');}),i=b.indexOf(document.activeElement);i=e.key==='Home'?0:e.key==='End'?b.length-1:(i+(e.key==='ArrowDown'?1:-1)+b.length)%b.length;b[i].focus();b[i].click();});
 function openSettings(){
- showSettingsTab(settingsTab);updateSensitivityLabel();
+ document.querySelector('[data-settings-tab=survivor]').classList.toggle('hidden',!running);
+ document.querySelector('[data-settings-tab=profile]').classList.toggle('hidden',running);
+ document.getElementById('saveLobby').style.display=running?'':'none';
+ if((!running&&settingsTab==='survivor')||(running&&settingsTab==='profile'))settingsTab='graphics';
+ showSettingsTab(settingsTab);updateSensitivityLabel();syncAudioControls();
  document.getElementById('setFancyLeaves').value=settings.fancyLeaves||'auto';
   document.getElementById('setQuality').value = settings.quality;document.getElementById('setShadows').value=settings.quality!=='high'||settings.shadows==='off'?'off':'on';
   document.getElementById('setSens').value = settings.sens;updateSensitivityLabel();syncChoosers();document.getElementById('setWeather').value=settings.weather||'auto';syncChoosers();
@@ -2983,6 +3014,7 @@ function closeSettings(){
 }
 document.getElementById('setBtn').addEventListener('click', openSettings);
 document.getElementById('setLobbyBtn').addEventListener('click', openSettings);
+document.getElementById('menuProfileBtn').onclick=function(){document.getElementById('profileBtn').click();};
 document.getElementById('quitLobbyBtn').addEventListener('click',requestGameClose);
 document.getElementById('setClose').addEventListener('click', closeSettings);
  document.getElementById('saveLobby').onclick=function(){if(!running){closeSettings();return;}if(!saveGame()){toast('Could not save. Stay here and free device storage.');return;}closeSettings();running=false;document.body.classList.remove('playing');var lobby=document.getElementById('start');lobby.classList.remove('hidden','choosing');document.getElementById('charSetup').classList.add('hidden');document.getElementById('playBtn').textContent='CONTINUE';document.getElementById('newGameBtn').style.display='inline-block';menuMusicWorld(false);};
@@ -3011,7 +3043,7 @@ function setupToLobby(){document.getElementById('charSetup').classList.add('hidd
 document.getElementById('setupBack').onclick=setupToLobby;
 function requestGameClose(){if(closingGame)return;resetMovementInput();askConfirm('CLOSE ONE WORLD?', 'Save your world and close the beta app? Your last saved world will not be deleted.',saveAndClose,'SAVE & CLOSE');}
 function saveAndClose(){if(closingGame)return false;if(!saveGame()){toast('Could not save. App stays open. Free device storage and try again.');return false;}if(!window.OneWorldNative||typeof window.OneWorldNative.quit!=='function'){toast('World saved. Closing the app is available on Android.');return false;}closingGame=true;if(window.oneworldMenuMusic)window.oneworldMenuMusic.close();respawnToken++;respawnBusy=false;resetMovementInput();window.oneworldLifecyclePause();running=false;clearInterval(autosaveTimer);if(AC)AC.close().catch(function(){});[renderer,setupRenderer].forEach(function(r){if(r){r.dispose();r.forceContextLoss();}});window.OneWorldNative.quit();return true;}
-document.getElementById('saveClose').onclick=requestGameClose;
+
 window.oneworldHandleBack=function(){
  if(window.OneWorldNative&&window.OneWorldNative.backHandled)window.OneWorldNative.backHandled();
  function shown(id){return !document.getElementById(id).classList.contains('hidden');}
@@ -3078,7 +3110,9 @@ window.oneword = {supportSurvivorSoles:supportSurvivorSoles,entryUpdateState:fun
   toggleMap: toggleMap, renderMap: renderMap, biomeAt: biomeAt, ensureChunks: ensureChunks, ISLAND_R: ISLAND_R, chunkCount: function(){ return Object.keys(chunks).length; }, chunkColliders: function(k){ return chunks[k] ? chunks[k].colliders : null; },
   toggleUserMark: toggleUserMark, setEquip: setEquip, getChopped: function(){ return Object.keys(choppedTrees).length; }, craft: craftRecipe, countItem: countItem, setChar: buildPlayerChar, getChar: function(){ return charKind; }, setName: function(n){ playerName = String(n || '').slice(0, 16); }, getName: function(){ return playerName; }, nearestBushDist: function(kind){ var b = 1e9, hit = null; for(var k in chunks){ var r = chunks[k]; if(!r.bushRefs) continue; r.bushRefs.forEach(function(o){if(kind==='berry'&&o.type==='fibre'||kind==='fibre'&&o.type!=='fibre')return; var d = Math.hypot(o.x - P.x, o.z - P.z); if(d < b){ b = d; hit = o; } }); } return hit ? { d: b, x: hit.x, z: hit.z,type:hit.type } : null; }, nearestOreDist: function(){ var b = 1e9, hit = null; for(var k in chunks){ var r = chunks[k]; if(!r.oreRefs) continue; r.oreRefs.forEach(function(o){ var d = Math.hypot(o.x - P.x, o.z - P.z); if(d < b){ b = d; hit = o; } }); } return hit ? { d: b, ore: hit.ore, x: hit.x, z: hit.z } : null; }, nearestTreeDist: function(){ var b = 1e9; for(var k in chunks){ var r = chunks[k]; if(!r.treeRefs) continue; r.treeRefs.forEach(function(t){ var d = Math.hypot(t.x - P.x, t.z - P.z); if(d < b) b = d; }); } return b; }, placeKit: placeKit, riverCenterX: riverCenterX, riverBedY: riverBedY, rawGroundY: rawGroundY, inRiver: inRiver, riverRunPts: function(){ return riverWaterRuns.reduce(function(a, r){ return a + r.length; }, 0); }, renderBag: renderBag, isTorchLit: function(){ return !!(torchFlame && torchFlame.userData.group && torchFlame.userData.group.visible); }, riverRunCount: function(){ return riverWaterRuns.length; }, setCamYaw: function(v){ cameraYaw = v; }, setCamPitch: function(v){ cameraPitch = Math.max(-1.15, Math.min(1.25, v)); }, setCamZoom: function(v){ camZoom = Math.max(0.15, Math.min(1, v)); }, eatSelected: eatSelected, saveGame: saveGame, getArmor: function(){ return armorName; }, getStats: function(){ return { stam: Math.round(P.stam*10)/10, food: Math.round(P.food*10)/10, temp: Math.round(P.temp*10)/10 }; }, setStats: function(o){ if(!o) return; if(typeof o.stam === 'number') P.stam = Math.max(0, Math.min(100, o.stam)); if(typeof o.food === 'number') P.food = Math.max(0, Math.min(100, o.food)); if(typeof o.temp === 'number') P.temp = Math.max(0, Math.min(100, o.temp)); drawVitals(); }, ambientTemp: function(){ return currentAmb; }, armorTest: armorBlocks, wearArmor: function(n){ var i = inv.findIndex(function(it){ return it.name === n; }); if(i < 0) return false; selSlot = i; wearSelected(); return armorName === n; }, trySleep: trySleep, addItem: addItem, selectSlot: function(i){ selSlot = i; renderBag(); }, getCampfire: function(){ return campfirePos; }, setDayT: function(v){ dayT = v; }, getEquip: function(){ return equipped; }, waterInfo:waterInfo, isSwimming:function(){return swimming;}, renderInvPreview: renderInvPreview, getMarks: function(){ return userMarks.slice(); }, setBed: function(x, z){ bedPos = { x: x, z: z }; }, getBed: function(){ return bedPos; } };
 
+await startupStage(97,'Applying saved graphics');
 applySettings();
+await startupStage(98,'Preparing first frame');
 camera.position.set(0, groundY(0,0) + 2.6, 5.0);
 drawHearts();
 frame();
