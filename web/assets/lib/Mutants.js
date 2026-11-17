@@ -1,8 +1,8 @@
 import * as T from 'three';
 // Original adult horror silhouettes with covered torsos. No copied game assets.
-export function mutant(kind){
+export function mutant(kind,options={}){
  const root=new T.Group(),limbs=[];root.name='AdultMutant_'+kind;
- const skin=new T.MeshStandardMaterial({color:kind==='female'?0x817e6a:0x646b55,roughness:1,flatShading:true}),lesion=new T.MeshStandardMaterial({color:0x522d2c,roughness:1}),cloth=new T.MeshStandardMaterial({color:0x3d3630,roughness:1,side:T.DoubleSide}),bone=new T.MeshStandardMaterial({color:0xaaa18b,roughness:1}),dark=new T.MeshStandardMaterial({color:0x201d19,roughness:1}),eye=new T.MeshStandardMaterial({color:0x9c402e,emissive:0x3f100a,roughness:1});
+ const skin=new T.MeshStandardMaterial({color:options.naturalSkin?(kind==='female'?0xa38270:0x987762):(kind==='female'?0x817e6a:0x646b55),roughness:1,flatShading:true}),lesion=new T.MeshStandardMaterial({color:0x522d2c,roughness:1}),cloth=new T.MeshStandardMaterial({color:0x3d3630,roughness:1,side:T.DoubleSide}),bone=new T.MeshStandardMaterial({color:0xaaa18b,roughness:1}),dark=new T.MeshStandardMaterial({color:0x201d19,roughness:1}),eye=new T.MeshStandardMaterial({color:0x9c402e,emissive:0x3f100a,roughness:1});
  function ell(parent,mat,x,y,z,sx,sy,sz){const o=new T.Mesh(new T.SphereGeometry(1,9,7),mat);o.position.set(x,y,z);o.scale.set(sx,sy,sz);parent.add(o);return o;}
  function head(x,y,z,scale=1){const g=new T.Group();g.position.set(x,y,z);g.scale.setScalar(scale*.7);root.add(g);ell(g,skin,0,0,0,.17,.27,.18);ell(g,skin,0,-.18,.07,.13,.1,.14);ell(g,skin,0,-.015,.185,.035,.07,.05);for(const sign of [-1,1]){ell(g,dark,sign*.09,.025,.165,.065,.055,.035);ell(g,eye,sign*.09,.018,.195,.013,.01,.006);}ell(g,dark,0,-.15,.2,.115,.045,.02);for(let i=0;i<5;i++)ell(g,bone,(i-2)*.035,-.14,.225,.012,.022,.01);ell(g,lesion,-.12,.12,.15,.08,.11,.045);return g;}
  function shaft(parent,mat,x,y,z,r1,r2,len,angle=0){const o=new T.Mesh(new T.CylinderGeometry(r1,r2,len,7,1),mat);o.position.set(x,y,z);o.rotation.z=angle;parent.add(o);return o;}

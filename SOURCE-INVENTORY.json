@@ -1,10 +1,10 @@
 {
-  "baseline": "1.3.34",
+  "baseline": "1.3.35",
   "sourceBase": {
-    "beta": "86619715fe62030b3d2585b7334815135786398c",
-    "project": "2d3d49d76ced1467c6d512cd79a1b8b21c87b40e"
+    "beta": "459f956deb24376b3def5bf23d8eae74f736cfd0",
+    "project": "fec141a921049f24cfb13d7aa80af90aab96cc8a"
   },
-  "status": "qualified Authors-only incremental beta; phone result pending",
+  "status": "Map 2 playable prototype beta; physical phone validation pending",
   "files": [
     {
       "path": ".github/workflows/.github/workflows/project-bootstrap.yml",
@@ -18,8 +18,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 19942,
-      "sha256": "00c6dc7dc0e4f2532f8d23e2da5d47fabc05e32442feefb0e046870475efff8c"
+      "size": 22226,
+      "sha256": "7f3e59955817bec4f4266abd5c31bf59660b9993d21bb5c8ffdfffe164be7f90"
     },
     {
       "path": "CONTRIBUTING.md",
@@ -28,13 +28,13 @@
     },
     {
       "path": "README.md",
-      "size": 3158,
-      "sha256": "a64a08c8f03f930628a65101faf4b7f3a7b5d2f5252da29ddae3bac471c07d0a"
+      "size": 3242,
+      "sha256": "142bc7e2ba974f0b43bd63401355153d33aa8e7734ac856dc5cdc9e279ab7f8a"
     },
     {
       "path": "android/AndroidManifest.xml",
       "size": 1298,
-      "sha256": "5476ea5dd54f9cc7b27fafec7f247d3a7ff8d87a6dd626042a4d2a80a40655f5"
+      "sha256": "f447716cff14ba33a2a91b505b391625509baace3edf53c1914f253fedb6c4aa"
     },
     {
       "path": "android/res/drawable/ic_face.png",
@@ -157,6 +157,11 @@
       "sha256": "4ca55786ed440069cfc6be626126b0b442ae663b00bae0030e597e16ce1e537c"
     },
     {
+      "path": "docs/QA-1.3.35.md",
+      "size": 2284,
+      "sha256": "8ab0546a05f676a298c956261a79792a930867e3e322d81641d863511fe3108c"
+    },
+    {
       "path": "docs/screenshots/1.3.24/README.md",
       "size": 142,
       "sha256": "d617dcc0a6f0332bce0e5f85ae09c19b9b5bd2aaa2d561830609ff1b27badf6f"
@@ -208,8 +213,48 @@
     },
     {
       "path": "web/assets/lib/Mutants.js",
-      "size": 4830,
-      "sha256": "62b43286a50c59ed15bbdbc376c4642cff6551ac4c238bbecf35da187926381c"
+      "size": 4899,
+      "sha256": "12d6c2063eb09aa3bf69b3d1c769cc811c3e74172e9c7d764e485697c7709aa1"
+    },
+    {
+      "path": "web/assets/lib/ReferenceCoast.js",
+      "size": 192575,
+      "sha256": "46d3b9eea653fe3cccc1415a7654dc82d2f0c8ca6afe76bd1eb4d7182aeb3a9c"
+    },
+    {
+      "path": "web/assets/lib/ReferenceHorizon.js",
+      "size": 1811,
+      "sha256": "769a310710b44ba9d41fc2f59b96bc6cbcfd6bf3156227f95fbfd588b30f3aed"
+    },
+    {
+      "path": "web/assets/lib/ReferenceIsland.js",
+      "size": 5576,
+      "sha256": "25224fff913c6470e4959b26606c1e9c6e4fcabe9e736a9fcdc84b349a0f7c6c"
+    },
+    {
+      "path": "web/assets/lib/ReferenceLocations.js",
+      "size": 684,
+      "sha256": "ac8b71cbb9c0261568fc354900c60c9f24c9fc4806e2175cdd7b4d9d0217b241"
+    },
+    {
+      "path": "web/assets/lib/ReferenceMutantAnimal.js",
+      "size": 2074,
+      "sha256": "1adc38b2586e12e9cc7b5c4bc835f0cc31ddba52a96caea3a82136910a682d21"
+    },
+    {
+      "path": "web/assets/lib/ReferenceSites.js",
+      "size": 9175,
+      "sha256": "51ecc6347b20b85afe58f057561e84143974613f78dcd932a55ab7ddb5cbeaca"
+    },
+    {
+      "path": "web/assets/lib/ReferenceWetlands.js",
+      "size": 1708,
+      "sha256": "9f759e3e63f5a88c7513b7e4443ea7348d33348df281c665b115122346f632b4"
+    },
+    {
+      "path": "web/assets/lib/RendererWarmup.js",
+      "size": 1868,
+      "sha256": "c4c73f05a5cea2c0e7bb94f833de255fd293dc17dca41380d6c8015668ff23e9"
     },
     {
       "path": "web/assets/lib/SkeletonUtils.js",
@@ -692,6 +737,11 @@
       "sha256": "a7119834fb73a5c4ed7ed1b7153d0f0ddac55a02bc0860c29f4272737dfcddec"
     },
     {
+      "path": "web/assets/ui/reference-island-map.png",
+      "size": 3456372,
+      "sha256": "2b3b6fc771ecc33065d0d2f859dc34b8a525d9b82fa81771f2de4bf036d68ba4"
+    },
+    {
       "path": "web/assets/ui/skin-0.svg",
       "size": 503,
       "sha256": "9f3fb9060a83f9b10ac75f7e547d42fb939d64929dbafac6bd7c85396e2d4b51"
@@ -728,8 +778,8 @@
     },
     {
       "path": "web/index.html",
-      "size": 301320,
-      "sha256": "d8d421cf2a3783777da75b03c562e440a10a861a7f2633ed72cae4c9c8f00733"
+      "size": 318043,
+      "sha256": "7538397626861a7ff63ea8453e48da2d12869dce187b2b7eae6d6c3b6f83b66d"
     }
   ]
 }

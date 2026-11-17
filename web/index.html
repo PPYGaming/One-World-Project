@@ -163,6 +163,7 @@
     background:linear-gradient(90deg,#5490c1,#8dc1ec); transition:width .2s; }
   #loading .pct { position:absolute;bottom:14px;left:20px;margin:0;font-size:12px; color:#c0d6e8; font-weight:700; }
 
+#mapPanel.referenceMap{grid-template-columns:minmax(0,2.2fr) minmax(180px,1fr);column-gap:20px}#mapPanel.referenceMap #mapCanvas{width:100%;max-width:100%;height:auto;max-height:78vh;object-fit:contain}#mapPanel.referenceMap #beaconTravel{gap:5px!important}#mapPanel.referenceMap #beaconTravel button{padding:9px 6px;font-size:10px}#start.choosing #worldChooser{display:none!important}
 #start.choosing{justify-content:flex-start;padding:12px;box-sizing:border-box;overflow-y:auto}
 #start.choosing>h1,#start.choosing>.ver,#start.choosing>.tag,#start.choosing>.keys,#start.choosing>.foot{display:none}
 #start.choosing #charSetup{width:min(720px,96vw);margin:0!important}
@@ -247,6 +248,7 @@ body.playing #quickbar{display:flex}
 #profileBox.panel{position:fixed;z-index:55;width:min(390px,92vw);max-height:86vh;overflow-y:auto;background:#09243bf9;border:1px solid #7bc6ed;padding:18px;color:#deefff;box-shadow:0 15px 80px #000b}#profileBox label{display:block;margin-bottom:6px}#profileStats{margin-top:12px}#profileClose{font-size:12px;padding:8px 18px;margin-top:12px}
 #betaDebug{position:fixed;z-index:90;right:8px;top:8px;width:min(460px,94vw);height:min(340px,84vh);background:#071a2beb;border:1px solid #73b9dc;border-radius:8px;color:#d3efff;font:11px monospace;overflow:auto;box-shadow:0 5px 28px #0008}#debugStats{white-space:pre-wrap;overflow-wrap:anywhere;padding:10px;line-height:1.4}.debugHead{position:sticky;top:0;background:#103752;display:flex;align-items:center;gap:8px;padding:8px}.debugHead button{color:#e1f5ff;background:#1a5277;border:1px solid #76b7d7;padding:5px 8px;font:10px sans-serif}.debugHead button:first-of-type{margin-left:auto}
 
+#mapPanel.referenceMap{grid-template-columns:minmax(0,2.2fr) minmax(180px,1fr);column-gap:20px}#mapPanel.referenceMap #mapCanvas{width:100%;max-width:100%;height:auto;max-height:78vh;object-fit:contain}#mapPanel.referenceMap #beaconTravel{gap:5px!important}#mapPanel.referenceMap #beaconTravel button{padding:9px 6px;font-size:10px}#start.choosing #worldChooser{display:none!important}
 #start.choosing{padding:max(8px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(22px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));height:100dvh;overflow:hidden}
 #start.choosing #charSetup:not(.hidden){width:min(1100px,98vw);height:100%;display:flex;flex-direction:column;min-height:0}
 #previewWrap{position:relative;min-height:0}#zoomActions{position:absolute;bottom:7px;left:50%;transform:translateX(-50%);display:flex;gap:7px;align-items:center;background:#10324bd9;border-radius:9px;padding:5px}#zoomActions button{color:#d5efff;background:#17486a;border:1px solid #5890b3;border-radius:7px;font-size:15px;padding:3px 9px}#charGrid{grid-template-columns:1.15fr 1fr;flex:1;min-height:0;gap:20px;align-items:stretch}
@@ -419,6 +421,8 @@ body.playing:not(.gamePaused) #craftBtn{display:block}body.editingControls #craf
 
 #tapToStart h1.titleMark{font:700 clamp(28px,4.6vw,70px)/1.07 Georgia,serif;letter-spacing:.08em;color:#f0e9d5;margin:0;width:auto;max-width:48vw;text-shadow:0 3px 18px #000b}#tapToStart .titleStudio{top:calc(19% + 7vw)}@media(orientation:portrait){#tapToStart:before{background-position:center top;background-size:cover}#tapToStart h1.titleMark{top:65%;left:8vw;max-width:84vw;font-size:11vw}#tapToStart .titleStudio{top:calc(65% + 15vw);left:8.3vw}}
 
+#lootCollect{display:none;position:fixed;left:50%;bottom:180px;transform:translateX(-50%);padding:10px 16px;z-index:22;border:1px solid #e6ead7;background:#13251de8;color:#ecedda;border-radius:9px;font:11px/1.5 sans-serif;touch-action:manipulation}body.playing:not(.gamePaused) #lootCollect.available{display:block}
+body.referenceWorld #joy,body.referenceWorld #atk,body.referenceWorld #bagBtn,body.referenceWorld #mapBtn,body.referenceWorld #setBtn,body.referenceWorld #freeLookBtn,body.referenceWorld #craftBtn,body.referenceWorld #quickbar button{background:rgba(15,27,31,.42)!important;}
 </style>
 </head>
 <body><div id="healthNotice" role="status" aria-live="polite"></div><div id="weaponAim" aria-hidden="true"></div>
@@ -428,6 +432,7 @@ body.playing:not(.gamePaused) #craftBtn{display:block}body.editingControls #craf
   <div id="hearts"></div>
   <div id="stats"><span id="wolfCount">Wolves 0</span><br><span id="dayNight"><span class="dndot" id="dnDot"></span>Day</span></div>
 </div>
+<button id="lootCollect">COLLECT SUPPLIES</button>
 <div id="vitals">
 <div class="vbar" id="vHealth" aria-label="Health"><svg class="vic" viewBox="0 0 24 24"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z" fill="#de6c63"/></svg><div class="vtrack"><div class="vfill" style="width:100%"></div></div></div>
 <div class="vbar" id="vWater" aria-label="Water"><svg class="vic" viewBox="0 0 24 24"><path d="M12 2C10 6 5 11 5 15a7 7 0 0 0 14 0c0-4-5-9-7-13z" fill="#6ebad8"/></svg><div class="vtrack"><div class="vfill" style="width:100%"></div></div></div>
@@ -485,7 +490,7 @@ body.playing:not(.gamePaused) #craftBtn{display:block}body.editingControls #craf
   <h1>ONE WORLD</h1>
   <div class="ver">Loading build version...</div>
   <div class="tag"><span class="blt"></span>Enter the deep forest<br><span class="blt"></span>Fight the wolves, hunt the deer<br><span class="blt"></span>Deer and birds keep you company<br><span class="blt"></span>Watch day turn into night</div>
-  <button class="playbtn" id="playBtn"><svg viewBox="0 0 24 24" width="18" height="18" style="vertical-align:-3px;margin-right:8px"><path d="M6 3l14 9-14 9z" fill="#d2e6f7"/></svg>ENTER WORLD</button><br>
+  <div id="worldChooser" style="display:flex;gap:6px;margin:8px 0;max-width:280px"><button class="playbtn" id="worldOld" style="font-size:11px;padding:9px">MAP 1<br>ORIGINAL</button><button class="playbtn" id="worldReference" style="font-size:11px;padding:9px">MAP 2<br>NEW ISLAND</button></div><button class="playbtn" id="playBtn"><svg viewBox="0 0 24 24" width="18" height="18" style="vertical-align:-3px;margin-right:8px"><path d="M6 3l14 9-14 9z" fill="#d2e6f7"/></svg>ENTER WORLD</button><br>
   <button class="playbtn" id="newGameBtn" style="display:none;font-size:13px;padding:10px 26px;margin-top:10px">NEW GAME</button>
   <button class="playbtn" id="setLobbyBtn" style="font-size:13px;padding:10px 26px;margin-top:10px;background:#2f506b"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M13 3h6l1 4 3 2 4-1 3 5-3 3v3l3 3-3 5-4-1-3 2-1 3h-6l-1-3-3-2-4 1-3-5 3-3v-3l-3-3 3-5 4 1 3-2z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="16" cy="17" r="5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg> SETTINGS</button>
   <button class="playbtn" id="quitLobbyBtn" style="font-size:13px;padding:10px 26px;margin-top:8px;background:#593e46">QUIT</button>
@@ -592,6 +597,17 @@ window.oneworldMenuMusic.volume(audioLevels.music);window.oneworldMenuMusic.sync
 import {mutant} from './assets/lib/Mutants.js';
 import {wildlife} from './assets/lib/Wildlife.js';
 import * as THREE from 'three';
+import {warmRenderer} from './assets/lib/RendererWarmup.js';
+import {referenceMutantAnimal} from './assets/lib/ReferenceMutantAnimal.js';
+import {buildWetlands} from './assets/lib/ReferenceWetlands.js';
+import {createReferenceHorizon} from './assets/lib/ReferenceHorizon.js';
+import {createReferenceSites,SAFE_AREAS,LAB,SITE_PLANS} from './assets/lib/ReferenceSites.js';
+import {REFERENCE_WORLD,referenceSample,referenceHeight,referenceBiome} from './assets/lib/ReferenceIsland.js';
+var referenceMode=false;try{referenceMode=localStorage.getItem('oneworld-selected-world-v1')==='reference-island-v1';}catch(e){}
+var activeWorldId=referenceMode?'reference-island-v1':'original';
+var referenceStart={x:-3220,z:2570};
+function referenceClearing(x,z){return referenceMode&&SITE_PLANS.some(function(p){return Math.abs(p.x-x)<(p.kind==='lab'?25:9)&&Math.abs(p.z-z)<(p.kind==='lab'?23:8);});}
+var referenceMapImage=new Image();referenceMapImage.src='assets/ui/reference-island-map.png';
 import { GLTFLoader } from './assets/lib/GLTFLoader.js';
 import { clone as skClone } from './assets/lib/SkeletonUtils.js';
 import { animeClips, applyAnimeColors, attachLeatherGarments, applyHairStyle, updateHairSway } from './assets/lib/AnimeCharacter.js';
@@ -738,6 +754,7 @@ function riverBedY(z){
 }
 function riverDist(x, z){ return Math.abs(x - riverCenterX(z)); }
 function rawGroundY(x, z){
+  if(referenceMode)return referenceHeight(x,z);
   var r = Math.hypot(x, z);
   var base = (fbm(x*0.02+7.3, z*0.02+2.1, 4)-0.5)*10 + (fbm(x*0.07, z*0.07, 2)-0.5)*2.4;
   var mtn = smooth(0.52, 0.85, fbm(x*0.0032+11.1, z*0.0032+5.7, 3)) * 70; // big mountain ranges
@@ -746,6 +763,7 @@ function rawGroundY(x, z){
   return land * mask - 7 * (1 - mask);
 }
 function groundY(x, z){
+  if(referenceMode)return referenceHeight(x,z);
   var y = rawGroundY(x, z);
   if(z < 2700 && z > -6500){
     var r = Math.hypot(x, z);
@@ -788,10 +806,11 @@ function surfaceY(x,z){
   if(planes)planes[ci]=plane;
   else {if(fallbackSurfaceCount>2048){fallbackSurfacePlanes={};fallbackSurfaceCount=0;}fallbackSurfacePlanes[key]=plane;fallbackSurfaceCount++;}
  }
- return tx+tz<=1?plane[0]+plane[1]*tx+plane[2]*tz:plane[3]+plane[4]*(1-tx)+plane[5]*(1-tz);
+ var terrainY=tx+tz<=1?plane[0]+plane[1]*tx+plane[2]*tz:plane[3]+plane[4]*(1-tx)+plane[5]*(1-tz);return referenceMode&&typeof referenceSites!=='undefined'&&referenceSites?Math.max(terrainY,referenceSites.floorAt(x,z)):terrainY;
 }
 function riverHalfWidth(z){ return 13+8*((2400-z)/8900); }
 function waterInfo(x,z){
+  if(referenceMode){var s=referenceSample(x,z);return {surface:0,depth:Math.max(0,-s.height),river:s.water==='river'||s.water==='swamp'};}
   var surface=SEA_LEVEL,river=false;
   if(z<=2400&&z>=-6300){
     var cx=riverCenterX(z),slope=(riverCenterX(z+1)-riverCenterX(z-1))/2;
@@ -800,7 +819,7 @@ function waterInfo(x,z){
   }
   return {surface:surface,depth:Math.max(0,surface-groundY(x,z)),river:river};
 }
-function inRiver(x, z){ return z < 2700 && z > -6500 && riverDist(x, z) < 22; }
+function inRiver(x, z){ if(referenceMode)return referenceSample(x,z).height<.5;return z < 2700 && z > -6500 && riverDist(x, z) < 22; }
 function groundSlope(x, z){ var e=0.6, c=groundY(x,z); return Math.max(Math.abs(groundY(x+e,z)-c), Math.abs(groundY(x,z+e)-c))/e; }
 
 A.tex.ground.wrapS = A.tex.ground.wrapT = THREE.RepeatWrapping;
@@ -826,6 +845,7 @@ function forestScore(x, z){
 function qTier(){ return QUALITY[settings.quality] || QUALITY.medium; }
 
 function biomeAt(x, z){
+  if(referenceMode)return referenceBiome(x,z);
   var y = rawGroundY(x, z);
   if(y > 40 || z < -3800) return 'snow';
   if(x > 3600 && Math.abs(z) < 3200) return 'desert';
@@ -838,6 +858,7 @@ function matXformCached(key, mat, fn){
   return matXformCache[ck];
 }
 var frostMaps=new WeakMap();
+if(referenceMode){document.body.classList.add('referenceWorld');}
 function frostMat(m){
  if(!m.color)return;
  if(m.map&&/leav|needle/i.test(m.name||'')){
@@ -848,10 +869,21 @@ function frostMat(m){
   }m.map=tx;m.color.setHex(0xf4f7ff);m.roughness=1;m.metalness=0;
  }else if(!m.map&&m.color.g>m.color.r)m.color.setRGB(.8,.87,.9);
 }
+var redLeafMaps=new WeakMap();
+function redLeafMat(m){
+ if(!m.color)return;
+ if(m.map&&/leav|needle|foliage/i.test(m.name||'')||m.alphaTest>0){
+  var original=m.map;
+  if(original){var tx=redLeafMaps.get(original);if(!tx){var im=original.image,cv=document.createElement('canvas');cv.width=im.width;cv.height=im.height;var ctx=cv.getContext('2d');ctx.drawImage(im,0,0);var data=ctx.getImageData(0,0,cv.width,cv.height),d=data.data;for(var i=0;i<d.length;i+=4){var v=(d[i]+d[i+1]+d[i+2])/3;d[i]=100+v*.65;d[i+1]=10+v*.10;d[i+2]=19+v*.12;}ctx.putImageData(data,0,0);tx=original.clone();tx.source=new THREE.Source(cv);tx.needsUpdate=true;redLeafMaps.set(original,tx);}m.map=tx;}m.color.setRGB(.65,.65,.65);
+ }else if(!m.map&&m.color.g>m.color.r)m.color.setRGB(.42,.025,.04);
+ m.roughness=1;
+}
 function dryMat(m){ var c = m.color; if(!c) return; if(m.map && c.r > 0.9 && c.g > 0.9 && c.b > 0.9){ c.setRGB(0.78, 0.68, 0.42); } else if(c.g > c.r && c.g > c.b){ c.setRGB(0.72, 0.66, 0.38); } }
 var terrainMat = new THREE.MeshStandardMaterial({ map: A.tex.ground, roughness: 1, metalness: 0, vertexColors: true });
 var terrainMatPlain = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 1, metalness: 0, vertexColors: true }); // untextured: snow/sand vertex colors must not multiply the grass photo
 function groundColor(x, z, y){
+  if(referenceMode){var s=referenceSample(x,z),b=s.biome,n=forestNoise(x,z);if(b==='swamp')return [.055+n*.05,.10+n*.07,.035+n*.04];if(y<.8)return [.79,.73,.51];if(b==='snow'){var rock=Math.sin(x*.043+z*.026)+Math.sin(x*.013-z*.031);return y>100&&rock>1.0?[.35+n*.12,.39+n*.12,.41+n*.12]:[.76+n*.12,.83+n*.1,.90+n*.08];}if(b==='volcanic')return [.20+n*.15,.15+n*.06,.13+n*.05];if(b==='desert')return [.31+n*.08,.19+n*.06,.075+n*.035];if(b==='swamp')return [.25+n*.1,.32+n*.1,.19+n*.08];if(y>70)return [.45,.48,.40];return [.23+n*.16,.42+n*.15,.16+n*.09];}
+
   if(z < 2700 && z > -6500 && riverDist(x, z) < 44 && y < riverBedY(z) + 0.9) return [0.58, 0.51, 0.39]; // wet riverbed
   if(y < 0.7) return [0.86, 0.78, 0.55];                       // sand / beach / seabed
   if(y > 42) return [0.85, 0.87, 0.87];                        // snow peaks
@@ -863,13 +895,14 @@ function groundColor(x, z, y){
   return [0.45 + f*0.20, 0.66 + f*0.12, 0.33 + f*0.10];        // grass variation
 }
 
-var water = new THREE.Mesh(new THREE.PlaneGeometry(1600, 1600),
+var water = new THREE.Mesh(new THREE.PlaneGeometry(referenceMode?18000:1600,referenceMode?12000:1600),
   new THREE.MeshStandardMaterial({ color: 0x2e6f8e, transparent: true, opacity: 0.82, roughness: 0.3, metalness: 0.15 }));
 water.rotation.x = -Math.PI/2; water.position.y = SEA_LEVEL; scene.add(water);
 
 // river water: one ribbon mesh following the descending bed; skipped where terrain already dips below the bed
 var riverWaterRuns = [];
 (function buildRiverWater(){
+  if(referenceMode)return;
   var verts = [], idx = [], run = [];
   function flush(){
     if(run.length >= 2){
@@ -898,6 +931,8 @@ var riverWaterRuns = [];
   }
 })();
 
+var referenceHorizon=referenceMode?await createReferenceHorizon(scene,groundY,groundColor,window.oneworldYieldPaint):null;
+if(referenceMode){camera.far=18000;camera.updateProjectionMatrix();}
 var chunks = {};
 function chunkKey(cx, cz){ return cx + ',' + cz; }
 function buildChunk(cx, cz){
@@ -916,7 +951,7 @@ function buildChunk(cx, cz){
   }
   g.setAttribute('color', new THREE.BufferAttribute(colors, 3));
   g.computeVertexNormals();
-  var gm = new THREE.Mesh(g, bio === 'forest' ? terrainMat : terrainMatPlain);
+  var gm = new THREE.Mesh(g, !referenceMode&&bio === 'forest' ? terrainMat : terrainMatPlain);
   gm.position.set(bx, 0, bz); gm.receiveShadow = true;
   scene.add(gm); rec.ground = gm;
   var qt = qTier();
@@ -926,14 +961,15 @@ function buildChunk(cx, cz){
   // far chunks get 60% count, cheap variants only - instancing keeps draw calls flat per chunk
   var belt = forestScore(bx, bz) > 0.55;
   var treeTarget = Math.round((near ? qt.trees : qt.trees*0.7) * (belt ? 1.6 : 1));
-  if(bio === 'desert') treeTarget = Math.max(1, Math.round(treeTarget * 0.35));
+  if(referenceMode&&bio==='ocean')treeTarget=0;if(referenceMode&&bio==='volcanic')treeTarget=groundY(bx,bz)>85?0:Math.round(treeTarget*.65);
+  if(bio === 'desert') treeTarget = referenceMode?Math.round(treeTarget*.04):Math.max(1, Math.round(treeTarget * 0.35));
   var groups = {};
   for(var i = 0; i < treeTarget; i++){
     var x = ox + hash3(cx, cz, i*7+1)*CHUNK, z = oz + hash3(cx, cz, i*7+2)*CHUNK;
-    if(inRiver(x, z)) continue;
+    if((inRiver(x,z)&&!(referenceMode&&bio==='swamp'&&groundY(x,z)>.12))||referenceClearing(x,z)) continue;
     if(beacons&&beacons.some(function(b){return Math.hypot(x-b.x,z-b.z)<25;}))continue;
     if(forestScore(x, z) < 0.15) continue;
-    var y = groundY(x, z); if(y < 1.2) continue;
+    var y = groundY(x,z);if(y<(referenceMode&&bio==='swamp'?.12:1.2))continue;if(referenceMode&&bio==='volcanic'&&y>85)continue;
     if(groundSlope(x, z) > 1.2) continue;
     var hero = near && hash3(cx, cz, i*7+6) < 0.15;
     var k = bio === 'snow' ? 'PF' : (hero ? 'NH' : (i % 2 === 0 ? 'NF' : 'PF'));
@@ -944,7 +980,7 @@ function buildChunk(cx, cz){
   }
   var kinds = { NH: ['normaltree', 'NormalTree_3'], NF: ['normaltree', 'NormalTree_5'], PF: ['pine', 'PineTree_5'] };
   rec.treeRefs = [];
-  var treeOpts = bio === 'snow' ? { matKey: 'frost', matXform: frostMat } : (bio === 'desert' ? { matKey: 'dry', matXform: dryMat } : undefined);
+  var treeOpts = referenceMode&&bio==='volcanic'?{matKey:'red-leaves',matXform:redLeafMat}:bio === 'snow' ? { matKey: 'frost', matXform: frostMat } : (bio === 'desert' ? { matKey: 'dry', matXform: dryMat } : undefined);
   Object.keys(groups).forEach(function(k){
     var kk = kinds[k];
     var tms = buildInstanced(kk[0], [kk[1]], groups[k], treeOpts);
@@ -959,7 +995,7 @@ function buildChunk(cx, cz){
   var bp = [];
   if(near && bio === 'forest') for(var i = 0; i < qt.bushes; i++){
     var ai=Math.floor(i/3),x=ox+hash3(cx,cz,700+ai*5+1)*CHUNK+Math.sin(i*2.4)*2.3,z=oz+hash3(cx,cz,700+ai*5+2)*CHUNK+Math.cos(i*2.4)*2.3;
-    if(inRiver(x, z)) continue;
+    if(inRiver(x, z)||referenceClearing(x,z)) continue;
     if(beacons&&beacons.some(function(b){return Math.hypot(x-b.x,z-b.z)<25;}))continue;
     if(forestScore(x, z) < 0.30) continue;
     if(groundY(x, z) < 1.0 || groundSlope(x, z) > 1.1) continue;
@@ -979,7 +1015,7 @@ function buildChunk(cx, cz){
   var rp = [];
   for(var i = 0; i < 3; i++){
     var x = ox + hash3(cx, cz, 100+i*7+1)*CHUNK, z = oz + hash3(cx, cz, 100+i*7+2)*CHUNK;
-    if(inRiver(x, z)) continue;
+    if(inRiver(x, z)||referenceClearing(x,z)) continue;
     if(beacons&&beacons.some(function(b){return Math.hypot(x-b.x,z-b.z)<25;}))continue;
     if(groundY(x, z) < 0.8) continue;
     var h = 0.8 + hash3(cx, cz, 100+i*7+3)*2.4;
@@ -992,10 +1028,10 @@ function buildChunk(cx, cz){
   if(near){
     for(var oi0 = 0; oi0 < 2; oi0++){
       var ox2 = ox + hash3(cx, cz, 900+oi0*7+1)*CHUNK, oz2 = oz + hash3(cx, cz, 900+oi0*7+2)*CHUNK;
-      if(inRiver(ox2, oz2)) continue;
+      if(inRiver(ox2, oz2)||referenceClearing(ox2,oz2)) continue;
       if(groundY(ox2, oz2) < 0.8) continue;
       var rt0 = hash3(cx, cz, 900+oi0*7+3);
-      var ore0 = rt0 < 0.55 ? 'stone' : (rt0 < 0.85 ? 'iron' : 'silver');
+      var ore0 = referenceMode&&rt0>.84?'crystal':rt0<.55?'stone':rt0<.85?'iron':'silver';
       var okey0 = cx + ',' + cz + ',ore,' + oi0;
       var om0 = buildOreNode(ox2, oz2, ore0, 0.9 + hash3(cx, cz, 900+oi0*7+4)*0.5, hash3(cx, cz, 900+oi0*7+5)*Math.PI*2);
       if(!om0) continue;
@@ -1009,7 +1045,7 @@ function buildChunk(cx, cz){
   var gp = [];
   for(var i = 0; i < (bio === 'snow' ? 0 : qt.grass); i++){
     var x = ox + hash3(cx, cz, 300+i*5+1)*CHUNK, z = oz + hash3(cx, cz, 300+i*5+2)*CHUNK;
-    if(inRiver(x, z)) continue;
+    if(inRiver(x, z)||referenceClearing(x,z)) continue;
     if(beacons&&beacons.some(function(b){return Math.hypot(x-b.x,z-b.z)<25;}))continue;
     if(groundY(x, z) < 0.8 || groundSlope(x, z) > 1.0) continue;
     gp.push({ x: x, z: z, h: 0.5 + hash3(cx, cz, 300+i*5+3)*0.4, rot: hash3(cx, cz, 300+i*5+4)*Math.PI*2 });
@@ -1018,19 +1054,20 @@ function buildChunk(cx, cz){
   var fp2 = [];
   for(var i = 0; i < (near && bio === 'forest' ? 5 : 0); i++){
     var x = ox + hash3(cx, cz, 500+i*5+1)*CHUNK, z = oz + hash3(cx, cz, 500+i*5+2)*CHUNK;
-    if(inRiver(x, z)) continue;
+    if(inRiver(x, z)||referenceClearing(x,z)) continue;
     if(beacons&&beacons.some(function(b){return Math.hypot(x-b.x,z-b.z)<25;}))continue;
     if(forestNoise(x, z) < 0.5 || groundY(x, z) < 0.9) continue;
     fp2.push({ x: x, z: z, h: 0.35 + hash3(cx, cz, 500+i*5+3)*0.25, rot: hash3(cx, cz, 500+i*5+4)*Math.PI*2 });
   }
   if(fp2.length) rec.meshes = rec.meshes.concat(buildInstanced('flowers', ['Flower_' + (1 + Math.floor(hash3(cx, cz, 998)*5))], fp2, { shadow: false }));
-  chunks[key] = rec;
+  if(referenceMode&&bio==='swamp')rec.meshes=rec.meshes.concat(buildWetlands(scene,cx,cz,CHUNK,groundY,biomeAt,hash3));
+  chunks[key] = rec;if(referenceHorizon)referenceHorizon.mark(cx,cz,true);
 }
 function disposeChunk(key){
   var rec = chunks[key]; if(!rec) return;
   rec.meshes.forEach(function(m){ scene.remove(m); if(m.isInstancedMesh) m.dispose(); });
   if(rec.ground){ scene.remove(rec.ground); rec.ground.geometry.dispose(); }
-  delete chunks[key];
+  delete chunks[key];if(referenceHorizon){var cs=key.split(',').map(Number);referenceHorizon.mark(cs[0],cs[1],false);}
 }
 // Low quality prefetches an extra edge row only within 8m of a boundary.
 // Keep all neighbor collider checks intact; never walk into an unloaded cell.
@@ -1049,6 +1086,7 @@ function ensureChunks(){
 }
 function rebuildAllChunks(){ for(var k in chunks) disposeChunk(k); ensureChunks(); }
 function collideXZ(x, z, r){
+ if(referenceSites){var solved=referenceSites.solve(x,z,r);x=solved[0];z=solved[1];}
  for(var pass=0;pass<4;pass++){var beforeX=x,beforeZ=z;
   for(var si = 0; si < structColliders.length; si++){
     var sc = structColliders[si], sdx = x-sc.x, sdz = z-sc.z, srr = r+sc.r, sd2 = sdx*sdx + sdz*sdz;
@@ -1173,7 +1211,7 @@ function buildInstanced(glbKey, names, places, opts){
     if(!mine.length) return;
     vd.meshes.forEach(function(mm){
       var mat=opts.matXform ? matXformCached(opts.matKey, mm.mat, opts.matXform) : mm.mat,geo=mm.geo;
-      if(!fancyLeaves()&&(glbKey==='normaltree'||glbKey==='pine')&&(mm.mat.alphaTest>0||/leav|needle|foliage/i.test(mm.mat.name||''))){mat=matXformCached('plain-'+(opts.matKey||'forest'),mat,function(m){var p=plainLeafMat(m);p.map=paintedLeafMaps[glbKey];p.alphaTest=.5;p.side=THREE.DoubleSide;p.normalMap=null;p.metalness=0;p.roughness=1;p.color.setHex(0xffffff);m.copy(p);if(opts.matKey==='frost')frostMat(m);else if(opts.matKey==='dry')dryMat(m);p.dispose();});}
+      if(!fancyLeaves()&&(glbKey==='normaltree'||glbKey==='pine')&&(mm.mat.alphaTest>0||/leav|needle|foliage/i.test(mm.mat.name||''))){mat=matXformCached('plain-'+(opts.matKey||'forest'),mat,function(m){var p=plainLeafMat(m);p.map=paintedLeafMaps[glbKey];p.alphaTest=.5;p.side=THREE.DoubleSide;p.normalMap=null;p.metalness=0;p.roughness=1;p.color.setHex(0xffffff);m.copy(p);if(opts.matKey==='frost')frostMat(m);else if(opts.matKey==='dry')dryMat(m);else if(opts.matKey==='red-leaves')redLeafMat(m);p.dispose();});}
       var im = new THREE.InstancedMesh(geo,mat,mine.length);im.userData.plainLeaf=geo!==mm.geo;im.userData.paintedLeaf=!fancyLeaves()&&(glbKey==='normaltree'||glbKey==='pine')&&(mm.mat.alphaTest>0||/leav|needle|foliage/i.test(mm.mat.name||''));
       im.castShadow = opts.shadow !== false; im.receiveShadow = true;
       var m4 = new THREE.Matrix4(), place = new THREE.Matrix4(), rot = new THREE.Matrix4(), scl = new THREE.Matrix4();
@@ -1214,6 +1252,7 @@ var fireflies = (function(){
 // sun + moon billboards
 var sunMesh = new THREE.Mesh(new THREE.SphereGeometry(12, 16, 12), new THREE.MeshBasicMaterial({ color: 0xffe9a0, fog: false }));
 var moonMesh = new THREE.Mesh(new THREE.SphereGeometry(10, 16, 12), new THREE.MeshBasicMaterial({ color: 0xe8ecf5, fog: false }));
+if(referenceMode){var moonCanvas=document.createElement('canvas');moonCanvas.width=512;moonCanvas.height=256;var mc=moonCanvas.getContext('2d');mc.fillStyle='#b9bbb6';mc.fillRect(0,0,512,256);for(var mi=0;mi<140;mi++){var mx=hash3(117,81,mi*3)*512,my=hash3(117,81,mi*3+1)*256,mr=2+hash3(117,81,mi*3+2)*20,mg=mc.createRadialGradient(mx-mr*.2,my-mr*.2,mr*.12,mx,my,mr);mg.addColorStop(0,'#858986');mg.addColorStop(.7,'#a3a6a1');mg.addColorStop(.86,'#d4d5cc');mg.addColorStop(1,'#b9bbb600');mc.fillStyle=mg;mc.fillRect(mx-mr,my-mr,mr*2,mr*2);}var moonTexture=new THREE.CanvasTexture(moonCanvas);moonTexture.colorSpace=THREE.SRGBColorSpace;moonMesh.material.map=moonTexture;moonMesh.material.color.setHex(0xd9e0e5);}
 sunMesh.name='Sun';moonMesh.name='Moon';scene.add(sunMesh); scene.add(moonMesh);
 var glowCanvas=document.createElement('canvas');glowCanvas.width=128;glowCanvas.height=128;var gc=glowCanvas.getContext('2d'),gg=gc.createRadialGradient(64,64,9,64,64,64);gg.addColorStop(0,'rgba(255,225,145,.65)');gg.addColorStop(.25,'rgba(255,225,145,.22)');gg.addColorStop(1,'rgba(255,225,145,0)');gc.fillStyle=gg;gc.fillRect(0,0,128,128);
 for(var rr=0;rr<12;rr++){gc.save();gc.translate(64,64);gc.rotate(rr*Math.PI/6);gc.beginPath();gc.moveTo(20,-1);gc.lineTo(58,0);gc.lineTo(20,1);gc.fillStyle='rgba(255,229,157,.12)';gc.fill();gc.restore();}
@@ -1233,7 +1272,8 @@ for(var ci=0;ci<12;ci++){
 
 // Original transit landmarks. Trees leave a clearing around each fixed site.
 var beacons=[{name:'Forest Gate',x:-450,z:550,color:0x6ee3c0},{name:'Frost Gate',x:0,z:-4500,color:0x91d9ff},{name:'Dune Gate',x:4500,z:0,color:0xf5c773}];
-beacons.forEach(function(b){for(var i=0;i<80;i++){var x=b.x+Math.sin(i*2.4)*i*2,z=b.z+Math.cos(i*2.4)*i*2;if(groundY(x,z)>2&&groundSlope(x,z)<.28&&!inRiver(x,z)){b.x=x;b.z=z;break;}}
+if(referenceMode)beacons=[{name:'Snow Beacon',x:-3780,z:-3150,color:0x35ceff},{name:'Volcano Beacon',x:2750,z:-3070,color:0x35ceff},{name:'Central Beacon',x:-20,z:-1280,color:0x35ceff},{name:'Swamp Beacon',x:-4000,z:-420,color:0x35ceff},{name:'Desert Beacon',x:4640,z:-500,color:0x35ceff}];
+beacons.forEach(function(b){for(var i=0;i<(referenceMode?0:80);i++){var x=b.x+Math.sin(i*2.4)*i*2,z=b.z+Math.cos(i*2.4)*i*2;if(groundY(x,z)>2&&groundSlope(x,z)<.28&&!inRiver(x,z)){b.x=x;b.z=z;break;}}
  var g=new THREE.Group();g.name=b.name;g.position.set(b.x,groundY(b.x,b.z),b.z);scene.add(g);b.mesh=g;
  var metal=new THREE.MeshStandardMaterial({color:0x394746,roughness:.8,metalness:.25}),glow=new THREE.MeshBasicMaterial({color:b.color});
  for(var i=0;i<3;i++){var a=i*Math.PI*2/3,p=new THREE.Mesh(new THREE.CylinderGeometry(.28,.5,8,5),metal);p.position.set(Math.cos(a)*2.6,4,Math.sin(a)*2.6);p.rotation.z=Math.sin(a)*.12;g.add(p);var gem=new THREE.Mesh(new THREE.OctahedronGeometry(.6),glow);gem.position.copy(p.position).multiplyScalar(1);gem.position.y=8;g.add(gem);}
@@ -1241,7 +1281,7 @@ beacons.forEach(function(b){for(var i=0;i<80;i++){var x=b.x+Math.sin(i*2.4)*i*2,
  var beam=new THREE.Mesh(new THREE.CylinderGeometry(.18,.35,120,8,1,true),new THREE.MeshBasicMaterial({color:b.color,transparent:true,opacity:.3,depthWrite:false,side:THREE.DoubleSide}));beam.position.y=60;g.add(beam);
 });
 function nearBeacon(){return beacons.find(function(b){return Math.hypot(P.x-b.x,P.z-b.z)<9;});}
-function beaconDanger(){return wolves.some(function(c){return c.state!=='dead'&&Math.hypot(P.x-c.x,P.z-c.z)<15;})||critters.some(function(c){return c.cfg.hostile&&c.state!=='dead'&&Math.hypot(P.x-c.x,P.z-c.z)<15;});}
+function beaconDanger(){return !referenceMode&&wolves.some(function(c){return c.state!=='dead'&&Math.hypot(P.x-c.x,P.z-c.z)<15;})||critters.some(function(c){return c.cfg.hostile&&c.state!=='dead'&&Math.hypot(P.x-c.x,P.z-c.z)<15;});}
 function travelBeacon(i){
  var source=nearBeacon(),b=beacons[i];if(!source||!b||source===b){toast('Travel from a different beacon');return false;}if(beaconDanger()){toast('Enemies too close to travel');return false;}
  // Destination landing is checked against the current streamed collision world.
@@ -1472,7 +1512,7 @@ var P = { x: 0, z: 0, rotY: 0, walk: 0, speed: 0, hp: 6, maxHp: 6, atkT: -9, atk
 
 await startupStage(80,'Preparing saved settings');
 // ---------- settings (persisted), inventory, world save ----------
-var SET_KEY = 'oneword-settings-v1', SAVE_KEY = 'oneword-save-v1';
+var SET_KEY = 'oneword-settings-v1', SAVE_KEY = referenceMode?REFERENCE_WORLD.saveKey:'oneword-save-v1';
 var settings = { quality: 'medium', sens: 1 }; // default medium: mid-range phone smoothness first (user-reported stutter)
 try { var sraw = localStorage.getItem(SET_KEY); if(sraw){ var sp = JSON.parse(sraw); if(sp && sp.quality) settings = sp; } } catch(e){}
 var appliedQuality=null,appliedShadows=null,appliedFancy=null;
@@ -1491,6 +1531,10 @@ function applySettings(){
 function persistSettings(){ try{ localStorage.setItem(SET_KEY, JSON.stringify(settings)); }catch(e){} }
 
 var ICONS = {
+  waterbottle:'<svg viewBox="0 0 24 24"><path d="M9 3h6v4l2 3v11H7V10l2-3z" fill="#7aa7a7" stroke="#344f55"/><path d="M9 3h6v3H9z" fill="#d1ddd7"/></svg>',
+  bandage:'<svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="10" rx="4" fill="#e0d8be"/><path d="M9 7v10M15 7v10" stroke="#9b967e"/></svg>',
+  cannedfood:'<svg viewBox="0 0 24 24"><path d="M5 6h14v14H5z" fill="#91836a"/><ellipse cx="12" cy="6" rx="7" ry="3" fill="#b9bab0"/><path d="M5 11h14v5H5z" fill="#626d45"/></svg>',
+
   meat: '<svg viewBox="0 0 24 24" width="22" height="22"><circle cx="9" cy="9" r="6.5" fill="#d97b7b" stroke="#7a3a3a" stroke-width="1"/><rect x="13" y="13" width="9" height="3.4" rx="1.7" fill="#e8e0d0" transform="rotate(45 13 13)"/><circle cx="19.5" cy="18.5" r="2.2" fill="#e8e0d0"/></svg>',
   pelt: '<svg viewBox="0 0 24 24" width="22" height="22"><ellipse cx="12" cy="15.5" rx="5.2" ry="4.2" fill="#c9a27a" stroke="#6b4c2a" stroke-width="1"/><circle cx="5.5" cy="9" r="2.1" fill="#c9a27a" stroke="#6b4c2a" stroke-width="1"/><circle cx="10.5" cy="6.5" r="2.1" fill="#c9a27a" stroke="#6b4c2a" stroke-width="1"/><circle cx="15.5" cy="7" r="2.1" fill="#c9a27a" stroke="#6b4c2a" stroke-width="1"/><circle cx="19" cy="10.5" r="2.1" fill="#c9a27a" stroke="#6b4c2a" stroke-width="1"/></svg>',
   wood: '<svg viewBox="0 0 24 24" width="22" height="22"><rect x="3" y="9" width="18" height="7" rx="3.5" fill="#8a6134" stroke="#4a3418" stroke-width="1"/><circle cx="6.5" cy="12.5" r="2.4" fill="#c9a06a" stroke="#4a3418" stroke-width="0.8"/></svg>',
@@ -1506,6 +1550,7 @@ var ICONS = {
   meal: '<svg viewBox="0 0 24 24" width="22" height="22"><path d="M4 12 a8 6 0 0 0 16 0 Z" fill="#8a6134" stroke="#4a3418" stroke-width="1"/><circle cx="9" cy="10" r="2.4" fill="#d97b7b"/><circle cx="14.5" cy="9.5" r="1.8" fill="#c93a4a"/><circle cx="12" cy="11" r="1.6" fill="#7a9a4a"/></svg>',
   pickaxe: '<svg viewBox="0 0 24 24" width="22" height="22"><rect x="10.6" y="7" width="3" height="14" rx="1.4" fill="#8a6134" stroke="#4a3418" stroke-width="0.8" transform="rotate(18 12 14)"/><path d="M3 9 C7 4 17 4 21 9 L18.5 10.5 C15 7 9 7 5.5 10.5 Z" fill="#9a9aa2" stroke="#4a4a52" stroke-width="0.8"/></svg>'
 };
+ICONS.crystal='<svg viewBox="0 0 24 24"><path d="m12 2 6 7-2 12H8L6 9z" fill="#65d6ef" stroke="#d0f7ff"/><path d="m12 2-1 19M6 9l12 0" fill="none" stroke="#e0ffff"/></svg>';
 ICONS.hand='<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M9 17V9c0-3 4-3 4 0v6-10c0-3 4-3 4 0v10-8c0-3 4-3 4 0v10-4c0-3 4-3 4 0v10c0 6-5 8-10 6-4-2-6-5-9-8-3-4 0-6 3-3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>';
 ICONS.knife='<svg viewBox="0 0 32 32"><path d="M20 3l7-1-2 9-13 12-5-4z" fill="#cbd7d8" stroke="#44545a"/><path d="M7 19l6 5-5 6-6-5z" fill="#886343" stroke="#44382b"/></svg>';
 ICONS.fibre='<svg viewBox="0 0 32 32"><path d="M16 30V9M16 21C2 21 2 7 2 5c11 1 15 8 14 16zm0-6C16 5 22 3 29 2c0 8-4 14-13 13z" fill="#8ba65a" stroke="#d3d9ab"/></svg>';
@@ -1708,7 +1753,7 @@ function renderBag(){
   document.getElementById('chipTorch').style.display = inv.some(function(it){ return it.name === 'Torch' && it.qty > 0; }) ? 'block' : 'none';
   document.getElementById('chipPick').style.display = inv.some(function(it){ return it.name === 'Pickaxe' && it.qty > 0; }) ? 'block' : 'none';
   document.getElementById('actPlace').style.display = (sel && (sel.name === 'Campfire Kit' || sel.name === 'Bedroll Kit')) ? 'inline-block' : 'none';
-  document.getElementById('actEat').style.display = (sel && (sel.name === 'Raw Meat' || sel.name === 'Cooked Meat' || sel.name === 'Berries' || sel.name === 'Hearty Meal')) ? 'inline-block' : 'none';
+  document.getElementById('actEat').textContent=sel&&sel.name==='Water Bottle'?'DRINK':sel&&sel.name==='Bandage'?'USE BANDAGE':'EAT';document.getElementById('actEat').style.display = (sel && (sel.name === 'Raw Meat' || sel.name === 'Cooked Meat' || sel.name === 'Berries' || sel.name === 'Hearty Meal'||sel.name==='Water Bottle'||sel.name==='Bandage'||sel.name==='Canned Food')) ? 'inline-block' : 'none';
   var wb = document.getElementById('actWear'); wb.style.display = (sel && ARMORS[sel.name]) ? 'inline-block' : 'none'; if(sel && ARMORS[sel.name]) wb.textContent = (armorName === sel.name ? 'REMOVE' : 'WEAR');
   Array.prototype.forEach.call(grid.children, function(cell){
     if(cell.classList.contains('empty')) return;
@@ -1760,9 +1805,20 @@ function toggleUserMark(x, z){
   else if(userMarks.length < 12) userMarks.push({ x: x, z: z });
   return hit >= 0 ? 'removed' : (userMarks.length < 12 ? 'added' : 'full');
 }
+function renderReferenceMap(){
+ const cv=document.getElementById('mapCanvas'),ctx=cv.getContext('2d'),w=cv.width,h=cv.height,toX=x=>(x/REFERENCE_WORLD.halfWidth+1)*w/2,toZ=z=>(z/REFERENCE_WORLD.halfHeight+1)*h/2;
+ ctx.fillStyle='#1b6b91';ctx.fillRect(0,0,w,h);if(referenceMapImage.complete&&referenceMapImage.naturalWidth)ctx.drawImage(referenceMapImage,0,0,w,h);
+ for(const m of userMarks){ctx.fillStyle='white';ctx.beginPath();ctx.arc(toX(m.x),toZ(m.z),3,0,Math.PI*2);ctx.fill();}
+ if(bedPos){ctx.fillStyle='#ffe296';ctx.fillRect(toX(bedPos.x)-3,toZ(bedPos.z)-2,6,4);}
+ const x=toX(P.x),z=toZ(P.z);ctx.save();ctx.translate(x,z);ctx.rotate(-P.rotY);ctx.beginPath();ctx.moveTo(0,9);ctx.lineTo(-5,-5);ctx.lineTo(5,-5);ctx.closePath();ctx.fillStyle='#ff574b';ctx.fill();ctx.strokeStyle='white';ctx.lineWidth=1.5;ctx.stroke();ctx.restore();
+ document.getElementById('mapCap').textContent='MAP 2 - X '+Math.round(P.x)+' / Z '+Math.round(P.z)+' - '+biomeAt(P.x,P.z)+' | Blue: beacons. Green: safe areas. Tap to mark.';
+ const travel=document.getElementById('beaconTravel');travel.textContent='';const source=nearBeacon();for(let i=0;i<beacons.length;i++){const b=document.createElement('button');b.className='equipChip';b.textContent=beacons[i].name;b.disabled=!source||source===beacons[i];b.onclick=()=>travelBeacon(i);travel.appendChild(b);}
+}
 function renderMap(){
+ if(referenceMode){renderReferenceMap();return;}
+
   var S = 100, cv = document.getElementById('mapCanvas'), ctx = cv.getContext('2d');
-  var range = ISLAND_R + 400;
+  var range = referenceMode?REFERENCE_WORLD.halfWidth:ISLAND_R+400,rangeZ=referenceMode?REFERENCE_WORLD.halfHeight:range;
   if(!mapCache){
     mapCache = document.createElement('canvas'); mapCache.width = S; mapCache.height = S;
     var mc = mapCache.getContext('2d'), img = mc.createImageData(S, S);
@@ -1782,7 +1838,7 @@ function renderMap(){
     mc.putImageData(img, 0, 0);
   }
   ctx.imageSmoothingEnabled = true;
-  ctx.drawImage(mapCache, 0, 0, cv.width, cv.height);
+  if(referenceMode&&referenceMapImage.complete&&referenceMapImage.naturalWidth)ctx.drawImage(referenceMapImage,0,0,cv.width,cv.height);else ctx.drawImage(mapCache,0,0,cv.width,cv.height);
   ctx.strokeStyle = 'rgba(255,255,255,0.22)'; ctx.fillStyle = 'rgba(255,255,255,0.8)'; ctx.font = '8px sans-serif'; ctx.lineWidth = 0.5;
   for(var gx = Math.ceil(-range/2000)*2000; gx <= range; gx += 2000){
     var sx = (gx+range)/(2*range)*cv.width;
@@ -1799,17 +1855,17 @@ function renderMap(){
     }
     ctx.stroke();
   });
-  var mx = (P.x+range)/(2*range)*cv.width, mz = (P.z+range)/(2*range)*cv.height;
+  var mx = (P.x+range)/(2*range)*cv.width, mz = (P.z+rangeZ)/(2*rangeZ)*cv.height;
   // user-marked locations (white pins)
   userMarks.forEach(function(m){
-    var px2 = (m.x+range)/(2*range)*cv.width, pz2 = (m.z+range)/(2*range)*cv.height;
+    var px2 = (m.x+range)/(2*range)*cv.width, pz2 = (m.z+rangeZ)/(2*rangeZ)*cv.height;
     ctx.fillStyle = '#ffffff';
     ctx.beginPath(); ctx.moveTo(px2, pz2-6); ctx.lineTo(px2+4, pz2+3); ctx.lineTo(px2-4, pz2+3); ctx.closePath(); ctx.fill();
     ctx.fillRect(px2-1, pz2+3, 2, 4);
   });
   // bed location (future: set when a bed is built)
   if(bedPos){
-    var bx2 = (bedPos.x+range)/(2*range)*cv.width, bz2 = (bedPos.z+range)/(2*range)*cv.height;
+    var bx2 = (bedPos.x+range)/(2*range)*cv.width, bz2 = (bedPos.z+rangeZ)/(2*rangeZ)*cv.height;
     ctx.fillStyle = '#ffd76a'; ctx.fillRect(bx2-5, bz2-3, 10, 6);
     ctx.fillStyle = '#5a3b1e'; ctx.fillRect(bx2-5, bz2-3, 3, 6);
   }
@@ -1825,7 +1881,7 @@ function renderMap(){
   ctx.lineTo(mx + dx*3 + pxn*4.2, mz + dz*3 + pzn*4.2);
   ctx.lineTo(mx + dx*3 - pxn*4.2, mz + dz*3 - pzn*4.2);
   ctx.closePath(); ctx.fill(); ctx.stroke();
-  beacons.forEach(function(b){var x=(b.x+range)/(2*range)*cv.width,z=(b.z+range)/(2*range)*cv.height;ctx.fillStyle='#'+b.color.toString(16).padStart(6,'0');ctx.beginPath();ctx.moveTo(x,z-6);ctx.lineTo(x+5,z);ctx.lineTo(x,z+6);ctx.lineTo(x-5,z);ctx.closePath();ctx.fill();});
+  beacons.forEach(function(b){var x=(b.x+range)/(2*range)*cv.width,z=(b.z+rangeZ)/(2*rangeZ)*cv.height;ctx.fillStyle='#'+b.color.toString(16).padStart(6,'0');ctx.beginPath();ctx.moveTo(x,z-6);ctx.lineTo(x+5,z);ctx.lineTo(x,z+6);ctx.lineTo(x-5,z);ctx.closePath();ctx.fill();});
   var travel=document.getElementById('beaconTravel');travel.textContent='';var source=nearBeacon();
   if(!source){var tip=document.createElement('div');tip.style.fontSize='11px';tip.textContent='Coloured diamonds: transit gates. Approach one to travel.';travel.appendChild(tip);}
   beacons.forEach(function(b,i){var bt=document.createElement('button');bt.className='equipChip';bt.textContent=b.name;bt.disabled=!source||source===b;bt.style.opacity=bt.disabled?'.45':'1';bt.onclick=function(){travelBeacon(i);};travel.appendChild(bt);});
@@ -1840,9 +1896,9 @@ function saveGame(){
   if(!running || P.dead) return true;
   try{var data=JSON.stringify(worldSnapshot());if(data!==localStorage.getItem(SAVE_KEY))localStorage.setItem(SAVE_KEY,data);return true;}catch(e){return false;}
 }
-function worldSnapshot(){ return { deathPending:!!respawnRequired, v:3,progress:progress,legacyTools:legacyTools, weatherClock:weatherClock, x: P.x, z: P.z, rotY: P.rotY, hp: P.hp, wolvesDefeated: wolvesDefeated, dayT: dayT, cameraYaw: cameraYaw, inv: inv, marks: userMarks, bed: bedPos, campfire: campfirePos, equipped: equipped, chopped: Object.keys(choppedTrees), mined: Object.keys(minedNodes), bushes: Object.keys(harvestedBushes), char: charKind, look:charLook, pname: playerName, armor: armorName, stam: P.stam, food: P.food, water:P.water, quickSlots:quickSlots, temp: P.temp };
+function worldSnapshot(){ return { world:activeWorldId, referenceElapsed:referenceElapsed,referenceLootTaken:referenceLootTaken,deathPending:!!respawnRequired, v:3,progress:progress,legacyTools:legacyTools, weatherClock:weatherClock, x: P.x, z: P.z, rotY: P.rotY, hp: P.hp, wolvesDefeated: wolvesDefeated, dayT: dayT, cameraYaw: cameraYaw, inv: inv, marks: userMarks, bed: bedPos, campfire: campfirePos, equipped: equipped, chopped: Object.keys(choppedTrees), mined: Object.keys(minedNodes), bushes: Object.keys(harvestedBushes), char: charKind, look:charLook, pname: playerName, armor: armorName, stam: P.stam, food: P.food, water:P.water, quickSlots:quickSlots, temp: P.temp };
 }
-function loadSave(){ try{ var s = localStorage.getItem(SAVE_KEY); return s ? JSON.parse(s) : null; }catch(e){ return null; } }
+function loadSave(){ try{ var s = localStorage.getItem(SAVE_KEY),data=s?JSON.parse(s):null;return data&&(!data.world||data.world===activeWorldId)?data:null; }catch(e){ return null; } }
 function clearSave(){ try{ localStorage.removeItem(SAVE_KEY); }catch(e){} }
 
 // slash effect
@@ -1933,7 +1989,7 @@ for(var di=0; di<3; di++){
 }
 
 // ---------- critters: snake/spider/zombie hostiles + rat/frog ambient (Quaternius CC0), eagles (KayKit-free sky) ----------
-['male','female','joined'].forEach(function(k){A.models['mutant_'+k]=mutant(k);});
+['male','female','joined'].forEach(function(k){A.models['mutant_'+k]=mutant(k,{naturalSkin:referenceMode});});
 A.models.penguin=wildlife('penguin');A.models.camel=wildlife('camel');
 var CRITTER_KINDS = {
  mutant_male:{model:'mutant_male',h:2.2,hp:6,hostile:true,speed:1.1,chase:2.7,aggro:22,atkRange:2,atkCd:1.8,dmg:1,shadow:.6,count:1,seekPlayer:true,anims:{idle:'Idle',walk:'Walk',run:'Run',attack:'Attack',death:'Death'}},
@@ -1959,6 +2015,8 @@ var CRITTER_KINDS = {
   stag:   { model: 'stag',   h: 1.7, hp: 3, hostile: false, flee: true, speed: 1.3, run: 6.2, shadow: 0.55, count: 2, beltOnly: true,
             anims: { idle: 'Idle', walk: 'Walk', run: 'Gallop', death: 'Death' }, loot: { name: 'Raw Meat', icon: 'meat', qty: 3 } }
 };
+if(referenceMode){A.models.mutant_canid=referenceMutantAnimal(A.models.wolf,skClone,normModel);CRITTER_KINDS.mutant_canid={model:'mutant_canid',h:1.25,hp:4,hostile:true,speed:1.1,chase:3,aggro:14,atkRange:1.8,atkCd:2,dmg:.5,shadow:.55,count:2,anims:{idle:'Idle',walk:'Walk',run:'Gallop',attack:'Attack',death:'Death'}};CRITTER_KINDS.zombie.model='mutant_male';CRITTER_KINDS.zombie.anims={idle:'Idle',walk:'Walk',run:'Run',attack:'Attack',death:'Death'};}
+if(referenceMode)Object.keys(CRITTER_KINDS).forEach(function(k){var c=CRITTER_KINDS[k];if(k==='zombie'||k.indexOf('mutant_')===0){c.labOnly=true;c.seekPlayer=false;}else{c.hostile=false;c.flee=true;c.run=c.run||c.chase||3;c.anims.run=c.anims.run||c.anims.walk;c.referenceBiomes=c.biome?[c.biome]:k==='frog'?['swamp']:k==='snake'?['forest','swamp','desert']:k==='spider'?['forest','swamp']:['forest'];}});
 function makeCritterMesh(kind){
   var cfg = CRITTER_KINDS[kind];
   var m = skClone(A.models[cfg.model].scene);
@@ -1974,10 +2032,11 @@ function makeCritterMesh(kind){
   return g;
 }
 function critterSpot(cfg){
+  if(referenceMode&&cfg.labOnly){for(var li=0;li<40;li++){var la=Math.random()*Math.PI*2,lr=25+Math.random()*95,lx=Math.sin(la)*lr,lz=Math.cos(la)*lr;if(groundY(lx,lz)>1)return [lx,lz];}return [0,0];}
   for(var i = 0; i < 24; i++){
     var sp = landSpotNear(P.x, P.z, 30, 90);
     if(cfg.beltOnly && forestScore(sp[0], sp[1]) < 0.5) continue;
-    if(cfg.nearRiver && riverDist(sp[0], sp[1]) > 90) continue;
+    if(cfg.nearRiver&&(referenceMode?referenceSample(sp[0],sp[1]).coastDistance>90:riverDist(sp[0],sp[1])>90))continue;
     return sp;
   }
   return landSpotNear(P.x, P.z, 30, 90);
@@ -2178,9 +2237,9 @@ function tryAttack(){
 
 function resetGame(){
  respawnToken++;respawnBusy=false;respawnRequired=false;deathShown=false;document.getElementById('mapPanel').classList.add('hidden');document.getElementById('mapPanel').classList.remove('respawning');document.querySelector('#mapPanel h3').textContent='ISLAND MAP';document.getElementById('mapClose').textContent='CLOSE';updatePause();
-  progress=freshProgress();applyProgress();
+  progress=freshProgress();applyProgress();referenceElapsed=0;referenceLootTaken={};
   weatherClock=0;weatherOverride=null;
-  P.x = 0; P.z = 0; P.rotY = cameraYaw + Math.PI; // face away from camera: back view at spawn
+  P.x = referenceMode?referenceStart.x:0; P.z = referenceMode?referenceStart.z:0; P.rotY = cameraYaw + Math.PI; // face away from camera: back view at spawn
   P.hp = P.maxHp; P.dead = false; P.invuln = 0; P.atkT = -9; P.stam = 100; P.food = 100; P.water=100;legacyTools=false;quickSlots=["hand","hand","hand"];P.temp = 50; P.hpF = 0;
   wolvesDefeated = 0; wolfEl.textContent = 'Wolves 0';
   wolves.forEach(function(w){ spawnWolf(w); });
@@ -2196,7 +2255,7 @@ function restoreGame(s){
   structGroup.clear();structColliders=[];fireFlame=null;fireLight=null;
   for(var oldChunk in chunks)disposeChunk(oldChunk);
  respawnRequired=!!s.deathPending;deathShown=false;document.getElementById('mapPanel').classList.add('hidden');document.getElementById('mapPanel').classList.remove('respawning');updatePause();
-  loadProgress(s.progress);
+  loadProgress(s.progress);referenceElapsed=Number.isFinite(s.referenceElapsed)&&s.referenceElapsed>=0?s.referenceElapsed:0;referenceLootTaken=s.referenceLootTaken&&typeof s.referenceLootTaken==='object'?s.referenceLootTaken:{};
   legacyTools=s.v==null||s.v<3?true:!!s.legacyTools;
   weatherClock=Number.isFinite(s.weatherClock)?s.weatherClock:0;
   P.x = s.x||0; P.z = s.z||0; P.rotY = s.rotY||0; P.hp = Math.max(2, Math.min(P.maxHp, s.hp||P.maxHp)); P.dead = false; P.invuln = 0; P.atkT = -9;
@@ -2228,9 +2287,13 @@ function restoreGame(s){
 // ---------- structures: campfire + bedroll ----------
 var campfirePos = null, fireFlame = null, fireLight = null, cookT = 0, structColliders = [];
 var structGroup = new THREE.Group(); scene.add(structGroup);
-var ORE_TINT = { stone: 0xa9a9a9, iron: 0x9a5a40, silver: 0xdfe8f2 };
-var ORE_YIELD = { stone: ['Stone', 'stone', 3], iron: ['Iron Ore', 'iron', 2], silver: ['Silver Ore', 'silver', 2] };
+var referenceElapsed=0,referenceLootTaken={};
+var referenceSites=referenceMode?createReferenceSites(scene,groundY):null,referenceSiteCell='';
+var referenceCrystalMat=null,referenceCrystalGeos=[];
+var ORE_TINT = { crystal:0x69d9f1, stone: 0xa9a9a9, iron: 0x9a5a40, silver: 0xdfe8f2 };
+var ORE_YIELD = { crystal:['Crystal','crystal',2], stone: ['Stone', 'stone', 3], iron: ['Iron Ore', 'iron', 2], silver: ['Silver Ore', 'silver', 2] };
 function buildOreNode(x, z, ore, h, rot){
+  if(ore==='crystal'){var cg=new THREE.Group(),cm=referenceCrystalMat||(referenceCrystalMat=new THREE.MeshStandardMaterial({color:0x65cfe9,roughness:.32,metalness:.15}));for(var k=0;k<5;k++){var cgeo=referenceCrystalGeos[k]||(referenceCrystalGeos[k]=new THREE.CylinderGeometry(0,.25+.04*(k%2),1.2+(k%3)*.3,5));var m=new THREE.Mesh(cgeo,cm);m.position.set(Math.sin(k*2.4)*.4,.65,Math.cos(k*2.4)*.4);m.rotation.z=Math.sin(k)*.25;cg.add(m);}cg.position.set(x,groundY(x,z),z);scene.add(cg);return cg;}
   var root = A.models.rocks && A.models.rocks.scene; if(!root) return null;
   var vd = variantData(root, 'Rock_1'); if(!vd) return null;
   var g = new THREE.Group(), s = h/vd.sz.y;
@@ -2321,7 +2384,10 @@ function placeKit(kind){
 function eatFromInv(name){ var i = inv.findIndex(function(it){ return it.name === name && it.qty > 0; }); if(i < 0) return false; removeOneAt(i); return true; }
 function eatSelected(){
   var it = inv[selSlot]; if(!it) return;
-  var heal = it.name === 'Hearty Meal' ? P.maxHp : (it.name === 'Cooked Meat' ? 3 : (it.name === 'Raw Meat' || it.name === 'Berries' ? 1 : 0));
+  if(it.name==='Water Bottle'){if(P.water>=99){toast('Already hydrated');return;}if(eatFromInv(it.name)){P.water=Math.min(100,P.water+40);drawVitals();sfx('eat');saveGame();}return;}
+  if(it.name==='Bandage'){if(P.hp>=P.maxHp){toast('Already full health');return;}if(eatFromInv(it.name)){P.hp=Math.min(P.maxHp,P.hp+2);drawHearts();saveGame();}return;}
+  if(it.name==='Canned Food'){if(P.food>=99){toast('Already full');return;}if(eatFromInv(it.name)){P.food=Math.min(100,P.food+25);drawVitals();sfx('eat');saveGame();}return;}
+  var heal = it.name === 'Hearty Meal'  ? P.maxHp : (it.name === 'Cooked Meat' ? 3 : (it.name === 'Raw Meat' || it.name === 'Berries' ? 1 : 0));
   if(!heal) return;
   var foodVal = it.name === 'Hearty Meal' ? 100 : (it.name === 'Cooked Meat' ? 30 : (it.name === 'Raw Meat' ? 6 : 9));
   if(P.hp >= P.maxHp && P.food >= 99){ toast('Already full health'); return; }
@@ -2329,15 +2395,15 @@ function eatSelected(){
 }
 function trySleep(){
   if(!bedPos) return;
-  var danger = wolves.some(function(w){ return w.state !== 'dead' && Math.hypot(w.x - P.x, w.z - P.z) < 15; });
+  var danger=referenceMode?beaconDanger():wolves.some(function(w){return w.state!=='dead'&&Math.hypot(w.x-P.x,w.z-P.z)<15;});
   if(danger){ toast('Too dangerous to sleep!'); return; }
   askConfirm('SLEEP UNTIL MORNING?', 'You will wake at dawn with full health.', function(){
-    dayT = 0.06; P.hp = P.maxHp; P.stam = 100; P.food = Math.max(P.food, 40); drawHearts(); drawVitals(); toast('You wake up at dawn.'); saveGame();
+    if(referenceMode)referenceElapsed+=((.06-dayT+1)%1)*CYCLE;dayT = 0.06; P.hp = P.maxHp; P.stam = 100; P.food = Math.max(P.food, 40); drawHearts(); drawVitals(); toast('You wake up at dawn.'); saveGame();
   }, 'SLEEP');
 }
 var sleepBtn = null;
 // ---------- day/night ----------
-var CYCLE = 240, dayT = 0.08, camZoom = 1; // 0=dawn 0.25=noon 0.5=dusk 0.75=midnight
+var CYCLE = referenceMode?1200:240, dayT = 0.08, camZoom = 1; // 0=dawn 0.25=noon 0.5=dusk 0.75=midnight
 
 // ---------- main loop ----------
 var last=performance.now(),lastDebugPaint=0,lastGameRender=0,frameHandle=0,appSuspended=!!window.oneworldAppLifecycle.state.suspended,needsWorldRender=true;
@@ -2367,6 +2433,7 @@ function frame(){
  var live=running&&!paused&&!document.hidden;var a=performance.now();if(live)tick(dt);var tickCost=performance.now()-a;
  // Fullscreen menus/paused world are static. Avoid re-drawing the expensive
  // world at display refresh while it cannot move. Preview remains animated.
+ if(referenceSites){var siteCell=Math.floor(P.x/128)+','+Math.floor(P.z/128);if(siteCell!==referenceSiteCell){referenceSiteCell=siteCell;referenceSites.update(P.x,P.z);}}
  var draw=live||needsWorldRender;if(draw){needsWorldRender=false;a=performance.now();renderer.render(scene,camera);lastGameRender=t;}
  if(live){ringSample(betaFrames,raw);ringSample(betaTick,tickCost);ringSample(betaRender,draw?performance.now()-a:0);}
  renderSetupPreview(dt);if(t-lastDebugPaint>250){lastDebugPaint=t;renderBetaDebug();}
@@ -2402,6 +2469,7 @@ function tick(dt){
 
   if(running){
     dayT = (dayT + dt/CYCLE) % 1;
+    if(referenceSites){referenceElapsed+=dt;referenceSites.update(P.x,P.z);referenceSites.lootState(referenceElapsed,referenceLootTaken);document.getElementById('lootCollect').classList.toggle('available',!P.dead&&!!referenceSites.nearestLoot(P.x,P.z));}
 
     // --- survival stats ---
     if(!P.dead){
@@ -2445,7 +2513,7 @@ function tick(dt){
     if(!P.dead && P.speed > 0){
       var ppx = P.x, ppz = P.z;
       P.x += mx * P.speed * dt; P.z += mz * P.speed * dt;
-      if(Math.hypot(P.x,P.z)>ISLAND_R+180){P.x=ppx;P.z=ppz;} // bounded ocean swimming margin
+      if(referenceMode?(Math.abs(P.x)>REFERENCE_WORLD.halfWidth+180||Math.abs(P.z)>REFERENCE_WORLD.halfHeight+180):Math.hypot(P.x,P.z)>ISLAND_R+180){P.x=ppx;P.z=ppz;} // bounded ocean swimming margin
       var pc=collideXZ(P.x,P.z,.45);
       if(solidFree(pc[0],pc[1],.45)){P.x=pc[0];P.z=pc[1];}else{P.x=ppx;P.z=ppz;}
       if(Math.hypot(P.x-ppx,P.z-ppz)<.001)P.speed=0;
@@ -2593,6 +2661,8 @@ function tick(dt){
 
     // --- wolves ---
     wolves.forEach(function(w){
+      if(referenceMode){var wa=biomeAt(P.x,P.z)==='forest'||biomeAt(P.x,P.z)==='snow';w.mesh.visible=wa;w.shadow.visible=wa;if(!wa){w.bar.visible=false;return;}}
+      if(referenceMode&&Math.hypot(P.x-w.x,P.z-w.z)>160)spawnWolf(w);
       var wpx = w.x, wpz = w.z;
       var dx = P.x - w.x, dz = w.z - P.z, dd = Math.hypot(dx, dz);
       w.mesh.userData.mats.forEach(function(m){ if(m.emissive) m.emissive.lerp(new THREE.Color(0x000000), Math.min(1, 10*dt)); });
@@ -2602,12 +2672,13 @@ function tick(dt){
         return;
       }
       var spd = 0, anim = 'Idle';
+      if(referenceMode&&w.state!=='dead')w.state='wander';
       if(w.state === 'wander'){
         w.t -= dt;
         if(w.t <= 0){ w.t = rand(2,5); var a = rand(0,Math.PI*2), r = rand(4,16); w.tx = w.x+Math.cos(a)*r; w.tz = w.z+Math.sin(a)*r; }
         var wx = w.tx - w.x, wz = w.tz - w.z, wl = Math.hypot(wx, wz);
         if(wl > 0.5){ w.x += wx/wl*1.6*dt; w.z += wz/wl*1.6*dt; spd = 1.6; w.mesh.rotation.y = Math.atan2(wx, wz); anim = 'Walk'; }
-        if(!P.dead && dd < 15) w.state = 'chase';
+        if(!referenceMode&&!P.dead && dd < 15) w.state = 'chase';
       } else if(w.state === 'chase'){
         if(P.dead){ w.state = 'wander'; }
         else if(dd > 2.1){ w.x += dx/dd*4.6*dt; w.z += dz/dd*4.6*dt; spd = 4.6; w.mesh.rotation.y = Math.atan2(dx, dz); w.atkT = now; anim = 'Gallop'; }
@@ -2634,7 +2705,7 @@ function tick(dt){
       if(w.state !== 'lunge') playAnim(w.mesh.userData.anim, anim, 0.15);
       if(groundY(w.x, w.z) < 0.2){ w.x = wpx; w.z = wpz; }
       var wc = collideXZ(w.x, w.z, 0.5); w.x = wc[0]; w.z = wc[1];
-      var wgy=Math.max(groundY(w.x,w.z),groundY(w.x+.35,w.z),groundY(w.x-.35,w.z),groundY(w.x,w.z+.5),groundY(w.x,w.z-.5));
+      var wgy=Math.max(referenceMode?surfaceY(w.x,w.z):groundY(w.x,w.z),groundY(w.x+.35,w.z),groundY(w.x-.35,w.z),groundY(w.x,w.z+.5),groundY(w.x,w.z-.5));
       w.mesh.position.set(w.x, wgy, w.z);
       w.shadow.position.set(w.x, wgy + 0.04, w.z);
       // health bar
@@ -2646,6 +2717,8 @@ function tick(dt){
 
     // --- deer ---
     deer.forEach(function(d){
+      if(referenceMode){var da=biomeAt(P.x,P.z)==='forest';d.mesh.visible=da;d.shadow.visible=da;if(!da)return;}
+      if(referenceMode&&Math.hypot(P.x-d.x,P.z-d.z)>160){var sp=landSpotNear(P.x,P.z,25,75);d.x=sp[0];d.z=sp[1];d.tx=d.x;d.tz=d.z;}
       if(d.dead){
         d.deadT += dt; d.mesh.rotation.z = Math.min(Math.PI/2, d.deadT*3);
         if(d.deadT > 5){ d.mesh.visible = false; d.shadow.visible = false; }
@@ -2667,7 +2740,7 @@ function tick(dt){
       if(groundY(d.x, d.z) < 0.3){ d.x = odx; d.z = odz; d.t = 0; }
       playAnim(d.mesh.userData.anim, anim, 0.2);
       var dc = collideXZ(d.x, d.z, 0.4); d.x = dc[0]; d.z = dc[1];
-      var dgy=Math.max(groundY(d.x,d.z),groundY(d.x+.35,d.z),groundY(d.x-.35,d.z),groundY(d.x,d.z+.5),groundY(d.x,d.z-.5));
+      var dgy=Math.max(referenceMode?surfaceY(d.x,d.z):groundY(d.x,d.z),groundY(d.x+.35,d.z),groundY(d.x-.35,d.z),groundY(d.x,d.z+.5),groundY(d.x,d.z-.5));
       d.mesh.position.set(d.x, dgy, d.z);
       d.shadow.position.set(d.x, dgy + 0.04, d.z);
     });
@@ -2675,8 +2748,10 @@ function tick(dt){
     // --- critters ---
     critters.forEach(function(c){
       var cfg = c.cfg;
+      if(referenceMode&&!cfg.labOnly&&cfg.referenceBiomes.indexOf(biomeAt(P.x,P.z))<0){c.mesh.visible=false;if(c.shadow)c.shadow.visible=false;c.referenceActive=false;return;}if(referenceMode&&!cfg.labOnly){if(!c.referenceActive||Math.hypot(P.x-c.x,P.z-c.z)>160)spawnCritter(c);c.referenceActive=true;c.mesh.visible=true;if(c.shadow)c.shadow.visible=true;}
+      if(referenceMode&&cfg.labOnly&&(Math.hypot(c.x,c.z)>150||Math.hypot(P.x,P.z)>150)){c.pendingDmg=0;c.state='wander';if(Math.hypot(c.x,c.z)>150)spawnCritter(c);c.mesh.visible=Math.hypot(P.x,P.z)<500;if(c.shadow)c.shadow.visible=c.mesh.visible;if(c.bar)c.bar.visible=false;return;}
       if(cfg.biome){if(biomeAt(P.x,P.z)!==cfg.biome){c.biomeActive=false;c.mesh.visible=false;if(c.shadow)c.shadow.visible=false;return;}if(Math.hypot(P.x-c.x,P.z-c.z)>120||!c.biomeActive){spawnCritter(c);c.biomeActive=true;}}
-      var dx = P.x - c.x, dz = P.z - c.z, dd = Math.hypot(dx, dz);
+      if(referenceMode&&cfg.labOnly){c.mesh.visible=true;if(c.shadow)c.shadow.visible=true;}var dx = P.x - c.x, dz = P.z - c.z, dd = Math.hypot(dx, dz);
       if(dd > 130) return; // distant critters sleep (nearby-active population for perf)
       c.mesh.userData.mats.forEach(function(m){ if(m.emissive) m.emissive.lerp(new THREE.Color(0x000000), Math.min(1, 10*dt)); });
       if(c.state === 'dead'){
@@ -2725,7 +2800,7 @@ function tick(dt){
         }
       } else {
         var anim2 = cfg.anims.idle;
-        if(cfg.flee && dd < 8 && !P.dead){ c.x -= dx/dd*cfg.run*dt; c.z -= dz/dd*cfg.run*dt; c.mesh.rotation.y = Math.atan2(-dx, -dz); anim2 = cfg.anims.run; }
+        if(cfg.flee && dd < 8 && !P.dead){ c.x -= dx/Math.max(dd,.001)*cfg.run*dt; c.z -= dz/Math.max(dd,.001)*cfg.run*dt; c.mesh.rotation.y = Math.atan2(-dx, -dz); anim2 = cfg.anims.run; }
         else {
           c.t -= dt;
           if(c.t <= 0){ c.t = rand(2, 6); var wa2 = rand(0, Math.PI*2), wr2 = rand(2, 8); c.tx = c.x + Math.cos(wa2)*wr2; c.tz = c.z + Math.sin(wa2)*wr2; }
@@ -2737,7 +2812,7 @@ function tick(dt){
       var minY = cfg.nearRiver ? -0.6 : 0.2;
       if(groundY(c.x, c.z) < minY){ c.x = px; c.z = pz; }
       var cc = collideXZ(c.x, c.z, 0.4); c.x = cc[0]; c.z = cc[1];
-      var cgy=Math.max(groundY(c.x,c.z),groundY(c.x+.45,c.z),groundY(c.x-.45,c.z),groundY(c.x,c.z+.45),groundY(c.x,c.z-.45));
+      var cgy=Math.max(referenceMode?surfaceY(c.x,c.z):groundY(c.x,c.z),groundY(c.x+.45,c.z),groundY(c.x-.45,c.z),groundY(c.x,c.z+.45),groundY(c.x,c.z-.45));
       c.mesh.position.set(c.x, cgy, c.z);
       if(c.shadow){ c.shadow.position.set(c.x, cgy + 0.04, c.z); }
     });
@@ -2758,7 +2833,7 @@ function tick(dt){
     });
 
     ensureChunks();
-    water.position.set(P.x, SEA_LEVEL, P.z);
+    water.position.set(referenceMode?0:P.x,SEA_LEVEL,referenceMode?0:P.z);
 
     // campfire: flame flicker + slow-cook raw meat nearby
     if(torchFlame && torchFlame.userData.group.visible){
@@ -2800,7 +2875,7 @@ function tick(dt){
     solids.forEach(function(c){var dx=camVec.x,dz=camVec.z,ox=camTarget.x-c.x,oz=camTarget.z-c.z,r=c.r+.20,a=dx*dx+dz*dz,b=2*(ox*dx+oz*dz),cc=ox*ox+oz*oz-r*r,disc=b*b-4*a*cc;if(a<1e-8||disc<0||cc<0)return;var hit=(-b-Math.sqrt(disc))/(2*a);if(hit<0||hit>1)return;var y=camTarget.y+camVec.y*hit,base=groundY(c.x,c.z);if(y>=base-.1&&y<=base+(c.h||1.2)+.2)safeLength=Math.min(safeLength,Math.max(.14,camLength*hit));});
     camVec.normalize();
     // Native solid building parts can opt in without foliage joining this list.
-    var wallBlocks=cameraWalls;wallBlocks.forEach(function(o){o.updateMatrixWorld(true);});
+    var wallBlocks=referenceSites?cameraWalls.concat(referenceSites.cameraSolids()):cameraWalls;wallBlocks.forEach(function(o){o.updateMatrixWorld(true);});
     if(wallBlocks.length){terrainCamRay.set(camTarget,camVec);terrainCamRay.far=camLength;var hits=terrainCamRay.intersectObjects(wallBlocks,false);if(hits.length)safeLength=Math.min(safeLength,Math.max(.14,hits[0].distance-.2));}
     camWanted.copy(camTarget).addScaledVector(camVec,safeLength);
     // Pull in immediately before collision; ease the arm back out after clearing.
@@ -2819,7 +2894,7 @@ function tick(dt){
     scene.fog.color.copy(new THREE.Color(0x101b2c)).lerp(new THREE.Color(hazeDay),day);
     scene.fog.near=activeBiome==='snow'?55:activeBiome==='desert'?80:90;
     scene.fog.far=activeBiome==='snow'?190:activeBiome==='desert'?260:300;
-    scene.fog.far*=1-weatherWet*.3;
+    if(referenceMode){scene.fog.near=250;scene.fog.far=4200;}scene.fog.far*=1-weatherWet*.3;
     skyColor.lerp(new THREE.Color(0x53636c),weatherWet*.52);if(lightningT>0)skyColor.lerp(new THREE.Color(0xc3cbd0),lightningT*2);
     scene.fog.color.lerp(new THREE.Color(0x899ba2),weatherWet*.25*day);
     hemi.intensity = (0.18 + 0.62*day)*(1-weatherWet*.25);
@@ -2828,17 +2903,17 @@ function tick(dt){
     var sa2 = dayT * Math.PI * 2;
     sun.position.set(P.x + Math.cos(sa2)*60, Math.sin(sa2)*70, P.z + 30);
     sun.target.position.set(P.x, gy, P.z); sun.target.updateMatrixWorld();
-    sunMesh.position.set(P.x + Math.cos(sa2)*280, Math.sin(sa2)*260, P.z + 120);
-    moonMesh.position.set(P.x - Math.cos(sa2)*280, -Math.sin(sa2)*260, P.z + 120);
-    sunGlow.position.copy(sunMesh.position);sunGlow.material.opacity=day*(1-weatherWet);sunMesh.visible=weatherWet<.6;moonMesh.visible=weatherWet<.6;
+    sunMesh.position.set(P.x+Math.cos(sa2)*(referenceMode?2400:280),(referenceMode?gy:0)+Math.sin(sa2)*(referenceMode?2200:260),P.z+(referenceMode?1000:120));if(referenceMode)sunMesh.scale.setScalar(4);
+    moonMesh.position.set(P.x-Math.cos(sa2)*(referenceMode?2400:280),(referenceMode?gy:0)-Math.sin(sa2)*(referenceMode?2200:260),P.z+(referenceMode?1000:120));if(referenceMode)moonMesh.scale.setScalar(4);
+    if(referenceMode)sunGlow.scale.set(500,500,1);sunGlow.position.copy(sunMesh.position);sunGlow.material.opacity=day*(1-weatherWet);sunMesh.visible=weatherWet<.6;moonMesh.visible=weatherWet<.6;
     sunMesh.material.color.setHex(dusk > 0.4 ? 0xff9d4d : 0xffe9a0);
     cloudMat.opacity=Math.min(.94,.2+.5*day+weatherWet*.3);
     cloudMat.color.copy(skyColor).lerp(new THREE.Color(0xffffff),.72);
     for(var ci=0;ci<clouds.length;ci++){
       var ca=ci/clouds.length*Math.PI*2+now*.003;
-      clouds[ci].position.set(P.x+Math.cos(ca)*200,65+(ci%4)*12,P.z+Math.sin(ca)*200);
+      clouds[ci].position.set(P.x+Math.cos(ca)*200,(referenceMode?gy+280:65)+(ci%4)*12,P.z+Math.sin(ca)*200);
     }
-    stars.position.set(P.x, 0, P.z);
+    stars.position.set(P.x,referenceMode?gy:0,P.z);
     stars.geometry.setDrawRange(0,settings.quality==='low'?100:settings.quality==='medium'?220:350);stars.material.opacity = (1-day) * 0.9;
     var flyN=settings.quality==='low'?12:settings.quality==='medium'?28:50;fireflies.geometry.setDrawRange(0,flyN);fireflies.material.opacity = (1-day) * 0.9;
     if(1-day > 0.3){
@@ -2875,7 +2950,7 @@ function gameOver(){
 function respawnLobby(){respawnToken++;respawnBusy=false;document.getElementById('mapPanel').classList.add('hidden');document.getElementById('mapPanel').classList.remove('respawning');document.getElementById('start').classList.remove('hidden');document.getElementById('charSetup').classList.add('hidden');document.getElementById('playBtn').textContent='CONTINUE';running=false;paused=false;resetMovementInput();menuMusicWorld(false);}
 async function respawnAt(kind){
  if(!respawnRequired||respawnBusy||kind==='bed'&&!bedPos)return false;respawnBusy=true;var token=++respawnToken;
- var old={x:P.x,z:P.z},target=kind==='bed'?{x:bedPos.x,z:bedPos.z}:{x:0,z:0};
+ var old={x:P.x,z:P.z},target=kind==='bed'?{x:bedPos.x,z:bedPos.z}:referenceMode?{x:referenceStart.x,z:referenceStart.z}:{x:0,z:0};
  var status=document.getElementById('mapCap');status.textContent='Preparing safe ground...';await yieldJoinPaint();if(token!==respawnToken)return false;
  try{
   var terrainSpot=null;
@@ -2977,6 +3052,7 @@ document.getElementById('beginBtn').addEventListener('click', function(){
   buildPlayerChar(setupKind);
   joinReadyWorld(function(){resetGame();}, 'Welcome, '+nm);
 });
+['worldOld','worldReference'].forEach(function(id,i){var b=document.getElementById(id);b.setAttribute('aria-pressed',String(referenceMode===!!i));b.style.borderColor=referenceMode===!!i?'#bcecff':'#6b8291';b.onclick=function(){if(running||joiningWorld)return;try{localStorage.setItem('oneworld-selected-world-v1',i?'reference-island-v1':'original');}catch(e){toast('Could not save map choice');return;}location.reload();};});
 document.getElementById('playBtn').addEventListener('click', function(){
   var sv = loadSave();
   if(sv && sv.v >= 1){
@@ -3035,6 +3111,7 @@ sleepBtn = document.getElementById('sleepBtn');
 sleepBtn.addEventListener('click', trySleep);
 document.getElementById('actPlace').addEventListener('click', function(){ var it = inv[selSlot]; if(!it) return; var kind = it.name === 'Campfire Kit' ? 'campfire' : 'bed'; toggleBag(); placeKit(kind); });
 document.getElementById('actEat').addEventListener('click', eatSelected);
+document.getElementById('lootCollect').onclick=function(){if(!referenceSites||!running||paused||P.dead)return;referenceSites.lootState(referenceElapsed,referenceLootTaken);var hit=referenceSites.nearestLoot(P.x,P.z);if(!hit)return;var supplies=[['Water Bottle','waterbottle',1],['Bandage','bandage',1],['Canned Food','cannedfood',1]],newSlots=supplies.filter(function(v){return !inv.some(function(i){return i.name===v[0]&&i.qty<STACK_MAX;});}).length;if(inv.length+newSlots>INV_CAP){toast('Make room for 3 supplies');return;}if(referenceSites.collect(hit.id)){supplies.forEach(function(v){addItem(v[0],v[1],v[2]);});toast('Water bottle, bandage and canned food collected');document.getElementById('lootCollect').classList.remove('available');saveGame();}};
 document.getElementById('actWear').addEventListener('click', wearSelected);
 document.getElementById('chipTorch').addEventListener('click', function(){ setEquip('torch'); });
 document.getElementById('chipKnife').addEventListener('click', function(){ setEquip('knife'); });
@@ -3049,9 +3126,9 @@ document.getElementById('bagCloseTop').addEventListener('click', toggleBag);
 document.getElementById('mapBtn').addEventListener('click', toggleMap);
 document.getElementById('mapCanvas').addEventListener('pointerdown', function(e){if(respawnRequired)return;
   var cv = e.currentTarget, r = cv.getBoundingClientRect();
-  var range = ISLAND_R + 400;
+  var range = referenceMode?REFERENCE_WORLD.halfWidth:ISLAND_R+400,rangeZ=referenceMode?REFERENCE_WORLD.halfHeight:range;
   var wx = ((e.clientX - r.left)/r.width)*2*range - range;
-  var wz = ((e.clientY - r.top)/r.height)*2*range - range;
+  var wz = ((e.clientY - r.top)/r.height)*2*rangeZ - rangeZ;
   toggleUserMark(wx, wz); renderMap();
 });
 document.getElementById('mapClose').addEventListener('click', toggleMap);
@@ -3177,7 +3254,7 @@ window.addEventListener('keydown',function(e){if(controlDraft&&e.code==='Escape'
 applyControlLayout();
 
 
-window.oneword = {supportSurvivorSoles:supportSurvivorSoles,entryUpdateState:function(){return {pending:window.oneworldStartupUpdate.pending,generation:window.oneworldStartupUpdate.id,status:window.oneworldStartupUpdate.status};},cancelEntryUpdateGate:cancelEntryUpdateGate,freeLookState:function(){return {active:freeLookActive,returning:freeLookReturning,travelYaw:movementViewYaw(),cameraYaw:cameraYaw,pointer:freeLookId};},readiness:function(){return {chunks:Object.keys(chunks).length,required:wantedChunks(true).length,missing:wantedChunks(true).filter(function(c){return !chunks[chunkKey(c[0],c[1])];}).length,joining:joiningWorld,structures:structGroup.children.length,structColliders:structColliders.length};},saveGame:saveGame,requestGameClose:requestGameClose,saveAndClose:saveAndClose,controlsState:function(){return {layout:JSON.parse(JSON.stringify(controlLayout)),draft:controlDraft?JSON.parse(JSON.stringify(controlDraft)):null,paused:paused};},lifecycleState:function(){return {suspended:appSuspended,frameHandle:frameHandle,paused:paused,respawn:respawnRequired,deathShown:deathShown};},respawnAt:respawnAt,movementInput:function(){return {autoRun:autoRun,sprint:sprintOn,joy:{x:joyVec.x,y:joyVec.y},pointer:joyId,blocked:joyBlocked,target:{x:joyTarget.x,y:joyTarget.y,r:joyTarget.r,ready:joyTargetReady,visible:sprintEl.classList.contains('available')}};},renderSetupPreview:renderSetupPreview,previewState:function(){return {root:setupRoot,camera:setupCamera,angle:setupAngle,focus:setupFocus,zoom:setupZoom};},startSos:startSos,sosState:function(){return sosPending;},safeSosSpot:safeSosSpot,solidFree:solidFree,testDeath:function(){P.hp=0;P.dead=true;gameOver();},nearestTree:function(){var best=null,dist=1e9;for(var k in chunks)(chunks[k].treeRefs||[]).forEach(function(t){var d=Math.hypot(t.x-P.x,t.z-P.z);if(d<dist){dist=d;best={x:t.x,z:t.z,key:t.key,hits:t.hits};}});return best;},debugInfo:function(){return {events:betaEvents.slice(),errors:window.__errors.slice(),frameCount:betaFrames.length};},getProgress:function(){return JSON.parse(JSON.stringify(progress));},spendPoint:spendPoint,progressLevel:progressLevel,testAddWall:function(x,y,z){var wall=new THREE.Mesh(new THREE.BoxGeometry(5,4,.25),new THREE.MeshStandardMaterial({color:0x52708a}));wall.position.set(x,y,z);wall.userData.cameraSolid=true;scene.add(wall);cameraWalls.push(wall);return wall.uuid;},soundEvents:soundEvents, testSound:sfx, beacons:beacons,travelBeacon:travelBeacon,weather:function(){return {kind:weatherKind,clock:weatherClock,wet:weatherWet};},setWeather:function(v){weatherOverride=v;},setWeatherClock:function(v){weatherClock=v;}, P: P, wolves: wolves, assets: A, renderer: renderer, deer: deer, critters: critters, eagles2: eagles2, player: player, slash: slash, scene: scene, camera: camera, THREE: THREE, groundY: groundY,surfaceY:surfaceY,groundMeshes:function(){return Object.values(chunks).map(c=>c.ground);},
+window.oneword = {worldIdentity:function(){return {elapsed:referenceElapsed,loot:referenceLootTaken,cycle:CYCLE,id:activeWorldId,saveKey:SAVE_KEY,sites:referenceSites,lab:LAB,safeAreas:SAFE_AREAS};},supportSurvivorSoles:supportSurvivorSoles,entryUpdateState:function(){return {pending:window.oneworldStartupUpdate.pending,generation:window.oneworldStartupUpdate.id,status:window.oneworldStartupUpdate.status};},cancelEntryUpdateGate:cancelEntryUpdateGate,freeLookState:function(){return {active:freeLookActive,returning:freeLookReturning,travelYaw:movementViewYaw(),cameraYaw:cameraYaw,pointer:freeLookId};},readiness:function(){return {chunks:Object.keys(chunks).length,required:wantedChunks(true).length,missing:wantedChunks(true).filter(function(c){return !chunks[chunkKey(c[0],c[1])];}).length,joining:joiningWorld,structures:structGroup.children.length,structColliders:structColliders.length};},saveGame:saveGame,requestGameClose:requestGameClose,saveAndClose:saveAndClose,controlsState:function(){return {layout:JSON.parse(JSON.stringify(controlLayout)),draft:controlDraft?JSON.parse(JSON.stringify(controlDraft)):null,paused:paused};},lifecycleState:function(){return {suspended:appSuspended,frameHandle:frameHandle,paused:paused,respawn:respawnRequired,deathShown:deathShown};},respawnAt:respawnAt,movementInput:function(){return {autoRun:autoRun,sprint:sprintOn,joy:{x:joyVec.x,y:joyVec.y},pointer:joyId,blocked:joyBlocked,target:{x:joyTarget.x,y:joyTarget.y,r:joyTarget.r,ready:joyTargetReady,visible:sprintEl.classList.contains('available')}};},renderSetupPreview:renderSetupPreview,previewState:function(){return {root:setupRoot,camera:setupCamera,angle:setupAngle,focus:setupFocus,zoom:setupZoom};},startSos:startSos,sosState:function(){return sosPending;},safeSosSpot:safeSosSpot,solidFree:solidFree,testDeath:function(){P.hp=0;P.dead=true;gameOver();},nearestTree:function(){var best=null,dist=1e9;for(var k in chunks)(chunks[k].treeRefs||[]).forEach(function(t){var d=Math.hypot(t.x-P.x,t.z-P.z);if(d<dist){dist=d;best={x:t.x,z:t.z,key:t.key,hits:t.hits};}});return best;},debugInfo:function(){return {events:betaEvents.slice(),errors:window.__errors.slice(),frameCount:betaFrames.length};},getProgress:function(){return JSON.parse(JSON.stringify(progress));},spendPoint:spendPoint,progressLevel:progressLevel,testAddWall:function(x,y,z){var wall=new THREE.Mesh(new THREE.BoxGeometry(5,4,.25),new THREE.MeshStandardMaterial({color:0x52708a}));wall.position.set(x,y,z);wall.userData.cameraSolid=true;scene.add(wall);cameraWalls.push(wall);return wall.uuid;},soundEvents:soundEvents, testSound:sfx, beacons:beacons,travelBeacon:travelBeacon,weather:function(){return {kind:weatherKind,clock:weatherClock,wet:weatherWet};},setWeather:function(v){weatherOverride=v;},setWeatherClock:function(v){weatherClock=v;}, P: P, wolves: wolves, assets: A, renderer: renderer, deer: deer, critters: critters, eagles2: eagles2, player: player, slash: slash, scene: scene, camera: camera, THREE: THREE, groundY: groundY,surfaceY:surfaceY,groundMeshes:function(){return Object.values(chunks).map(c=>c.ground);},
   attack: function(){ tryAttack(); }, reset: function(){ resetGame(); },
   step: function(n, dt){ dt = dt || 0.05; for(var i = 0; i < n; i++){ now += dt; tick(dt); } },
   defeated: function(){ return wolvesDefeated; },
@@ -3199,14 +3276,16 @@ applySettings();
 await startupStage(90,'Preparing survivor previews');
 // Warm both bounded preview entries at their actual layout size under the
 // existing loading screen. Visibility stays hidden until the chooser is used.
+if(referenceMode){document.getElementById('mapPanel').classList.add('referenceMap');document.getElementById('mapCanvas').width=900;document.getElementById('mapCanvas').height=600;document.getElementById('mapCanvas').style.aspectRatio='1.5';document.getElementById('mapCanvas').style.height='auto';}
 var warmLobby=document.getElementById('start'),warmChooser=document.getElementById('charSetup'),warmVisibility=warmLobby.style.visibility;
 warmLobby.style.visibility='hidden';warmLobby.classList.add('prewarming','choosing');warmChooser.classList.remove('hidden');
 for(var previewKind of ['boy','girl']){
- buildSetupPreview(previewKind);var warmCanvas=document.getElementById('charPreview'),warmWidth=Math.max(1,Math.round(warmCanvas.clientWidth)),warmHeight=Math.max(1,Math.round(warmCanvas.clientHeight));setupRenderer.setSize(warmWidth,warmHeight,false);setupCamera.aspect=warmWidth/warmHeight;setupCamera.updateProjectionMatrix();setupCamera.position.set(0,.88,Math.max(3.8,2.2/setupCamera.aspect));setupCamera.lookAt(0,.88,0);setupRoot.updateMatrixWorld(true);setupRenderer.render(setupScene,setupCamera);await window.oneworldYieldPaint();
+ buildSetupPreview(previewKind);var warmCanvas=document.getElementById('charPreview'),warmWidth=Math.max(1,Math.round(warmCanvas.clientWidth)),warmHeight=Math.max(1,Math.round(warmCanvas.clientHeight));setupRenderer.setSize(warmWidth,warmHeight,false);setupCamera.aspect=warmWidth/warmHeight;setupCamera.updateProjectionMatrix();setupCamera.position.set(0,.88,Math.max(3.8,2.2/setupCamera.aspect));setupCamera.lookAt(0,.88,0);setupRoot.updateMatrixWorld(true);await warmRenderer(setupRenderer,setupScene,setupCamera,window.oneworldYieldPaint);setupRenderer.render(setupScene,setupCamera);await window.oneworldYieldPaint();
 }
 buildSetupPreview(charKind||'boy');warmChooser.classList.add('hidden');warmLobby.classList.add('hidden');warmLobby.classList.remove('prewarming','choosing');warmLobby.style.visibility=warmVisibility;
 await startupStage(90,'Preparing first frame');
 camera.position.set(0, groundY(0,0) + 2.6, 5.0);
+await warmRenderer(renderer,scene,camera,window.oneworldYieldPaint);
 drawHearts();
 frame();
 }
