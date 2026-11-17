@@ -1,0 +1,13 @@
+build/
+dist/
+node_modules/
+.env
+.env.*
+*.jks
+*.keystore
+*.p12
+*.pem
+*.key
+local.properties
+private-signing/
+*recovery*.json
