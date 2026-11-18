@@ -3,7 +3,7 @@ import {SITE_PLANS} from './ReferenceLocations.js';
 import {referenceCoast} from './ReferenceCoast.js';
 export async function createReferenceHorizon(scene,height,color,yieldPaint){
  const cols=100,rows=68,data=new Uint8Array(cols*rows*4),mask=new T.DataTexture(data,cols,rows,T.RGBAFormat);mask.minFilter=mask.magFilter=T.NearestFilter;mask.needsUpdate=true;
- const cw=513,ch=345,cd=new Uint8Array(cw*ch*4);let colorStart=performance.now();for(let z=0;z<ch;z++){for(let x=0;x<cw;x++){const wx=x/(cw-1)*12800-6400,wz=z/(ch-1)*8704-4352,c=color(wx,wz,height(wx,wz)),i=(z*cw+x)*4;cd[i]=Math.round(c[0]*255);cd[i+1]=Math.round(c[1]*255);cd[i+2]=Math.round(c[2]*255);cd[i+3]=255;}if(performance.now()-colorStart>8){await yieldPaint();colorStart=performance.now();}}
+ const cw=513,ch=345,cd=new Uint8Array(cw*ch*4);let colorStart=performance.now();for(let z=0;z<ch;z++){for(let x=0;x<cw;x++){const wx=x/(cw-1)*12800-6400,wz=z/(ch-1)*8704-4352,c=color(wx,wz,height(wx,wz)),i=(z*cw+x)*4;cd[i]=Math.round(c[0]*255);cd[i+1]=Math.round(c[1]*255);cd[i+2]=Math.round(c[2]*255);cd[i+3]=Math.round(Math.max(0,Math.min(1,(height(wx,wz)+16)/32))*255);}if(performance.now()-colorStart>8){await yieldPaint();colorStart=performance.now();}}
  const colorMap=new T.DataTexture(cd,cw,ch,T.RGBAFormat);colorMap.minFilter=colorMap.magFilter=T.LinearFilter;colorMap.needsUpdate=true;
  const verts=[],norms=[],colors=[],indices=[],vertexIds=new Map(),cells=new Map();let start=performance.now();
  const colsX=200,rowsZ=136,base=64,divisions=new Map();

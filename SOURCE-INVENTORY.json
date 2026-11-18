@@ -1,10 +1,7 @@
 {
-  "baseline": "1.3.39",
-  "sourceBase": {
-    "beta": "6be48424efde504a8e747d31423d4f3d2a3aea11",
-    "project": "84bf29534816b94891d59251259309c083b728a1"
-  },
-  "status": "Reviewed UI and reduced duplicate terrain allocation; local checks pass, actual Android recovery/multitouch unverified, phone-exit cause unknown",
+  "baseline": "1.3.40",
+  "sourceBase": "Cumulative 1.3.39 plus approved water/float/swim and joystick changes",
+  "status": "Public testing beta; physical-device behavior not verified",
   "files": [
     {
       "path": ".github/workflows/.github/workflows/project-bootstrap.yml",
@@ -18,8 +15,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 31180,
-      "sha256": "f6ee4049b4e96076c0bb5cb9d40e26787d74a57c7275b217970cc8a6bf7ba06e"
+      "size": 32774,
+      "sha256": "1edb4906ea7065cfc399969efa417b724775f0aac2e610e72e7ab20800b62c96"
     },
     {
       "path": "CONTRIBUTING.md",
@@ -28,13 +25,13 @@
     },
     {
       "path": "README.md",
-      "size": 3349,
-      "sha256": "b20b46940f8ad01b6f6ed72b8176404b7e43357900f5f723b3678e8b52b8d6fd"
+      "size": 3484,
+      "sha256": "85225bff89227ca063b51501df819dfe3c2a3e2830f23a4533bf6ebd520133d7"
     },
     {
       "path": "android/AndroidManifest.xml",
       "size": 1298,
-      "sha256": "5da6839583c1af4bb03d8e5fc30cc88d4839b76239338bdc1c605eb0c82c64b8"
+      "sha256": "338005c5c263df2b5dfbe9717115f078cdbf34aa7c47c529ab00f33cd523c6fb"
     },
     {
       "path": "android/res/drawable/ic_face.png",
@@ -182,6 +179,11 @@
       "sha256": "53cc5ace9b272b0fdaeb136a3c6432abffb73d0c348ec1d9ab94b12f847f979c"
     },
     {
+      "path": "docs/QA-1.3.40.md",
+      "size": 1593,
+      "sha256": "bbcb5687b5ce2e3b6b897c6e8a8cfeceb930b459978b8e981c3b68d67565876a"
+    },
+    {
       "path": "docs/screenshots/1.3.24/README.md",
       "size": 142,
       "sha256": "d617dcc0a6f0332bce0e5f85ae09c19b9b5bd2aaa2d561830609ff1b27badf6f"
@@ -213,8 +215,8 @@
     },
     {
       "path": "web/assets/lib/AnimeCharacter.js",
-      "size": 43049,
-      "sha256": "cfb16b58d370569975356c25952075b176b3738cc2622452987acd6430343a05"
+      "size": 43364,
+      "sha256": "c9e3d1339d2ccd19ff1002b78fa308856465af162fa6a6351209851ce7c6eb97"
     },
     {
       "path": "web/assets/lib/AppLifecycle.js",
@@ -243,8 +245,8 @@
     },
     {
       "path": "web/assets/lib/ReferenceHorizon.js",
-      "size": 4652,
-      "sha256": "714022b2cf728fbeac4f3f331580f82d48f4e9d72b2905cab5c243bf5bce083b"
+      "size": 4710,
+      "sha256": "7d7029499cf4851e45d1f9f993a9771dba7330625887224fbfd738dbe4ff14a2"
     },
     {
       "path": "web/assets/lib/ReferenceIsland.js",
@@ -285,6 +287,11 @@
       "path": "web/assets/lib/RendererWarmup.js",
       "size": 1868,
       "sha256": "c4c73f05a5cea2c0e7bb94f833de255fd293dc17dca41380d6c8015668ff23e9"
+    },
+    {
+      "path": "web/assets/lib/ShoreDetail.js",
+      "size": 4693,
+      "sha256": "07047966cb89ea61fdfe9c8b38374bb6267fe4ded8d25c5a6c78fa89bd183a60"
     },
     {
       "path": "web/assets/lib/SkeletonUtils.js",
@@ -838,8 +845,8 @@
     },
     {
       "path": "web/index.html",
-      "size": 340917,
-      "sha256": "8b0fc3c80810dfc3c1af874c773abadb2cc35384e48bf84c72ad344631556f4d"
+      "size": 342257,
+      "sha256": "2c0f26dd4fc6c5e9f49736902f744d1615656776ad865261d9020841ccbf7e75"
     },
     {
       "path": "web/renderer-recovery.html",

@@ -4,7 +4,7 @@ import * as THREE from 'three';
 // These are not retargeted third-party animation clips.
 export function animeClips(root){
   const clips=[];
-  const names=['Idle','Run','Walk','Punch','Slash','Chop','Death','Swim'];
+  const names=['Idle','Run','Walk','Punch','Slash','Chop','Death','Swim','Float'];
   const bones=[];root.traverse(b=>{if(b.isBone) bones.push(b);});
   const rig=Object.fromEntries(bones.map(b=>[b.name,b]));
   names.forEach(name=>{
@@ -53,7 +53,14 @@ export function animeClips(root){
           if(b.name.endsWith('Spine')){x=name==='Run'?.055:0;y=Math.sin(a)*.045;z=Math.cos(a)*.008;}
           if(b.name.endsWith('Hips'))z=Math.cos(a)*.006;
         }
+        if(name==='Float'){
+          if(b.name.endsWith('UpperArm')){z=sgn*.08;x=Math.sin(a)*.025;}
+          if(b.name.endsWith('LowerArm')){y=-sgn*.10;z=0;}
+          if(b.name.endsWith('LowerLeg'))x=-.12;
+        }
         if(name==='Swim'){
+          if(b.name.endsWith('Neck'))x=.35;
+          if(b.name.endsWith('Head'))x=.70;
           if(b.name.endsWith('UpperArm')){z=sgn*(0.4+0.65*Math.sin(a));x=0.8*Math.cos(a);}
           if(b.name.endsWith('LowerArm'))y=-sgn*(.35+.2*Math.sin(a));
           if(b.name.endsWith('UpperLeg'))x=Math.sin(a*2+(left?0:Math.PI))*0.18;

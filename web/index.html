@@ -625,6 +625,7 @@ import {referenceMutantAnimal} from './assets/lib/ReferenceMutantAnimal.js';
 import {buildWetlands} from './assets/lib/ReferenceWetlands.js';
 import {createReferenceHorizon} from './assets/lib/ReferenceHorizon.js';
 import {createReferenceSites,SAFE_AREAS,LAB,SITE_PLANS} from './assets/lib/ReferenceSites.js';
+import {applyShoreDetail} from './assets/lib/ShoreDetail.js';
 import {legacyTreeCandidates,legacyTrees} from './assets/lib/legacy37/ResourceIdentity.js';
 import {REFERENCE_WORLD,referenceSample,referenceHeight,referenceBiome,referenceSurface} from './assets/lib/ReferenceIsland.js';
 var referenceMode=false;try{referenceMode=localStorage.getItem('oneworld-selected-world-v1')==='reference-island-v1';}catch(e){}
@@ -637,7 +638,7 @@ import { GLTFLoader } from './assets/lib/GLTFLoader.js';
 import { clone as skClone } from './assets/lib/SkeletonUtils.js';
 import { animeClips, applyAnimeColors, attachLeatherGarments, applyHairStyle, updateHairSway } from './assets/lib/AnimeCharacter.js';
 
-var BUILD_INFO={name:'1.3.39',code:null,native:false};
+var BUILD_INFO={name:'1.3.40',code:null,native:false};
 try{var nb=window.OneWorldNative;if(nb&&typeof nb.getBuildInfo==='function'){var bi=JSON.parse(nb.getBuildInfo());if(bi.package==='com.oneword.forest.beta'&&typeof bi.name==='string'&&/^\d+\.\d+\.\d+$/.test(bi.name)&&Number.isSafeInteger(bi.code)&&bi.code>0)BUILD_INFO={name:bi.name,code:bi.code,native:true};}}catch(e){}
 var DISPLAY_VERSION=BUILD_INFO.name+(BUILD_INFO.native?'':' preview');
 document.querySelector('#start .ver').textContent=DISPLAY_VERSION+' Beta - Work in progress';
@@ -937,7 +938,9 @@ function groundColor(x, z, y){
   return [0.45 + f*0.20, 0.66 + f*0.12, 0.33 + f*0.10];        // grass variation
 }
 
-var water = new THREE.Mesh(new THREE.PlaneGeometry(referenceMode?18000:1600,referenceMode?12000:1600),
+// Modest segments keep the large ocean plane depth stable at swimmer scale.
+// Surface height, coverage, shoreline and terrain remain unchanged.
+var water = new THREE.Mesh(new THREE.PlaneGeometry(referenceMode?18000:1600,referenceMode?12000:1600,referenceMode?36:4,referenceMode?24:4),
   new THREE.MeshStandardMaterial({ color: 0x2e6f8e, transparent: true, opacity: 0.82, roughness: referenceMode?0.78:0.3, metalness: referenceMode?0:0.15 }));
 water.rotation.x = -Math.PI/2; water.position.y = SEA_LEVEL; scene.add(water);
 
@@ -975,6 +978,7 @@ var riverWaterRuns = [];
 
 var referenceHorizon=referenceMode?await createReferenceHorizon(scene,referenceHeight,groundColor,window.oneworldYieldPaint):null;
 if(referenceMode){referenceEarthMaterial(referenceHorizon.mesh.material);camera.near=.3;camera.far=18000;camera.updateProjectionMatrix();}
+var shoreDetail=referenceMode?applyShoreDetail(THREE,water,referenceHorizon,A.models.rocks.scene):null;
 var chunks = {};
 function chunkKey(cx, cz){ return cx + ',' + cz; }
 function buildChunk(cx, cz){
@@ -1478,7 +1482,7 @@ await startupStage(80,'Preparing survivor');
 var player = new THREE.Group();
 var charKind = 'boy', playerName = '';
 var charLook = {hair:'original',eye:'original',skin:'original',style:'original'};
-var swimTiltQ=new THREE.Quaternion(),swimTiltAxis=new THREE.Vector3(1,0,0);
+var swimTiltQ=new THREE.Quaternion(),swimTiltAxis=new THREE.Vector3(1,0,0),swimHeadPoint=new THREE.Vector3();
 var charRoot = null, pAnim = null, handSlotR = null, knifeProp = null, axePropM = null, pickProp = null;
 var CHAR_PROP_HIDE = ['Knife','Knife_Offhand','1H_Crossbow','2H_Crossbow','Throwable','1H_Axe','1H_Axe_Offhand','2H_Axe','Mug','Barbarian_Round_Shield'];
 var propMount = null;
@@ -1532,7 +1536,7 @@ function buildPlayerChar(kind){
   charKind = kind;
   if(charRoot){ player.remove(charRoot); if(pAnim && pAnim.mixer){ pAnim.mixer.stopAllAction(); pAnim.mixer.uncacheRoot(charRoot); } }
   charRoot = skClone(A.models[kind].scene);
-  charRoot.userData.baseRotation=charRoot.quaternion.clone();charRoot.userData.swimTilt=0;
+  charRoot.userData.baseRotation=charRoot.quaternion.clone();charRoot.userData.swimTilt=0;charRoot.userData.swimHead=charRoot.getObjectByName('J_Bip_C_Head');
   cloneSkinnedMaterials(charRoot);prepareCharacterMaterials(charRoot);
   applyAnimeColors(charRoot,charLook);
   normSkinnedChar(charRoot, 1.78);
@@ -2228,8 +2232,8 @@ var joyVec = { x: 0, y: 0 }, joyId = null;
 var autoRun=false,autoRunHeading=0,joyBlocked=false,joyLockGesture=false;
 var joyEl = document.getElementById('joy'), joyThumb = document.getElementById('joyThumb'),sprintEl=document.getElementById('sprintBtn');
 var joyTarget={x:0,y:0,r:22},joyTargetReady=false,joyDragUp=false;
-function sprintHint(show){
- var r=joyEl.getBoundingClientRect(),size=44;joyTarget={x:Math.max(26,Math.min(innerWidth-26,r.left+r.width/2)),y:Math.max(26,r.top+r.height/2-Math.max(r.height/2+68,innerHeight*.4)),r:22};sprintEl.style.left=(joyTarget.x-size/2)+'px';sprintEl.style.top=(joyTarget.y-size/2)+'px';sprintEl.classList.toggle('available',!!show&&joyId!==null&&joyDragUp&&!autoRun&&running&&!paused);sprintEl.classList.toggle('ready',joyTargetReady);joyEl.classList.toggle('locked',autoRun);
+function sprintHint(show,rect){
+ var r=rect||joyEl.getBoundingClientRect(),size=44;joyTarget={x:Math.max(26,Math.min(innerWidth-26,r.left+r.width/2)),y:Math.max(26,r.top+r.height/2-Math.max(r.height/2+68,innerHeight*.4)),r:22};sprintEl.style.left=(joyTarget.x-size/2)+'px';sprintEl.style.top=(joyTarget.y-size/2)+'px';sprintEl.classList.toggle('available',!!show&&joyId!==null&&joyDragUp&&!autoRun&&running&&!paused);sprintEl.classList.toggle('ready',joyTargetReady);joyEl.classList.toggle('locked',autoRun);
 }
 function resetMovementInput(){
  if(typeof endFreeLook==='function')endFreeLook(true);autoRun=false;sprintOn=false;joyLockGesture=false;joyTargetReady=false;joyDragUp=false;joyId=null;joyBlocked=false;joyVec.x=joyVec.y=0;if(typeof lookPointerId!=='undefined')lookPointerId=null;
@@ -2242,7 +2246,7 @@ function lockForwardSprint(){autoRun=true;autoRunHeading=movementViewYaw()+Math.
 function joyMove(e){
  if(e.pointerId!==joyId||joyBlocked)return;e.preventDefault();var r=joyEl.getBoundingClientRect(),max=r.width/2,rawX=e.clientX-r.left-max,rawY=e.clientY-r.top-max;
  if(autoRun){autoRun=false;sprintOn=false;joyBlocked=true;joyVec.x=joyVec.y=0;P.speed=0;joyTargetReady=false;joyDragUp=false;joyThumb.style.transform='translate(-50%,-50%)';sprintHint(false);return;}
- joyDragUp=rawY<-max*.35; sprintHint(true);joyTargetReady=joyDragUp&&Math.hypot(e.clientX-joyTarget.x,e.clientY-joyTarget.y)<=joyTarget.r+6;sprintHint(true);
+ joyDragUp=rawY<-max*.35;var targetX=Math.max(26,Math.min(innerWidth-26,r.left+r.width/2)),targetY=Math.max(26,r.top+r.height/2-Math.max(r.height/2+68,innerHeight*.4));joyTargetReady=joyDragUp&&Math.hypot(e.clientX-targetX,e.clientY-targetY)<=28;sprintHint(true,r);
  var len=Math.hypot(rawX,rawY),dx=rawX,dy=rawY;if(len>max){dx=dx/len*max;dy=dy/len*max;}joyThumb.style.transform='translate(calc(-50% + '+dx+'px),calc(-50% + '+dy+'px))';joyVec.x=dx/max;joyVec.y=dy/max;
 }
 function joyEnd(e){
@@ -2430,6 +2434,7 @@ function buildOreNode(x, z, ore, h, rot){
   var g = new THREE.Group(), s = h/vd.sz.y;
   vd.meshes.forEach(function(md){
     var mat = md.mat.clone();
+    if(referenceMode&&shoreDetail){mat.onBeforeCompile=md.mat.onBeforeCompile;mat.customProgramCacheKey=md.mat.customProgramCacheKey;}
     if(mat.color) mat.color.set(ORE_TINT[ore]);
     var m = new THREE.Mesh(md.geo, mat);
     m.applyMatrix4(md.local); m.scale.multiplyScalar(s); m.castShadow = false;
@@ -2563,7 +2568,7 @@ document.getElementById('debugClear').onclick=function(){betaEvents.length=0;win
 function scheduleFrame(){if(!frameHandle&&!appSuspended&&!document.hidden)frameHandle=requestAnimationFrame(frame);}
 function frame(){
  frameHandle=0;scheduleFrame();if(sosPending&&paused)cancelSos('SOS cancelled while paused');var t=performance.now(),raw=t-last,dt=Math.min(.05,raw/1000);last=t;now=t/1000;
- var live=running&&!paused&&!document.hidden;var a=performance.now();if(live)tick(dt);var tickCost=performance.now()-a;
+ if(shoreDetail)shoreDetail.value=t/1000;var live=running&&!paused&&!document.hidden;var a=performance.now();if(live)tick(dt);var tickCost=performance.now()-a;
  // Fullscreen menus/paused world are static. Avoid re-drawing the expensive
  // world at display refresh while it cannot move. Preview remains animated.
  if(referenceSites){var siteCell=Math.floor(P.x/128)+','+Math.floor(P.z/128);if(siteCell!==referenceSiteCell){referenceSiteCell=siteCell;referenceSites.update(P.x,P.z);}}
@@ -2664,18 +2669,25 @@ function tick(dt){
     var atkAnim = Math.min(1, (now - P.atkT)/0.32);
     if(P.dead){ playAnim(pAnim, 'Death', 0.2, true); }
     else if(atkAnim < 1){ /* Slash once, triggered in tryAttack */ }
-    else if(swimming){ playAnim(pAnim, 'Swim', 0.25); }
+    else if(swimming){ playAnim(pAnim, P.speed>.08?'Swim':'Float', 0.25); }
     else if(P.speed > 0){ playAnim(pAnim, Math.hypot(mx,mz)*P.speed<4.5?'Walk':'Run', 0.15); }
     else { playAnim(pAnim, 'Idle', 0.2); }
 
     localWater=waterInfo(P.x,P.z);
     swimming=localWater.depth>(swimming?.9:1.15);
-    var gy = swimming ? localWater.surface-.95 : referenceMode?referenceBodyGround(P.x,P.z):surfaceY(P.x,P.z);
+    var swimMove=P.speed>.08;
+    charRoot.userData.swimMotion=THREE.MathUtils.lerp(charRoot.userData.swimMotion||0,swimming&&swimMove?1:0,Math.min(1,8*dt));
+    var swimRootY=THREE.MathUtils.lerp(-1.28,-.35,charRoot.userData.swimMotion);
+    var gy = swimming ? localWater.surface+swimRootY : referenceMode?referenceBodyGround(P.x,P.z):surfaceY(P.x,P.z);
     var sw = P.speed > 0 ? Math.sin(P.walk) : 0, idle = Math.sin(P.walk*0.5)*0.05;
-    player.position.set(P.x, gy + Math.abs(sw)*0.018 + (P.speed>0?0:idle*0.4), P.z);
+    player.position.set(P.x, gy + (swimming?0:Math.abs(sw)*0.018 + (P.speed>0?0:idle*0.4)), P.z);
     player.rotation.y = P.rotY;
-    charRoot.userData.swimTilt+=((swimming?-1.15:P.speed>4.5?.045:0)-charRoot.userData.swimTilt)*Math.min(1,8*dt);
+    charRoot.userData.swimTilt=swimming?-1.35*charRoot.userData.swimMotion:THREE.MathUtils.lerp(charRoot.userData.swimTilt,P.speed>4.5?.045:0,Math.min(1,8*dt));
     charRoot.quaternion.copy(charRoot.userData.baseRotation).multiply(swimTiltQ.setFromAxisAngle(swimTiltAxis,charRoot.userData.swimTilt));
+    if(swimming&&charRoot.userData.swimHead){
+      charRoot.userData.swimHead.getWorldPosition(swimHeadPoint);
+      player.position.y+=localWater.surface+THREE.MathUtils.lerp(.24,.08,charRoot.userData.swimMotion)-swimHeadPoint.y;
+    }
     supportSurvivorSoles();
     pShadow.visible=false;
     pShadow.position.set(P.x, gy + 0.04, P.z);
@@ -2990,7 +3002,7 @@ function tick(dt){
     // the surface instead of switching aim or replacing the orbit with a high view.
     // Back/strafe are camera-relative: recentering here creates a turn loop.
     if(P.speed>.08&&!P.dead&&!autoRun&&lookPointerId===null&&!freeLookActive&&!freeLookReturning&&inF>.5&&Math.abs(inR)<.08){var behind=P.rotY-Math.PI,turn=behind-cameraYaw;while(turn>Math.PI)turn-=Math.PI*2;while(turn< -Math.PI)turn+=Math.PI*2;cameraYaw+=turn*(1-Math.exp(-dt*7));}
-    entryCameraT=Math.max(0,entryCameraT-dt);var camDist=(5+4*entryCameraT/1.2)*camZoom,targetY=gy+1.15,camTarget=new THREE.Vector3(P.x,targetY,P.z);
+    entryCameraT=Math.max(0,entryCameraT-dt);var camDist=(5+4*entryCameraT/1.2)*camZoom,targetY=swimming?localWater.surface+.05:gy+1.15,camTarget=new THREE.Vector3(P.x,targetY,P.z);
     var cx=P.x+Math.sin(cameraYaw)*Math.cos(cameraPitch)*camDist;
     var cz=P.z+Math.cos(cameraYaw)*Math.cos(cameraPitch)*camDist;
     var cy=targetY+Math.sin(cameraPitch)*camDist;
