@@ -1,6 +1,6 @@
-## Latest testing beta: 1.3.44 / code66
+## Latest testing beta: 1.3.45 / code66
 
-Fullscreen wallpaper and tap/loading/menu background motion. Full two-profile menu is still pending; phone behavior is not confirmed. See docs/QA-1.3.44.md for exact local checks and limits.
+Fullscreen wallpaper and tap/loading/menu background motion. Full two-profile menu is still pending; phone behavior is not confirmed. See docs/QA-1.3.45.md for exact local checks and limits.
 
 # One World Project
 

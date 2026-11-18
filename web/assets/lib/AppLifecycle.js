@@ -1,6 +1,6 @@
 // Save before returning to a clean title flow. Never resume a suspended world.
 (function(){
- var s={suspended:false,restart:false,restarting:false,saveFailed:false},runtime=null;
+ var s={suspended:false,restart:false,restarting:false,saveFailed:false,focused:true},runtime=null;
  function updatePending(){var u=window.oneworldStartupUpdate;return !!(u&&u.pending&&u.required);}
  function save(){try{return !runtime||runtime.save()!==false;}catch(e){return false;}}
  function pause(){
@@ -27,6 +27,13 @@
   s.suspended=false;if(runtime)runtime.resume();if(window.oneworldMenuMusic)window.oneworldMenuMusic.suspend(false);
  }
  window.oneworldAppLifecycle={state:s,configure:function(value){runtime=value;if(s.suspended)runtime.pause();}};
+ window.oneworldWindowFocus=function(focused){
+  s.focused=!!focused;
+  if(runtime&&runtime.focus)runtime.focus(s.focused);
+  if(window.oneworldMenuMusic)window.oneworldMenuMusic.suspend(s.suspended||!s.focused);
+ };
+ window.addEventListener('blur',function(){window.oneworldWindowFocus(false);});
+ window.addEventListener('focus',function(){window.oneworldWindowFocus(true);});
  window.oneworldLifecyclePause=pause;window.oneworldLifecycleResume=resume;
  document.addEventListener('visibilitychange',function(){if(document.hidden)pause();else resume();});window.addEventListener('pagehide',pause);window.addEventListener('pageshow',resume);
 })();

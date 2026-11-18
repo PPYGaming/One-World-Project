@@ -20,7 +20,7 @@ public class MainActivity extends Activity implements android.hardware.SensorEve
     private boolean rendererRecovery=false;
     private final android.os.Handler ui = new android.os.Handler(android.os.Looper.getMainLooper());
     private Runnable backTimeout;
-    private boolean closing=false;
+    private boolean closing=false,windowFocused=true;
     private android.hardware.SensorManager sensors;
     private android.hardware.Sensor wallpaperSensor;
     private boolean wallpaperRequested=false,foreground=false,wallpaperListening=false,haveGravity=false,haveCenter=false;
@@ -36,7 +36,7 @@ public class MainActivity extends Activity implements android.hardware.SensorEve
         return super.dispatchTouchEvent(event);
     }
     private void syncWallpaperSensor(){
-        boolean wanted=foreground&&wallpaperRequested&&!closing&&sensors!=null&&wallpaperSensor!=null;
+        boolean wanted=foreground&&windowFocused&&wallpaperRequested&&!closing&&sensors!=null&&wallpaperSensor!=null;
         if(wanted&&!wallpaperListening){haveGravity=false;haveCenter=false;lastWallpaperSend=0;wallpaperListening=sensors.registerListener(this,wallpaperSensor,50000);}
         else if(!wanted&&wallpaperListening){sensors.unregisterListener(this);wallpaperListening=false;haveCenter=false;}
     }
@@ -66,7 +66,7 @@ public class MainActivity extends Activity implements android.hardware.SensorEve
         if(android.os.Build.VERSION.SDK_INT>=30){android.view.WindowInsetsController c=getWindow().getInsetsController();if(c!=null){c.setSystemBarsBehavior(android.view.WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);c.hide(android.view.WindowInsets.Type.systemBars());}}
         else getWindow().getDecorView().setSystemUiVisibility(android.view.View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY|android.view.View.SYSTEM_UI_FLAG_FULLSCREEN|android.view.View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE|android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|android.view.View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
     }
-    @Override public void onWindowFocusChanged(boolean focus){super.onWindowFocusChanged(focus);if(focus)immersive();}
+    @Override public void onWindowFocusChanged(boolean focus){super.onWindowFocusChanged(focus);windowFocused=focus;syncWallpaperSensor();if(focus)immersive();if(wv!=null&&!closing)wv.evaluateJavascript("window.oneworldWindowFocus&&window.oneworldWindowFocus("+focus+")",null);}
     private void resetUpdater(){if(updater!=null)updater.close();updater=new BetaUpdater(this);updater.display=(state,title,detail)->{if(wv!=null&&!closing)wv.evaluateJavascript("window.oneworldUpdateUI&&window.oneworldUpdateUI("+org.json.JSONObject.quote(state)+","+org.json.JSONObject.quote(title)+","+org.json.JSONObject.quote(detail)+")",null);};}
     @Override public void onCreate(Bundle b) {
         super.onCreate(b);

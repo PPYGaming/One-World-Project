@@ -1,6 +1,4 @@
 {
-  "version": "1.3.44",
-  "description": "Complete editable source; inventory excludes itself and local build outputs. No credentials or private test records.",
   "files": [
     {
       "path": ".gitignore",
@@ -9,8 +7,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 39173,
-      "sha256": "838a3397000f95edc74f209e02d3b4b8c3ef3374ad2e5b4d05c9778a569bf856"
+      "size": 40786,
+      "sha256": "094d7e73c9646f2eaf5f5233227d425164b95b7e687ea9c2ea71e04dfd66e6f9"
     },
     {
       "path": "CONTRIBUTING.md",
@@ -20,12 +18,12 @@
     {
       "path": "README.md",
       "size": 3616,
-      "sha256": "5f8b4a6b5a01f1b8bf514405ec1ab3af3d02372a2b4d591f6c9c7aa00c3f8081"
+      "sha256": "e5720102da7a5c2af4c957caa4d139bc728b1226854e4f3000b597630263e8d4"
     },
     {
       "path": "android/AndroidManifest.xml",
       "size": 1298,
-      "sha256": "eec0ea212757f70e1b9e8287514b9fa1487a440a6eca38edff6bcb4ab48d182a"
+      "sha256": "98bc634c73a0f0247bc417401b9eae55d1378d1d76cf4876c76aa821180b559c"
     },
     {
       "path": "android/res/drawable/ic_face.png",
@@ -119,8 +117,8 @@
     },
     {
       "path": "android/src/com/oneword/forest/MainActivity.java",
-      "size": 17589,
-      "sha256": "9fc892a51cd296082f21a58e01aa2f5ce7efa136c7e951457fedd0b791e1ddfd"
+      "size": 17783,
+      "sha256": "6c1f65c6b9c4bd7edddc342c14d1534e3faea24a6556dc74cab44db345a4b5fe"
     },
     {
       "path": "docs/OWNER-REQUIREMENTS-2026-11-18.md",
@@ -203,6 +201,11 @@
       "sha256": "5e2f5681b9066ecab8bca179b13dab103db43478195bcbc954b0db11ec26b8b9"
     },
     {
+      "path": "docs/QA-1.3.45.md",
+      "size": 1612,
+      "sha256": "d7ad5c089ad9b05ec76fa2c8b2ca31a936f7cacae3c2bccff7a8df157d69c742"
+    },
+    {
       "path": "docs/QA-MENU-PRIVATE.md",
       "size": 4124,
       "sha256": "2de07ab8833f5d07a38d1a9c13cd7637871df35290404e07866af4ca92aace27"
@@ -244,8 +247,8 @@
     },
     {
       "path": "web/assets/lib/AppLifecycle.js",
-      "size": 2534,
-      "sha256": "2c701c23a0ad2ff340c6d95e030b6bfa6aec2e12f5f37f06adbe3855f9c12780"
+      "size": 2926,
+      "sha256": "0e62bcd69c1e86818b4405422b28775756a7b3e747023d03f8523cf0fea9979a"
     },
     {
       "path": "web/assets/lib/GLTFLoader.js",
@@ -304,8 +307,8 @@
     },
     {
       "path": "web/assets/lib/ReferenceWetlands.js",
-      "size": 1708,
-      "sha256": "9f759e3e63f5a88c7513b7e4443ea7348d33348df281c665b115122346f632b4"
+      "size": 1749,
+      "sha256": "fb265df59ebc0e35788a9bffdfa03618b367b9bafd780eedc821137a9afd1c26"
     },
     {
       "path": "web/assets/lib/RendererWarmup.js",
@@ -879,8 +882,8 @@
     },
     {
       "path": "web/index.html",
-      "size": 365874,
-      "sha256": "90051291ce7c7f8475019650cef8ed87627fc95bd45533ae8a209df9ea6df7dc"
+      "size": 371316,
+      "sha256": "ba92245fa2e6f3bb7cc0920843bb88fd0bf8670dd03946684a93495896faae75"
     },
     {
       "path": "web/renderer-recovery.html",
