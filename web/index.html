@@ -530,6 +530,15 @@ body.referenceWorld #joy,body.referenceWorld #atk,body.referenceWorld #bagBtn,bo
 #start.motionPaused #lobbyBackdrop:before,#start.motionPaused #lobbyMist{animation-play-state:paused;}
 #start:not(.choosing)>#newGameBtn{display:flex;align-items:center;justify-content:center;gap:6px;}
 @media(prefers-reduced-motion:reduce){#lobbyBackdrop:before{animation:none;transform:none;}#lobbyMist{animation:none;}#lobbyBackdrop{transform:none!important;}}
+/* Fullscreen wallpaper coverage: overscan never moves text or hit targets. */
+#loading:before{inset:-36px;background-position:center;background-size:cover}
+#tapToStart{overflow:hidden;isolation:isolate;--wall-x:0px;--wall-y:0px}
+#tapToStart:before{inset:-36px;background-position:center;background-size:cover;transform:translate3d(var(--wall-x,0px),0,0);will-change:transform}
+#worldLoading{isolation:isolate;background:#091116;--wall-x:0px;--wall-y:0px}
+#worldLoading:after{content:'';position:absolute;inset:-36px;background:#091116 url('assets/tex/menu-anime-preview.jpg') center/cover no-repeat;z-index:-2;pointer-events:none;transform:translate3d(var(--wall-x,0px),0,0);will-change:transform}
+#worldLoading:before{z-index:-1}
+@media(orientation:portrait){#loading:before,#tapToStart:before{background-position:65% center;background-size:cover}#loading:after{background:linear-gradient(0deg,#020a12c7, #020a1266 38%,transparent 78%)}#tapToStart:after{background:linear-gradient(0deg,#030b0fd4,#030b0f70 38%,transparent 78%)}}
+@media(prefers-reduced-motion:reduce){#tapToStart:before,#worldLoading:after{transform:none!important;will-change:auto}}
 </style>
 </head>
 <body><div id="healthNotice" role="status" aria-live="polite"></div><div id="weaponAim" aria-hidden="true"></div>
@@ -678,12 +687,12 @@ window.oneworldStartupReady=window.oneworldLoadingPainted.then(function(){return
 (function(){
  var reduced=window.matchMedia('(prefers-reduced-motion: reduce)'),origin=null,x=0,targetX=0,frame=0,lastNative=0,nativeActive=null,touches=new Set(),quietUntil=0,resumeOrigin=null,resumeX=0;
  var native=window.OneWorldNative,hasNative=!!(native&&typeof native.setWallpaperMotionActive==='function');
- function current(){if(document.hidden||(window.oneworldAppLifecycle&&window.oneworldAppLifecycle.state.suspended)||reduced.matches||['setPanel','profileBox','confirmPanel','worldLoading'].some(function(id){var el=document.getElementById(id);return el&&!el.classList.contains('hidden');})||!document.getElementById('studioIntro').classList.contains('hidden')||!document.getElementById('tapToStart').classList.contains('hidden'))return null;var l=document.getElementById('loading'),m=document.getElementById('start');if(!l.classList.contains('hidden'))return null;if(!m.classList.contains('hidden')&&!m.classList.contains('choosing'))return m;return null;}
+ function current(){if(document.hidden||(window.oneworldAppLifecycle&&window.oneworldAppLifecycle.state.suspended)||reduced.matches||['setPanel','profileBox','confirmPanel','betaUpdatePanel'].some(function(id){var el=document.getElementById(id);return el&&!el.classList.contains('hidden');})||!document.getElementById('studioIntro').classList.contains('hidden'))return null;var ids=['tapToStart','worldLoading','loading','start'];for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el&&!el.classList.contains('hidden')&&!(ids[i]==='start'&&el.classList.contains('choosing')))return el;}return null;}
  function paint(){frame=0;var target=current();if(!target)return;x+=(targetX-x)*.30;if(Math.abs(targetX-x)<.015)x=targetX;target.style.setProperty('--wall-x',x.toFixed(2)+'px');target.style.setProperty('--wall-y','0px');if(x!==targetX)frame=requestAnimationFrame(paint);}
  function blocked(){return touches.size>0||performance.now()<quietUntil;}
  function move(nx){if(blocked()||!current()||!Number.isFinite(nx))return;targetX=Math.max(-24,Math.min(24,nx));if(!frame)frame=requestAnimationFrame(paint);}
- function reset(){origin=null;resumeOrigin=null;resumeX=0;x=targetX=0;if(frame)cancelAnimationFrame(frame);frame=0;document.querySelectorAll('#loading,#start').forEach(function(t){t.style.setProperty('--wall-x','0px');t.style.setProperty('--wall-y','0px');});}
- function sync(){var active=!!current();var menu=document.getElementById('start');menu.classList.toggle('motionPaused',!active);if(hasNative&&nativeActive!==active){nativeActive=active;native.setWallpaperMotionActive(active);}if(!active)reset();else if(!frame)frame=requestAnimationFrame(paint);}
+ function reset(){origin=null;resumeOrigin=null;resumeX=0;x=targetX=0;if(frame)cancelAnimationFrame(frame);frame=0;document.querySelectorAll('#loading,#start,#tapToStart,#worldLoading').forEach(function(t){t.style.setProperty('--wall-x','0px');t.style.setProperty('--wall-y','0px');});}
+ function sync(){var active=!!current();var menu=document.getElementById('start');if(menu.classList.contains('motionPaused')===active)menu.classList.toggle('motionPaused',!active);if(hasNative&&nativeActive!==active){nativeActive=active;native.setWallpaperMotionActive(active);}if(!active)reset();else if(!frame)frame=requestAnimationFrame(paint);}
  window.oneworldNativeWallpaper=function(value){lastNative=performance.now();if(blocked())return;var n=Number(value);if(!Number.isFinite(n))return;if(resumeOrigin===null)resumeOrigin=n;move(resumeX+(n-resumeOrigin)*3);};
  function touchStart(e){if(e.pointerType==='mouse'&&e.buttons===0)return;touches.add(e.pointerId);quietUntil=Infinity;targetX=x;if(frame)cancelAnimationFrame(frame);frame=0;origin=null;resumeOrigin=null;resumeX=x;}
  function touchEnd(e){touches.delete(e.pointerId);if(!touches.size){quietUntil=performance.now()+300;origin=null;resumeOrigin=null;resumeX=x;}}
@@ -727,7 +736,7 @@ import { GLTFLoader } from './assets/lib/GLTFLoader.js';
 import { clone as skClone } from './assets/lib/SkeletonUtils.js';
 import { animeClips, applyAnimeColors, attachLeatherGarments, applyHairStyle, updateHairSway } from './assets/lib/AnimeCharacter.js';
 
-var BUILD_INFO={name:'1.3.43',code:null,native:false};
+var BUILD_INFO={name:'1.3.44',code:null,native:false};
 try{var nb=window.OneWorldNative;if(nb&&typeof nb.getBuildInfo==='function'){var bi=JSON.parse(nb.getBuildInfo());if(bi.package==='com.oneword.forest.beta'&&typeof bi.name==='string'&&/^\d+\.\d+\.\d+$/.test(bi.name)&&Number.isSafeInteger(bi.code)&&bi.code>0)BUILD_INFO={name:bi.name,code:bi.code,native:true};}}catch(e){}
 var DISPLAY_VERSION=BUILD_INFO.name+(BUILD_INFO.native?'':' preview');
 document.querySelector('#start .ver').textContent=DISPLAY_VERSION+' Beta - Work in progress';

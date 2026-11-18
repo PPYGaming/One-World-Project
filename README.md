@@ -1,6 +1,6 @@
-## Latest testing beta: 1.3.39 / code61
+## Latest testing beta: 1.3.44 / code66
 
-SELECT/CRAFT and recovery safeguards. Phone-exit fix not confirmed. See docs/QA-1.3.39.md for exact local checks and limits.
+Fullscreen wallpaper and tap/loading/menu background motion. Full two-profile menu is still pending; phone behavior is not confirmed. See docs/QA-1.3.44.md for exact local checks and limits.
 
 # One World Project
 
