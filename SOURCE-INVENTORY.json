@@ -1,10 +1,10 @@
 {
-  "baseline": "1.3.35",
+  "baseline": "1.3.36",
   "sourceBase": {
-    "beta": "459f956deb24376b3def5bf23d8eae74f736cfd0",
-    "project": "fec141a921049f24cfb13d7aa80af90aab96cc8a"
+    "beta": "ffa729e727f02654bc39af022cd50cb4cd7d2a70",
+    "project": "40e093e8ceb60f2445be0b6a7e2a1687cad922a4"
   },
-  "status": "Map 2 playable prototype beta; physical phone validation pending",
+  "status": "Map 2 first correction beta; local checks passed; physical phone validation pending",
   "files": [
     {
       "path": ".github/workflows/.github/workflows/project-bootstrap.yml",
@@ -18,8 +18,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 22226,
-      "sha256": "7f3e59955817bec4f4266abd5c31bf59660b9993d21bb5c8ffdfffe164be7f90"
+      "size": 24226,
+      "sha256": "deee8379200101fa1802fc54277fc2f8d2f4d63726581b6565328e268621a0a2"
     },
     {
       "path": "CONTRIBUTING.md",
@@ -28,13 +28,13 @@
     },
     {
       "path": "README.md",
-      "size": 3242,
-      "sha256": "142bc7e2ba974f0b43bd63401355153d33aa8e7734ac856dc5cdc9e279ab7f8a"
+      "size": 3170,
+      "sha256": "77ad2b3549824e5abe7f1503effbe2ca803ed6720a86df0042d94b8c3f895e3d"
     },
     {
       "path": "android/AndroidManifest.xml",
       "size": 1298,
-      "sha256": "f447716cff14ba33a2a91b505b391625509baace3edf53c1914f253fedb6c4aa"
+      "sha256": "4ca9adae70157bce9c90b33a30407ba4a42fb98e523ed1d601532fc9fc0db253"
     },
     {
       "path": "android/res/drawable/ic_face.png",
@@ -162,6 +162,11 @@
       "sha256": "8ab0546a05f676a298c956261a79792a930867e3e322d81641d863511fe3108c"
     },
     {
+      "path": "docs/QA-1.3.36.md",
+      "size": 1999,
+      "sha256": "f1166294c9e86cf32815b1ec89a94c368f63c84a31a6661c786252a9962a71fb"
+    },
+    {
       "path": "docs/screenshots/1.3.24/README.md",
       "size": 142,
       "sha256": "d617dcc0a6f0332bce0e5f85ae09c19b9b5bd2aaa2d561830609ff1b27badf6f"
@@ -193,8 +198,8 @@
     },
     {
       "path": "web/assets/lib/AnimeCharacter.js",
-      "size": 43026,
-      "sha256": "858d5a231184b9521afb106153584458569e32b8845a13718ffc50f09e59af10"
+      "size": 43049,
+      "sha256": "cfb16b58d370569975356c25952075b176b3738cc2622452987acd6430343a05"
     },
     {
       "path": "web/assets/lib/AppLifecycle.js",
@@ -243,8 +248,8 @@
     },
     {
       "path": "web/assets/lib/ReferenceSites.js",
-      "size": 9175,
-      "sha256": "51ecc6347b20b85afe58f057561e84143974613f78dcd932a55ab7ddb5cbeaca"
+      "size": 10152,
+      "sha256": "879838b1b475f32293135ddb9edaa578c5dfeecadc608a38e1af19cc3aa64df7"
     },
     {
       "path": "web/assets/lib/ReferenceWetlands.js",
@@ -778,8 +783,8 @@
     },
     {
       "path": "web/index.html",
-      "size": 318043,
-      "sha256": "7538397626861a7ff63ea8453e48da2d12869dce187b2b7eae6d6c3b6f83b66d"
+      "size": 328281,
+      "sha256": "46f659144c3c9f371da3771e993ad186a877e35652cdf8f81be8b8f73fa581e3"
     }
   ]
 }

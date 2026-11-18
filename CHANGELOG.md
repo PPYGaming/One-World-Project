@@ -1,3 +1,13 @@
+# 1.3.36 (versionCode 58) - Map 2 first phone-feedback corrections
+
+Cumulative from 1.3.35. Original Map 1 and independent world save keys remain unchanged.
+
+Map 2: full-screen image map with pan, zoom, whole-island fit, faint numbered X/Z grid, current coordinates and small silver heading arrow. Place names and safe-area markers appear only on the map. Green safe-area world beams/rings are removed; the five blue travel beacons remain. Right-side world selectors have a selected outline, and the short landscape lobby keeps Quit visible when Continue is present. Nearby site supplies and berry/fibre gathering use an icon-only hand beside attack and require a press. The forest floor uses the existing earth/leaf texture. Camps have torn ridge tents and cold ash/log/stone rings. Site supports, hut roof supports and lab rubble/lintel placement were corrected. Map 2 animated feet settle against rendered ground; abrupt uphill steps are refused. Running curves have a bounded stride/knee/posture adjustment.
+
+Checked locally: 110 Map 1 regressions; no failed asset requests. Actual hand pickup of supplies and fibre; separate Map 2 inventory/save reload and unchanged Map 1 sentinel. Actual map tap traveled from Snow to Volcano beacon. Portrait cover/fit, marking/panning and respawn controls. Both rigs sampled on steep regional terrain. All 118 packaged web files match source byte-for-byte. Waterway spot checks use the same image-to-world bounds as collision samples. These are bounded checks, not proof of every river bank, slope or terrain issue.
+
+Still unfinished: dense varied forest, waterfalls, old vine-covered detailed lab, beds, tree respawn refinement and higher-quality creatures. Current terrain, structures and creatures remain prototype art. Real-phone FPS, touch/sensors/audio, startup sound crackle and recording interruption are not claimed fixed. Snow contact contrast is weak with real shadows disabled. Hair changes remain paused. This is a prerelease beta, not stable.
+
 # 1.3.35 (versionCode 57) - Map 2 playable testing beta
 
 Cumulative from 1.3.34. Map 1 remains the original world with its existing save. The lobby now offers Map 1 and Map 2. Each has its own save, inventory, marks, bed and progress. Switching worlds does not erase the other save.

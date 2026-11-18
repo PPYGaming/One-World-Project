@@ -30,10 +30,10 @@ export function animeClips(root){
           // knee flex to the thigh sine (which lifted both soles mid-stride).
           if(/(UpperLeg|LowerLeg|Foot)$/.test(b.name)){
           const phase=((u+(left?0:.5))%1),run=name==='Run';
-          const stride=run?.37:.24,stance=phase<.5;
+          const stride=run?.42:.24,stance=phase<.5;
           const progress=stance?phase*2:(phase-.5)*2;
           const forward=stance?stride*(1-2*progress):-stride*Math.cos(progress*Math.PI);
-          const height=-(run?.84:.88)+(stance?0:Math.sin(progress*Math.PI)*(run?.23:.12));
+          const height=-(run?.88:.88)+(stance?0:Math.sin(progress*Math.PI)*(run?.29:.12));
           const thigh=rig['J_Bip_'+(left?'L':'R')+'_LowerLeg'];
           const shin=rig['J_Bip_'+(left?'L':'R')+'_Foot'];
           const l1=thigh?thigh.position.length():.39,l2=shin?shin.position.length():.46;
@@ -50,7 +50,7 @@ export function animeClips(root){
           if(b.name.endsWith('UpperArm')){x=-Math.sin(t)*amp*.78;z=sgn*1.30;}
           if(b.name.endsWith('LowerArm')){y=-sgn*(name==='Run'?(.95+.12*Math.sin(t)):(.3+.08*Math.sin(t)));z=0;}
           if(b.name.endsWith('Head')){y=Math.sin(a)*.025;x=Math.sin(a*2)*.012;}
-          if(b.name.endsWith('Spine')){y=Math.sin(a)*.045;z=Math.cos(a)*.008;}
+          if(b.name.endsWith('Spine')){x=name==='Run'?.055:0;y=Math.sin(a)*.045;z=Math.cos(a)*.008;}
           if(b.name.endsWith('Hips'))z=Math.cos(a)*.006;
         }
         if(name==='Swim'){
@@ -89,7 +89,7 @@ export function animeClips(root){
       if(b.name==='J_Bip_C_Hips'&&(name==='Run'||name==='Walk')){
         // Keep a flexed stance within reach; the unchanged sole-support pass
         // still makes the final terrain contact correction. No root motion.
-        const y=b.position.y-(name==='Run'?.13:.09);
+        const y=b.position.y-(name==='Run'?.085:.09);
         tracks.push(new THREE.VectorKeyframeTrack(b.name+'.position',[0,duration],[b.position.x,y,b.position.z,b.position.x,y,b.position.z]));
       }
     });

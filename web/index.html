@@ -423,6 +423,19 @@ body.playing:not(.gamePaused) #craftBtn{display:block}body.editingControls #craf
 
 #lootCollect{display:none;position:fixed;left:50%;bottom:180px;transform:translateX(-50%);padding:10px 16px;z-index:22;border:1px solid #e6ead7;background:#13251de8;color:#ecedda;border-radius:9px;font:11px/1.5 sans-serif;touch-action:manipulation}body.playing:not(.gamePaused) #lootCollect.available{display:block}
 body.referenceWorld #joy,body.referenceWorld #atk,body.referenceWorld #bagBtn,body.referenceWorld #mapBtn,body.referenceWorld #setBtn,body.referenceWorld #freeLookBtn,body.referenceWorld #craftBtn,body.referenceWorld #quickbar button{background:rgba(15,27,31,.42)!important;}
+
+#mapPanel.referenceMap:not(.respawning):not(.hidden){display:block!important;padding:0!important;overflow:hidden!important;background:#153c53!important;}
+#mapPanel.referenceMap:not(.respawning):not(.hidden) h3,#mapPanel.referenceMap:not(.respawning):not(.hidden) #mapCap,#mapPanel.referenceMap:not(.respawning):not(.hidden) #beaconTravel{display:none!important;}
+#mapPanel.referenceMap:not(.respawning):not(.hidden) #mapCanvas{display:block;width:100vw!important;height:100dvh!important;max-width:none!important;max-height:none!important;aspect-ratio:auto!important;border:0;border-radius:0;}
+#mapPanel.referenceMap:not(.respawning):not(.hidden) #mapClose{position:absolute;right:calc(12px + env(safe-area-inset-right));top:calc(12px + env(safe-area-inset-top));width:42px;height:42px;padding:0;margin:0;background:#10252bd9!important;font-size:22px;}
+#mapViewTools{position:absolute;left:12px;bottom:calc(12px + env(safe-area-inset-bottom));display:flex;gap:8px}#mapViewTools button{width:40px;height:40px;background:#10252bd9;color:#edf1f4;border:1px solid #bac4cc;border-radius:7px;font-size:22px}#mapPanel.respawning #mapViewTools{display:none}#mapCanvas{touch-action:none}
+
+#start:not(.choosing) #worldChooser{position:absolute;right:7vw;top:30%;display:flex;flex-direction:column;width:142px;max-width:32vw;margin:0!important;gap:10px;}
+#worldChooser button{min-height:54px;font-size:11px!important;letter-spacing:.6px;}
+#worldChooser button[aria-pressed=true]{outline:2px solid #f5f5e9;outline-offset:3px;background:#233839bb!important;box-shadow:0 0 14px #d9efb650!important;}
+@media(orientation:landscape) and (max-height:500px){#start:not(.choosing){padding-top:12px;padding-bottom:12px;}#start:not(.choosing)>h1{font-size:28px;margin-bottom:5px;}#start:not(.choosing)>.ver{margin-bottom:10px;}#start:not(.choosing)>button{min-height:38px;margin:4px 0!important;padding:9px 16px!important;flex-shrink:0;}#start:not(.choosing)>.foot{display:none;}}
+@media(orientation:portrait){#start:not(.choosing) #worldChooser{top:15%;right:6vw;max-width:38vw;}}
+#lootCollect{left:auto;right:auto;bottom:auto;transform:none;padding:0;width:48px;height:48px;border:1px solid #eff5f0;border-radius:50%;background:#1c2a2caa;color:#f2f3ee;align-items:center;justify-content:center;}#lootCollect svg{width:32px;height:32px;}body.playing:not(.gamePaused) #lootCollect.available{display:flex;}body.editingControls #lootCollect{display:none!important;}
 </style>
 </head>
 <body><div id="healthNotice" role="status" aria-live="polite"></div><div id="weaponAim" aria-hidden="true"></div>
@@ -432,7 +445,7 @@ body.referenceWorld #joy,body.referenceWorld #atk,body.referenceWorld #bagBtn,bo
   <div id="hearts"></div>
   <div id="stats"><span id="wolfCount">Wolves 0</span><br><span id="dayNight"><span class="dndot" id="dnDot"></span>Day</span></div>
 </div>
-<button id="lootCollect">COLLECT SUPPLIES</button>
+<button id="lootCollect" aria-label="Pick up nearby items"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 26 4 17c-1-2 1-3 2-2l3 3V8c0-2 3-2 3 0v7-10c0-2 3-2 3 0v10-9c0-2 3-2 3 0v9-6c0-2 3-2 3 0v10l2-3c1-2 4-1 3 1l-3 9c-1 3-3 4-7 4s-5-1-7-4Z"/></svg></button>
 <div id="vitals">
 <div class="vbar" id="vHealth" aria-label="Health"><svg class="vic" viewBox="0 0 24 24"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z" fill="#de6c63"/></svg><div class="vtrack"><div class="vfill" style="width:100%"></div></div></div>
 <div class="vbar" id="vWater" aria-label="Water"><svg class="vic" viewBox="0 0 24 24"><path d="M12 2C10 6 5 11 5 15a7 7 0 0 0 14 0c0-4-5-9-7-13z" fill="#6ebad8"/></svg><div class="vtrack"><div class="vfill" style="width:100%"></div></div></div>
@@ -612,7 +625,7 @@ import { GLTFLoader } from './assets/lib/GLTFLoader.js';
 import { clone as skClone } from './assets/lib/SkeletonUtils.js';
 import { animeClips, applyAnimeColors, attachLeatherGarments, applyHairStyle, updateHairSway } from './assets/lib/AnimeCharacter.js';
 
-var BUILD_INFO={name:'1.3.34',code:null,native:false};
+var BUILD_INFO={name:'1.3.36',code:null,native:false};
 try{var nb=window.OneWorldNative;if(nb&&typeof nb.getBuildInfo==='function'){var bi=JSON.parse(nb.getBuildInfo());if(bi.package==='com.oneword.forest.beta'&&typeof bi.name==='string'&&/^\d+\.\d+\.\d+$/.test(bi.name)&&Number.isSafeInteger(bi.code)&&bi.code>0)BUILD_INFO={name:bi.name,code:bi.code,native:true};}}catch(e){}
 var DISPLAY_VERSION=BUILD_INFO.name+(BUILD_INFO.native?'':' preview');
 document.querySelector('#start .ver').textContent=DISPLAY_VERSION+' Beta - Work in progress';
@@ -808,6 +821,7 @@ function surfaceY(x,z){
  }
  var terrainY=tx+tz<=1?plane[0]+plane[1]*tx+plane[2]*tz:plane[3]+plane[4]*(1-tx)+plane[5]*(1-tz);return referenceMode&&typeof referenceSites!=='undefined'&&referenceSites?Math.max(terrainY,referenceSites.floorAt(x,z)):terrainY;
 }
+function referenceBodyGround(x,z){var y=surfaceY(x,z);for(var i=0;i<8;i++){var a=i*Math.PI/4;y=Math.max(y,surfaceY(x+Math.cos(a)*.32,z+Math.sin(a)*.32));}return y;}
 function riverHalfWidth(z){ return 13+8*((2400-z)/8900); }
 function waterInfo(x,z){
   if(referenceMode){var s=referenceSample(x,z);return {surface:0,depth:Math.max(0,-s.height),river:s.water==='river'||s.water==='swamp'};}
@@ -881,8 +895,14 @@ function redLeafMat(m){
 function dryMat(m){ var c = m.color; if(!c) return; if(m.map && c.r > 0.9 && c.g > 0.9 && c.b > 0.9){ c.setRGB(0.78, 0.68, 0.42); } else if(c.g > c.r && c.g > c.b){ c.setRGB(0.72, 0.66, 0.38); } }
 var terrainMat = new THREE.MeshStandardMaterial({ map: A.tex.ground, roughness: 1, metalness: 0, vertexColors: true });
 var terrainMatPlain = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 1, metalness: 0, vertexColors: true }); // untextured: snow/sand vertex colors must not multiply the grass photo
+function referenceEarthMaterial(mat){
+ const before=mat.onBeforeCompile;
+ mat.onBeforeCompile=function(shader){if(before)before(shader);shader.uniforms.referenceEarth={value:A.tex.floor};shader.vertexShader='varying vec2 vEarthXZ;\n'+shader.vertexShader;shader.vertexShader=shader.vertexShader.replace('#include <worldpos_vertex>','#include <worldpos_vertex>\nvEarthXZ=(modelMatrix*vec4(transformed,1.0)).xz;');shader.fragmentShader='uniform sampler2D referenceEarth;varying vec2 vEarthXZ;\n'+shader.fragmentShader;shader.fragmentShader=shader.fragmentShader.replace('#include <color_fragment>','#include <color_fragment>\nif(vColor.g>vColor.r&&vColor.b<.22){diffuseColor.rgb*=texture2D(referenceEarth,vEarthXZ*.085).rgb*1.65;}');};
+ mat.needsUpdate=true;
+}
+if(referenceMode){A.tex.floor.wrapS=A.tex.floor.wrapT=THREE.RepeatWrapping;A.tex.floor.colorSpace=THREE.SRGBColorSpace;referenceEarthMaterial(terrainMatPlain);}
 function groundColor(x, z, y){
-  if(referenceMode){var s=referenceSample(x,z),b=s.biome,n=forestNoise(x,z);if(b==='swamp')return [.055+n*.05,.10+n*.07,.035+n*.04];if(y<.8)return [.79,.73,.51];if(b==='snow'){var rock=Math.sin(x*.043+z*.026)+Math.sin(x*.013-z*.031);return y>100&&rock>1.0?[.35+n*.12,.39+n*.12,.41+n*.12]:[.76+n*.12,.83+n*.1,.90+n*.08];}if(b==='volcanic')return [.20+n*.15,.15+n*.06,.13+n*.05];if(b==='desert')return [.31+n*.08,.19+n*.06,.075+n*.035];if(b==='swamp')return [.25+n*.1,.32+n*.1,.19+n*.08];if(y>70)return [.45,.48,.40];return [.23+n*.16,.42+n*.15,.16+n*.09];}
+  if(referenceMode){var s=referenceSample(x,z),b=s.biome,n=forestNoise(x,z);if(b==='swamp')return [.055+n*.05,.10+n*.07,.035+n*.04];if(y<.8)return [.79,.73,.51];if(b==='snow'){var rock=Math.sin(x*.043+z*.026)+Math.sin(x*.013-z*.031);return y>100&&rock>1.0?[.35+n*.12,.39+n*.12,.41+n*.12]:[.76+n*.12,.83+n*.1,.90+n*.08];}if(b==='volcanic')return [.20+n*.15,.15+n*.06,.13+n*.05];if(b==='desert')return [.31+n*.08,.19+n*.06,.075+n*.035];if(b==='swamp')return [.25+n*.1,.32+n*.1,.19+n*.08];if(y>70)return [.45,.48,.40];return [.16+n*.10,.205+n*.10,.10+n*.055];}
 
   if(z < 2700 && z > -6500 && riverDist(x, z) < 44 && y < riverBedY(z) + 0.9) return [0.58, 0.51, 0.39]; // wet riverbed
   if(y < 0.7) return [0.86, 0.78, 0.55];                       // sand / beach / seabed
@@ -932,7 +952,7 @@ var riverWaterRuns = [];
 })();
 
 var referenceHorizon=referenceMode?await createReferenceHorizon(scene,groundY,groundColor,window.oneworldYieldPaint):null;
-if(referenceMode){camera.far=18000;camera.updateProjectionMatrix();}
+if(referenceMode){referenceEarthMaterial(referenceHorizon.mesh.material);camera.far=18000;camera.updateProjectionMatrix();}
 var chunks = {};
 function chunkKey(cx, cz){ return cx + ',' + cz; }
 function buildChunk(cx, cz){
@@ -1386,9 +1406,9 @@ function cacheSurvivorSoles(root){
 function supportSurvivorSoles(){
  if(!charRoot||swimming)return 0;
  var supports=charRoot.userData.soleSupport;if(!supports){cacheSurvivorSoles(charRoot);supports=charRoot.userData.soleSupport;}
- player.updateMatrixWorld(true);var lift=0;
+ player.updateMatrixWorld(true);var lift=referenceMode?-Infinity:0;
  supports.forEach(function(s){s.mesh.skeleton.update();s.ids.forEach(function(i){s.mesh.getVertexPosition(i,solePoint);solePoint.applyMatrix4(s.mesh.matrixWorld);lift=Math.max(lift,surfaceY(solePoint.x,solePoint.z)+.012-solePoint.y);});});
- if(lift>0){player.position.y+=lift;player.updateMatrixWorld(true);}return lift;
+ if(Number.isFinite(lift)&&(lift>0||referenceMode)){player.position.y+=lift;player.updateMatrixWorld(true);}return lift;
 }
 
 await startupStage(80,'Preparing survivor');
@@ -1805,15 +1825,27 @@ function toggleUserMark(x, z){
   else if(userMarks.length < 12) userMarks.push({ x: x, z: z });
   return hit >= 0 ? 'removed' : (userMarks.length < 12 ? 'added' : 'full');
 }
+var referenceMapStamp='',referenceMapRect=null,referenceMapView={zoom:1,panX:0,panZ:0,fit:false};
 function renderReferenceMap(){
- const cv=document.getElementById('mapCanvas'),ctx=cv.getContext('2d'),w=cv.width,h=cv.height,toX=x=>(x/REFERENCE_WORLD.halfWidth+1)*w/2,toZ=z=>(z/REFERENCE_WORLD.halfHeight+1)*h/2;
- ctx.fillStyle='#1b6b91';ctx.fillRect(0,0,w,h);if(referenceMapImage.complete&&referenceMapImage.naturalWidth)ctx.drawImage(referenceMapImage,0,0,w,h);
+ const cv=document.getElementById('mapCanvas'),ctx=cv.getContext('2d');
+ const choosingRespawn=document.getElementById('mapPanel').classList.contains('respawning');if(!choosingRespawn){cv.width=Math.round(innerWidth);cv.height=Math.round(innerHeight);}else{cv.width=900;cv.height=600;}
+ const w=cv.width,h=cv.height,scale=(choosingRespawn||referenceMapView.fit?Math.min(w/900,h/600):Math.max(w/900,h/600))*(choosingRespawn?1:referenceMapView.zoom),mw=900*scale,mh=600*scale;let left=(w-mw)/2+(choosingRespawn?0:referenceMapView.panX),top=(h-mh)/2+(choosingRespawn?0:referenceMapView.panZ);if(mw>=w)left=Math.max(w-mw,Math.min(0,left));if(mh>=h)top=Math.max(h-mh,Math.min(0,top));
+ referenceMapRect={left,top,width:mw,height:mh};
+ const toX=x=>left+(x/REFERENCE_WORLD.halfWidth+1)*mw/2,toZ=z=>top+(z/REFERENCE_WORLD.halfHeight+1)*mh/2;
+ ctx.fillStyle='#153c53';ctx.fillRect(0,0,w,h);if(referenceMapImage.complete&&referenceMapImage.naturalWidth)ctx.drawImage(referenceMapImage,left,top,mw,mh);
+ ctx.save();ctx.beginPath();ctx.rect(left,top,mw,mh);ctx.clip();ctx.lineWidth=.55;ctx.strokeStyle='rgba(230,239,237,.19)';ctx.fillStyle='rgba(245,247,237,.67)';ctx.font='10px sans-serif';ctx.textAlign='left';
+ for(let gx=-6000;gx<=6000;gx+=1000){const px=toX(gx);ctx.beginPath();ctx.moveTo(px,top);ctx.lineTo(px,top+mh);ctx.stroke();if(px>12&&px<w-40)ctx.fillText('X '+gx,px+3,Math.max(24,top+24));}
+ for(let gz=-4000;gz<=4000;gz+=1000){const pz=toZ(gz);ctx.beginPath();ctx.moveTo(left,pz);ctx.lineTo(left+mw,pz);ctx.stroke();if(pz>22&&pz<h-20)ctx.fillText('Z '+gz,Math.max(4,left+4),pz-3);}
+ ctx.restore();ctx.font='12px sans-serif';ctx.textAlign='left';ctx.fillStyle='#eff1e9';ctx.strokeStyle='#14262c';ctx.lineWidth=3;const coords='X '+Math.round(P.x)+'  Z '+Math.round(P.z);ctx.textAlign='center';ctx.strokeText(coords,w/2,h-16);ctx.fillText(coords,w/2,h-16);
+ ctx.font=Math.max(10,Math.min(15,w/70))+'px sans-serif';ctx.textAlign='center';ctx.lineWidth=3;
+ const places=[...SAFE_AREAS,...[{name:'Frostpine Reach',x:-3650,z:-2600},{name:'Embercrest',x:2750,z:-2400},{name:'Mirewood Marsh',x:-3550,z:100},{name:'Sunstone Wastes',x:4550,z:400},{name:'Heartwood',x:400,z:1100}]];
+ for(const q of places){const x=toX(q.x),z=toZ(q.z);ctx.strokeStyle='#122125';ctx.strokeText(q.name,x,z-9);ctx.fillStyle='#f2eee1';ctx.fillText(q.name,x,z-9);if(SAFE_AREAS.includes(q)){ctx.fillStyle='#9bcc76';ctx.beginPath();ctx.arc(x,z,3.5,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#193322';ctx.lineWidth=1;ctx.stroke();}}
  for(const m of userMarks){ctx.fillStyle='white';ctx.beginPath();ctx.arc(toX(m.x),toZ(m.z),3,0,Math.PI*2);ctx.fill();}
  if(bedPos){ctx.fillStyle='#ffe296';ctx.fillRect(toX(bedPos.x)-3,toZ(bedPos.z)-2,6,4);}
- const x=toX(P.x),z=toZ(P.z);ctx.save();ctx.translate(x,z);ctx.rotate(-P.rotY);ctx.beginPath();ctx.moveTo(0,9);ctx.lineTo(-5,-5);ctx.lineTo(5,-5);ctx.closePath();ctx.fillStyle='#ff574b';ctx.fill();ctx.strokeStyle='white';ctx.lineWidth=1.5;ctx.stroke();ctx.restore();
- document.getElementById('mapCap').textContent='MAP 2 - X '+Math.round(P.x)+' / Z '+Math.round(P.z)+' - '+biomeAt(P.x,P.z)+' | Blue: beacons. Green: safe areas. Tap to mark.';
- const travel=document.getElementById('beaconTravel');travel.textContent='';const source=nearBeacon();for(let i=0;i<beacons.length;i++){const b=document.createElement('button');b.className='equipChip';b.textContent=beacons[i].name;b.disabled=!source||source===beacons[i];b.onclick=()=>travelBeacon(i);travel.appendChild(b);}
+ const x=toX(P.x),z=toZ(P.z);ctx.save();ctx.translate(x,z);ctx.rotate(-P.rotY);ctx.beginPath();ctx.moveTo(0,8);ctx.lineTo(-4,-5);ctx.lineTo(0,-2);ctx.lineTo(4,-5);ctx.closePath();ctx.shadowColor='#000';ctx.shadowBlur=3;ctx.fillStyle='#d8dde2';ctx.fill();ctx.shadowBlur=0;ctx.strokeStyle='#26323a';ctx.lineWidth=1.5;ctx.stroke();ctx.restore();
+ referenceMapStamp=[P.x,P.z,P.rotY,innerWidth,innerHeight].join(',');if(!respawnRequired)document.getElementById('mapClose').textContent='×';
 }
+
 function renderMap(){
  if(referenceMode){renderReferenceMap();return;}
 
@@ -1889,7 +1921,7 @@ function renderMap(){
   var bname = biomeAt(P.x, P.z);
   document.getElementById('mapCap').textContent = 'You are at X: ' + Math.round(P.x) + '  Z: ' + Math.round(P.z) + ' (' + bname + ') | Air feels ' + tdesc + ' - tap the map to mark a place, tap a mark to remove it';
 }
-function toggleMap(){if(respawnRequired){respawnLobby();return;}var p = document.getElementById('mapPanel'); if(p.classList.contains('hidden')) renderMap(); p.classList.toggle('hidden'); updatePause(); }
+function toggleMap(){if(respawnRequired){respawnLobby();return;}var p = document.getElementById('mapPanel'); if(p.classList.contains('hidden')){if(referenceMode&&!referenceMapView.fit){const scale=Math.max(innerWidth/900,innerHeight/600)*referenceMapView.zoom;referenceMapView.panX=-P.x/REFERENCE_WORLD.halfWidth*900*scale/2;referenceMapView.panZ=-P.z/REFERENCE_WORLD.halfHeight*600*scale/2;}renderMap();} p.classList.toggle('hidden'); updatePause(); }
 function toast(msg,health){ var t = document.getElementById('toast'); t.classList.toggle('healthWarning',!!health);t.textContent = msg; t.style.opacity = 1; clearTimeout(t._h); t._h = setTimeout(function(){ t.style.opacity = 0; }, 1600); }
 
 function saveGame(){
@@ -2288,7 +2320,7 @@ function restoreGame(s){
 var campfirePos = null, fireFlame = null, fireLight = null, cookT = 0, structColliders = [];
 var structGroup = new THREE.Group(); scene.add(structGroup);
 var referenceElapsed=0,referenceLootTaken={};
-var referenceSites=referenceMode?createReferenceSites(scene,groundY):null,referenceSiteCell='';
+var referenceSites=referenceMode?createReferenceSites(scene,surfaceY):null,referenceSiteCell='';
 var referenceCrystalMat=null,referenceCrystalGeos=[];
 var ORE_TINT = { crystal:0x69d9f1, stone: 0xa9a9a9, iron: 0x9a5a40, silver: 0xdfe8f2 };
 var ORE_YIELD = { crystal:['Crystal','crystal',2], stone: ['Stone', 'stone', 3], iron: ['Iron Ore', 'iron', 2], silver: ['Silver Ore', 'silver', 2] };
@@ -2436,6 +2468,7 @@ function frame(){
  if(referenceSites){var siteCell=Math.floor(P.x/128)+','+Math.floor(P.z/128);if(siteCell!==referenceSiteCell){referenceSiteCell=siteCell;referenceSites.update(P.x,P.z);}}
  var draw=live||needsWorldRender;if(draw){needsWorldRender=false;a=performance.now();renderer.render(scene,camera);lastGameRender=t;}
  if(live){ringSample(betaFrames,raw);ringSample(betaTick,tickCost);ringSample(betaRender,draw?performance.now()-a:0);}
+ if(referenceMode&&!document.getElementById('mapPanel').classList.contains('hidden')&&referenceMapStamp!==[P.x,P.z,P.rotY,innerWidth,innerHeight].join(','))renderReferenceMap();
  renderSetupPreview(dt);if(t-lastDebugPaint>250){lastDebugPaint=t;renderBetaDebug();}
 }
 function tick(dt){
@@ -2469,7 +2502,7 @@ function tick(dt){
 
   if(running){
     dayT = (dayT + dt/CYCLE) % 1;
-    if(referenceSites){referenceElapsed+=dt;referenceSites.update(P.x,P.z);referenceSites.lootState(referenceElapsed,referenceLootTaken);document.getElementById('lootCollect').classList.toggle('available',!P.dead&&!!referenceSites.nearestLoot(P.x,P.z));}
+    if(referenceSites){referenceElapsed+=dt;referenceSites.update(P.x,P.z);referenceSites.lootState(referenceElapsed,referenceLootTaken);var gather=nearestGatherTarget();var gb=document.getElementById('lootCollect');gb.classList.toggle('available',!P.dead&&!!gather);if(gather){var ar=document.getElementById('atk').getBoundingClientRect();gb.style.left=Math.max(8,Math.min(innerWidth-56,ar.left-58))+'px';gb.style.top=Math.max(8,Math.min(innerHeight-56,ar.top+ar.height/2-24))+'px';}}
 
     // --- survival stats ---
     if(!P.dead){
@@ -2516,6 +2549,7 @@ function tick(dt){
       if(referenceMode?(Math.abs(P.x)>REFERENCE_WORLD.halfWidth+180||Math.abs(P.z)>REFERENCE_WORLD.halfHeight+180):Math.hypot(P.x,P.z)>ISLAND_R+180){P.x=ppx;P.z=ppz;} // bounded ocean swimming margin
       var pc=collideXZ(P.x,P.z,.45);
       if(solidFree(pc[0],pc[1],.45)){P.x=pc[0];P.z=pc[1];}else{P.x=ppx;P.z=ppz;}
+      if(referenceMode&&!swimming){var dy=referenceBodyGround(P.x,P.z)-referenceBodyGround(ppx,ppz),dist=Math.hypot(P.x-ppx,P.z-ppz);if(dy>Math.max(.22,dist*1.1)){P.x=ppx;P.z=ppz;}}
       if(Math.hypot(P.x-ppx,P.z-ppz)<.001)P.speed=0;
       var targetRot = Math.atan2(mx, mz), dr = targetRot - P.rotY;
       while(dr > Math.PI) dr -= Math.PI*2; while(dr < -Math.PI) dr += Math.PI*2;
@@ -2535,11 +2569,11 @@ function tick(dt){
 
     localWater=waterInfo(P.x,P.z);
     swimming=localWater.depth>(swimming?.9:1.15);
-    var gy = swimming ? localWater.surface-.95 : surfaceY(P.x,P.z);
+    var gy = swimming ? localWater.surface-.95 : referenceMode?referenceBodyGround(P.x,P.z):surfaceY(P.x,P.z);
     var sw = P.speed > 0 ? Math.sin(P.walk) : 0, idle = Math.sin(P.walk*0.5)*0.05;
     player.position.set(P.x, gy + Math.abs(sw)*0.018 + (P.speed>0?0:idle*0.4), P.z);
     player.rotation.y = P.rotY;
-    charRoot.userData.swimTilt+=((swimming?-1.15:P.speed>4.5?.1:0)-charRoot.userData.swimTilt)*Math.min(1,8*dt);
+    charRoot.userData.swimTilt+=((swimming?-1.15:P.speed>4.5?.045:0)-charRoot.userData.swimTilt)*Math.min(1,8*dt);
     charRoot.quaternion.copy(charRoot.userData.baseRotation).multiply(swimTiltQ.setFromAxisAngle(swimTiltAxis,charRoot.userData.swimTilt));
     supportSurvivorSoles();
     pShadow.visible=false;
@@ -2644,7 +2678,7 @@ function tick(dt){
             if(bdd < atkRange + 0.6 && bdd < bestBD && (bdx*fx + bdz*fz)/Math.max(bdd, 0.001) > 0.3){ bestB = brf; bestBD = bdd; bestBRec = rc4; }
           }
         }
-        if(bestB) harvestBush(bestBRec, bestB);
+        if(bestB&&!referenceMode) harvestBush(bestBRec, bestB);
       }
     } else slash.material.opacity = 0;
 
@@ -2964,7 +2998,7 @@ async function respawnAt(kind){
   P.x=spot.x;P.z=spot.z;P.hp=P.maxHp;P.dead=false;P.invuln=6;P.stam=maxStamina();P.food=Math.max(40,P.food);P.water=Math.max(40,P.water);P.temp=50;P.hpF=0;P.atkT=-9;P.speed=0;
   respawnRequired=false;deathShown=false;swimming=false;resetMovementInput();
   document.getElementById('mapPanel').classList.remove('respawning');document.getElementById('mapPanel').classList.add('hidden');document.querySelector('#mapPanel h3').textContent='ISLAND MAP';document.getElementById('mapClose').textContent='CLOSE';
-  player.position.set(P.x,groundY(P.x,P.z),P.z);player.visible=true;playAnim(pAnim,'Idle',0);pAnim.mixer.update(.001);charRoot.updateMatrixWorld(true);
+  player.position.set(P.x,referenceMode?referenceBodyGround(P.x,P.z):groundY(P.x,P.z),P.z);player.visible=true;playAnim(pAnim,'Idle',0);pAnim.mixer.update(.001);charRoot.updateMatrixWorld(true);
   camera.position.set(P.x+Math.sin(cameraYaw)*5,groundY(P.x,P.z)+2.9,P.z+Math.cos(cameraYaw)*5);camera.lookAt(P.x,groundY(P.x,P.z)+1.35,P.z);scene.updateMatrixWorld(true);
   paused=false;menuMusicWorld(true);running=true;entryCameraT=1.2;document.body.classList.add('playing');drawVitals();saveGame();last=performance.now();needsWorldRender=true;toast('Respawned. Items retained.');return true;
  }catch(e){P.x=old.x;P.z=old.z;status.textContent='Respawn could not finish. Your saved world is unchanged. Return to the lobby to retry.';window.__errors.push('respawn: '+e.message);return false;}
@@ -3077,7 +3111,7 @@ async function joinReadyWorld(prepare,message){
    var cell=joinCells[ji];if(!chunks[chunkKey(cell[0],cell[1])])buildChunk(cell[0],cell[1]);
    joinProgress(20+Math.round((ji+1)/joinCells.length*30));stage.textContent='Preparing nearby terrain and movement '+(ji+1)+'/'+joinCells.length;await yieldJoinPaint();activeJoin();
   }
-  player.position.set(P.x,groundY(P.x,P.z),P.z);camera.position.set(P.x+Math.sin(cameraYaw)*5,groundY(P.x,P.z)+2.9,P.z+Math.cos(cameraYaw)*5);camera.lookAt(P.x,groundY(P.x,P.z)+1.35,P.z);scene.updateMatrixWorld(true);
+  player.position.set(P.x,referenceMode?referenceBodyGround(P.x,P.z):groundY(P.x,P.z),P.z);camera.position.set(P.x+Math.sin(cameraYaw)*5,groundY(P.x,P.z)+2.9,P.z+Math.cos(cameraYaw)*5);camera.lookAt(P.x,groundY(P.x,P.z)+1.35,P.z);scene.updateMatrixWorld(true);
   if(!Object.values(chunks).some(function(c){return !!c.ground;}))throw new Error('Terrain is not ready');
   joinProgress(50);stage.textContent='Preparing materials and lighting';await yieldJoinPaint();activeJoin();
   renderer.compile(scene,camera);joinProgress(90);
@@ -3111,7 +3145,11 @@ sleepBtn = document.getElementById('sleepBtn');
 sleepBtn.addEventListener('click', trySleep);
 document.getElementById('actPlace').addEventListener('click', function(){ var it = inv[selSlot]; if(!it) return; var kind = it.name === 'Campfire Kit' ? 'campfire' : 'bed'; toggleBag(); placeKit(kind); });
 document.getElementById('actEat').addEventListener('click', eatSelected);
-document.getElementById('lootCollect').onclick=function(){if(!referenceSites||!running||paused||P.dead)return;referenceSites.lootState(referenceElapsed,referenceLootTaken);var hit=referenceSites.nearestLoot(P.x,P.z);if(!hit)return;var supplies=[['Water Bottle','waterbottle',1],['Bandage','bandage',1],['Canned Food','cannedfood',1]],newSlots=supplies.filter(function(v){return !inv.some(function(i){return i.name===v[0]&&i.qty<STACK_MAX;});}).length;if(inv.length+newSlots>INV_CAP){toast('Make room for 3 supplies');return;}if(referenceSites.collect(hit.id)){supplies.forEach(function(v){addItem(v[0],v[1],v[2]);});toast('Water bottle, bandage and canned food collected');document.getElementById('lootCollect').classList.remove('available');saveGame();}};
+function nearestGatherTarget(){
+ if(!referenceSites)return null;var hit=referenceSites.nearestLoot(P.x,P.z),best=hit?{kind:'supplies',hit:hit}:null,dist=hit?Math.hypot(hit.x-P.x,hit.z-P.z):2.3;
+ for(var key in chunks){var rec=chunks[key];for(var ref of rec.bushRefs||[]){if(harvestedBushes[ref.key])continue;var d=Math.hypot(ref.x-P.x,ref.z-P.z);if(d<dist){dist=d;best={kind:'bush',ref:ref,rec:rec};}}}return best;
+}
+document.getElementById('lootCollect').onclick=function(){if(!referenceSites||!running||paused||P.dead)return;referenceSites.lootState(referenceElapsed,referenceLootTaken);var target=nearestGatherTarget();if(!target)return;if(target.kind==='bush'){var n=target.ref.type==='fibre'?'Fibre':'Berries';if(inv.length>=INV_CAP&&!inv.some(i=>i.name===n&&i.qty<=STACK_MAX-3)){toast('Inventory full');return;}harvestBush(target.rec,target.ref);document.getElementById('lootCollect').classList.remove('available');saveGame();return;}var hit=target.hit;var supplies=[['Water Bottle','waterbottle',1],['Bandage','bandage',1],['Canned Food','cannedfood',1]],newSlots=supplies.filter(function(v){return !inv.some(function(i){return i.name===v[0]&&i.qty<STACK_MAX;});}).length;if(inv.length+newSlots>INV_CAP){toast('Make room for 3 supplies');return;}if(referenceSites.collect(hit.id)){supplies.forEach(function(v){addItem(v[0],v[1],v[2]);});toast('Water bottle, bandage and canned food collected');document.getElementById('lootCollect').classList.remove('available');saveGame();}};
 document.getElementById('actWear').addEventListener('click', wearSelected);
 document.getElementById('chipTorch').addEventListener('click', function(){ setEquip('torch'); });
 document.getElementById('chipKnife').addEventListener('click', function(){ setEquip('knife'); });
@@ -3124,13 +3162,18 @@ document.getElementById('craftList').addEventListener('click', function(e){
 document.getElementById('bagClose').addEventListener('click', toggleBag);
 document.getElementById('bagCloseTop').addEventListener('click', toggleBag);
 document.getElementById('mapBtn').addEventListener('click', toggleMap);
-document.getElementById('mapCanvas').addEventListener('pointerdown', function(e){if(respawnRequired)return;
+document.getElementById('mapCanvas').addEventListener('maptap', function(e){if(respawnRequired)return;
   var cv = e.currentTarget, r = cv.getBoundingClientRect();
   var range = referenceMode?REFERENCE_WORLD.halfWidth:ISLAND_R+400,rangeZ=referenceMode?REFERENCE_WORLD.halfHeight:range;
-  var wx = ((e.clientX - r.left)/r.width)*2*range - range;
-  var wz = ((e.clientY - r.top)/r.height)*2*rangeZ - rangeZ;
+  var px=(e.clientX-r.left)/r.width*cv.width,pz=(e.clientY-r.top)/r.height*cv.height;
+  var mr=referenceMode?referenceMapRect:null;
+  if(mr&&(px<mr.left||px>mr.left+mr.width||pz<mr.top||pz>mr.top+mr.height))return;
+  var wx = mr?((px-mr.left)/mr.width*2-1)*range:((e.clientX-r.left)/r.width*2-1)*range;
+  var wz = mr?((pz-mr.top)/mr.height*2-1)*rangeZ:((e.clientY-r.top)/r.height*2-1)*rangeZ;
+  if(referenceMode&&nearBeacon()){var hit=beacons.findIndex(function(b){return Math.hypot((b.x-wx)/range*mr.width/2,(b.z-wz)/rangeZ*mr.height/2)<20;});if(hit>=0){travelBeacon(hit);return;}}
   toggleUserMark(wx, wz); renderMap();
 });
+if(!referenceMode)document.getElementById('mapCanvas').addEventListener('pointerdown',function(e){const t=new Event('maptap');Object.defineProperties(t,{clientX:{value:e.clientX},clientY:{value:e.clientY}});e.currentTarget.dispatchEvent(t);});
 document.getElementById('mapClose').addEventListener('click', toggleMap);
 window.addEventListener('keydown', function(e){ if(typingTarget(e)) return; if(e.code === 'KeyM') toggleMap(); });
 window.addEventListener('keydown', function(e){ if(typingTarget(e)) return; if(e.code === 'KeyB' || e.code === 'KeyI') toggleBag(); });
@@ -3254,7 +3297,7 @@ window.addEventListener('keydown',function(e){if(controlDraft&&e.code==='Escape'
 applyControlLayout();
 
 
-window.oneword = {worldIdentity:function(){return {elapsed:referenceElapsed,loot:referenceLootTaken,cycle:CYCLE,id:activeWorldId,saveKey:SAVE_KEY,sites:referenceSites,lab:LAB,safeAreas:SAFE_AREAS};},supportSurvivorSoles:supportSurvivorSoles,entryUpdateState:function(){return {pending:window.oneworldStartupUpdate.pending,generation:window.oneworldStartupUpdate.id,status:window.oneworldStartupUpdate.status};},cancelEntryUpdateGate:cancelEntryUpdateGate,freeLookState:function(){return {active:freeLookActive,returning:freeLookReturning,travelYaw:movementViewYaw(),cameraYaw:cameraYaw,pointer:freeLookId};},readiness:function(){return {chunks:Object.keys(chunks).length,required:wantedChunks(true).length,missing:wantedChunks(true).filter(function(c){return !chunks[chunkKey(c[0],c[1])];}).length,joining:joiningWorld,structures:structGroup.children.length,structColliders:structColliders.length};},saveGame:saveGame,requestGameClose:requestGameClose,saveAndClose:saveAndClose,controlsState:function(){return {layout:JSON.parse(JSON.stringify(controlLayout)),draft:controlDraft?JSON.parse(JSON.stringify(controlDraft)):null,paused:paused};},lifecycleState:function(){return {suspended:appSuspended,frameHandle:frameHandle,paused:paused,respawn:respawnRequired,deathShown:deathShown};},respawnAt:respawnAt,movementInput:function(){return {autoRun:autoRun,sprint:sprintOn,joy:{x:joyVec.x,y:joyVec.y},pointer:joyId,blocked:joyBlocked,target:{x:joyTarget.x,y:joyTarget.y,r:joyTarget.r,ready:joyTargetReady,visible:sprintEl.classList.contains('available')}};},renderSetupPreview:renderSetupPreview,previewState:function(){return {root:setupRoot,camera:setupCamera,angle:setupAngle,focus:setupFocus,zoom:setupZoom};},startSos:startSos,sosState:function(){return sosPending;},safeSosSpot:safeSosSpot,solidFree:solidFree,testDeath:function(){P.hp=0;P.dead=true;gameOver();},nearestTree:function(){var best=null,dist=1e9;for(var k in chunks)(chunks[k].treeRefs||[]).forEach(function(t){var d=Math.hypot(t.x-P.x,t.z-P.z);if(d<dist){dist=d;best={x:t.x,z:t.z,key:t.key,hits:t.hits};}});return best;},debugInfo:function(){return {events:betaEvents.slice(),errors:window.__errors.slice(),frameCount:betaFrames.length};},getProgress:function(){return JSON.parse(JSON.stringify(progress));},spendPoint:spendPoint,progressLevel:progressLevel,testAddWall:function(x,y,z){var wall=new THREE.Mesh(new THREE.BoxGeometry(5,4,.25),new THREE.MeshStandardMaterial({color:0x52708a}));wall.position.set(x,y,z);wall.userData.cameraSolid=true;scene.add(wall);cameraWalls.push(wall);return wall.uuid;},soundEvents:soundEvents, testSound:sfx, beacons:beacons,travelBeacon:travelBeacon,weather:function(){return {kind:weatherKind,clock:weatherClock,wet:weatherWet};},setWeather:function(v){weatherOverride=v;},setWeatherClock:function(v){weatherClock=v;}, P: P, wolves: wolves, assets: A, renderer: renderer, deer: deer, critters: critters, eagles2: eagles2, player: player, slash: slash, scene: scene, camera: camera, THREE: THREE, groundY: groundY,surfaceY:surfaceY,groundMeshes:function(){return Object.values(chunks).map(c=>c.ground);},
+window.oneword = {gatherTarget:nearestGatherTarget,mapState:function(){return {view:referenceMapView,rect:referenceMapRect,position:{x:P.x,z:P.z},heading:P.rotY};},worldIdentity:function(){return {elapsed:referenceElapsed,loot:referenceLootTaken,cycle:CYCLE,id:activeWorldId,saveKey:SAVE_KEY,sites:referenceSites,lab:LAB,safeAreas:SAFE_AREAS};},supportSurvivorSoles:supportSurvivorSoles,entryUpdateState:function(){return {pending:window.oneworldStartupUpdate.pending,generation:window.oneworldStartupUpdate.id,status:window.oneworldStartupUpdate.status};},cancelEntryUpdateGate:cancelEntryUpdateGate,freeLookState:function(){return {active:freeLookActive,returning:freeLookReturning,travelYaw:movementViewYaw(),cameraYaw:cameraYaw,pointer:freeLookId};},readiness:function(){return {chunks:Object.keys(chunks).length,required:wantedChunks(true).length,missing:wantedChunks(true).filter(function(c){return !chunks[chunkKey(c[0],c[1])];}).length,joining:joiningWorld,structures:structGroup.children.length,structColliders:structColliders.length};},saveGame:saveGame,requestGameClose:requestGameClose,saveAndClose:saveAndClose,controlsState:function(){return {layout:JSON.parse(JSON.stringify(controlLayout)),draft:controlDraft?JSON.parse(JSON.stringify(controlDraft)):null,paused:paused};},lifecycleState:function(){return {suspended:appSuspended,frameHandle:frameHandle,paused:paused,respawn:respawnRequired,deathShown:deathShown};},respawnAt:respawnAt,movementInput:function(){return {autoRun:autoRun,sprint:sprintOn,joy:{x:joyVec.x,y:joyVec.y},pointer:joyId,blocked:joyBlocked,target:{x:joyTarget.x,y:joyTarget.y,r:joyTarget.r,ready:joyTargetReady,visible:sprintEl.classList.contains('available')}};},renderSetupPreview:renderSetupPreview,previewState:function(){return {root:setupRoot,camera:setupCamera,angle:setupAngle,focus:setupFocus,zoom:setupZoom};},startSos:startSos,sosState:function(){return sosPending;},safeSosSpot:safeSosSpot,solidFree:solidFree,testDeath:function(){P.hp=0;P.dead=true;gameOver();},nearestTree:function(){var best=null,dist=1e9;for(var k in chunks)(chunks[k].treeRefs||[]).forEach(function(t){var d=Math.hypot(t.x-P.x,t.z-P.z);if(d<dist){dist=d;best={x:t.x,z:t.z,key:t.key,hits:t.hits};}});return best;},debugInfo:function(){return {events:betaEvents.slice(),errors:window.__errors.slice(),frameCount:betaFrames.length};},getProgress:function(){return JSON.parse(JSON.stringify(progress));},spendPoint:spendPoint,progressLevel:progressLevel,testAddWall:function(x,y,z){var wall=new THREE.Mesh(new THREE.BoxGeometry(5,4,.25),new THREE.MeshStandardMaterial({color:0x52708a}));wall.position.set(x,y,z);wall.userData.cameraSolid=true;scene.add(wall);cameraWalls.push(wall);return wall.uuid;},soundEvents:soundEvents, testSound:sfx, beacons:beacons,travelBeacon:travelBeacon,weather:function(){return {kind:weatherKind,clock:weatherClock,wet:weatherWet};},setWeather:function(v){weatherOverride=v;},setWeatherClock:function(v){weatherClock=v;}, P: P, wolves: wolves, assets: A, renderer: renderer, deer: deer, critters: critters, eagles2: eagles2, player: player, slash: slash, scene: scene, camera: camera, THREE: THREE, groundY: groundY,surfaceY:surfaceY,groundMeshes:function(){return Object.values(chunks).map(c=>c.ground);},
   attack: function(){ tryAttack(); }, reset: function(){ resetGame(); },
   step: function(n, dt){ dt = dt || 0.05; for(var i = 0; i < n; i++){ now += dt; tick(dt); } },
   defeated: function(){ return wolvesDefeated; },
@@ -3276,7 +3319,21 @@ applySettings();
 await startupStage(90,'Preparing survivor previews');
 // Warm both bounded preview entries at their actual layout size under the
 // existing loading screen. Visibility stays hidden until the chooser is used.
-if(referenceMode){document.getElementById('mapPanel').classList.add('referenceMap');document.getElementById('mapCanvas').width=900;document.getElementById('mapCanvas').height=600;document.getElementById('mapCanvas').style.aspectRatio='1.5';document.getElementById('mapCanvas').style.height='auto';}
+if(referenceMode){
+ const mc=document.getElementById('mapCanvas'),panel=document.getElementById('mapPanel');
+ panel.insertAdjacentHTML('beforeend','<div id="mapViewTools"><button aria-label="Zoom map in">+</button><button aria-label="Zoom map out">−</button><button aria-label="Fit whole island">⊡</button></div>');
+ const bt=document.querySelectorAll('#mapViewTools button');
+ bt[0].onclick=()=>{referenceMapView.zoom=Math.min(4,referenceMapView.zoom*1.35);renderReferenceMap();};
+ bt[1].onclick=()=>{referenceMapView.zoom=Math.max(.4,referenceMapView.zoom/1.35);renderReferenceMap();};
+ bt[2].onclick=()=>{referenceMapView={zoom:1,panX:0,panZ:0,fit:!referenceMapView.fit};renderReferenceMap();};
+ let drag=null;
+ mc.addEventListener('pointerdown',e=>{drag={id:e.pointerId,x:e.clientX,z:e.clientY,px:referenceMapView.panX,pz:referenceMapView.panZ,moved:false};mc.setPointerCapture(e.pointerId);});
+ mc.addEventListener('pointermove',e=>{if(!drag||e.pointerId!==drag.id)return;const dx=e.clientX-drag.x,dz=e.clientY-drag.z;if(Math.hypot(dx,dz)>6)drag.moved=true;if(drag.moved){referenceMapView.panX=drag.px+dx;referenceMapView.panZ=drag.pz+dz;renderReferenceMap();}});
+ mc.addEventListener('pointerup',e=>{if(!drag||e.pointerId!==drag.id)return;const tap=!drag.moved;drag=null;if(tap){const t=new Event('maptap');Object.defineProperties(t,{clientX:{value:e.clientX},clientY:{value:e.clientY}});mc.dispatchEvent(t);}});
+ mc.addEventListener('pointercancel',()=>drag=null);
+ mc.addEventListener('wheel',e=>{e.preventDefault();referenceMapView.zoom=Math.max(.4,Math.min(4,referenceMapView.zoom*(e.deltaY<0?1.1:1/1.1)));renderReferenceMap();},{passive:false});
+ window.addEventListener('resize',()=>{if(!panel.classList.contains('hidden'))renderReferenceMap();});
+ document.getElementById('mapPanel').classList.add('referenceMap');document.getElementById('mapCanvas').width=900;document.getElementById('mapCanvas').height=600;document.getElementById('mapCanvas').style.aspectRatio='1.5';document.getElementById('mapCanvas').style.height='auto';}
 var warmLobby=document.getElementById('start'),warmChooser=document.getElementById('charSetup'),warmVisibility=warmLobby.style.visibility;
 warmLobby.style.visibility='hidden';warmLobby.classList.add('prewarming','choosing');warmChooser.classList.remove('hidden');
 for(var previewKind of ['boy','girl']){
