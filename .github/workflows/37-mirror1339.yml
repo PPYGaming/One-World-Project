@@ -1,0 +1,38 @@
+name: Mirror audited One World beta 1.3.39
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: one-world-release-writer
+  cancel-in-progress: false
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Clone exact publication revision
+        run: |
+          git clone --depth 1 "https://github.com/$GITHUB_REPOSITORY.git" stage
+          cd stage
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+      - name: Verify signed artifacts and editable source
+        run: |
+          cd stage
+          python3 *mirror1339.py
+      - name: Commit editable source without credentials
+        run: |
+          cd stage
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git reset -- release release1339.zip || true
+          git commit -m "Import audited One World 1.3.39 source"
+      - name: Publish numbered testing beta
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cd stage
+          gh auth setup-git
+          git push origin HEAD:main
+          gh release create v1.3.39 release/one-world-beta-1.3.39.apk release/beta-update.json release/one-world-project-source-1.3.39.zip --repo "$GITHUB_REPOSITORY" --target "$(git rev-parse HEAD)" --prerelease --title "One World Beta 1.3.39 - SELECT CRAFT and renderer recovery beta" --notes-file *release-notes1339.md
