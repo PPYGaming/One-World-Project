@@ -33,4 +33,4 @@ The original face/body/upper dress/model files, icon, package, save schema and n
 
 This public development repository is https://github.com/PPYGaming/One-World-Project. The existing public update origin remains https://github.com/PPYGaming/One-World-Beta. Latest published baseline checked during preparation:1.3.37(59). Candidate1.3.38(60) adds incremental continuous terrain, original-tree LOD and legacy harvested-save compatibility. See docs/QA-1.3.38.md for verification and limits. Physical phone performance and exact reference cliffs remain unverified. Preview screenshots are in `docs/screenshots/1.3.24/`. Future collaborator access and enforced release automation are not configured yet.
 
-Current testing beta: 1.3.41 (62), water and swimming. See docs/QA-1.3.41.md for scope, checks and unresolved phone/recording limits.
+Current testing beta: 1.3.42 (64), inventory/input safety and hydration. See docs/QA-1.3.42.md for scope, checks and unresolved phone limits.

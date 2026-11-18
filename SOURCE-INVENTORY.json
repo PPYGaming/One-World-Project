@@ -1,7 +1,7 @@
 {
-  "baseline": "1.3.40",
-  "sourceBase": "Cumulative 1.3.40 plus isolated night tree lighting, ore clone disposal and logo-only treatment",
-  "status": "Public testing beta; physical-device behavior not verified",
+  "baseline": "1.3.41",
+  "sourceBase": "Cumulative 1.3.41 plus isolated inventory/input safety, tab removal, scroll reachability and standing-water hydration",
+  "status": "Testing beta; physical-device behavior unverified",
   "files": [
     {
       "path": ".github/workflows/.github/workflows/project-bootstrap.yml",
@@ -15,8 +15,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 33983,
-      "sha256": "ffb7a5d25ef6a0196b0cf0ee8767bfbe69535e5ca5db9b25fc1173cbba3c2693"
+      "size": 35940,
+      "sha256": "a75456e93fc9fc11ecb80d3e8c0a573fa4afb68301dd69c9652767409e9df769"
     },
     {
       "path": "CONTRIBUTING.md",
@@ -25,13 +25,13 @@
     },
     {
       "path": "README.md",
-      "size": 3484,
-      "sha256": "9996b85b87dd87154834add3360f6752439aea5929c771103a0ccf13c06ba309"
+      "size": 3492,
+      "sha256": "48f48a372f578f77593a9d51c87f9f729754b897786e466642396a9822eba196"
     },
     {
       "path": "android/AndroidManifest.xml",
       "size": 1298,
-      "sha256": "1c41dfb1028eb9a5b8bda4a30449943b19829c873998c59212d86fd7b49029ef"
+      "sha256": "7ce69a85284723dc8a5191691b98b4923131ab3f6c81850cc517deb3707653a7"
     },
     {
       "path": "android/res/drawable/ic_face.png",
@@ -130,8 +130,8 @@
     },
     {
       "path": "docs/OWNER-REQUIREMENTS-2026-11-18.md",
-      "size": 1894,
-      "sha256": "c142608cdcab0df98e395b630e2ecc9b760b5349dbe1d7ce41649b09a58ff49c"
+      "size": 2659,
+      "sha256": "7e201c91b18e222c3e2329e564359e5437baa71063f2159d2af635516e470b9b"
     },
     {
       "path": "docs/QA-1.3.30.md",
@@ -192,6 +192,11 @@
       "path": "docs/QA-1.3.41.md",
       "size": 1208,
       "sha256": "56042121909740f48fa42ec3bb4f74e4b09364d57d54a7f57859808e7db2fb59"
+    },
+    {
+      "path": "docs/QA-1.3.42.md",
+      "size": 1956,
+      "sha256": "54d22586068fc7e01dfaa31a1e085fb97dbe6f7c4958968d1119cd9648d06893"
     },
     {
       "path": "docs/screenshots/1.3.24/README.md",
@@ -860,14 +865,13 @@
     },
     {
       "path": "web/index.html",
-      "size": 344657,
-      "sha256": "31bbd167dad9d51d9b4c74d400789bcfaca1835390527c813641f21902086294"
+      "size": 345591,
+      "sha256": "612b118b20cb8428339322c774d33dee4d05c09d5af1a7d032159863694454c3"
     },
     {
       "path": "web/renderer-recovery.html",
       "size": 2419,
       "sha256": "d81c25a40f92b459adc9e9c0e004245c7a7fd2149403203dff0bdda047533933"
     }
-  ],
-  "version": "1.3.41"
+  ]
 }
