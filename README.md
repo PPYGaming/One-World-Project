@@ -27,4 +27,6 @@ The original face/body/upper dress/model files, icon, package, save schema and n
 
 ## Testing releases
 
-This public development repository is https://github.com/PPYGaming/One-World-Project. The existing public update origin remains https://github.com/PPYGaming/One-World-Beta. Latest published baseline checked during preparation: 1.3.35 (57). Version 1.3.36 (58) is the first bounded Map 2 phone-feedback correction candidate. It preserves separate saves and original Map 1. Forest/lab/creature art remains prototype quality; physical phone validation remains pending. Preview screenshots are in `docs/screenshots/1.3.24/`. Future collaborator access and enforced release automation are not configured yet.
+This public development repository is https://github.com/PPYGaming/One-World-Project. The existing public update origin remains https://github.com/PPYGaming/One-World-Beta. Latest published baseline checked during preparation: 1.3.36 (58). Version 1.3.37 (59) adds Map 2 north-up navigation, no manual pins, consistent X/Y map coordinates and bed packing/markers without changing geography or save coordinates. Physical phone validation and later forest/lab/creature art remain pending. Preview screenshots are in `docs/screenshots/1.3.24/`. Future collaborator access and enforced release automation are not configured yet.
+
+Map presentation approved by owner on Nov18: clearer grid, readable region labels and north-up compass. Reference geography unchanged.

@@ -625,7 +625,7 @@ import { GLTFLoader } from './assets/lib/GLTFLoader.js';
 import { clone as skClone } from './assets/lib/SkeletonUtils.js';
 import { animeClips, applyAnimeColors, attachLeatherGarments, applyHairStyle, updateHairSway } from './assets/lib/AnimeCharacter.js';
 
-var BUILD_INFO={name:'1.3.36',code:null,native:false};
+var BUILD_INFO={name:'1.3.37',code:null,native:false};
 try{var nb=window.OneWorldNative;if(nb&&typeof nb.getBuildInfo==='function'){var bi=JSON.parse(nb.getBuildInfo());if(bi.package==='com.oneword.forest.beta'&&typeof bi.name==='string'&&/^\d+\.\d+\.\d+$/.test(bi.name)&&Number.isSafeInteger(bi.code)&&bi.code>0)BUILD_INFO={name:bi.name,code:bi.code,native:true};}}catch(e){}
 var DISPLAY_VERSION=BUILD_INFO.name+(BUILD_INFO.native?'':' preview');
 document.querySelector('#start .ver').textContent=DISPLAY_VERSION+' Beta - Work in progress';
@@ -1833,16 +1833,17 @@ function renderReferenceMap(){
  referenceMapRect={left,top,width:mw,height:mh};
  const toX=x=>left+(x/REFERENCE_WORLD.halfWidth+1)*mw/2,toZ=z=>top+(z/REFERENCE_WORLD.halfHeight+1)*mh/2;
  ctx.fillStyle='#153c53';ctx.fillRect(0,0,w,h);if(referenceMapImage.complete&&referenceMapImage.naturalWidth)ctx.drawImage(referenceMapImage,left,top,mw,mh);
- ctx.save();ctx.beginPath();ctx.rect(left,top,mw,mh);ctx.clip();ctx.lineWidth=.55;ctx.strokeStyle='rgba(230,239,237,.19)';ctx.fillStyle='rgba(245,247,237,.67)';ctx.font='10px sans-serif';ctx.textAlign='left';
- for(let gx=-6000;gx<=6000;gx+=1000){const px=toX(gx);ctx.beginPath();ctx.moveTo(px,top);ctx.lineTo(px,top+mh);ctx.stroke();if(px>12&&px<w-40)ctx.fillText('X '+gx,px+3,Math.max(24,top+24));}
- for(let gz=-4000;gz<=4000;gz+=1000){const pz=toZ(gz);ctx.beginPath();ctx.moveTo(left,pz);ctx.lineTo(left+mw,pz);ctx.stroke();if(pz>22&&pz<h-20)ctx.fillText('Z '+gz,Math.max(4,left+4),pz-3);}
- ctx.restore();ctx.font='12px sans-serif';ctx.textAlign='left';ctx.fillStyle='#eff1e9';ctx.strokeStyle='#14262c';ctx.lineWidth=3;const coords='X '+Math.round(P.x)+'  Z '+Math.round(P.z);ctx.textAlign='center';ctx.strokeText(coords,w/2,h-16);ctx.fillText(coords,w/2,h-16);
- ctx.font=Math.max(10,Math.min(15,w/70))+'px sans-serif';ctx.textAlign='center';ctx.lineWidth=3;
- const places=[...SAFE_AREAS,...[{name:'Frostpine Reach',x:-3650,z:-2600},{name:'Embercrest',x:2750,z:-2400},{name:'Mirewood Marsh',x:-3550,z:100},{name:'Sunstone Wastes',x:4550,z:400},{name:'Heartwood',x:400,z:1100}]];
+ ctx.save();ctx.beginPath();ctx.rect(left,top,mw,mh);ctx.clip();ctx.lineWidth=.7;ctx.strokeStyle='rgba(230,239,237,.32)';ctx.fillStyle='rgba(245,247,237,.67)';ctx.font='10px sans-serif';ctx.textAlign='left';
+ for(let gx=-6000;gx<=6000;gx+=1000){const px=toX(gx);ctx.beginPath();ctx.moveTo(px,top);ctx.lineTo(px,top+mh);ctx.stroke();if(px>12&&px<w-74)ctx.fillText('X '+gx,px+3,Math.max(24,top+24));}
+ for(let gz=-4000;gz<=4000;gz+=1000){const pz=toZ(gz);ctx.beginPath();ctx.moveTo(left,pz);ctx.lineTo(left+mw,pz);ctx.stroke();if(pz>22&&pz<h-20)ctx.fillText('Y '+gz,Math.max(4,left+4),pz<40?pz+13:pz-3);}
+ ctx.restore();ctx.font='12px sans-serif';ctx.textAlign='left';ctx.fillStyle='#eff1e9';ctx.strokeStyle='#14262c';ctx.lineWidth=3;const coords='X '+Math.round(P.x)+'  Y '+Math.round(P.z);ctx.textAlign='center';ctx.strokeText(coords,w/2,h-16);ctx.fillText(coords,w/2,h-16);
+ ctx.font=Math.max(11,Math.min(16,w/64))+'px sans-serif';ctx.textAlign='center';ctx.lineWidth=3;
+ const places=[...SAFE_AREAS,...[{name:'Frostpine Reach',x:-3650,z:-2600},{name:'Embercrest',x:2750,z:-2400},{name:'Mirewood Marsh',x:-3550,z:100},{name:'Sunstone Wastes',x:4550,z:400},{name:'Heartwood',x:400,z:-350}]];
  for(const q of places){const x=toX(q.x),z=toZ(q.z);ctx.strokeStyle='#122125';ctx.strokeText(q.name,x,z-9);ctx.fillStyle='#f2eee1';ctx.fillText(q.name,x,z-9);if(SAFE_AREAS.includes(q)){ctx.fillStyle='#9bcc76';ctx.beginPath();ctx.arc(x,z,3.5,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#193322';ctx.lineWidth=1;ctx.stroke();}}
- for(const m of userMarks){ctx.fillStyle='white';ctx.beginPath();ctx.arc(toX(m.x),toZ(m.z),3,0,Math.PI*2);ctx.fill();}
- if(bedPos){ctx.fillStyle='#ffe296';ctx.fillRect(toX(bedPos.x)-3,toZ(bedPos.z)-2,6,4);}
+ // Map 2 custom pins are hidden; old saved data is retained for compatibility.
+ if(bedPos){const ax=toX(bedPos.x),ay=toZ(bedPos.z),nearPlayer=Math.hypot(ax-toX(P.x),ay-toZ(P.z))<18,bx=ax+(nearPlayer?18:0),by=ay+(nearPlayer?14:0);if(nearPlayer){ctx.strokeStyle='#ffe296';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(ax,ay);ctx.lineTo(bx,by);ctx.stroke();}ctx.fillStyle='#ffe296';ctx.fillRect(bx-7,by-4,14,8);ctx.fillStyle='#765b38';ctx.fillRect(bx-6,by-3,4,6);ctx.strokeStyle='#17292c';ctx.lineWidth=1.5;ctx.strokeRect(bx-7,by-4,14,8);}
  const x=toX(P.x),z=toZ(P.z);ctx.save();ctx.translate(x,z);ctx.rotate(-P.rotY);ctx.beginPath();ctx.moveTo(0,8);ctx.lineTo(-4,-5);ctx.lineTo(0,-2);ctx.lineTo(4,-5);ctx.closePath();ctx.shadowColor='#000';ctx.shadowBlur=3;ctx.fillStyle='#d8dde2';ctx.fill();ctx.shadowBlur=0;ctx.strokeStyle='#26323a';ctx.lineWidth=1.5;ctx.stroke();ctx.restore();
+ ctx.save();const cx=w-49,cy=99;ctx.fillStyle='rgba(10,29,34,.8)';ctx.beginPath();ctx.arc(cx,cy,34,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#d5ded9';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(cx,cy-18);ctx.lineTo(cx,cy+18);ctx.moveTo(cx-18,cy);ctx.lineTo(cx+18,cy);ctx.stroke();ctx.font='10px sans-serif';ctx.textAlign='center';ctx.fillStyle='#f3efe2';ctx.fillText('N',cx,cy-23);ctx.fillText('S',cx,cy+30);ctx.fillText('W',cx-25,cy+3);ctx.fillText('E',cx+25,cy+3);ctx.restore();
  referenceMapStamp=[P.x,P.z,P.rotY,innerWidth,innerHeight].join(',');if(!respawnRequired)document.getElementById('mapClose').textContent='×';
 }
 
@@ -2388,15 +2389,16 @@ function buildCampfire(){
 }
 function buildBed(){
   if(!bedPos) return;
-  var x = bedPos.x, z = bedPos.z, gy = groundY(x, z), rot = bedPos.rot || 0;
+  var x = bedPos.x, z = bedPos.z, gy = surfaceY(x, z), rot = bedPos.rot || 0;
   var base = new THREE.Mesh(new THREE.BoxGeometry(0.95, 0.28, 2.0),
     new THREE.MeshStandardMaterial({ color: 0x4a7d5a, roughness: 0.9 }));
-  base.position.set(x, gy + 0.18, z); base.rotation.y = rot; base.castShadow = true; structGroup.add(base);
+  base.position.set(x, gy + 0.18, z); base.rotation.y = rot; base.castShadow = true;base.userData.placedBed=true; structGroup.add(base);
   var pillow = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.16, 0.42),
     new THREE.MeshStandardMaterial({ color: 0xe8e0d0, roughness: 0.8 }));
-  pillow.position.set(x + Math.sin(rot)*0.68, gy + 0.38, z + Math.cos(rot)*0.68); pillow.rotation.y = rot; structGroup.add(pillow);
-  structColliders.push({ x: x, z: z, r: 0.8 });
+  pillow.position.set(x + Math.sin(rot)*0.68, gy + 0.38, z + Math.cos(rot)*0.68); pillow.rotation.y = rot;pillow.userData.placedBed=true; structGroup.add(pillow);
+  structColliders.push({ x: x, z: z, r: 0.8,placedBed:true });
 }
+function packBed(){if(!referenceMode||!bedPos||Math.hypot(P.x-bedPos.x,P.z-bedPos.z)>=2.8)return false;if(inv.length>=INV_CAP&&!inv.some(i=>i.name==='Bedroll Kit'&&i.qty<STACK_MAX)){toast('Inventory full');return false;}for(const o of [...structGroup.children])if(o.userData.placedBed){structGroup.remove(o);o.geometry.dispose();o.material.dispose();}structColliders=structColliders.filter(c=>!c.placedBed);bedPos=null;addItem('Bedroll Kit','bed',1);document.getElementById('lootCollect').classList.remove('available');saveGame();toast('Bedroll packed');return true;}
 function removeOneAt(i){ if(i < 0 || i >= inv.length) return; inv[i].qty--; if(inv[i].qty <= 0){ inv.splice(i, 1); if(selSlot === i) selSlot = -1; else if(selSlot > i) selSlot--; } renderBag(); }
 function placeKit(kind){
   var name = kind === 'campfire' ? 'Campfire Kit' : 'Bedroll Kit';
@@ -2882,7 +2884,7 @@ function tick(dt){
     var nightNow = dayT > 0.56 || dayT < 0.04;
     var canSleep = !!bedPos && nightNow && !P.dead && Math.hypot(P.x - bedPos.x, P.z - bedPos.z) < 2.8;
     if(sleepBtn) sleepBtn.style.display = canSleep ? 'block' : 'none';
-    coordsEl.textContent = 'X: ' + Math.round(P.x) + '  Z: ' + Math.round(P.z);
+    coordsEl.textContent = 'X: ' + Math.round(P.x) + (referenceMode?'  Y: ':'  Z: ') + Math.round(P.z);
 
     // Continuous target-centred orbit. Ground contact slides the endpoint along
     // the surface instead of switching aim or replacing the orbit with a high view.
@@ -2935,10 +2937,10 @@ function tick(dt){
     sun.intensity = (0.08 + 1.05*day)*(1-weatherWet*.72);
     sun.color.setHex(dusk > 0.4 ? 0xffb070 : 0xfff3d0);
     var sa2 = dayT * Math.PI * 2;
-    sun.position.set(P.x + Math.cos(sa2)*60, Math.sin(sa2)*70, P.z + 30);
+    sun.position.set(P.x + Math.cos(sa2)*60, Math.sin(sa2)*70, P.z + (referenceMode?0:30));
     sun.target.position.set(P.x, gy, P.z); sun.target.updateMatrixWorld();
-    sunMesh.position.set(P.x+Math.cos(sa2)*(referenceMode?2400:280),(referenceMode?gy:0)+Math.sin(sa2)*(referenceMode?2200:260),P.z+(referenceMode?1000:120));if(referenceMode)sunMesh.scale.setScalar(4);
-    moonMesh.position.set(P.x-Math.cos(sa2)*(referenceMode?2400:280),(referenceMode?gy:0)-Math.sin(sa2)*(referenceMode?2200:260),P.z+(referenceMode?1000:120));if(referenceMode)moonMesh.scale.setScalar(4);
+    sunMesh.position.set(P.x+Math.cos(sa2)*(referenceMode?2400:280),(referenceMode?gy:0)+Math.sin(sa2)*(referenceMode?2200:260),P.z+(referenceMode?0:120));if(referenceMode)sunMesh.scale.setScalar(4);
+    moonMesh.position.set(P.x-Math.cos(sa2)*(referenceMode?2400:280),(referenceMode?gy:0)-Math.sin(sa2)*(referenceMode?2200:260),P.z+(referenceMode?0:120));if(referenceMode)moonMesh.scale.setScalar(4);
     if(referenceMode)sunGlow.scale.set(500,500,1);sunGlow.position.copy(sunMesh.position);sunGlow.material.opacity=day*(1-weatherWet);sunMesh.visible=weatherWet<.6;moonMesh.visible=weatherWet<.6;
     sunMesh.material.color.setHex(dusk > 0.4 ? 0xff9d4d : 0xffe9a0);
     cloudMat.opacity=Math.min(.94,.2+.5*day+weatherWet*.3);
@@ -3146,10 +3148,10 @@ sleepBtn.addEventListener('click', trySleep);
 document.getElementById('actPlace').addEventListener('click', function(){ var it = inv[selSlot]; if(!it) return; var kind = it.name === 'Campfire Kit' ? 'campfire' : 'bed'; toggleBag(); placeKit(kind); });
 document.getElementById('actEat').addEventListener('click', eatSelected);
 function nearestGatherTarget(){
- if(!referenceSites)return null;var hit=referenceSites.nearestLoot(P.x,P.z),best=hit?{kind:'supplies',hit:hit}:null,dist=hit?Math.hypot(hit.x-P.x,hit.z-P.z):2.3;
+ if(!referenceSites)return null;if(bedPos&&Math.hypot(P.x-bedPos.x,P.z-bedPos.z)<2.8)return {kind:'bed'};var hit=referenceSites.nearestLoot(P.x,P.z),best=hit?{kind:'supplies',hit:hit}:null,dist=hit?Math.hypot(hit.x-P.x,hit.z-P.z):2.3;
  for(var key in chunks){var rec=chunks[key];for(var ref of rec.bushRefs||[]){if(harvestedBushes[ref.key])continue;var d=Math.hypot(ref.x-P.x,ref.z-P.z);if(d<dist){dist=d;best={kind:'bush',ref:ref,rec:rec};}}}return best;
 }
-document.getElementById('lootCollect').onclick=function(){if(!referenceSites||!running||paused||P.dead)return;referenceSites.lootState(referenceElapsed,referenceLootTaken);var target=nearestGatherTarget();if(!target)return;if(target.kind==='bush'){var n=target.ref.type==='fibre'?'Fibre':'Berries';if(inv.length>=INV_CAP&&!inv.some(i=>i.name===n&&i.qty<=STACK_MAX-3)){toast('Inventory full');return;}harvestBush(target.rec,target.ref);document.getElementById('lootCollect').classList.remove('available');saveGame();return;}var hit=target.hit;var supplies=[['Water Bottle','waterbottle',1],['Bandage','bandage',1],['Canned Food','cannedfood',1]],newSlots=supplies.filter(function(v){return !inv.some(function(i){return i.name===v[0]&&i.qty<STACK_MAX;});}).length;if(inv.length+newSlots>INV_CAP){toast('Make room for 3 supplies');return;}if(referenceSites.collect(hit.id)){supplies.forEach(function(v){addItem(v[0],v[1],v[2]);});toast('Water bottle, bandage and canned food collected');document.getElementById('lootCollect').classList.remove('available');saveGame();}};
+document.getElementById('lootCollect').onclick=function(){if(!referenceSites||!running||paused||P.dead)return;referenceSites.lootState(referenceElapsed,referenceLootTaken);var target=nearestGatherTarget();if(!target)return;if(target.kind==='bed'){packBed();return;}if(target.kind==='bush'){var n=target.ref.type==='fibre'?'Fibre':'Berries';if(inv.length>=INV_CAP&&!inv.some(i=>i.name===n&&i.qty<=STACK_MAX-3)){toast('Inventory full');return;}harvestBush(target.rec,target.ref);document.getElementById('lootCollect').classList.remove('available');saveGame();return;}var hit=target.hit;var supplies=[['Water Bottle','waterbottle',1],['Bandage','bandage',1],['Canned Food','cannedfood',1]],newSlots=supplies.filter(function(v){return !inv.some(function(i){return i.name===v[0]&&i.qty<STACK_MAX;});}).length;if(inv.length+newSlots>INV_CAP){toast('Make room for 3 supplies');return;}if(referenceSites.collect(hit.id)){supplies.forEach(function(v){addItem(v[0],v[1],v[2]);});toast('Water bottle, bandage and canned food collected');document.getElementById('lootCollect').classList.remove('available');saveGame();}};
 document.getElementById('actWear').addEventListener('click', wearSelected);
 document.getElementById('chipTorch').addEventListener('click', function(){ setEquip('torch'); });
 document.getElementById('chipKnife').addEventListener('click', function(){ setEquip('knife'); });
@@ -3171,7 +3173,7 @@ document.getElementById('mapCanvas').addEventListener('maptap', function(e){if(r
   var wx = mr?((px-mr.left)/mr.width*2-1)*range:((e.clientX-r.left)/r.width*2-1)*range;
   var wz = mr?((pz-mr.top)/mr.height*2-1)*rangeZ:((e.clientY-r.top)/r.height*2-1)*rangeZ;
   if(referenceMode&&nearBeacon()){var hit=beacons.findIndex(function(b){return Math.hypot((b.x-wx)/range*mr.width/2,(b.z-wz)/rangeZ*mr.height/2)<20;});if(hit>=0){travelBeacon(hit);return;}}
-  toggleUserMark(wx, wz); renderMap();
+  if(referenceMode)return;toggleUserMark(wx, wz); renderMap();
 });
 if(!referenceMode)document.getElementById('mapCanvas').addEventListener('pointerdown',function(e){const t=new Event('maptap');Object.defineProperties(t,{clientX:{value:e.clientX},clientY:{value:e.clientY}});e.currentTarget.dispatchEvent(t);});
 document.getElementById('mapClose').addEventListener('click', toggleMap);

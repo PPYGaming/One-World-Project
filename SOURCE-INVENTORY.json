@@ -1,10 +1,10 @@
 {
-  "baseline": "1.3.36",
+  "baseline": "1.3.37",
   "sourceBase": {
-    "beta": "ffa729e727f02654bc39af022cd50cb4cd7d2a70",
-    "project": "40e093e8ceb60f2445be0b6a7e2a1687cad922a4"
+    "beta": "ed03ee78ea58fef5cbd7922fcf1e45fc62f0818c",
+    "project": "d1ea4afa921154410937fd7dab6ec957d9b1d3aa"
   },
-  "status": "Map 2 first correction beta; local checks passed; physical phone validation pending",
+  "status": "Map navigation correction beta; local checks passed; phone validation pending",
   "files": [
     {
       "path": ".github/workflows/.github/workflows/project-bootstrap.yml",
@@ -18,8 +18,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 24226,
-      "sha256": "deee8379200101fa1802fc54277fc2f8d2f4d63726581b6565328e268621a0a2"
+      "size": 25798,
+      "sha256": "5eb4a14418ffc0e56438480dcc2279d33293f88f6db07edc5487f92047fa0dca"
     },
     {
       "path": "CONTRIBUTING.md",
@@ -28,13 +28,13 @@
     },
     {
       "path": "README.md",
-      "size": 3170,
-      "sha256": "77ad2b3549824e5abe7f1503effbe2ca803ed6720a86df0042d94b8c3f895e3d"
+      "size": 3327,
+      "sha256": "6d37953a5a18209de8b0c4c9be2df376cd271536b470ee2aff4f2dc94fa59149"
     },
     {
       "path": "android/AndroidManifest.xml",
       "size": 1298,
-      "sha256": "4ca9adae70157bce9c90b33a30407ba4a42fb98e523ed1d601532fc9fc0db253"
+      "sha256": "0990e9a75ebb18e87c5b7f65a7b48febbaeafd58097317bd92d073ea787cfb60"
     },
     {
       "path": "android/res/drawable/ic_face.png",
@@ -165,6 +165,11 @@
       "path": "docs/QA-1.3.36.md",
       "size": 1999,
       "sha256": "f1166294c9e86cf32815b1ec89a94c368f63c84a31a6661c786252a9962a71fb"
+    },
+    {
+      "path": "docs/QA-1.3.37.md",
+      "size": 1571,
+      "sha256": "74d1e543d22686c777ca62c0db9bf6ac661d3d9b7d4b453aec0be1e7518bc17d"
     },
     {
       "path": "docs/screenshots/1.3.24/README.md",
@@ -783,8 +788,8 @@
     },
     {
       "path": "web/index.html",
-      "size": 328281,
-      "sha256": "46f659144c3c9f371da3771e993ad186a877e35652cdf8f81be8b8f73fa581e3"
+      "size": 329918,
+      "sha256": "3dadccca07945d19e2ddbee4d4bb9aa2c9c8249c291bcfa56e94bccb9590c86b"
     }
   ]
 }
