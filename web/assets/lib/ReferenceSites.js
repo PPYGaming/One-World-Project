@@ -41,6 +41,9 @@ export function createReferenceSites(scene,height){
   const loot=new T.Group();loot.name='AbandonedSupplies';loot.position.set(0,.1,plan.kind==='lab'?9:3.4);
   const bottle=new T.Mesh(new T.CylinderGeometry(.10,.12,.42,8),new T.MeshStandardMaterial({color:0x7aa7a7,roughness:.45}));bottle.position.set(-.45,.24,0);loot.add(bottle);const cap=new T.Mesh(new T.CylinderGeometry(.07,.07,.07,8),rust);cap.position.set(-.45,.49,0);loot.add(cap);
   const bandage=new T.Mesh(new T.CylinderGeometry(.12,.12,.25,10),new T.MeshStandardMaterial({color:0xe0d8be,roughness:1}));bandage.rotation.z=Math.PI/2;bandage.position.set(0,.15,0);loot.add(bandage);const tin=new T.Mesh(new T.CylinderGeometry(.13,.13,.18,8),rust);tin.position.set(.4,.12,0);loot.add(tin);g.add(loot);loot.visible=available(plan.id);g.userData.loot=loot;
+  // Batch static repeated pieces, preserving separate loot visibility and collision data.
+  const batches=new Map();for(const child of [...g.children]){if(!child.isMesh||Array.isArray(child.material))continue;const key=child.geometry.uuid+':'+child.material.uuid;let batch=batches.get(key);if(!batch){batch=[];batches.set(key,batch);}batch.push(child);}
+  for(const batch of batches.values()){if(batch.length<2)continue;const mesh=new T.InstancedMesh(batch[0].geometry,batch[0].material,batch.length);mesh.name='SiteStaticBatch';mesh.userData.cameraSolid=batch.some(o=>o.userData.cameraSolid);for(let i=0;i<batch.length;i++){batch[i].updateMatrix();mesh.setMatrixAt(i,batch[i].matrix);g.remove(batch[i]);}mesh.instanceMatrix.needsUpdate=true;g.add(mesh);}
   g.userData.plan=plan;g.userData.colliders=cols;scene.add(g);return g;
  }
  const sharedGeometry=new Set([box,post]),sharedMaterial=new Set([stone,wood,rust,tarp,screen,steel,glass]);

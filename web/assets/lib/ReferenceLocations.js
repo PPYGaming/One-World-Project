@@ -1,3 +1,3 @@
 export const SAFE_AREAS=[{name:'West Shore',x:-3220,z:2560},{name:'South Cape',x:105,z:3065},{name:'East Shore',x:3640,z:2620},{name:'East Isle',x:5210,z:2420},{name:'Forest Refuge',x:2300,z:445}];
-export const LAB={x:0,z:0,radius:150};
-export const SITE_PLANS=[{id:'lab',kind:'lab',x:0,z:0},...SAFE_AREAS.map((p,i)=>({...p,id:'refuge'+i,kind:'camp'})),{id:'hut-w',kind:'hut',x:-2460,z:1160},{id:'hut-e',kind:'hut',x:3530,z:1450},{id:'hut-n',kind:'hut',x:-1830,z:-2020},{id:'camp-snow',kind:'camp',x:-3000,z:-2200},{id:'camp-swamp',kind:'camp',x:-3987,z:197},{id:'camp-dune',kind:'camp',x:4400,z:800},{id:'ruin-n',kind:'ruin',x:1650,z:-2380},{id:'ruin-s',kind:'ruin',x:-728,z:1918}];
+export const LAB={x:-20,z:-1280,radius:150};
+export const SITE_PLANS=[{id:'lab',kind:'lab',x:LAB.x,z:LAB.z},{id:'hut-w',kind:'hut',x:-2460,z:1160},{id:'hut-e',kind:'hut',x:3555,z:1425},{id:'hut-n',kind:'hut',x:-1730,z:-2095},{id:'ruin-n',kind:'ruin',x:1500,z:-2655},{id:'ruin-s',kind:'ruin',x:-728,z:2068}];

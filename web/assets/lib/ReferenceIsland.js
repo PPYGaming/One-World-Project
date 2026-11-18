@@ -1,3 +1,6 @@
+import {referenceRelief} from './ReferenceRelief.js';
+import {referenceSurface} from './ReferenceSurface.js';
+export {referenceSurface};
 import {SITE_PLANS} from './ReferenceLocations.js';
 import {referenceCoast} from './ReferenceCoast.js';
 // Original parametric terrain layout guided by the owner's supplied map.
@@ -15,15 +18,18 @@ export function referenceSample(worldX,worldZ,noPads=false){
  let x=worldX/REFERENCE_WORLD.halfWidth,z=worldZ/REFERENCE_WORLD.halfHeight,shore=referenceCoast(worldX,worldZ),edge=shore/4200;
  const snowPeak=Math.exp(-(((x+.60)/.24)**2+((z+.75)/.21)**2)),snowRidge=Math.exp(-(((x+.39)/.20)**2+((z+.63)/.34)**2)),volcanoRadius=Math.hypot((x-.438)/.20,(z+.744)/.25),volcano=Math.exp(-(((volcanoRadius-.30)/.20)**2))*225-Math.exp(-((volcanoRadius/.13)**2))*12;
  let biome='forest';for(const b of ['snow','volcanic','desert','swamp'])if(signedPolygon(x,z,biomePolygons[b])+wave(x*2,z*2)*.006>0){biome=b;break;}
+ const surface=referenceSurface(worldX,worldZ);
  let h=8+wave(x,z)*2.2+snowPeak*(220+Math.abs(wave(x*.30,z*.30))*24)+snowRidge*(120+Math.abs(wave(x*.40,z*.40))*20)+Math.max(0,volcano);
- if(biome==='desert'){const mesa=Math.max(0,wave(x*.38,z*.38));h=8+Math.floor(mesa*5)/5*75+wave(x*2,z*2)*1.2;}
+ const desertBlend=smooth(-.035,.035,signedPolygon(x,z,biomePolygons.desert));if(desertBlend>0){const dune=Math.max(0,wave(x*.38,z*.38)),desertH=8+dune*75+wave(x*2,z*2)*1.2;h=h*(1-desertBlend)+desertH*desertBlend;}
+ h+=referenceRelief(worldX,worldZ,biome);
  if(biome==='swamp')h=.45+wave(x*1.7,z*1.7)*1.0;
+ if(biome==='forest'&&surface.sand>.18&&shore>0&&shore<260&&referenceRelief(worldX,worldZ,biome)<25){const blend=smooth(.18,.65,surface.sand);h=h*(1-blend)+(1.4+Math.max(0,shore)*.003)*blend;}
  if(shore<85)h=h*smooth(0,85,shore);if(shore<0)h=-Math.min(20,-shore*.12);
- if(Math.hypot(worldX,worldZ)<45)h=8+(h-8)*smooth(25,45,Math.hypot(worldX,worldZ));
- if(!noPads)for(let i=0;i<landmarkPads.length;i++){const p=landmarkPads[i],d=Math.hypot(worldX-p[0],worldZ-p[1]);if(d<32){let py=padHeights.get(i);if(py===undefined){py=Math.max(2,referenceSample(p[0],p[1],true).height);padHeights.set(i,py);}h=py+(h-py)*smooth(13,32,d);}}
+ 
+ if(!noPads)for(let i=0;i<landmarkPads.length;i++){const p=landmarkPads[i],d=Math.hypot(worldX-p[0],worldZ-p[1]);const padOuter=i===2?65:32,padInner=i===2?44:13;if(d<padOuter){let py=padHeights.get(i);if(py===undefined){py=Math.max(2,referenceSample(p[0],p[1],true).height);padHeights.set(i,py);}h=py+(h-py)*smooth(padInner,padOuter,d);}}
  if(!noPads)for(const p of SITE_PLANS){if(p.kind==='lab')continue;const d=Math.hypot(worldX-p.x,worldZ-p.z);if(d<22){let py=siteHeights.get(p.id);if(py===undefined){py=Math.max(1.4,referenceSample(p.x,p.z,true).height);siteHeights.set(p.id,py);}h=py+(h-py)*smooth(10,22,d);}}
  let water=h<0?'sea':null;if(edge>0&&h<0)water=biome==='swamp'?'swamp':'river';
- return {height:h,biome:shore>0?biome:'ocean',water,coastDistance:shore,riverDistance:Math.abs(shore)};
+ return {surface,height:h,biome:shore>0?biome:'ocean',water,coastDistance:shore,riverDistance:Math.abs(shore)};
 }
 export function referenceBiome(x,z){return referenceSample(x,z).biome;}
 export function referenceHeight(x,z){return referenceSample(x,z).height;}

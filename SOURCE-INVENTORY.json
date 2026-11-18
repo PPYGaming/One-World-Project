@@ -1,10 +1,10 @@
 {
-  "baseline": "1.3.37",
+  "baseline": "1.3.38",
   "sourceBase": {
-    "beta": "ed03ee78ea58fef5cbd7922fcf1e45fc62f0818c",
-    "project": "d1ea4afa921154410937fd7dab6ec957d9b1d3aa"
+    "beta": "7f10136caa4dd22925aa81c55d229f242eab159e",
+    "project": "cf02ef65793d458098a095fa8a54d5fc41114a6b"
   },
-  "status": "Map navigation correction beta; local checks passed; phone validation pending",
+  "status": "Incremental terrain beta; local packaged checks passed; physical phone testing pending",
   "files": [
     {
       "path": ".github/workflows/.github/workflows/project-bootstrap.yml",
@@ -18,8 +18,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 25798,
-      "sha256": "5eb4a14418ffc0e56438480dcc2279d33293f88f6db07edc5487f92047fa0dca"
+      "size": 28253,
+      "sha256": "f98f2e6902fd8d34270dea72db28ea79258e7716da78588c1251308d075ebbf1"
     },
     {
       "path": "CONTRIBUTING.md",
@@ -28,13 +28,13 @@
     },
     {
       "path": "README.md",
-      "size": 3327,
-      "sha256": "6d37953a5a18209de8b0c4c9be2df376cd271536b470ee2aff4f2dc94fa59149"
+      "size": 3182,
+      "sha256": "2c5c951d056c5baead78a96b1fa65af6619476fe684bcf09313c702157565534"
     },
     {
       "path": "android/AndroidManifest.xml",
       "size": 1298,
-      "sha256": "0990e9a75ebb18e87c5b7f65a7b48febbaeafd58097317bd92d073ea787cfb60"
+      "sha256": "6147609b29b6e14aa259fa7d48768d46c1ee231fd90b78f97cee87c850d7d2ea"
     },
     {
       "path": "android/res/drawable/ic_face.png",
@@ -172,6 +172,11 @@
       "sha256": "74d1e543d22686c777ca62c0db9bf6ac661d3d9b7d4b453aec0be1e7518bc17d"
     },
     {
+      "path": "docs/QA-1.3.38.md",
+      "size": 2453,
+      "sha256": "acd29bd2ae50baebb2d8fbbed29baf894e94a3e0dc0c513324b6ab1d92d30778"
+    },
+    {
       "path": "docs/screenshots/1.3.24/README.md",
       "size": 142,
       "sha256": "d617dcc0a6f0332bce0e5f85ae09c19b9b5bd2aaa2d561830609ff1b27badf6f"
@@ -223,28 +228,28 @@
     },
     {
       "path": "web/assets/lib/Mutants.js",
-      "size": 4899,
-      "sha256": "12d6c2063eb09aa3bf69b3d1c769cc811c3e74172e9c7d764e485697c7709aa1"
+      "size": 6331,
+      "sha256": "69c014dfc2f3867cc98bb4059d72a9aba1aad696ca9b2d9f8b3498a741225110"
     },
     {
       "path": "web/assets/lib/ReferenceCoast.js",
-      "size": 192575,
-      "sha256": "46d3b9eea653fe3cccc1415a7654dc82d2f0c8ca6afe76bd1eb4d7182aeb3a9c"
+      "size": 1052451,
+      "sha256": "074e64fb0079be470dabe5f8f89073d695a5a834457b1e3ef463da5af5d1dae5"
     },
     {
       "path": "web/assets/lib/ReferenceHorizon.js",
-      "size": 1811,
-      "sha256": "769a310710b44ba9d41fc2f59b96bc6cbcfd6bf3156227f95fbfd588b30f3aed"
+      "size": 4465,
+      "sha256": "5c74527bbe232b29f31a8a14b10db6b077516f6d75ca36c97ad6ec3fefb43f01"
     },
     {
       "path": "web/assets/lib/ReferenceIsland.js",
-      "size": 5576,
-      "sha256": "25224fff913c6470e4959b26606c1e9c6e4fcabe9e736a9fcdc84b349a0f7c6c"
+      "size": 6092,
+      "sha256": "6b81fd9f2f2592a342e6c9309962c991bb0d01aba97a6a6cab37d1fdb2f6de06"
     },
     {
       "path": "web/assets/lib/ReferenceLocations.js",
-      "size": 684,
-      "sha256": "ac8b71cbb9c0261568fc354900c60c9f24c9fc4806e2175cdd7b4d9d0217b241"
+      "size": 506,
+      "sha256": "94cabae1144f74146be3f6f3761dcf351209c51e3212c4a0045bc31aa9f8ca35"
     },
     {
       "path": "web/assets/lib/ReferenceMutantAnimal.js",
@@ -252,9 +257,19 @@
       "sha256": "1adc38b2586e12e9cc7b5c4bc835f0cc31ddba52a96caea3a82136910a682d21"
     },
     {
+      "path": "web/assets/lib/ReferenceRelief.js",
+      "size": 1198,
+      "sha256": "6afa95618f250243f230697318b9aad048ba6d2d7eb728507f8b9b29a4192c53"
+    },
+    {
       "path": "web/assets/lib/ReferenceSites.js",
-      "size": 10152,
-      "sha256": "879838b1b475f32293135ddb9edaa578c5dfeecadc608a38e1af19cc3aa64df7"
+      "size": 10909,
+      "sha256": "a0715790c3e150281cff18f0686add8ea446de699806e7ac168abaa1d586672f"
+    },
+    {
+      "path": "web/assets/lib/ReferenceSurface.js",
+      "size": 704392,
+      "sha256": "ca0e591108bf8316f1c114ba1ec2f5639e5482aa8e15b923b639a2b16218b231"
     },
     {
       "path": "web/assets/lib/ReferenceWetlands.js",
@@ -275,6 +290,26 @@
       "path": "web/assets/lib/Wildlife.js",
       "size": 2641,
       "sha256": "91c003f25a8c133569dcd9c147adc459242aabed73a12d119863c409b406f86d"
+    },
+    {
+      "path": "web/assets/lib/legacy37/ReferenceCoast.js",
+      "size": 192575,
+      "sha256": "46d3b9eea653fe3cccc1415a7654dc82d2f0c8ca6afe76bd1eb4d7182aeb3a9c"
+    },
+    {
+      "path": "web/assets/lib/legacy37/ReferenceIsland.js",
+      "size": 5576,
+      "sha256": "25224fff913c6470e4959b26606c1e9c6e4fcabe9e736a9fcdc84b349a0f7c6c"
+    },
+    {
+      "path": "web/assets/lib/legacy37/ReferenceLocations.js",
+      "size": 684,
+      "sha256": "ac8b71cbb9c0261568fc354900c60c9f24c9fc4806e2175cdd7b4d9d0217b241"
+    },
+    {
+      "path": "web/assets/lib/legacy37/ResourceIdentity.js",
+      "size": 4436,
+      "sha256": "30174964a86236abc9c5537eb29fd8d316b4fedf14de6cdc20843a7bf5f33f01"
     },
     {
       "path": "web/assets/lib/three.module.js",
@@ -450,6 +485,16 @@
       "path": "web/assets/tex/TAP-WALLPAPER.txt",
       "size": 278,
       "sha256": "b666b8c80d5980927b4702ae4bbc09c9788697a0404c0dd7467e2c2d426dece5"
+    },
+    {
+      "path": "web/assets/tex/distant-normaltree.png",
+      "size": 114382,
+      "sha256": "aee1fefdf2b5b6b0d9efe2f7e9ced52ed8d5e1df4c707a7e78d118751f191aa4"
+    },
+    {
+      "path": "web/assets/tex/distant-pine.png",
+      "size": 83436,
+      "sha256": "523f4529d9d0dbbcc6b9fac4346128a9edcf184ec6d3b15af850c9ac46276827"
     },
     {
       "path": "web/assets/tex/forest_floor.jpg",
@@ -788,8 +833,8 @@
     },
     {
       "path": "web/index.html",
-      "size": 329918,
-      "sha256": "3dadccca07945d19e2ddbee4d4bb9aa2c9c8249c291bcfa56e94bccb9590c86b"
+      "size": 339472,
+      "sha256": "f488b7df438cfa36edb801a9e7831946106d8361285344cfb1497574b2e60006"
     }
   ]
 }

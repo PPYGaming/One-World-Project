@@ -30,5 +30,15 @@ export function mutant(kind,options={}){
  for(let side of [-1,1])for(let j=0;j<4;j++){const wound=new T.Mesh(new T.BoxGeometry(.13,.018,.018),lesion);wound.position.set(side*(.12+j*.015),1.12+j*.09,.205);wound.rotation.z=side*.3;root.add(wound);}
  for(let j=0;j<5;j++){const tear=new T.Mesh(new T.ConeGeometry(.045,.22+(j%2)*.09,3),cloth);tear.rotation.z=Math.PI+.15;tear.position.set((j-2)*.13,1.04,.18);root.add(tear);}
  const clips=[];for(const name of ['Idle','Walk','Run','Attack','Death']){const tracks=[];limbs.forEach((l,i)=>{const times=[],vals=[];for(let k=0;k<=24;k++){const u=k/24,a=u*Math.PI*2;times.push(u);vals.push(name==='Death'?u*1.3:name==='Attack'&&l.o.name.includes('Arm')?-Math.sin(u*Math.PI)*1.5:name==='Idle'?Math.sin(a)*.025:Math.sin(a+(i%2)*Math.PI)*.4);}tracks.push(new T.NumberKeyframeTrack(l.o.name+'.rotation[x]',times,vals));});clips.push(new T.AnimationClip(name,1,tracks));}
+ // Batch rigid pieces only within their existing animated pivot. No silhouette or track changes.
+ if(options.naturalSkin){
+  root.updateMatrixWorld(true);const originalBounds=new T.Box3().setFromObject(root);root.userData.normalizationBounds={min:originalBounds.min.toArray(),max:originalBounds.max.toArray()};
+  for(const pivot of [root,...limbs.map(l=>l.o)]){
+   const batches=new Map(),inverse=new T.Matrix4().copy(pivot.matrixWorld).invert();
+   function collect(o){for(const c of [...o.children]){if(limbs.some(l=>l.o===c))continue;if(c.isMesh){const m=new T.Matrix4().multiplyMatrices(inverse,c.matrixWorld),g=c.geometry.clone().applyMatrix4(m),flat=g.index?g.toNonIndexed():g;g!==flat&&g.dispose();if(!batches.has(c.material))batches.set(c.material,[]);batches.get(c.material).push(flat);c.removeFromParent();}else collect(c);}}
+   collect(pivot);
+   for(const [material,parts] of batches){const n=parts.reduce((a,g)=>a+g.attributes.position.count,0),geo=new T.BufferGeometry();for(const name of ['position','normal','uv']){const width=name==='uv'?2:3,values=new Float32Array(n*width);let offset=0;for(const part of parts){const a=part.getAttribute(name);if(a)values.set(a.array,offset);offset+=part.attributes.position.count*width;}geo.setAttribute(name,new T.BufferAttribute(values,width));}const mesh=new T.Mesh(geo,material);mesh.name='Batched_'+(pivot.name||kind);pivot.add(mesh);parts.forEach(g=>g.dispose());}
+  }
+ }
  return {scene:root,animations:clips};
 }
