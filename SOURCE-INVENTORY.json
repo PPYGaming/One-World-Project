@@ -1,6 +1,6 @@
 {
   "baseline": "1.3.40",
-  "sourceBase": "Cumulative 1.3.39 plus approved water/float/swim and joystick changes",
+  "sourceBase": "Cumulative 1.3.40 plus isolated night tree lighting, ore clone disposal and logo-only treatment",
   "status": "Public testing beta; physical-device behavior not verified",
   "files": [
     {
@@ -15,8 +15,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 32774,
-      "sha256": "1edb4906ea7065cfc399969efa417b724775f0aac2e610e72e7ab20800b62c96"
+      "size": 33983,
+      "sha256": "ffb7a5d25ef6a0196b0cf0ee8767bfbe69535e5ca5db9b25fc1173cbba3c2693"
     },
     {
       "path": "CONTRIBUTING.md",
@@ -26,12 +26,12 @@
     {
       "path": "README.md",
       "size": 3484,
-      "sha256": "85225bff89227ca063b51501df819dfe3c2a3e2830f23a4533bf6ebd520133d7"
+      "sha256": "9996b85b87dd87154834add3360f6752439aea5929c771103a0ccf13c06ba309"
     },
     {
       "path": "android/AndroidManifest.xml",
       "size": 1298,
-      "sha256": "338005c5c263df2b5dfbe9717115f078cdbf34aa7c47c529ab00f33cd523c6fb"
+      "sha256": "1c41dfb1028eb9a5b8bda4a30449943b19829c873998c59212d86fd7b49029ef"
     },
     {
       "path": "android/res/drawable/ic_face.png",
@@ -129,6 +129,11 @@
       "sha256": "9fc892a51cd296082f21a58e01aa2f5ce7efa136c7e951457fedd0b791e1ddfd"
     },
     {
+      "path": "docs/OWNER-REQUIREMENTS-2026-11-18.md",
+      "size": 1894,
+      "sha256": "c142608cdcab0df98e395b630e2ecc9b760b5349dbe1d7ce41649b09a58ff49c"
+    },
+    {
       "path": "docs/QA-1.3.30.md",
       "size": 3151,
       "sha256": "4cc13814c82d0b4d5c4fbb692b12173c41c7e4e7e385313958b48a0265933e82"
@@ -182,6 +187,11 @@
       "path": "docs/QA-1.3.40.md",
       "size": 1593,
       "sha256": "bbcb5687b5ce2e3b6b897c6e8a8cfeceb930b459978b8e981c3b68d67565876a"
+    },
+    {
+      "path": "docs/QA-1.3.41.md",
+      "size": 1208,
+      "sha256": "56042121909740f48fa42ec3bb4f74e4b09364d57d54a7f57859808e7db2fb59"
     },
     {
       "path": "docs/screenshots/1.3.24/README.md",
@@ -799,6 +809,11 @@
       "sha256": "b0f95e58fedcd9088f33387a0af0471b820d4e2bd7661e60921af744162d2e6f"
     },
     {
+      "path": "web/assets/ui/one-world-owner-logo.png",
+      "size": 91924,
+      "sha256": "b8ab30efa9512868bc40fdfb078f5356cbda5a101f99d235348dea0c7bd40be5"
+    },
+    {
       "path": "web/assets/ui/ppy-gaming-logo.jpg",
       "size": 51649,
       "sha256": "a7119834fb73a5c4ed7ed1b7153d0f0ddac55a02bc0860c29f4272737dfcddec"
@@ -845,13 +860,14 @@
     },
     {
       "path": "web/index.html",
-      "size": 342257,
-      "sha256": "2c0f26dd4fc6c5e9f49736902f744d1615656776ad865261d9020841ccbf7e75"
+      "size": 344657,
+      "sha256": "31bbd167dad9d51d9b4c74d400789bcfaca1835390527c813641f21902086294"
     },
     {
       "path": "web/renderer-recovery.html",
       "size": 2419,
       "sha256": "d81c25a40f92b459adc9e9c0e004245c7a7fd2149403203dff0bdda047533933"
     }
-  ]
+  ],
+  "version": "1.3.41"
 }

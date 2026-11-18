@@ -441,6 +441,22 @@ body.referenceWorld #joy,body.referenceWorld #atk,body.referenceWorld #bagBtn,bo
 @media(orientation:landscape) and (max-height:500px){#start:not(.choosing){padding-top:12px;padding-bottom:12px;}#start:not(.choosing)>h1{font-size:28px;margin-bottom:5px;}#start:not(.choosing)>.ver{margin-bottom:10px;}#start:not(.choosing)>button{min-height:38px;margin:4px 0!important;padding:9px 16px!important;flex-shrink:0;}#start:not(.choosing)>.foot{display:none;}}
 @media(orientation:portrait){#start:not(.choosing) #worldChooser{top:15%;right:6vw;max-width:38vw;}}
 #lootCollect{left:auto;right:auto;bottom:auto;transform:none;padding:0;width:48px;height:48px;border:1px solid #eff5f0;border-radius:50%;background:#1c2a2caa;color:#f2f3ee;align-items:center;justify-content:center;}#lootCollect svg{width:32px;height:32px;}body.playing:not(.gamePaused) #lootCollect.available{display:flex;}body.editingControls #lootCollect{display:none!important;}
+/* Owner-supplied transparent wordmark. Logo motion is independent of wallpaper. */
+.ownerWordmark{display:block;width:100%;height:auto;object-fit:contain;filter:drop-shadow(0 2px 4px #000c)}
+#tapToStart h1.titleMark{width:min(44vw,512px);max-width:none;left:7vw;top:18%;font-size:0;line-height:0;letter-spacing:0;filter:none}
+#tapToStart:not(.hidden) h1.titleMark{animation:ownerLogoSettle 240ms cubic-bezier(.12,.75,.28,1) both}
+@keyframes ownerLogoSettle{from{transform:translateY(-22px);filter:blur(2px);opacity:.6}to{transform:translateY(0);filter:blur(0);opacity:1}}
+#tapToStart .titleStudio{top:calc(18% + min(16.2vw,188px) + 8px);left:7.3vw}
+#loading h1{width:min(44vw,450px);font-size:0;letter-spacing:0;line-height:0;top:30%;margin:0}
+#start:not(.choosing)>h1{width:min(60vw,280px);font-size:0;line-height:0;letter-spacing:0;margin:0 auto 12px}
+
+#worldLoading h2{width:min(54vw,440px);max-width:90%;font-size:0;line-height:0;letter-spacing:0}
+.settingsEyebrow{display:block}.settingsEyebrow .ownerWordmark{width:106px}
+#betaUpdateMark .ownerWordmark{width:145px}
+@media(orientation:portrait){#tapToStart h1.titleMark{width:84vw;left:8vw;top:63%}#tapToStart .titleStudio{top:calc(63% + 31vw + 8px);left:8.3vw}#loading h1{width:82vw;left:9vw;top:60%}#start:not(.choosing)>h1{width:65vw;max-width:280px}#worldLoading h2{width:82vw}}
+@media(prefers-reduced-motion:reduce){#tapToStart:not(.hidden) h1.titleMark{animation:none}}
+
+
 </style>
 </head>
 <body><div id="healthNotice" role="status" aria-live="polite"></div><div id="weaponAim" aria-hidden="true"></div>
@@ -479,7 +495,7 @@ body.referenceWorld #joy,body.referenceWorld #atk,body.referenceWorld #bagBtn,bo
 <div id="equipHud">HAND</div><div id="quickbar" aria-label="Quick equipment"></div><button id="drinkBtn">Drink fresh water</button>
 <button id="sleepBtn">SLEEP</button>
 <div id="controlEditor" class="hidden"><div id="controlSurface"></div><div class="controlToolbar"><select id="controlSelect" aria-label="Select control"></select><label>Size <span id="controlSizeValue"></span><br><input id="controlSize" type="range" min="50" max="200" value="100"></label><label>Opacity <span id="controlOpacityValue"></span><br><input id="controlOpacity" type="range" min="0" max="100" value="100"></label><button id="controlPanelMove">MOVE PANEL</button><button id="controlReset">RESET ALL</button><button id="controlCancel">CANCEL</button><button id="controlSave">SAVE</button><p id="controlPreviewLabel">Drag any outlined control. Hidden controls stay outlined here. Layout is saved on this device.</p></div></div><div id="setPanel" class="panel hidden" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
-<header id="settingsHeader"><div><span class="settingsEyebrow">ONE WORLD</span><h3 id="settingsTitle">GAME SETTINGS</h3></div><button id="setClose" class="playbtn" aria-label="Close settings">&#215;</button></header>
+<header id="settingsHeader"><div><span class="settingsEyebrow"><img class="ownerWordmark" src="assets/ui/one-world-owner-logo.png" alt="One World" draggable="false" width="512" height="188"></span><h3 id="settingsTitle">GAME SETTINGS</h3></div><button id="setClose" class="playbtn" aria-label="Close settings">&#215;</button></header>
 <div id="settingsLayout"><nav id="settingsNav" aria-label="Settings categories">
 <button data-settings-tab="graphics" aria-selected="true">GRAPHICS</button><button data-settings-tab="controls" aria-selected="false">CONTROLS</button><button data-settings-tab="survivor" aria-selected="false">SURVIVOR</button><button data-settings-tab="audio" aria-selected="false">AUDIO</button><button data-settings-tab="profile" aria-selected="false">PROFILE</button><button data-settings-tab="help" aria-selected="false">HELP &amp; BETA</button><button data-settings-tab="about" aria-selected="false">ABOUT</button></nav>
 <div id="settingsContent">
@@ -501,16 +517,16 @@ body.referenceWorld #joy,body.referenceWorld #atk,body.referenceWorld #bagBtn,bo
 <button id="freeLookBtn" aria-label="Hold and drag to look around without steering"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M2 16s5-9 14-9 14 9 14 9-5 9-14 9S2 16 2 16Z"/><circle cx="16" cy="16" r="5"/></svg></button><div id="sprintBtn" role="presentation" aria-hidden="true"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="m8 7 6 6 4 1 3 5 7 3v5H4v-7l3-5zM5 23h22M12 14l4 3m-6 0 4 3M2 8h5M1 12h4"/></svg></div><div id="sosNotice" class="hidden"></div><div id="toast"></div>
 <div id="flash"></div><aside id="betaDebug" class="hidden"><div class="debugHead">BETA DIAGNOSTICS <button id="debugClear">CLEAR</button><button id="debugClose">CLOSE</button></div><pre id="debugStats"></pre></aside>
 
-<div id="tapToStart" class="hidden" role="button" tabindex="0" aria-label="Tap anywhere to start One World"><h1 class="titleMark">ONE WORLD</h1><p class="titleStudio">Tamil Crafters Studio</p><span id="tapStartBtn">Tap anywhere to start</span></div>
+<div id="tapToStart" class="hidden" role="button" tabindex="0" aria-label="Tap anywhere to start One World"><h1 class="titleMark"><img class="ownerWordmark" src="assets/ui/one-world-owner-logo.png" alt="One World" draggable="false" width="512" height="188"></h1><p class="titleStudio">Tamil Crafters Studio</p><span id="tapStartBtn">Tap anywhere to start</span></div>
 <div id="studioIntro" aria-label="Tamil Craft Studio"><img src="assets/ui/tc-studio.png" alt="Tamil Craft Studio" draggable="false"></div>
 <div class="overlay" id="loading">
-  <h1>ONE WORLD</h1>
+  <h1><img class="ownerWordmark" src="assets/ui/one-world-owner-logo.png" alt="One World" draggable="false" width="512" height="188"></h1>
   <div class="barwrap"><div class="bar" id="loadBar"></div></div>
   <div class="pct" id="loadPct">Preparing world...</div><div id="loadNumber" aria-hidden="true">0%</div>
 </div>
 
 <div class="overlay hidden" id="start">
-  <h1>ONE WORLD</h1>
+  <h1><img class="ownerWordmark" src="assets/ui/one-world-owner-logo.png" alt="One World" draggable="false" width="512" height="188"></h1>
   <div class="ver">Loading build version...</div>
   <div class="tag"><span class="blt"></span>Enter the deep forest<br><span class="blt"></span>Fight the wolves, hunt the deer<br><span class="blt"></span>Deer and birds keep you company<br><span class="blt"></span>Watch day turn into night</div>
   <div id="worldChooser" style="display:flex;gap:6px;margin:8px 0;max-width:280px"><button class="playbtn" id="worldOld" style="font-size:11px;padding:9px">MAP 1<br>ORIGINAL</button><button class="playbtn" id="worldReference" style="font-size:11px;padding:9px">MAP 2<br>NEW ISLAND</button></div><button class="playbtn" id="playBtn"><svg viewBox="0 0 24 24" width="18" height="18" style="vertical-align:-3px;margin-right:8px"><path d="M6 3l14 9-14 9z" fill="#d2e6f7"/></svg>ENTER WORLD</button><br>
@@ -544,8 +560,8 @@ body.referenceWorld #joy,body.referenceWorld #atk,body.referenceWorld #bagBtn,bo
 </div>
 
 <button id="craftBtn" aria-label="Open crafting"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="m8 5 7 3 9 15-4 3-9-15-6-2zM5 25l14-14m0-5 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-<div id="worldLoading" class="overlay hidden"><h2>ENTERING ONE WORLD</h2><div id="joinProgress" style="position:absolute;bottom:0;left:0;height:4px;background:#91ccff;width:0%"></div><div id="joinPercent" style="position:absolute;bottom:12px;left:20px;font-size:12px">0%</div><div id="joinStage" role="status" aria-live="polite">Preparing terrain</div><button id="joinBack" class="playbtn hidden">BACK TO LOBBY</button></div>
-<div id="betaUpdatePanel" class="hidden" role="dialog" aria-modal="true" aria-label="Beta update"><div id="betaUpdateCard"><div id="betaUpdateMark">ONE WORLD <span>BETA</span></div><div id="betaUpdateSymbol" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 8v23m-8-8 8 8 8-8M12 32v8h24v-8" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div id="betaUpdatePhase">NEW VERSION</div><h2 id="betaUpdateTitle">Beta update</h2><p id="betaUpdateDetail" role="status" aria-live="polite">Checking for updates...</p><div id="betaUpdateActions"></div><p id="betaUpdateNote">UPDATE REQUIRED TO PLAY<br><span>Install over this beta. Do not uninstall or clear data.</span></p></div></div>
+<div id="worldLoading" class="overlay hidden"><h2 aria-label="Entering One World"><img class="ownerWordmark" src="assets/ui/one-world-owner-logo.png" alt="One World" draggable="false" width="512" height="188"></h2><div id="joinProgress" style="position:absolute;bottom:0;left:0;height:4px;background:#91ccff;width:0%"></div><div id="joinPercent" style="position:absolute;bottom:12px;left:20px;font-size:12px">0%</div><div id="joinStage" role="status" aria-live="polite">Preparing terrain</div><button id="joinBack" class="playbtn hidden">BACK TO LOBBY</button></div>
+<div id="betaUpdatePanel" class="hidden" role="dialog" aria-modal="true" aria-label="Beta update"><div id="betaUpdateCard"><div id="betaUpdateMark"><img class="ownerWordmark" src="assets/ui/one-world-owner-logo.png" alt="One World" draggable="false" width="512" height="188"> <span>BETA</span></div><div id="betaUpdateSymbol" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 8v23m-8-8 8 8 8-8M12 32v8h24v-8" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div id="betaUpdatePhase">NEW VERSION</div><h2 id="betaUpdateTitle">Beta update</h2><p id="betaUpdateDetail" role="status" aria-live="polite">Checking for updates...</p><div id="betaUpdateActions"></div><p id="betaUpdateNote">UPDATE REQUIRED TO PLAY<br><span>Install over this beta. Do not uninstall or clear data.</span></p></div></div>
 <script src="assets/lib/AppLifecycle.js"></script>
 <script>
 // Paint the wallpaper before releasing the logo, then begin startup work only
@@ -638,7 +654,7 @@ import { GLTFLoader } from './assets/lib/GLTFLoader.js';
 import { clone as skClone } from './assets/lib/SkeletonUtils.js';
 import { animeClips, applyAnimeColors, attachLeatherGarments, applyHairStyle, updateHairSway } from './assets/lib/AnimeCharacter.js';
 
-var BUILD_INFO={name:'1.3.40',code:null,native:false};
+var BUILD_INFO={name:'1.3.41',code:null,native:false};
 try{var nb=window.OneWorldNative;if(nb&&typeof nb.getBuildInfo==='function'){var bi=JSON.parse(nb.getBuildInfo());if(bi.package==='com.oneword.forest.beta'&&typeof bi.name==='string'&&/^\d+\.\d+\.\d+$/.test(bi.name)&&Number.isSafeInteger(bi.code)&&bi.code>0)BUILD_INFO={name:bi.name,code:bi.code,native:true};}}catch(e){}
 var DISPLAY_VERSION=BUILD_INFO.name+(BUILD_INFO.native?'':' preview');
 document.querySelector('#start .ver').textContent=DISPLAY_VERSION+' Beta - Work in progress';
@@ -1131,7 +1147,7 @@ function buildChunk(cx, cz){
 }
 function disposeChunk(key){
   var rec = chunks[key]; if(!rec) return;
-  rec.meshes.forEach(function(m){ scene.remove(m); if(m.isInstancedMesh) m.dispose(); });
+  rec.meshes.forEach(function(m){scene.remove(m);if(m.isInstancedMesh)m.dispose();if(m.userData.ownedMaterials){m.userData.ownedMaterials.forEach(mat=>mat.dispose());m.userData.ownedMaterials=[];}});
   if(rec.ground){ scene.remove(rec.ground); rec.ground.geometry.dispose(); }
   delete chunks[key];if(referenceHorizon){var cs=key.split(',').map(Number);referenceHorizon.mark(cs[0],cs[1],false);}
 }
@@ -1275,7 +1291,7 @@ function treeRoots(places){
 }
 var referenceTreeLOD={};
 function distantReferenceTrees(places,opts,kind){
- const key=kind+'-'+(opts.matKey||'forest');let q=referenceTreeLOD[key];if(!q){const geo=new THREE.BufferGeometry(),p=[-.5,0,0,.5,0,0,-.5,1,0,.5,0,0,.5,1,0,-.5,1,0,0,0,-.5,0,0,.5,0,1,-.5,0,0,.5,0,1,.5,0,1,-.5],uv=[0,0,1,0,0,1,1,0,1,1,0,1,0,0,1,0,0,1,1,0,1,1,0,1];geo.setAttribute('position',new THREE.Float32BufferAttribute(p,3));geo.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));const mat=new THREE.MeshBasicMaterial({map:kind==='pine'?A.tex.distantPine:A.tex.distantNormal,alphaTest:.45,side:THREE.DoubleSide,color:opts.matKey==='frost'?0xc3d0c5:opts.matKey==='red-leaves'?0xa8462f:0xb4c8a1});q=referenceTreeLOD[key]={geo,mat};}
+ const key=kind+'-'+(opts.matKey||'forest');let q=referenceTreeLOD[key];if(!q){const geo=new THREE.BufferGeometry(),p=[-.5,0,0,.5,0,0,-.5,1,0,.5,0,0,.5,1,0,-.5,1,0,0,0,-.5,0,0,.5,0,1,-.5,0,0,.5,0,1,.5,0,1,-.5],uv=[0,0,1,0,0,1,1,0,1,1,0,1,0,0,1,0,0,1,1,0,1,1,0,1];geo.setAttribute('position',new THREE.Float32BufferAttribute(p,3));geo.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));geo.computeVertexNormals();const mat=new THREE.MeshStandardMaterial({roughness:1,metalness:0,...{map:kind==='pine'?A.tex.distantPine:A.tex.distantNormal,alphaTest:.45,side:THREE.DoubleSide,color:opts.matKey==='frost'?0xc3d0c5:opts.matKey==='red-leaves'?0xa8462f:0xb4c8a1}});q=referenceTreeLOD[key]={geo,mat};}
  const mesh=new THREE.InstancedMesh(q.geo,q.mat,places.length),m=new THREE.Matrix4(),v=new THREE.Vector3(),rot=new THREE.Quaternion(),sc=new THREE.Vector3();
  places.forEach((p,i)=>{const scale=p.h*(kind==='pine'?1.08:1.1224);v.set(p.x,groundY(p.x,p.z)-(scale-p.h)*.5,p.z);rot.setFromAxisAngle(new THREE.Vector3(0,1,0),p.rot);sc.set(scale,scale,scale);m.compose(v,rot,sc);mesh.setMatrixAt(i,m);});mesh.name='DistantReferenceTree';mesh.castShadow=false;mesh.instanceMatrix.needsUpdate=true;scene.add(mesh);return [mesh];
 }
@@ -2431,9 +2447,9 @@ function buildOreNode(x, z, ore, h, rot){
   if(ore==='crystal'){var cg=new THREE.Group(),cm=referenceCrystalMat||(referenceCrystalMat=new THREE.MeshStandardMaterial({color:0x65cfe9,roughness:.32,metalness:.15}));for(var k=0;k<5;k++){var cgeo=referenceCrystalGeos[k]||(referenceCrystalGeos[k]=new THREE.CylinderGeometry(0,.25+.04*(k%2),1.2+(k%3)*.3,5));var m=new THREE.Mesh(cgeo,cm);m.position.set(Math.sin(k*2.4)*.4,.65,Math.cos(k*2.4)*.4);m.rotation.z=Math.sin(k)*.25;cg.add(m);}cg.position.set(x,groundY(x,z),z);scene.add(cg);return cg;}
   var root = A.models.rocks && A.models.rocks.scene; if(!root) return null;
   var vd = variantData(root, 'Rock_1'); if(!vd) return null;
-  var g = new THREE.Group(), s = h/vd.sz.y;
+  var g = new THREE.Group(), s = h/vd.sz.y;g.userData.ownedMaterials=[];
   vd.meshes.forEach(function(md){
-    var mat = md.mat.clone();
+    var mat = md.mat.clone();g.userData.ownedMaterials.push(mat);
     if(referenceMode&&shoreDetail){mat.onBeforeCompile=md.mat.onBeforeCompile;mat.customProgramCacheKey=md.mat.customProgramCacheKey;}
     if(mat.color) mat.color.set(ORE_TINT[ore]);
     var m = new THREE.Mesh(md.geo, mat);
