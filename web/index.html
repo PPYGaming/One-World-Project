@@ -65,7 +65,7 @@
   #bag .xbtn { background:rgba(90,145,190,.25); color:#d2e6f7; border:2px solid rgba(140,203,255,.4); border-radius:10px; font-size:15px; font-weight:700; padding:4px 12px; }
   #bagScroll { overflow-y:auto; flex:1; min-height:0; -webkit-overflow-scrolling:touch; }
   #bag.panel { position:fixed; inset:0; left:0; top:0; transform:none; width:100%; min-width:0; max-width:100%; max-height:100%; border-radius:0; z-index:29; overflow-y:auto;
-    background:rgba(12,20,26,.72); backdrop-filter:blur(18px) saturate(1.2); -webkit-backdrop-filter:blur(18px) saturate(1.2); display:flex; flex-direction:column; align-items:center; padding:calc(14px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom)); }
+    background:rgba(12,20,26,.72); backdrop-filter:none; -webkit-backdrop-filter:none; display:flex; flex-direction:column; align-items:center; padding:calc(14px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom)); }
   #bag.panel.hidden { display:none; }
   #invTop { display:flex; gap:14px; align-items:flex-start; width:100%; max-width:420px; }
   #invPreview { width:132px; height:168px; border-radius:12px; border:1px solid rgba(140,184,220,.35); background:#0d171f; flex:0 0 auto; }
@@ -328,9 +328,14 @@ body.playing.weaponEquipped:not(.gamePaused) #weaponAim{display:block}
 #joy .thumb{background:radial-gradient(ellipse at 35% 22%,#f2fcff80,#8db6c66b 48%,#61869b88);box-shadow:inset 0 1px 3px #e2f7ff99}
 #craftBtn{display:none;position:fixed;right:74px;top:calc(120px + env(safe-area-inset-top));width:78px;height:42px;padding:5px;border:2px solid #aeddf3b3;border-radius:14px;color:#e2eef2;font:700 9px/1.2 sans-serif;letter-spacing:.25px;z-index:21;touch-action:none}
 body.playing:not(.gamePaused) #craftBtn{display:block}body.editingControls #craftBtn{visibility:hidden!important}
-#craftPanel{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:min(660px,94vw);max-height:92vh;background:#0c1d2af5;border:1px solid #a6cfdf80;border-radius:16px;padding:14px;color:#d2e6f7;overflow:auto;z-index:35}#craftPanel.hidden{display:none}#craftPanel h3{font-size:17px;margin-bottom:5px}#craftPanel .cap{font-size:11px;opacity:.8}#craftPanel .craftRow{padding:7px;gap:7px}#craftPanel .craftRow .ic svg{width:28px;height:28px}#craftPanel .craftGo{padding:7px 10px;font-size:10px;min-width:54px}#craftPanel .closebtn{padding:8px 16px;font-size:12px}
+body.invOpen #craftBtn{visibility:hidden}
+#invTabs{display:flex;gap:8px;width:100%;max-width:560px;margin:2px 0 10px;flex-shrink:0}
+.invTab{flex:1;padding:13px 10px;border-radius:12px;border:2px solid rgba(140,203,255,.3);background:rgba(40,57,70,.4);color:#d2e6f7;font:800 14px/1 sans-serif;letter-spacing:1.5px;cursor:pointer;touch-action:manipulation}
+.invTab.active{border-color:#8ccbff;background:rgba(90,145,190,.45);box-shadow:0 0 12px rgba(120,194,255,.35)}
+#tabBodySelect{width:100%}
+#tabBodyCraft{width:100%;padding-bottom:8px}
+#tabBodySelect.hidden,#tabBodyCraft.hidden{display:none}
 
-#craftPanel{display:flex;flex-direction:column;overflow:hidden}#craftPanel #craftList{overflow:auto;min-height:0;flex:1;overscroll-behavior:contain}#craftFooter{display:flex;justify-content:space-between;gap:8px;padding-top:8px;flex-shrink:0}#craftFooter .playbtn{margin:0}#craftPanel h3,#craftPanel>.cap{flex-shrink:0}
 #betaUpdatePanel{position:fixed;inset:0;z-index:2000;display:flex;align-items:center;justify-content:center;background:#071d3288;padding:18px;color:#d2e6f7}#betaUpdatePanel.hidden{display:none}#betaUpdateCard{width:min(420px,94vw);padding:22px;border-radius:22px;border:1px solid #9bc9e38c;background:linear-gradient(145deg,#1d4b69f5,#0b263ef5);box-shadow:inset 0 1px #def3ff4d,0 12px 42px #020b1b88;text-align:center}#betaUpdateTitle{font-size:24px;margin-bottom:12px}#betaUpdateDetail{font-size:14px;line-height:1.5;max-width:330px;margin:0 auto 18px}#betaUpdateActions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}#betaUpdateActions button{margin:0;padding:12px 20px;font-size:13px;min-height:44px}#betaUpdateMark{font:11px sans-serif;letter-spacing:2px;color:#93bbd3;margin-bottom:10px}
 
 /* Full viewport settings: static translucency, no backdrop filter. */
@@ -461,10 +466,15 @@ body.referenceWorld #joy,body.referenceWorld #atk,body.referenceWorld #bagBtn,bo
 <div id="coords"></div>
 <div id="mapBtn">MAP</div>
 <div id="mapPanel" class="panel hidden"><h3>ISLAND MAP</h3><canvas id="mapCanvas" width="300" height="300"></canvas><div class="cap" id="mapCap"></div><div id="beaconTravel" style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:10px"></div><button class="playbtn closebtn" id="mapClose">CLOSE</button></div>
-<div id="bag" class="panel hidden"><div class="bagHead"><h3>INVENTORY</h3><span id="bagName" style="font-size:12px;opacity:.75"></span><button class="xbtn" id="bagCloseTop">X</button></div><div id="bagScroll">
+<div id="bag" class="panel hidden"><div class="bagHead"><h3>INVENTORY</h3><span id="bagName" style="font-size:12px;opacity:.75"></span><button class="xbtn" id="bagCloseTop">X</button></div>
+<div id="invTabs" role="tablist" aria-label="Inventory sections"><button class="invTab active" id="tabSelect" role="tab" aria-selected="true">SELECT</button><button class="invTab" id="tabCraft" role="tab" aria-selected="false">CRAFT</button></div>
+<div id="bagScroll">
+<div id="tabBodySelect">
 <div id="invTop"><canvas id="invPreview" width="132" height="168"></canvas>
 <div id="equipCol"><div class="cap" style="text-align:left">EQUIPPED</div><div class="equipChip" id="chipHand">HAND</div><div class="equipChip" id="chipKnife">KNIFE</div><div class="equipChip" id="chipAxe">AXE</div><div class="equipChip" id="chipPick" style="display:none">PICK</div><div class="equipChip" id="chipTorch" style="display:none">TORCH</div><div class="cap" id="bagCap"></div></div></div>
-<div id="invActions"><button class="playbtn closebtn" id="actEquip" style="display:none">EQUIP</button><button class="playbtn closebtn" id="actPlace" style="display:none">PLACE</button><button class="playbtn closebtn" id="actEat" style="display:none">EAT</button><button class="playbtn closebtn" id="actWear" style="display:none">WEAR</button></div><div id="pinQuick" style="display:none">Quick slot <button data-q="0">1</button><button data-q="1">2</button><button data-q="2">3</button></div><div id="invGrid"></div><button class="playbtn" id="bagCraftLink">OPEN CRAFTING</button><div id="bagItems" style="display:none"></div>
+<div id="invActions"><button class="playbtn closebtn" id="actEquip" style="display:none">EQUIP</button><button class="playbtn closebtn" id="actPlace" style="display:none">PLACE</button><button class="playbtn closebtn" id="actEat" style="display:none">EAT</button><button class="playbtn closebtn" id="actWear" style="display:none">WEAR</button></div><div id="pinQuick" style="display:none">Quick slot <button data-q="0">1</button><button data-q="1">2</button><button data-q="2">3</button></div><div id="invGrid"></div><div id="bagItems" style="display:none"></div>
+</div>
+<div id="tabBodyCraft" class="hidden"><p class="cap" style="width:100%;text-align:left">Use materials from your inventory.</p><div id="craftList"></div></div>
 <button class="playbtn closebtn" id="bagClose" style="margin-top:14px">CLOSE</button></div></div>
 <div id="equipHud">HAND</div><div id="quickbar" aria-label="Quick equipment"></div><button id="drinkBtn">Drink fresh water</button>
 <button id="sleepBtn">SLEEP</button>
@@ -533,7 +543,7 @@ body.referenceWorld #joy,body.referenceWorld #atk,body.referenceWorld #bagBtn,bo
   <div class="foot">Tamil Crafters Studio <svg viewBox="0 0 24 24" width="13" height="13" style="vertical-align:-2px"><path d="M12 21s-8-5.3-10-10C.5 7 3 4 6.5 4 9 4 11 6 12 7.5 13 6 15 4 17.5 4 21 4 23.5 7 22 11c-2 4.7-10 10-10 10z" fill="#5a92bf"/></svg></div>
 </div>
 
-<button id="craftBtn" aria-label="Open crafting"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="m8 5 7 3 9 15-4 3-9-15-6-2zM5 25l14-14m0-5 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div id="craftPanel" class="hidden" role="dialog" aria-label="Crafting"><h3>CRAFTING</h3><p class="cap">Use materials from your inventory.</p><div id="craftList"></div><div id="craftFooter"><button id="craftClose" class="playbtn closebtn">CLOSE</button><button id="craftBag" class="playbtn closebtn">INVENTORY</button></div></div>
+<button id="craftBtn" aria-label="Open crafting"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="m8 5 7 3 9 15-4 3-9-15-6-2zM5 25l14-14m0-5 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 <div id="worldLoading" class="overlay hidden"><h2>ENTERING ONE WORLD</h2><div id="joinProgress" style="position:absolute;bottom:0;left:0;height:4px;background:#91ccff;width:0%"></div><div id="joinPercent" style="position:absolute;bottom:12px;left:20px;font-size:12px">0%</div><div id="joinStage" role="status" aria-live="polite">Preparing terrain</div><button id="joinBack" class="playbtn hidden">BACK TO LOBBY</button></div>
 <div id="betaUpdatePanel" class="hidden" role="dialog" aria-modal="true" aria-label="Beta update"><div id="betaUpdateCard"><div id="betaUpdateMark">ONE WORLD <span>BETA</span></div><div id="betaUpdateSymbol" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 8v23m-8-8 8 8 8-8M12 32v8h24v-8" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div id="betaUpdatePhase">NEW VERSION</div><h2 id="betaUpdateTitle">Beta update</h2><p id="betaUpdateDetail" role="status" aria-live="polite">Checking for updates...</p><div id="betaUpdateActions"></div><p id="betaUpdateNote">UPDATE REQUIRED TO PLAY<br><span>Install over this beta. Do not uninstall or clear data.</span></p></div></div>
 <script src="assets/lib/AppLifecycle.js"></script>
@@ -627,7 +637,7 @@ import { GLTFLoader } from './assets/lib/GLTFLoader.js';
 import { clone as skClone } from './assets/lib/SkeletonUtils.js';
 import { animeClips, applyAnimeColors, attachLeatherGarments, applyHairStyle, updateHairSway } from './assets/lib/AnimeCharacter.js';
 
-var BUILD_INFO={name:'1.3.38',code:null,native:false};
+var BUILD_INFO={name:'1.3.39',code:null,native:false};
 try{var nb=window.OneWorldNative;if(nb&&typeof nb.getBuildInfo==='function'){var bi=JSON.parse(nb.getBuildInfo());if(bi.package==='com.oneword.forest.beta'&&typeof bi.name==='string'&&/^\d+\.\d+\.\d+$/.test(bi.name)&&Number.isSafeInteger(bi.code)&&bi.code>0)BUILD_INFO={name:bi.name,code:bi.code,native:true};}}catch(e){}
 var DISPLAY_VERSION=BUILD_INFO.name+(BUILD_INFO.native?'':' preview');
 document.querySelector('#start .ver').textContent=DISPLAY_VERSION+' Beta - Work in progress';
@@ -711,6 +721,13 @@ await startupStage(50,'Preparing game renderer');
 // ---------- basics ----------
 var canvas = document.getElementById('c');
 var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, powerPreference: 'high-performance' });
+// A lost graphics context must not leave an apparently running blank game.
+canvas.addEventListener('webglcontextlost',function(e){
+ e.preventDefault();if(typeof closingGame!=='undefined'&&closingGame)return;
+ if(window.oneworldLifecyclePause)window.oneworldLifecyclePause();
+ try{if(window.OneWorldNative&&window.OneWorldNative.graphicsContextLost)window.OneWorldNative.graphicsContextLost();}catch(err){}
+ window.location.replace('renderer-recovery.html');
+});
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.shadowMap.enabled = true;
@@ -1625,7 +1642,7 @@ ICONS.bag='<svg viewBox="0 0 32 32"><path d="M11 8V6c0-5 10-5 10 0v2M5 16h22M11 
 document.getElementById('bagBtn').innerHTML=ICONS.bag;document.getElementById('bagBtn').setAttribute('aria-label','Inventory');document.getElementById('mapBtn').innerHTML=ICONS.map;document.getElementById('mapBtn').setAttribute('aria-label','Map');
 var paused = false;
 function updatePause(){
-  paused = !document.getElementById('craftPanel').classList.contains('hidden') || !!controlDraft || !!respawnRequired || !document.getElementById('bag').classList.contains('hidden')
+  paused = !!controlDraft || !!respawnRequired
         || !document.getElementById('setPanel').classList.contains('hidden')
         || !document.getElementById('confirmPanel').classList.contains('hidden')
         || !document.getElementById('mapPanel').classList.contains('hidden')
@@ -1669,13 +1686,43 @@ function craftRecipe(ri){
   if(addItem(r.name,r.icon,1)){betaLog('Crafted '+r.name);addXP(10);sfx('cook'); toast('+1 ' + r.name); }
   renderBag(); return true;
 }
-function toggleCraft(){var el=document.getElementById('craftPanel'),opening=el.classList.contains('hidden');if(opening){document.getElementById('bag').classList.add('hidden');renderCraft();}el.classList.toggle('hidden',!opening);updatePause();}
+var invTab='select', pvKey='';
+function maybeRenderInvPreview(){
+  if(document.getElementById('bag').classList.contains('hidden')) return;
+  var k = charKind + '|' + JSON.stringify(charLook) + '|' + equipped + '|' + (armorName || '');
+  if(k === pvKey) return;
+  renderInvPreview(); pvKey = k;
+}
+function setInvTab(tab){
+  invTab = tab === 'craft' ? 'craft' : 'select';
+  var sel = invTab === 'select';
+  document.getElementById('tabSelect').classList.toggle('active', sel);
+  document.getElementById('tabCraft').classList.toggle('active', !sel);
+  document.getElementById('tabSelect').setAttribute('aria-selected', sel ? 'true' : 'false');
+  document.getElementById('tabCraft').setAttribute('aria-selected', sel ? 'false' : 'true');
+  document.getElementById('tabBodySelect').classList.toggle('hidden', !sel);
+  document.getElementById('tabBodyCraft').classList.toggle('hidden', sel);
+  if(sel){ renderBag(); maybeRenderInvPreview(); }
+  else renderCraft();
+}
+function syncInvOpen(){ document.body.classList.toggle('invOpen', !document.getElementById('bag').classList.contains('hidden')); }
+function toggleCraft(){
+  if(respawnRequired)return;
+  var p = document.getElementById('bag');
+  if(p.classList.contains('hidden')){
+    setEquip(equipped); setInvTab('craft');
+    p.classList.remove('hidden'); syncInvOpen();
+    resetMovementInput(); updatePause();
+  } else {
+    setInvTab('craft');
+  }
+}
 function renderCraft(){
   var el = document.getElementById('craftList'); if(!el) return;
   var html = '';
   RECIPES.forEach(function(r, ri){
     var costHtml = Object.keys(r.cost).map(function(cn){
-      return '<span class="cost' + (countItem(cn) >= r.cost[cn] ? '' : ' lack') + '">' + (ICONS[{ Wood: 'wood', Stone: 'stone', 'Wolf Pelt': 'pelt', 'Iron Ore': 'iron', 'Cooked Meat': 'meatc', Berries: 'berry' }[cn] || 'box'] || '') + 'x' + r.cost[cn] + '</span>';
+      return '<span class="cost' + (countItem(cn) >= r.cost[cn] ? '' : ' lack') + '" title="' + cn + '" aria-label="' + cn + ' x' + r.cost[cn] + '">' + (ICONS[{ Wood: 'wood', Stone: 'stone', 'Wolf Pelt': 'pelt', 'Iron Ore': 'iron', 'Cooked Meat': 'meatc', Berries: 'berry' }[cn] || 'box'] || '') + 'x' + r.cost[cn] + '</span>';
     }).join(' ');
     html += '<div class="craftRow"><span class="ic">' + (ICONS[r.icon] || ICONS.box) + '</span><span class="nm2">' + r.name + '</span>' + costHtml + '<button class="playbtn closebtn craftGo" data-r="' + ri + '"' + (canCraft(r) ? '' : ' disabled') + '>CRAFT</button></div>';
   });
@@ -1850,8 +1897,9 @@ function renderInvPreview(){
 function toggleBag(){
   if(respawnRequired)return;
   var p = document.getElementById('bag');
-  if(p.classList.contains('hidden')){ renderBag(); setEquip(equipped); renderInvPreview(); }
-  p.classList.toggle('hidden'); updatePause();
+  if(p.classList.contains('hidden')){ setEquip(equipped); setInvTab('select'); resetMovementInput(); }
+  p.classList.toggle('hidden'); updatePause(); syncInvOpen();
+  if(!p.classList.contains('hidden')) maybeRenderInvPreview();
 }
 var confirmAction = null;
 function askConfirm(title, msg, action, yesLabel){
@@ -2172,7 +2220,7 @@ await startupStage(80,'Preparing controls');
 // ---------- input ----------
 var keys = {};
 function typingTarget(e){ return e.target && /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName); }
-window.addEventListener('keydown', function(e){ if(typingTarget(e)) return; keys[e.code] = true; if(e.code === 'Space'){ e.preventDefault(); tryAttack(); } });
+window.addEventListener('keydown', function(e){ if(typingTarget(e)) return; if(!document.getElementById('bag').classList.contains('hidden')) return; keys[e.code] = true; if(e.code === 'Space'){ e.preventDefault(); tryAttack(); } });
 window.addEventListener('keyup', function(e){ keys[e.code] = false; });
 window.addEventListener('keydown',function(e){if(typingTarget(e))return;var i=Number(e.key)-1;if(i>=0&&i<3){setEquip(quickSlots[i]);saveGame();}});
 
@@ -2503,6 +2551,7 @@ function renderBetaDebug(){
  'Draw calls '+renderer.info.render.calls+' | triangles '+renderer.info.render.triangles+' | chunks '+Object.keys(chunks).length+'\n'+
  'Active: world, camera collision, character/wildlife, survival, weather, audio on events; autosave every 5s.\n'+
  'No background network. CPU render time is not GPU time. Recorder FPS is not game FPS.\n'+
+ 'Device/exit diagnostics: '+(window.OneWorldNative&&window.OneWorldNative.getSafetyInfo?window.OneWorldNative.getSafetyInfo():'Unavailable in browser')+'\n'+
  'Recent events ('+betaEvents.length+'/60)\n'+betaEvents.join('\n')+'\nErrors ('+window.__errors.length+'/60)\n'+(window.__errors.join('\n')||'None captured');
 }
 
@@ -3028,13 +3077,13 @@ function deathMap(){
 function gameOver(){
  resetMovementInput();if(deathShown)return;deathShown=true;respawnRequired=true;paused=true;cancelSos();
  document.getElementById('over').classList.add('hidden');document.body.classList.remove('playing');
- ['craftPanel','bag','setPanel','confirmPanel','profileBox','betaDebug','controlEditor'].forEach(function(id){document.getElementById(id).classList.add('hidden');});
+ ['bag','setPanel','confirmPanel','profileBox','betaDebug','controlEditor'].forEach(function(id){document.getElementById(id).classList.add('hidden');});syncInvOpen();
  if(AC&&AC.state==='running')AC.suspend().catch(function(){});
  try{localStorage.setItem(SAVE_KEY,JSON.stringify(worldSnapshot()));}catch(e){betaLog('Could not save pending respawn');}
  controlDraft=null;document.body.classList.remove('editingControls');
  betaLog('Death: simulation stopped, respawn map');deathMap();
 }
-function respawnLobby(){respawnToken++;respawnBusy=false;document.getElementById('mapPanel').classList.add('hidden');document.getElementById('mapPanel').classList.remove('respawning');document.getElementById('start').classList.remove('hidden');document.getElementById('charSetup').classList.add('hidden');document.getElementById('playBtn').textContent='CONTINUE';running=false;paused=false;resetMovementInput();menuMusicWorld(false);}
+function respawnLobby(){respawnToken++;respawnBusy=false;document.getElementById('mapPanel').classList.add('hidden');document.getElementById('mapPanel').classList.remove('respawning');document.getElementById('start').classList.remove('hidden');document.getElementById('charSetup').classList.add('hidden');document.getElementById('playBtn').textContent='CONTINUE';running=false;paused=false;resetMovementInput();syncInvOpen();menuMusicWorld(false);}
 async function respawnAt(kind){
  if(!respawnRequired||respawnBusy||kind==='bed'&&!bedPos)return false;respawnBusy=true;var token=++respawnToken;
  var old={x:P.x,z:P.z},target=kind==='bed'?{x:bedPos.x,z:bedPos.z}:referenceMode?{x:referenceStart.x,z:referenceStart.z}:{x:0,z:0};
@@ -3192,7 +3241,7 @@ document.getElementById('actEquip').onclick=function(){var e=selectedTool();if(e
 document.getElementById('drinkBtn').onclick=function(){var wi=waterInfo(P.x,P.z);if(wi.river&&wi.depth>0){P.water=100;drawVitals();saveGame();toast('Water restored');}};
 document.querySelectorAll('#pinQuick button').forEach(function(b){b.onclick=function(){var e=selectedTool()||equipped;quickSlots[+b.dataset.q]=e;renderQuickbar();saveGame();toast(e+' in slot '+(+b.dataset.q+1));};});
 document.getElementById('bagBtn').addEventListener('click', toggleBag);
-document.getElementById('craftBtn').onclick=toggleCraft;document.getElementById('bagCraftLink').onclick=toggleCraft;document.getElementById('craftClose').onclick=toggleCraft;document.getElementById('craftBag').onclick=function(){document.getElementById('craftPanel').classList.add('hidden');toggleBag();};
+document.getElementById('craftBtn').onclick=toggleCraft;document.getElementById('tabSelect').onclick=function(){setInvTab('select');};document.getElementById('tabCraft').onclick=function(){setInvTab('craft')};
 document.getElementById('chipHand').addEventListener('click', function(){ setEquip('hand'); });
 sleepBtn = document.getElementById('sleepBtn');
 sleepBtn.addEventListener('click', trySleep);
@@ -3310,7 +3359,6 @@ window.oneworldHandleBack=function(){
  if(shown('profileBox')){document.getElementById('profileClose').click();return;}
  if(shown('betaDebug')){document.getElementById('debugClose').click();openSettings();return;}
  if(shown('setPanel')){closeSettings();return;}
- if(shown('craftPanel')){toggleCraft();return;}
  if(shown('bag')){toggleBag();return;}
  if(shown('mapPanel')){if(respawnRequired)respawnLobby();else toggleMap();return;}
  if(shown('charSetup')&&shown('start')){setupToLobby();return;}

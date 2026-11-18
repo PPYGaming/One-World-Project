@@ -1,10 +1,10 @@
 {
-  "baseline": "1.3.38",
+  "baseline": "1.3.39",
   "sourceBase": {
-    "beta": "7f10136caa4dd22925aa81c55d229f242eab159e",
-    "project": "cf02ef65793d458098a095fa8a54d5fc41114a6b"
+    "beta": "6be48424efde504a8e747d31423d4f3d2a3aea11",
+    "project": "84bf29534816b94891d59251259309c083b728a1"
   },
-  "status": "Incremental terrain beta; local packaged checks passed; physical phone testing pending",
+  "status": "Reviewed UI and reduced duplicate terrain allocation; local checks pass, actual Android recovery/multitouch unverified, phone-exit cause unknown",
   "files": [
     {
       "path": ".github/workflows/.github/workflows/project-bootstrap.yml",
@@ -18,8 +18,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 28253,
-      "sha256": "f98f2e6902fd8d34270dea72db28ea79258e7716da78588c1251308d075ebbf1"
+      "size": 31180,
+      "sha256": "f6ee4049b4e96076c0bb5cb9d40e26787d74a57c7275b217970cc8a6bf7ba06e"
     },
     {
       "path": "CONTRIBUTING.md",
@@ -28,13 +28,13 @@
     },
     {
       "path": "README.md",
-      "size": 3182,
-      "sha256": "2c5c951d056c5baead78a96b1fa65af6619476fe684bcf09313c702157565534"
+      "size": 3349,
+      "sha256": "b20b46940f8ad01b6f6ed72b8176404b7e43357900f5f723b3678e8b52b8d6fd"
     },
     {
       "path": "android/AndroidManifest.xml",
       "size": 1298,
-      "sha256": "6147609b29b6e14aa259fa7d48768d46c1ee231fd90b78f97cee87c850d7d2ea"
+      "sha256": "5da6839583c1af4bb03d8e5fc30cc88d4839b76239338bdc1c605eb0c82c64b8"
     },
     {
       "path": "android/res/drawable/ic_face.png",
@@ -128,8 +128,8 @@
     },
     {
       "path": "android/src/com/oneword/forest/MainActivity.java",
-      "size": 12998,
-      "sha256": "8f107d55db699a49c0271aa28961476ca1f17370b8d4c52e3b71c022b5462a29"
+      "size": 17589,
+      "sha256": "9fc892a51cd296082f21a58e01aa2f5ce7efa136c7e951457fedd0b791e1ddfd"
     },
     {
       "path": "docs/QA-1.3.30.md",
@@ -175,6 +175,11 @@
       "path": "docs/QA-1.3.38.md",
       "size": 2453,
       "sha256": "acd29bd2ae50baebb2d8fbbed29baf894e94a3e0dc0c513324b6ab1d92d30778"
+    },
+    {
+      "path": "docs/QA-1.3.39.md",
+      "size": 2925,
+      "sha256": "53cc5ace9b272b0fdaeb136a3c6432abffb73d0c348ec1d9ab94b12f847f979c"
     },
     {
       "path": "docs/screenshots/1.3.24/README.md",
@@ -238,8 +243,8 @@
     },
     {
       "path": "web/assets/lib/ReferenceHorizon.js",
-      "size": 4465,
-      "sha256": "5c74527bbe232b29f31a8a14b10db6b077516f6d75ca36c97ad6ec3fefb43f01"
+      "size": 4652,
+      "sha256": "714022b2cf728fbeac4f3f331580f82d48f4e9d72b2905cab5c243bf5bce083b"
     },
     {
       "path": "web/assets/lib/ReferenceIsland.js",
@@ -833,8 +838,13 @@
     },
     {
       "path": "web/index.html",
-      "size": 339472,
-      "sha256": "f488b7df438cfa36edb801a9e7831946106d8361285344cfb1497574b2e60006"
+      "size": 340917,
+      "sha256": "8b0fc3c80810dfc3c1af874c773abadb2cc35384e48bf84c72ad344631556f4d"
+    },
+    {
+      "path": "web/renderer-recovery.html",
+      "size": 2419,
+      "sha256": "d81c25a40f92b459adc9e9c0e004245c7a7fd2149403203dff0bdda047533933"
     }
   ]
 }

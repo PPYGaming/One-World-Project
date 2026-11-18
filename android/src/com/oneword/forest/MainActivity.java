@@ -16,6 +16,8 @@ import java.util.Map;
 public class MainActivity extends Activity implements android.hardware.SensorEventListener {
     private WebView wv;
     private BetaUpdater updater;
+    private String previousAppExit="No previous app exit reported";
+    private boolean rendererRecovery=false;
     private final android.os.Handler ui = new android.os.Handler(android.os.Looper.getMainLooper());
     private Runnable backTimeout;
     private boolean closing=false;
@@ -69,7 +71,11 @@ public class MainActivity extends Activity implements android.hardware.SensorEve
     @Override public void onCreate(Bundle b) {
         super.onCreate(b);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        readPreviousExit();
         resetUpdater();
+        createGameView(false);
+    }
+    private void createGameView(boolean recovery){
         wv = new WebView(this);
         wv.setOverScrollMode(android.view.View.OVER_SCROLL_NEVER);
         sensors=(android.hardware.SensorManager)getSystemService(SENSOR_SERVICE);
@@ -81,12 +87,14 @@ public class MainActivity extends Activity implements android.hardware.SensorEve
         s.setAllowContentAccess(false);
         s.setMediaPlaybackRequiresUserGesture(false);
         wv.addJavascriptInterface(new Object() {
-            @JavascriptInterface public void restartAtTitle(){ui.post(()->{if(wv==null||closing)return;wallpaperRequested=false;syncWallpaperSensor();resetUpdater();wv.stopLoading();wv.loadUrl(ORIGIN+"/index.html");});}
+            @JavascriptInterface public void restartAtTitle(){ui.post(()->{if(wv==null||closing)return;rendererRecovery=false;wallpaperRequested=false;syncWallpaperSensor();resetUpdater();wv.stopLoading();wv.loadUrl(ORIGIN+"/index.html");});}
             @JavascriptInterface public void openAuthorProfile(final int index){final String[] profiles={"https://youtube.com/@ppygamingtamil?si=8RIKZbY8TQfFwu6r","https://www.instagram.com/tamilcrafters_studio?psln=MW5ic3F3NmFmNGlxMA==","http://tiktok.com/@tamilcrafters"};if(index<0||index>=profiles.length)return;ui.post(()->{try{startActivity(new android.content.Intent(android.content.Intent.ACTION_VIEW,android.net.Uri.parse(profiles[index])));}catch(android.content.ActivityNotFoundException e){android.widget.Toast.makeText(MainActivity.this,"No browser is available",android.widget.Toast.LENGTH_SHORT).show();}});}
             @JavascriptInterface public void openStudioWebsite(){ui.post(()->{try{startActivity(new android.content.Intent(android.content.Intent.ACTION_VIEW,android.net.Uri.parse("https://tamilcraftersstudio.in/")));}catch(android.content.ActivityNotFoundException e){android.widget.Toast.makeText(MainActivity.this,"No browser is available",android.widget.Toast.LENGTH_SHORT).show();}});}
             @JavascriptInterface public void setWallpaperMotionActive(final boolean active){ui.post(()->{wallpaperRequested=active;syncWallpaperSensor();});}
             @JavascriptInterface public void betaUpdateAction(final String value){ui.post(()->updater.action(value));}
             @JavascriptInterface public String getUpdateInfo(){return updater==null?"{}":updater.diagnostics();}
+            @JavascriptInterface public void graphicsContextLost(){getPreferences(MODE_PRIVATE).edit().putString("rendererExit","WebGL graphics context was lost; cause not reported").putLong("rendererExitAt",System.currentTimeMillis()).commit();}
+            @JavascriptInterface public String getSafetyInfo(){return safetyInfo();}
             @JavascriptInterface public String getBuildInfo(){try{android.content.pm.PackageInfo p=getPackageManager().getPackageInfo(getPackageName(),0);org.json.JSONObject j=new org.json.JSONObject();j.put("name",p.versionName);j.put("code",p.getLongVersionCode());j.put("package",p.packageName);return j.toString();}catch(Exception e){return "{}";}}
             @JavascriptInterface public void checkBetaAtEntry(final int id){ui.post(()->updater.entry(id,(n,result)->{if(wv!=null&&!closing)wv.evaluateJavascript("window.oneworldEntryUpdateResult&&window.oneworldEntryUpdateResult("+n+","+org.json.JSONObject.quote(result)+")",null);}));}
             @JavascriptInterface public void cancelBetaEntry(final int id){ui.post(()->updater.cancelEntry(id));}
@@ -97,6 +105,17 @@ public class MainActivity extends Activity implements android.hardware.SensorEve
         }, "OneWorldNative");
         setContentView(wv);immersive();
         wv.setWebViewClient(new WebViewClient() {
+            @Override public boolean onRenderProcessGone(WebView view, android.webkit.RenderProcessGoneDetail detail) {
+                if(view!=wv)return true;
+                String reason=detail.didCrash()?"WebView renderer crashed":"WebView renderer was terminated; Android did not report the cause";
+                getPreferences(MODE_PRIVATE).edit().putString("rendererExit",reason).putLong("rendererExitAt",System.currentTimeMillis()).commit();
+                boolean repeated=rendererRecovery;rendererRecovery=true;wallpaperRequested=false;syncWallpaperSensor();
+                wv=null;
+                if(view.getParent() instanceof android.view.ViewGroup)((android.view.ViewGroup)view.getParent()).removeView(view);
+                view.destroy();
+                if(repeated){showRendererRecovery(reason);}else{createGameView(true);}
+                return true;
+            }
             @Override public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest req) { return !ORIGIN.equals(req.getUrl().getScheme()+"://"+req.getUrl().getAuthority()); }
             @Override public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest req) {
                 if (!ORIGIN.equals(req.getUrl().getScheme() + "://" + req.getUrl().getAuthority())) return null;
@@ -116,7 +135,31 @@ public class MainActivity extends Activity implements android.hardware.SensorEve
                 }
             }
         });
-        wv.loadUrl(ORIGIN + "/index.html");
+        wv.loadUrl(ORIGIN + (recovery?"/renderer-recovery.html":"/index.html"));
+    }
+    private void readPreviousExit(){
+        if(android.os.Build.VERSION.SDK_INT<30){previousAppExit="Previous app exit reason unavailable on Android 10";return;}
+        try{
+            android.app.ActivityManager am=(android.app.ActivityManager)getSystemService(ACTIVITY_SERVICE);
+            java.util.List<android.app.ApplicationExitInfo> exits=am.getHistoricalProcessExitReasons(getPackageName(),0,5);
+            for(android.app.ApplicationExitInfo e:exits){
+                if(!getPackageName().equals(e.getProcessName()))continue;
+                previousAppExit="Android reason="+e.getReason()+", status="+e.getStatus()+", time="+e.getTimestamp()+", PSS="+e.getPss()+"KB, RSS="+e.getRss()+"KB";
+                break;
+            }
+        }catch(RuntimeException e){previousAppExit="Previous app exit reason unavailable";}
+    }
+    private String safetyInfo(){
+        try{org.json.JSONObject j=new org.json.JSONObject();j.put("device",android.os.Build.MANUFACTURER+" "+android.os.Build.MODEL);j.put("android",android.os.Build.VERSION.RELEASE);j.put("previousAppExit",previousAppExit);j.put("lastRendererExit",getPreferences(MODE_PRIVATE).getString("rendererExit","None captured"));j.put("rendererExitAt",getPreferences(MODE_PRIVATE).getLong("rendererExitAt",0));return j.toString();}catch(Exception e){return "{}";}
+    }
+    private void showRendererRecovery(String reason){
+        android.widget.LinearLayout box=new android.widget.LinearLayout(this);box.setOrientation(android.widget.LinearLayout.VERTICAL);box.setGravity(android.view.Gravity.CENTER);box.setPadding(32,24,32,24);box.setBackgroundColor(0xff0b2030);
+        android.widget.ScrollView scroll=new android.widget.ScrollView(this);android.widget.LinearLayout content=new android.widget.LinearLayout(this);content.setOrientation(android.widget.LinearLayout.VERTICAL);content.setGravity(android.view.Gravity.CENTER);scroll.addView(content);box.addView(scroll,new android.widget.LinearLayout.LayoutParams(-1,-2));
+        android.widget.TextView title=new android.widget.TextView(this);title.setText("GAME RENDERER STOPPED");title.setTextColor(0xffe0f0fc);title.setTextSize(22);title.setGravity(android.view.Gravity.CENTER);content.addView(title);
+        android.widget.TextView message=new android.widget.TextView(this);message.setText(reason+".\n\nYour saved world has not been reset. Changes after the last autosave may be lost.\n\nReturn to the title when ready. This does not prove the phone-exit problem is fixed.");message.setTextColor(0xffc2d8e6);message.setTextSize(16);message.setPadding(0,20,0,20);content.addView(message);
+        android.widget.Button retry=new android.widget.Button(this);retry.setText("RETURN TO TITLE");retry.setOnClickListener(v->{retry.setEnabled(false);recreate();});content.addView(retry);
+        android.widget.TextView detail=new android.widget.TextView(this);detail.setText("Diagnostic: "+previousAppExit);detail.setTextColor(0xff9bb7c9);detail.setTextSize(12);detail.setPadding(0,16,0,0);content.addView(detail);
+        setContentView(box);immersive();
     }
     @Override protected void onPause() {
         foreground=false;syncWallpaperSensor();
@@ -154,7 +197,7 @@ public class MainActivity extends Activity implements android.hardware.SensorEve
         super.onDestroy();
     }
     @Override public void onBackPressed() {
-        if(closing||wv==null)return;
+        if(closing||wv==null){return;}
         if(backTimeout!=null)ui.removeCallbacks(backTimeout);
         backTimeout=new Runnable(){public void run(){if(isFinishing()||closing)return;new android.app.AlertDialog.Builder(MainActivity.this).setTitle("Game not responding?").setMessage("Close using the last autosave? Changes since that save may be lost. Your saved world will not be deleted.").setNegativeButton("STAY",null).setPositiveButton("CLOSE APP",new android.content.DialogInterface.OnClickListener(){public void onClick(android.content.DialogInterface d,int which){closing=true;finishAndRemoveTask();}}).show();}};
         ui.postDelayed(backTimeout,1800);

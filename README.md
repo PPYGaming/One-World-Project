@@ -1,3 +1,7 @@
+## Latest testing beta: 1.3.39 / code61
+
+SELECT/CRAFT and recovery safeguards. Phone-exit fix not confirmed. See docs/QA-1.3.39.md for exact local checks and limits.
+
 # One World Project
 
 Development source for the modified One World Android beta. Current prepared source baseline: **1.3.29 (versionCode 51)**. Cumulative reviewed poses, distinct skin options and matched preview lighting, native sensor-only wallpaper movement, head-safe wallpaper framing, uninterrupted pregame-panel music, studio/tap/loading/home flow and own-brand About card. See CHANGELOG.md for test scope and unresolved device issues.
