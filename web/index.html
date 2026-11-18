@@ -763,7 +763,7 @@ import { GLTFLoader } from './assets/lib/GLTFLoader.js';
 import { clone as skClone } from './assets/lib/SkeletonUtils.js';
 import { animeClips, applyAnimeColors, attachLeatherGarments, applyHairStyle, updateHairSway } from './assets/lib/AnimeCharacter.js';
 
-var BUILD_INFO={name:'1.3.45',code:null,native:false};
+var BUILD_INFO={name:'1.3.46',code:null,native:false};
 try{var nb=window.OneWorldNative;if(nb&&typeof nb.getBuildInfo==='function'){var bi=JSON.parse(nb.getBuildInfo());if(bi.package==='com.oneword.forest.beta'&&typeof bi.name==='string'&&/^\d+\.\d+\.\d+$/.test(bi.name)&&Number.isSafeInteger(bi.code)&&bi.code>0)BUILD_INFO={name:bi.name,code:bi.code,native:true};}}catch(e){}
 var DISPLAY_VERSION=BUILD_INFO.name+(BUILD_INFO.native?'':' preview');
 document.querySelector('#start .ver').textContent=DISPLAY_VERSION+' Beta - Work in progress';
@@ -1782,11 +1782,29 @@ function updatePause(){
 }
 var INV_CAP = 12, STACK_MAX = 10;
 var inv = [];
-function addItem(name, icon, qty){
-  for(var i = 0; i < inv.length; i++){ if(inv[i].name === name && inv[i].qty < STACK_MAX){ inv[i].qty = Math.min(STACK_MAX, inv[i].qty + qty); renderBag(); return true; } }
-  if(inv.length >= INV_CAP){ toast('Bag full!'); return false; }
-  inv.push({ name: name, icon: icon, qty: qty }); renderBag(); return true;
+function plannedItemAddition(items,name,icon,qty){
+  if(!Number.isInteger(qty)||qty<=0)return null;
+  var next=items.map(function(it){return Object.assign({},it);}),remaining=qty;
+  for(var i=0;i<next.length&&remaining>0;i++){
+    if(next[i].name!==name||next[i].qty>=STACK_MAX)continue;
+    var put=Math.min(STACK_MAX-next[i].qty,remaining);next[i].qty+=put;remaining-=put;
+  }
+  while(remaining>0&&next.length<INV_CAP){
+    var amount=Math.min(STACK_MAX,remaining);next.push({name:name,icon:icon,qty:amount});remaining-=amount;
+  }
+  return remaining===0?next:null;
 }
+function addItem(name,icon,qty){
+  if(!Number.isInteger(qty)||qty<=0)return false;
+  var next=plannedItemAddition(inv,name,icon,qty);
+  if(next){inv=next;renderBag();return true;}
+  // Preserve legacy pickup behavior when the whole incoming yield cannot fit.
+  // Dropped-resource retention needs its own source-owned overflow design.
+  for(var i=0;i<inv.length;i++)if(inv[i].name===name&&inv[i].qty<STACK_MAX){inv[i].qty=Math.min(STACK_MAX,inv[i].qty+qty);renderBag();return true;}
+  if(inv.length>=INV_CAP){toast('Bag full!');return false;}
+  return false;
+}
+
 function countItem(name){ return inv.reduce(function(a, it){ return a + (it.name === name ? it.qty : 0); }, 0); }
 function removeItem(name, qty){
   for(var i = inv.length - 1; i >= 0 && qty > 0; i--){
@@ -1809,12 +1827,30 @@ var RECIPES = [
   {name:'Axe',icon:'axe',cost:{Wood:2,Stone:2}}
 ];
 function canCraft(r){ return Object.keys(r.cost).every(function(cn){ return countItem(cn) >= r.cost[cn]; }); }
-function craftRecipe(ri){
-  var r = RECIPES[ri]; if(!r || !canCraft(r)) return false;
-  Object.keys(r.cost).forEach(function(cn){ removeItem(cn, r.cost[cn]); });
-  if(addItem(r.name,r.icon,1)){betaLog('Crafted '+r.name);addXP(10);sfx('cook'); toast('+1 ' + r.name); }
-  renderBag(); return true;
+// Plan the entire instant craft before touching the live inventory.
+function plannedCraftInventory(r,items){
+  var next=items.map(function(it){return Object.assign({},it);});
+  var costs=Object.keys(r.cost);
+  for(var c=0;c<costs.length;c++){
+    var name=costs[c],remaining=r.cost[name];
+    for(var i=next.length-1;i>=0&&remaining>0;i--){
+      if(next[i].name!==name)continue;
+      var take=Math.min(next[i].qty,remaining);next[i].qty-=take;remaining-=take;
+      if(next[i].qty<=0)next.splice(i,1);
+    }
+    if(remaining>0)return null;
+  }
+  return plannedItemAddition(next,r.name,r.icon,1);
 }
+function craftRecipe(ri){
+  var r=RECIPES[ri];if(!r||!canCraft(r))return false;
+  var next=plannedCraftInventory(r,inv);
+  if(!next){toast('Inventory is full');return false;}
+  inv=next;
+  betaLog('Crafted '+r.name);addXP(10);sfx('cook');toast('+1 '+r.name);
+  renderBag();return true;
+}
+
 var invTab='select', pvKey='';
 function maybeRenderInvPreview(){
   if(document.getElementById('bag').classList.contains('hidden')) return;
@@ -2655,6 +2691,11 @@ function placeKit(kind){
   else { bedPos = { x: x, z: z, rot: P.rotY }; buildBed(); toast('Bedroll placed'); }
   saveGame(); return true;
 }
+function cookOneMeat(){
+  var next=plannedCraftInventory({name:'Cooked Meat',icon:'meatc',cost:{'Raw Meat':1}},inv);
+  if(!next)return false;
+  inv=next;renderBag();sfx('cook');toast('+1 Cooked Meat');return true;
+}
 function eatFromInv(name){ var i = inv.findIndex(function(it){ return it.name === name && it.qty > 0; }); if(i < 0) return false; removeOneAt(i); return true; }
 function eatSelected(){
   var it = inv[selSlot]; if(!it) return;
@@ -3127,7 +3168,7 @@ function tick(dt){
     if(fireFlame){animateFlame(fireFlame,now);var fl = 0.9 + Math.sin(now*13)*0.16 + Math.sin(now*29)*0.08; fireFlame.scale.set(fl, 1 + Math.sin(now*17)*0.15, fl); if(fireLight) fireLight.intensity = 1.35 + Math.sin(now*13)*0.35 + Math.sin(now*7)*0.15; }
     if(campfirePos && Math.hypot(P.x - campfirePos.x, P.z - campfirePos.z) < 3.2){
       cookT += dt;
-      if(cookT >= 8){ cookT = 0; if(eatFromInv('Raw Meat')){ addItem('Cooked Meat', 'meatc', 1); sfx('cook'); toast('+1 Cooked Meat'); } }
+      if(cookT >= 8){ cookT = 0; cookOneMeat(); }
     } else cookT = 0;
     // sleep button: near bed at night
     var nightNow = dayT > 0.56 || dayT < 0.04;
