@@ -1,7 +1,7 @@
 {
-  "baseline": "1.3.41",
-  "sourceBase": "Cumulative 1.3.41 plus isolated inventory/input safety, tab removal, scroll reachability and standing-water hydration",
-  "status": "Testing beta; physical-device behavior unverified",
+  "baseline": "1.3.42",
+  "sourceBase": "Cumulative published1.3.42 plus saved-avatar menu, both-world access, confirmed two-stage reset with local recovery, loading art relocation and wallpaper lifecycle",
+  "status": "Staged1.3.43 code65, unpublished; physical-device behavior unverified",
   "files": [
     {
       "path": ".github/workflows/.github/workflows/project-bootstrap.yml",
@@ -15,8 +15,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 35940,
-      "sha256": "a75456e93fc9fc11ecb80d3e8c0a573fa4afb68301dd69c9652767409e9df769"
+      "size": 37497,
+      "sha256": "153634234610c3229e0282e4eefcaa578d0a3a2459f61a0b640468859249b160"
     },
     {
       "path": "CONTRIBUTING.md",
@@ -25,13 +25,13 @@
     },
     {
       "path": "README.md",
-      "size": 3492,
-      "sha256": "48f48a372f578f77593a9d51c87f9f729754b897786e466642396a9822eba196"
+      "size": 3550,
+      "sha256": "e2f75d95aedb30d88193a777908bfea085ba9bc4a5f579a8d249b9e3a7f03864"
     },
     {
       "path": "android/AndroidManifest.xml",
       "size": 1298,
-      "sha256": "7ce69a85284723dc8a5191691b98b4923131ab3f6c81850cc517deb3707653a7"
+      "sha256": "3688047ee4138809d2966eae3b8cd17cc5650be4ee515e1bbe3cf5bb90effd04"
     },
     {
       "path": "android/res/drawable/ic_face.png",
@@ -199,6 +199,16 @@
       "sha256": "54d22586068fc7e01dfaa31a1e085fb97dbe6f7c4958968d1119cd9648d06893"
     },
     {
+      "path": "docs/QA-1.3.43.md",
+      "size": 1620,
+      "sha256": "366e86b354d62191532809add1fc3a6ab1776a7e7323cb6d6202b2020a8ce622"
+    },
+    {
+      "path": "docs/QA-MENU-PRIVATE.md",
+      "size": 4124,
+      "sha256": "2de07ab8833f5d07a38d1a9c13cd7637871df35290404e07866af4ca92aace27"
+    },
+    {
       "path": "docs/screenshots/1.3.24/README.md",
       "size": 142,
       "sha256": "d617dcc0a6f0332bce0e5f85ae09c19b9b5bd2aaa2d561830609ff1b27badf6f"
@@ -345,8 +355,8 @@
     },
     {
       "path": "web/assets/licenses/ANIME-WALLPAPERS.txt",
-      "size": 367,
-      "sha256": "6afffe195f5d22a34a2de4e9d2644f4b12490346504f9e85fdf31ff524747392"
+      "size": 561,
+      "sha256": "36dda8ee9c05ba6032a269396ffb2742604b8b64e72b7472d305337b78bed3c1"
     },
     {
       "path": "web/assets/licenses/CREDITS.txt",
@@ -547,6 +557,11 @@
       "path": "web/assets/tex/loading-world.jpg",
       "size": 94787,
       "sha256": "d57c5a9d25cb4c3d9d36a065b457916c1a6f4d7a4a2cb4e8ab75e04159e4fc51"
+    },
+    {
+      "path": "web/assets/tex/lobby-anime-forest.jpg",
+      "size": 1132846,
+      "sha256": "2b08747eb5bf9cce0533ab6fa5e74f49b447d68e02f66490bd622e2a29eb37b5"
     },
     {
       "path": "web/assets/tex/menu-anime-preview.jpg",
@@ -865,8 +880,8 @@
     },
     {
       "path": "web/index.html",
-      "size": 345591,
-      "sha256": "612b118b20cb8428339322c774d33dee4d05c09d5af1a7d032159863694454c3"
+      "size": 364680,
+      "sha256": "81f702a0f9bb4e3645c8b2d10cca364830e7041f26bda332c4686ddaf5a65077"
     },
     {
       "path": "web/renderer-recovery.html",

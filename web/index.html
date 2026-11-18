@@ -361,7 +361,7 @@ body.invOpen #craftBtn{visibility:hidden}
 #loading,#start:not(.choosing){overflow:hidden;overflow:clip;overscroll-behavior:none;touch-action:none}
 #loading{background:#101b1c;isolation:isolate;--wall-x:0px;--wall-y:0px}
 #loading:before,#start:not(.choosing):before{content:'';position:fixed;inset:0 -16px -32px;background-position:center 14px;background-size:cover;background-repeat:no-repeat;background-color:#091116;z-index:-2;pointer-events:none;transform:translate3d(var(--wall-x,0px),var(--wall-y,0px),0);transition:none;will-change:transform}
-#loading:before{background-image:url('assets/tex/loading-anime-preview.jpg')}
+#loading:before{background-image:url('assets/tex/menu-anime-preview.jpg')}
 #loading:after,#start:not(.choosing):after{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,#06101265,transparent 58%),linear-gradient(0deg,#02090ede,transparent 26%)}
 #loading h1{position:absolute;left:7vw;top:36%;font-size:clamp(26px,4vw,48px);color:#f5f6ef;letter-spacing:7px;text-shadow:0 2px 22px #0009}
 #loading .barwrap{bottom:0;height:6px;background:#ffffff25;border:0;border-radius:0}#loading .bar{border-radius:0;background:linear-gradient(90deg,#d3d6c1,#f7fbef);box-shadow:0 0 10px #f4f8de60;transition:none}
@@ -461,6 +461,75 @@ body.referenceWorld #joy,body.referenceWorld #atk,body.referenceWorld #bagBtn,bo
 #bag.panel{box-sizing:border-box;height:100dvh;overflow:hidden;}
 #bag .bagHead{flex-shrink:0;}
 #bagScroll{flex:1 1 0;overflow:auto;overscroll-behavior:contain;padding-bottom:8px;}
+/* Private lobby proposal: one shared preview renderer, no new image assets. */
+#start:not(.choosing){padding:0;display:block;background:#132326;isolation:isolate}
+#start:not(.choosing):before,#start:not(.choosing):after{display:none}
+#lobbyStage{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+#lobbyStage #charPreview{width:100%!important;height:100%!important;display:block}
+#lobbyShade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,#07191a50,transparent 35%,transparent 60%,#06171ad9);z-index:0}
+#start:not(.choosing)>h1{position:absolute;left:5vw;top:7vh;margin:0;font:600 clamp(20px,3vw,34px)/1.2 Georgia,serif;letter-spacing:.18em;z-index:1}
+#start:not(.choosing)>.ver{position:absolute;left:5vw;top:calc(7vh + 46px);background:none;border:0;padding:0;margin:0;font-size:9px;opacity:.7;z-index:1}
+#start:not(.choosing)>.foot{position:absolute;bottom:5vh;left:5vw;font-size:8px;letter-spacing:1px;z-index:1}
+#start:not(.choosing)>#playBtn{position:absolute;right:5vw;bottom:6vh;width:210px;min-width:0;height:52px;margin:0!important;background:linear-gradient(135deg,#365248ee,#192f2eee)!important;border:1px solid #b8c3a2;clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px);font-size:12px!important;letter-spacing:2px;z-index:2}
+#start:not(.choosing)>#newGameBtn{position:absolute;right:calc(5vw + 220px);bottom:6vh;width:48px;min-width:48px;height:52px;margin:0!important;padding:12px!important;border:1px solid #9bab9c80;background:#142a28bb!important;z-index:2}
+#start:not(.choosing)>#setLobbyBtn{position:absolute;right:5vw;top:6vh;width:48px;min-width:48px;height:48px;margin:0!important;padding:9px!important;border:1px solid #a9b7a580;z-index:2}
+#setLobbyBtn svg{width:27px;height:27px}
+#lobbyIdentity{position:absolute;top:82%;left:50%;transform:translateX(-50%);text-align:center;pointer-events:none;z-index:1;white-space:nowrap}
+#lobbyIdentity span{font-size:8px;letter-spacing:3px;color:#bacdbd}#lobbyName{font:500 20px/1.4 Georgia,serif;letter-spacing:2px;color:#f0ead7;text-shadow:0 2px 7px #000}
+#lobbyWorld{font-size:8px;letter-spacing:1.6px;color:#99b4ab;margin-top:5px}
+#start.choosing #lobbyStage,#start.choosing #lobbyIdentity,#start.choosing #lobbyShade{display:none}
+#worldChooser{display:none!important}
+#worldLoading{background:#091116 url('assets/tex/menu-anime-preview.jpg') center/cover no-repeat;align-items:flex-start;justify-content:flex-end;padding:0 7vw 15vh;text-align:left}
+#worldLoading:before{content:'';position:absolute;inset:0;background:linear-gradient(0deg,#041216dd,transparent 75%);pointer-events:none}
+#worldLoading h2,#joinStage,#joinBack{position:relative;z-index:1}#worldLoading h2{font:500 clamp(20px,3vw,34px)/1.3 Georgia,serif;letter-spacing:4px;max-width:70%;color:#f1efdc}#joinStage{font-size:11px;color:#d0dccc;max-width:70%}
+#legacyMapControl{border-top:1px solid #9ed5ee33;margin-top:24px;padding-top:14px}#legacyMapControl button{font-size:10px;padding:10px;margin:6px 0}
+@media(orientation:portrait){#start:not(.choosing)>h1{top:7vh;font-size:23px}#start:not(.choosing)>.ver{top:calc(7vh + 38px)}#start:not(.choosing)>#playBtn{width:190px;bottom:6vh;right:6vw}#start:not(.choosing)>#newGameBtn{right:calc(6vw + 200px);bottom:6vh}#start:not(.choosing)>.foot{bottom:2vh;left:6vw;font-size:7px}#lobbyIdentity{top:76%}#worldLoading{background-position:65% center;padding-bottom:15vh}#worldLoading h2,#joinStage{max-width:90%}}
+
+
+#lobbyBackdrop{position:absolute;inset:-12px;z-index:-3;background:#233527 url('assets/tex/lobby-forest-original.jpg') center center/cover no-repeat;transform:translate3d(calc(var(--wall-x,0px) * .55),0,0);will-change:transform}
+#lobbyMist{position:absolute;inset:0;z-index:-2;pointer-events:none;background:radial-gradient(ellipse at 40% 47%,#b6d0bd19,transparent 40%),radial-gradient(ellipse at 80% 35%,#fff2c914,transparent 30%);animation:lobbyMistDrift 18s ease-in-out infinite alternate;will-change:transform}
+@keyframes lobbyMistDrift{from{transform:translate3d(-1%,0,0);opacity:.45}to{transform:translate3d(1.3%,.4%,0);opacity:.85}}
+#lobbyFootShadow{position:absolute;pointer-events:none;width:60px;height:14px;transform:translate(-50%,-50%);background:radial-gradient(ellipse,#0b100bd9 0%,#0b100b85 35%,transparent 72%);z-index:-1}#lobbyStage #charPreview{position:relative;z-index:0}
+#lobbyShade{background:linear-gradient(180deg,#09191444,transparent 30%,transparent 60%,#06140ed9)}
+#start.choosing #lobbyBackdrop,#start.choosing #lobbyMist{display:none}
+#start:has(~#setPanel:not(.hidden)) #lobbyMist{animation-play-state:paused}
+@media(prefers-reduced-motion:reduce){#lobbyMist{animation:none}#lobbyBackdrop{transform:none}}
+
+
+#lobbyIdentity{top:29vh;left:5vw;transform:none;text-align:left;pointer-events:none;min-width:190px}
+.lobbyProfileRow{display:flex;gap:14px;align-items:center}#lobbySex{width:46px;height:46px;border:1px solid #e2e8d5bb;border-radius:50%;display:grid;place-items:center;font:28px/1 Georgia,serif;color:#eff0df;background:#15291f88;box-shadow:0 3px 14px #0003}#lobbyName{font-size:20px;letter-spacing:1px}#lobbyLevel{font-size:9px;letter-spacing:1.8px;color:#d4decd;margin-top:2px}#lobbyAddProfile{display:block;width:46px;height:46px;min-width:46px;margin-top:16px;padding:0;border:1px solid #d8e3cf88;border-radius:50%;font:26px/1 sans-serif;color:#dce4d5;background:#142a2088;opacity:.8;box-shadow:none}#lobbyAddProfile:disabled{cursor:default}
+#start.choosing #lobbyIdentity{display:none}
+@media(orientation:portrait){#lobbyIdentity{top:17vh;left:6vw}.lobbyProfileRow{gap:10px}#lobbyName{font-size:18px}#lobbySex,#lobbyAddProfile{width:40px;height:40px;min-width:40px}#lobbyAddProfile{margin-top:10px}}
+
+
+
+/* Safe first implementation: existing world access stays visible, no profile-creation facade. */
+#worldChooser{display:flex!important;position:absolute!important;left:24px!important;right:auto!important;top:150px!important;bottom:auto!important;width:170px;max-width:170px!important;z-index:3;flex-direction:column;}
+#start:not(.choosing)>h1{left:24px;top:18px;width:180px!important;}
+#start:not(.choosing)>h1 .ownerWordmark{width:180px!important;max-width:100%;}
+#start:not(.choosing)>.ver{left:24px;top:82px;max-width:190px;font-size:8px;}
+#lobbyIdentity{left:24px;top:108px;transform:none;text-align:left;pointer-events:auto;cursor:pointer;}
+#lobbyName{font:600 15px/1.3 sans-serif;letter-spacing:.5px;}#lobbyLevel{font-size:10px;opacity:.8;}
+#lobbyIdentity button{background:#152725bb;border:1px solid #d1ddd880;border-radius:10px;color:#eaf4ee;padding:10px 12px;max-width:195px;text-align:left;}
+#lobbyBackdrop{inset:-36px;background-image:url('assets/tex/lobby-anime-forest.jpg');transform:translate3d(var(--wall-x,0px),0,0);}
+#start:not(.choosing)>#newGameBtn{width:auto;min-width:100px;right:calc(5vw + 220px);font-size:10px!important;}
+#start:not(.choosing)>#quitLobbyBtn{position:absolute;right:5vw;top:calc(6vh + 60px);min-width:48px;width:90px;padding:10px;margin:0!important;z-index:3;}
+#start:not(.choosing)>#setLobbyBtn{min-width:100px;right:5vw;width:100px;font-size:11px;}
+#start.choosing #lobbyBackdrop,#start.choosing #lobbyMist,#start.choosing #lobbyFootShadow,#start.choosing #worldChooser{display:none!important;}
+@media(orientation:portrait){#start:not(.choosing)>h1{left:14px;top:18px;width:160px!important;}#start:not(.choosing)>.ver{left:14px;top:78px;}#lobbyIdentity{left:14px;top:106px;}#worldChooser{left:14px!important;top:180px!important;width:130px!important;max-width:130px!important;}#worldChooser .playbtn{padding:8px!important;font-size:9px!important;}#start:not(.choosing)>#playBtn{width:180px;bottom:5vh;}#start:not(.choosing)>#newGameBtn{right:calc(6vw + 190px);min-width:100px;bottom:5vh;}#start:not(.choosing)>#setLobbyBtn{right:14px;top:20px;}#start:not(.choosing)>#quitLobbyBtn{right:14px;top:80px;}}
+
+
+#lobbyProfile{display:grid;grid-template-columns:32px auto;gap:3px 8px;align-items:center;}
+#lobbySex{grid-row:1/4;display:flex;align-items:center;justify-content:center;width:32px!important;height:32px!important;min-width:32px!important;font:22px/1 sans-serif;color:white;}
+#lobbyName,#lobbyLevel,#lobbyProfile small{grid-column:2;line-height:1.25;}#lobbyProfile small{font-size:8px;}
+#worldChooser{top:auto!important;bottom:70px!important;width:240px!important;max-width:240px!important;flex-direction:row!important;gap:8px!important;}#worldChooser button{flex:1;min-width:0;}
+@media(orientation:portrait){#worldChooser{top:208px!important;bottom:auto!important;flex-direction:column!important;width:125px!important;max-width:125px!important;}}
+
+#lobbyBackdrop:before{content:'';position:absolute;inset:-8px;background:inherit;animation:lobbyWallpaperDrift 24s ease-in-out infinite alternate;will-change:transform;}
+@keyframes lobbyWallpaperDrift{from{transform:translate3d(-3px,0,0) scale(1.01)}to{transform:translate3d(3px,-1px,0) scale(1.01)}}
+#start.motionPaused #lobbyBackdrop:before,#start.motionPaused #lobbyMist{animation-play-state:paused;}
+#start:not(.choosing)>#newGameBtn{display:flex;align-items:center;justify-content:center;gap:6px;}
+@media(prefers-reduced-motion:reduce){#lobbyBackdrop:before{animation:none;transform:none;}#lobbyMist{animation:none;}#lobbyBackdrop{transform:none!important;}}
 </style>
 </head>
 <body><div id="healthNotice" role="status" aria-live="polite"></div><div id="weaponAim" aria-hidden="true"></div>
@@ -529,12 +598,12 @@ body.referenceWorld #joy,body.referenceWorld #atk,body.referenceWorld #bagBtn,bo
   <div class="pct" id="loadPct">Preparing world...</div><div id="loadNumber" aria-hidden="true">0%</div>
 </div>
 
-<div class="overlay hidden" id="start">
+<div class="overlay hidden" id="start"><div id="lobbyBackdrop"></div><div id="lobbyMist"></div><div id="lobbyStage"><div id="lobbyFootShadow"></div></div><div id="lobbyShade"></div><div id="lobbyIdentity"><button id="lobbyProfile" aria-label="Open survivor profile"><span id="lobbySex" aria-hidden="true"></span> <span id="lobbyName">Survivor</span><div id="lobbyLevel"></div><small>PROFILE</small></button></div>
   <h1><img class="ownerWordmark" src="assets/ui/one-world-owner-logo.png" alt="One World" draggable="false" width="512" height="188"></h1>
   <div class="ver">Loading build version...</div>
   <div class="tag"><span class="blt"></span>Enter the deep forest<br><span class="blt"></span>Fight the wolves, hunt the deer<br><span class="blt"></span>Deer and birds keep you company<br><span class="blt"></span>Watch day turn into night</div>
   <div id="worldChooser" style="display:flex;gap:6px;margin:8px 0;max-width:280px"><button class="playbtn" id="worldOld" style="font-size:11px;padding:9px">MAP 1<br>ORIGINAL</button><button class="playbtn" id="worldReference" style="font-size:11px;padding:9px">MAP 2<br>NEW ISLAND</button></div><button class="playbtn" id="playBtn"><svg viewBox="0 0 24 24" width="18" height="18" style="vertical-align:-3px;margin-right:8px"><path d="M6 3l14 9-14 9z" fill="#d2e6f7"/></svg>ENTER WORLD</button><br>
-  <button class="playbtn" id="newGameBtn" style="display:none;font-size:13px;padding:10px 26px;margin-top:10px">NEW GAME</button>
+  <button class="playbtn" id="newGameBtn" style="display:none;font-size:13px;padding:10px 26px;margin-top:10px" aria-label="Reset current world" title="Reset current world"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M19 7a8 8 0 1 0 1 8M19 3v5h-5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>RESTART</span></button>
   <button class="playbtn" id="setLobbyBtn" style="font-size:13px;padding:10px 26px;margin-top:10px;background:#2f506b"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M13 3h6l1 4 3 2 4-1 3 5-3 3v3l3 3-3 5-4-1-3 2-1 3h-6l-1-3-3-2-4 1-3-5 3-3v-3l-3-3 3-5 4 1 3-2z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="16" cy="17" r="5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg> SETTINGS</button>
   <button class="playbtn" id="quitLobbyBtn" style="font-size:13px;padding:10px 26px;margin-top:8px;background:#593e46">QUIT</button>
   <div id="charSetup" class="hidden" style="margin-top:14px">
@@ -574,7 +643,7 @@ window.oneworldYieldPaint=function(){return new Promise(function(resolve){reques
 window.oneworldStartupTrace=[];
 window.oneworldTrace=function(phase){window.oneworldStartupTrace.push({phase:phase,time:performance.now()});};
 window.oneworldLoadingPainted=new Promise(function(resolve){
- var art=new Image();art.src='assets/tex/loading-anime-preview.jpg';
+ var art=new Image();art.src='assets/tex/menu-anime-preview.jpg';
  var decoded=art.decode?art.decode().catch(function(){}):new Promise(function(done){art.onload=art.onerror=done;});
  window.oneworldIntroReady=new Promise(function(introDone){var root=document.getElementById('studioIntro'),reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   setTimeout(async function(){await decoded;root.classList.add('hidden');window.oneworldTrace('logo-hidden');introDone();var gate=document.getElementById('tapToStart'),button=document.getElementById('tapStartBtn');gate.classList.remove('hidden');window.oneworldTrace('tap-visible');gate.focus({preventScroll:true});var entered=false;gate.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();gate.click();}});gate.addEventListener('click',async function(){if(entered)return;entered=true;window.oneworldTrace('tap-accepted');gate.classList.add('starting');button.textContent='Preparing...';window.oneworldTrace('tap-feedback');if(window.oneworldMenuMusic)window.oneworldMenuMusic.sync();await window.oneworldYieldPaint();await new Promise(function(done){setTimeout(done,650);});gate.classList.add('hidden');if(window.oneworldMenuMusic)window.oneworldMenuMusic.sync();await window.oneworldYieldPaint();await window.oneworldYieldPaint();window.oneworldTrace('loading-painted');resolve();},{once:true});},reduce?700:2600);
@@ -609,22 +678,22 @@ window.oneworldStartupReady=window.oneworldLoadingPainted.then(function(){return
 (function(){
  var reduced=window.matchMedia('(prefers-reduced-motion: reduce)'),origin=null,x=0,targetX=0,frame=0,lastNative=0,nativeActive=null,touches=new Set(),quietUntil=0,resumeOrigin=null,resumeX=0;
  var native=window.OneWorldNative,hasNative=!!(native&&typeof native.setWallpaperMotionActive==='function');
- function current(){if(document.hidden||reduced.matches||!document.getElementById('studioIntro').classList.contains('hidden')||!document.getElementById('tapToStart').classList.contains('hidden'))return null;var l=document.getElementById('loading'),m=document.getElementById('start');if(!l.classList.contains('hidden'))return l;if(!m.classList.contains('hidden')&&!m.classList.contains('choosing'))return m;return null;}
+ function current(){if(document.hidden||(window.oneworldAppLifecycle&&window.oneworldAppLifecycle.state.suspended)||reduced.matches||['setPanel','profileBox','confirmPanel','worldLoading'].some(function(id){var el=document.getElementById(id);return el&&!el.classList.contains('hidden');})||!document.getElementById('studioIntro').classList.contains('hidden')||!document.getElementById('tapToStart').classList.contains('hidden'))return null;var l=document.getElementById('loading'),m=document.getElementById('start');if(!l.classList.contains('hidden'))return null;if(!m.classList.contains('hidden')&&!m.classList.contains('choosing'))return m;return null;}
  function paint(){frame=0;var target=current();if(!target)return;x+=(targetX-x)*.30;if(Math.abs(targetX-x)<.015)x=targetX;target.style.setProperty('--wall-x',x.toFixed(2)+'px');target.style.setProperty('--wall-y','0px');if(x!==targetX)frame=requestAnimationFrame(paint);}
  function blocked(){return touches.size>0||performance.now()<quietUntil;}
- function move(nx){if(blocked()||!current()||!Number.isFinite(nx))return;targetX=Math.max(-8,Math.min(8,nx));if(!frame)frame=requestAnimationFrame(paint);}
+ function move(nx){if(blocked()||!current()||!Number.isFinite(nx))return;targetX=Math.max(-24,Math.min(24,nx));if(!frame)frame=requestAnimationFrame(paint);}
  function reset(){origin=null;resumeOrigin=null;resumeX=0;x=targetX=0;if(frame)cancelAnimationFrame(frame);frame=0;document.querySelectorAll('#loading,#start').forEach(function(t){t.style.setProperty('--wall-x','0px');t.style.setProperty('--wall-y','0px');});}
- function sync(){var active=!!current();if(hasNative&&nativeActive!==active){nativeActive=active;native.setWallpaperMotionActive(active);}if(!active)reset();else if(!frame)frame=requestAnimationFrame(paint);}
- window.oneworldNativeWallpaper=function(value){lastNative=performance.now();if(blocked())return;var n=Number(value);if(!Number.isFinite(n))return;if(resumeOrigin===null)resumeOrigin=n;move(resumeX+n-resumeOrigin);};
+ function sync(){var active=!!current();var menu=document.getElementById('start');menu.classList.toggle('motionPaused',!active);if(hasNative&&nativeActive!==active){nativeActive=active;native.setWallpaperMotionActive(active);}if(!active)reset();else if(!frame)frame=requestAnimationFrame(paint);}
+ window.oneworldNativeWallpaper=function(value){lastNative=performance.now();if(blocked())return;var n=Number(value);if(!Number.isFinite(n))return;if(resumeOrigin===null)resumeOrigin=n;move(resumeX+(n-resumeOrigin)*3);};
  function touchStart(e){if(e.pointerType==='mouse'&&e.buttons===0)return;touches.add(e.pointerId);quietUntil=Infinity;targetX=x;if(frame)cancelAnimationFrame(frame);frame=0;origin=null;resumeOrigin=null;resumeX=x;}
  function touchEnd(e){touches.delete(e.pointerId);if(!touches.size){quietUntil=performance.now()+300;origin=null;resumeOrigin=null;resumeX=x;}}
  window.addEventListener('pointerdown',touchStart,{capture:true,passive:true});window.addEventListener('pointerup',touchEnd,{capture:true,passive:true});window.addEventListener('pointercancel',touchEnd,{capture:true,passive:true});
  window.addEventListener('blur',function(){touches.clear();quietUntil=performance.now()+300;origin=null;resumeOrigin=null;resumeX=x;});
  // Browser-only preview fallback. Android uses its explicit sensor bridge. No pointer/drag input.
- window.addEventListener('deviceorientation',function(e){if(hasNative||blocked()||!current()||!Number.isFinite(e.beta)||!Number.isFinite(e.gamma))return;if(!origin)origin={b:e.beta,g:e.gamma};var angle=screen.orientation?screen.orientation.angle:0,delta=Math.abs(angle)===90?e.beta-origin.b:e.gamma-origin.g;move(resumeX+delta*.20);},{passive:true});
+ window.addEventListener('deviceorientation',function(e){if(hasNative||blocked()||!current()||!Number.isFinite(e.beta)||!Number.isFinite(e.gamma))return;if(!origin)origin={b:e.beta,g:e.gamma};var angle=screen.orientation?screen.orientation.angle:0,delta=Math.abs(angle)===90?e.beta-origin.b:e.gamma-origin.g;move(resumeX+delta*.60);},{passive:true});
  window.addEventListener('orientationchange',reset);document.addEventListener('visibilitychange',sync);reduced.addEventListener('change',sync);
  new MutationObserver(sync).observe(document.body,{subtree:true,attributes:true,attributeFilter:['class']});
- window.oneworldWallpaperMotion={preview:move,state:function(){return {x:x,y:0,targetX:targetX,active:!!current(),reduced:reduced.matches,native:hasNative,lastNative:lastNative,touches:touches.size,blocked:blocked()};}};sync();
+ window.oneworldWallpaperMotion={sync:sync,preview:move,state:function(){return {x:x,y:0,targetX:targetX,active:!!current(),reduced:reduced.matches,native:hasNative,lastNative:lastNative,touches:touches.size,blocked:blocked()};}};sync();
 })();
 </script>
 <script src="assets/lib/MenuMusic.js"></script>
@@ -658,7 +727,7 @@ import { GLTFLoader } from './assets/lib/GLTFLoader.js';
 import { clone as skClone } from './assets/lib/SkeletonUtils.js';
 import { animeClips, applyAnimeColors, attachLeatherGarments, applyHairStyle, updateHairSway } from './assets/lib/AnimeCharacter.js';
 
-var BUILD_INFO={name:'1.3.42',code:null,native:false};
+var BUILD_INFO={name:'1.3.43',code:null,native:false};
 try{var nb=window.OneWorldNative;if(nb&&typeof nb.getBuildInfo==='function'){var bi=JSON.parse(nb.getBuildInfo());if(bi.package==='com.oneword.forest.beta'&&typeof bi.name==='string'&&/^\d+\.\d+\.\d+$/.test(bi.name)&&Number.isSafeInteger(bi.code)&&bi.code>0)BUILD_INFO={name:bi.name,code:bi.code,native:true};}}catch(e){}
 var DISPLAY_VERSION=BUILD_INFO.name+(BUILD_INFO.native?'':' preview');
 document.querySelector('#start .ver').textContent=DISPLAY_VERSION+' Beta - Work in progress';
@@ -2375,7 +2444,8 @@ function renderProfile(){
  el.innerHTML='<p>Level '+progressLevel()+' / 69 · '+progress.xp+' XP · '+freePoints()+' points</p><p>Crafting: +10 XP. First wood, stone, harvest and hunt: +40 XP each. 100 XP per level. No crafting level locks.</p>'+Object.keys(progress.spent).map(function(k){return '<div class="statUpgrade"><span>'+({health:'Health +0.2',stamina:'Stamina +2',food:'Food use -1.5%',water:'Water use -1.5%'}[k])+' · '+progress.spent[k]+'/23</span><button data-stat="'+k+'" '+(freePoints()>0&&progress.spent[k]<23?'':'disabled')+'>+1</button></div>';}).join('');
  el.querySelectorAll('button').forEach(function(b){b.onclick=function(){spendPoint(b.dataset.stat);};});
 }
-var profilePanel=document.getElementById('profileBox');document.body.appendChild(profilePanel);profilePanel.classList.add('panel');profilePanel.insertAdjacentHTML('beforeend','<button id="profileClose" class="playbtn closebtn">CLOSE PROFILE</button>');document.getElementById('profileClose').onclick=function(){profilePanel.classList.add('hidden');updatePause();openSettings();};
+var profilePanel=document.getElementById('profileBox');document.body.appendChild(profilePanel);profilePanel.classList.add('panel');profilePanel.insertAdjacentHTML('beforeend','<button id="profileClose" class="playbtn closebtn">CLOSE PROFILE</button>');var profileFromLobby=false;document.getElementById('profileClose').onclick=function(){profilePanel.classList.add('hidden');updatePause();if(profileFromLobby){profileFromLobby=false;return;}openSettings();};
+document.getElementById('lobbyProfile').onclick=function(){profileFromLobby=true;var saved=loadSave();if(saved){playerName=saved.pname||playerName;}renderProfile();document.getElementById('profileBox').classList.remove('hidden');};
 document.getElementById('profileBtn').onclick=function(){renderProfile();document.getElementById('profileBox').classList.toggle('hidden');};
 document.getElementById('profileNameSave').onclick=function(){playerName=document.getElementById('profileName').value.trim().slice(0,16)||'Survivor';localStorage.setItem('oneworld-profile-name',playerName);if(running)saveGame();else {var saved=loadSave();if(saved){saved.pname=playerName;localStorage.setItem(SAVE_KEY,JSON.stringify(saved));}}toast('Name saved');};
 // ---------- game state ----------
@@ -3152,7 +3222,7 @@ async function respawnAt(kind){
 
 var existingSave = loadSave();
 if(existingSave){ document.getElementById('playBtn').textContent = 'CONTINUE'; document.getElementById('newGameBtn').style.display = 'inline-block'; }
-var setupKind = 'boy';
+var setupKind = 'boy';var lobbySceneGroup=null,lobbyPreviewStamp='',lobbyFrameTime=0,lobbyElapsed=0,lobbyMotion=0,lobbySaveCache={key:null,raw:null,value:null};
 var setupPreviews=Object.create(null);
 var setupRenderer=null, setupScene=null, setupCamera=null, setupRoot=null, setupMixer=null, setupAngle=0, setupDrag=null,setupFocus="body",setupZoom=1;
 function buildSetupPreview(k){
@@ -3160,7 +3230,7 @@ function buildSetupPreview(k){
  if(!setupRenderer){
   setupRenderer=new THREE.WebGLRenderer({canvas:cv,alpha:true,antialias:true});setupRenderer.setPixelRatio(Math.min(2,window.devicePixelRatio||1));setupRenderer.outputColorSpace=THREE.SRGBColorSpace;
   setupScene=new THREE.Scene();setupScene.add(new THREE.HemisphereLight(0xe9f4ff,0x4d5365,.75));var previewKey=new THREE.DirectionalLight(0xffedd9,.80);previewKey.position.set(-2,3,4);setupScene.add(previewKey);var previewRim=new THREE.DirectionalLight(0x9ad8ff,.25);previewRim.position.set(2,2,-3);setupScene.add(previewRim);setupCamera=new THREE.PerspectiveCamera(32,1.2,.1,20);setupCamera.position.set(0,1.0,3.45);setupCamera.lookAt(0,.9,0);
-  cv.addEventListener('pointerdown',function(e){setupDrag=e.clientX;cv.setPointerCapture(e.pointerId);});
+  cv.addEventListener('pointerdown',function(e){if(document.getElementById('charSetup').classList.contains('hidden'))return;setupDrag=e.clientX;cv.setPointerCapture(e.pointerId);});
   cv.addEventListener('pointermove',function(e){if(setupDrag!==null){setupAngle-=(e.clientX-setupDrag)*.015;setupDrag=e.clientX;}});
   cv.addEventListener('pointerup',function(){setupDrag=null;});cv.addEventListener('pointercancel',function(){setupDrag=null;});
  }
@@ -3194,13 +3264,62 @@ function inlineChooser(id,kind){
 document.getElementById('hairStyle').onchange=function(e){charLook.style=e.target.value;setupFocus='hair';setupZoom=1;if(setupRoot){applyHairStyle(setupRoot,charLook.style,setupKind);applyAnimeColors(setupRoot,charLook);if(setupPreviews[setupKind])setupPreviews[setupKind].style=charLook.style;}};
 document.getElementById('zoomToggle').onclick=function(){setupFocus=(setupFocus==='hair'||setupFocus==='eye')?'body':'hair';setupZoom=1;};
 function renderSetupPreview(dt){
+ if(!document.getElementById('start').classList.contains('hidden')&&!document.getElementById('start').classList.contains('choosing')){renderLobbyPreview(dt);return;}
+ if(lobbySceneGroup)lobbySceneGroup.visible=false;setupScene&&(setupScene.background=null,setupScene.fog=null);
+
+ if(setupRenderer){var editDpr=Math.min(2,window.devicePixelRatio||1);if(setupRenderer.getPixelRatio()!==editDpr)setupRenderer.setPixelRatio(editDpr);}
  if(!setupRenderer || document.getElementById('charSetup').classList.contains('hidden') || document.getElementById('start').classList.contains('hidden'))return;
  var cv=document.getElementById('charPreview'), w=Math.round(cv.clientWidth),h=Math.round(cv.clientHeight);
  if(setupRenderer.getSize(new THREE.Vector2()).x!==w||setupRenderer.getSize(new THREE.Vector2()).y!==h){setupRenderer.setSize(w,h,false);setupCamera.aspect=w/h;setupCamera.updateProjectionMatrix();}
  var close=setupFocus==='hair'||setupFocus==='eye';document.getElementById('zoomPlus').style.display=close?'none':'';document.getElementById('zoomToggle').setAttribute('aria-label',close?'Zoom to full body':'Zoom to head');var targetY=close?1.53:.88,dist=(close?1.25:Math.max(3.8,2.2/setupCamera.aspect))*setupZoom;setupCamera.position.lerp(new THREE.Vector3(0,targetY,dist),Math.min(1,dt*12));setupCamera.lookAt(0,targetY,0);setupRoot.rotation.y=setupAngle;setupMixer.update(dt);updateHairSway(setupRoot,dt,false);setupRenderer.render(setupScene,setupCamera);
 }
 
+function createArmorVisual(root,name,tier){
+  var torso = root.getObjectByName('J_Bip_C_Spine') || root.getObjectByName('Torso');
+  if(!torso) return;
+  torso.updateMatrixWorld(true);
+  var tws = new THREE.Vector3(); torso.getWorldScale(tws);
+  var mount = new THREE.Group(); mount.name = 'ArmorMount';
+  mount.scale.setScalar(1 / Math.max(tws.x, 0.0001));
+  torso.add(mount);
+  var mat = new THREE.MeshStandardMaterial({ color: ARMORS[name].color, roughness: 0.6, metalness: tier === 3 ? 0.35 : 0.05, side: THREE.DoubleSide });
+  var mk = function(geo, x, y, z, sx, sy, sz){
+    var m = new THREE.Mesh(geo, mat); m.position.set(x, y, z); m.scale.set(sx, sy, sz); mount.add(m); return m;
+  };
+  // fitted build: torso-tapered lathe cuirass, front and back segments + shoulder pads (local z = front/back)
+  var prof = [new THREE.Vector2(0.148, -0.12), new THREE.Vector2(0.172, 0.02), new THREE.Vector2(0.185, 0.14), new THREE.Vector2(0.168, 0.26), new THREE.Vector2(0.118, 0.32)];
+  var chest = mk(new THREE.LatheGeometry(prof, 14, -1.05, 2.1), 0, 0, 0, 1.0, 1.0, 0.8);
+  chest.name = 'ArmorPlate';
+  mk(new THREE.LatheGeometry(prof, 14, Math.PI - 1.05, 2.1), 0, 0, 0, 1.0, 1.0, 0.8).name = 'ArmorBack';
+  mk(new THREE.SphereGeometry(0.07, 8, 6), 0.21, 0.245, 0, 1.15, 0.65, 1.0).name = 'ArmorPadR';
+  mk(new THREE.SphereGeometry(0.07, 8, 6), -0.21, 0.245, 0, 1.15, 0.65, 1.0).name = 'ArmorPadL';
+  return mount;
+}
+function applyIdleBreathing(root,t,active){
+ if(!root)return;var chest=root.getObjectByName('J_Bip_C_Chest')||root.getObjectByName('J_Bip_C_Spine')||root.getObjectByName('Torso');if(!chest)return;
+ if(!chest.userData.breathScale)chest.userData.breathScale=chest.scale.clone();var base=chest.userData.breathScale,b=active?Math.sin(t*1.65)*.003:0;chest.scale.set(base.x*(1+b*.35),base.y*(1+b),base.z*(1+b));
+}
+
+function buildLobbyStage(){
+ if(lobbySceneGroup)return;lobbySceneGroup=new THREE.Group();lobbySceneGroup.name='LobbyContactShadow';setupScene.add(lobbySceneGroup);
+ var shadow=new THREE.Mesh(new THREE.CircleGeometry(.28,32),new THREE.MeshBasicMaterial({color:0x10170d,transparent:true,opacity:.27,depthWrite:false}));shadow.rotation.x=-Math.PI/2;shadow.scale.set(1,.6,1);shadow.position.y=-.004;lobbySceneGroup.add(shadow);
+}
+function renderLobbyPreview(dt){
+ if(document.hidden||!document.getElementById('setPanel').classList.contains('hidden')||!document.getElementById('profileBox').classList.contains('hidden')||!document.getElementById('worldLoading').classList.contains('hidden'))return;
+ lobbyFrameTime+=dt;if(lobbyFrameTime<1/24)return;dt=Math.min(.08,lobbyFrameTime);lobbyFrameTime=0;lobbyElapsed+=dt;
+ var rawLobbySave=localStorage.getItem(SAVE_KEY);if(lobbySaveCache.key!==SAVE_KEY||lobbySaveCache.raw!==rawLobbySave){lobbySaveCache={key:SAVE_KEY,raw:rawLobbySave,value:loadSave()};}var saved=lobbySaveCache.value,kind=saved&&saved.char==='girl'?'girl':saved&&saved.char==='boy'?'boy':charKind,name=saved&&saved.pname||playerName||localStorage.getItem('oneworld-profile-name')||'Survivor';
+ var look=saved&&saved.look||charLook,armor=saved&&ARMORS[saved.armor]?saved.armor:null,stamp=kind+JSON.stringify(look)+'|'+armor;if(!setupRenderer||lobbyPreviewStamp!==stamp){var previous=charLook;charLook=Object.assign({},charLook,look);buildSetupPreview(kind);charLook=previous;var oldArmor=setupRoot.getObjectByName('ArmorMount');if(oldArmor){oldArmor.parent.remove(oldArmor);oldArmor.traverse(function(o){if(o.isMesh){o.geometry.dispose();o.material.dispose();}});}if(armor)createArmorVisual(setupRoot,armor,ARMORS[armor].tier);lobbyPreviewStamp=stamp;}
+ var lobbyDpr=Math.min(1.25,window.devicePixelRatio||1);if(setupRenderer.getPixelRatio()!==lobbyDpr)setupRenderer.setPixelRatio(lobbyDpr);var cv=document.getElementById('charPreview'),holder=document.getElementById('lobbyStage');if(cv.parentNode!==holder)holder.appendChild(cv);buildLobbyStage();lobbySceneGroup.visible=true;setupScene.background=null;setupScene.fog=null;
+ var w=holder.clientWidth,h=holder.clientHeight;if(w<1||h<1)return;var size=setupRenderer.getSize(new THREE.Vector2());if(size.x!==w||size.y!==h){setupRenderer.setSize(w,h,false);setupCamera.aspect=w/h;setupCamera.updateProjectionMatrix();}
+ var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,shift=reduce?0:Number(document.getElementById('start').style.getPropertyValue('--wall-x').replace('px',''))||0;lobbyMotion+=(shift*.007-lobbyMotion)*.15;lobbySceneGroup.position.x=0;lobbySceneGroup.rotation.y=0;
+ setupRoot.rotation.set(0,Math.PI,0);setupCamera.fov=32;setupCamera.position.set(0,1.08,Math.max(5.2,3.5/setupCamera.aspect));setupCamera.lookAt(0,.9,0);setupCamera.updateProjectionMatrix();var footScreen=new THREE.Vector3(0,0,0).project(setupCamera),footShadow=document.getElementById('lobbyFootShadow');footShadow.style.left=(footScreen.x*.5+.5)*w+'px';footShadow.style.top=(-footScreen.y*.5+.5)*h+'px';footShadow.style.width=Math.max(36,h*.5/setupCamera.position.z)+'px';setupMixer.setTime(.001);applyIdleBreathing(setupRoot,reduce?0:lobbyElapsed,true);updateHairSway(setupRoot,reduce?0:dt,false);setupRenderer.render(setupScene,setupCamera);
+ document.getElementById('lobbyName').textContent=name;if(document.getElementById('lobbySex').dataset.kind!==kind){document.getElementById('lobbySex').dataset.kind=kind;document.getElementById('lobbySex').innerHTML=kind==='girl'?'<svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><circle cx="16" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 18v11m-5-5h10" fill="none" stroke="currentColor" stroke-width="2"/></svg>':'<svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><circle cx="12" cy="20" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M18 14 28 4m-9 0h9v9" fill="none" stroke="currentColor" stroke-width="2"/></svg>';}document.getElementById('lobbyLevel').textContent=saved&&saved.progress&&Number.isFinite(Number(saved.progress.xp))?'LEVEL '+Math.min(69,1+Math.floor(Math.max(0,Math.min(6800,Number(saved.progress.xp)))/100)):'';document.getElementById('playBtn').textContent=saved?'CONTINUE':localStorage.getItem(SAVE_KEY+'-reset')==='yes'?'CREATE NEW WORLD':'START GAME';document.getElementById('newGameBtn').style.display=saved?'block':'none';
+}
+
+
 function showCharSetup(){
+  lobbyPreviewStamp='';if(setupRoot){var previewArmor=setupRoot.getObjectByName('ArmorMount');if(previewArmor){previewArmor.parent.remove(previewArmor);var owned=new Set();previewArmor.traverse(function(o){if(o.isMesh){if(!owned.has(o.geometry)){owned.add(o.geometry);o.geometry.dispose();}var mats=Array.isArray(o.material)?o.material:[o.material];mats.forEach(function(m){if(m&&!owned.has(m)){owned.add(m);m.dispose();}});}});}}
+  document.getElementById('previewWrap').prepend(document.getElementById('charPreview'));
   setupPreviousLook=JSON.parse(JSON.stringify(charLook));
   document.getElementById('playBtn').style.display = 'none';
   document.getElementById('newGameBtn').style.display = 'none';
@@ -3269,7 +3388,7 @@ async function joinReadyWorld(prepare,message){
 document.getElementById('joinBack').addEventListener('click',function(){cancelEntryUpdateGate();document.getElementById('worldLoading').classList.add('hidden');document.getElementById('start').classList.remove('hidden');});
 function startNewWorld(){joinReadyWorld(function(){resetGame();},'World ready');}
 document.getElementById('newGameBtn').addEventListener('click', function(){
-  askConfirm('START NEW WORLD?', 'Your saved world and everything in your bag will be erased.', showCharSetup);
+  askConfirm('RESET CURRENT WORLD?', 'This removes the selected world and its inventory/progress from Continue. The other map is unchanged. A local recovery copy is kept on this device. After reset, choose Create New World.', function(){var before=localStorage.getItem(SAVE_KEY);if(before===null)return;try{var recovery=SAVE_KEY+'-recovery-'+Date.now();localStorage.setItem(recovery,before);if(localStorage.getItem(recovery)!==before)throw new Error('Recovery copy could not be verified');localStorage.setItem(SAVE_KEY+'-reset','yes');localStorage.removeItem(SAVE_KEY);if(localStorage.getItem(SAVE_KEY)!==null)throw new Error('Current world could not be reset');lobbySaveCache={key:null,raw:null,value:null};document.getElementById('playBtn').textContent='CREATE NEW WORLD';document.getElementById('newGameBtn').style.display='none';toast('Selected world reset. Choose Create New World when ready.');}catch(err){try{localStorage.setItem(SAVE_KEY,before);}catch(restoreError){}toast('Reset did not finish. Your previous world was kept: '+err.message);}});
 });
 document.getElementById('confirmYes').addEventListener('click', function(){
   document.getElementById('confirmPanel').classList.add('hidden'); updatePause();
@@ -3383,12 +3502,12 @@ if(('ontouchstart' in window) || navigator.maxTouchPoints > 0) document.body.cla
 window.previewTest=function(){renderSetupPreview(.05);};
 window.oneworldAppLifecycle.configure({
  save:saveGame,
- pause:function(){appSuspended=true;joinToken++;respawnToken++;respawnBusy=false;menuMusicSuspend(true);if(frameHandle)cancelAnimationFrame(frameHandle);frameHandle=0;resetMovementInput();if(AC&&AC.state==='running')AC.suspend().catch(function(){});},
- resume:function(){if(closingGame)return;appSuspended=false;menuMusicSuspend(false);last=performance.now();needsWorldRender=true;scheduleFrame();}
+ pause:function(){appSuspended=true;if(window.oneworldWallpaperMotion)window.oneworldWallpaperMotion.sync();joinToken++;respawnToken++;respawnBusy=false;menuMusicSuspend(true);if(frameHandle)cancelAnimationFrame(frameHandle);frameHandle=0;resetMovementInput();if(AC&&AC.state==='running')AC.suspend().catch(function(){});},
+ resume:function(){if(closingGame)return;appSuspended=false;if(window.oneworldWallpaperMotion)window.oneworldWallpaperMotion.sync();menuMusicSuspend(false);last=performance.now();needsWorldRender=true;scheduleFrame();}
 });
 // Exit navigation stays inside this beta and never clears the saved world.
 var closingGame=false,setupPreviousLook=null;
-function setupToLobby(){document.getElementById('charSetup').classList.add('hidden');document.getElementById('start').classList.remove('choosing');['playBtn','setLobbyBtn','quitLobbyBtn'].forEach(function(id){document.getElementById(id).style.display='';});document.getElementById('newGameBtn').style.display=loadSave()?'inline-block':'none';if(setupPreviousLook){charLook=JSON.parse(JSON.stringify(setupPreviousLook));setupPreviousLook=null;}}
+function setupToLobby(){lobbyPreviewStamp='';document.getElementById('charSetup').classList.add('hidden');document.getElementById('start').classList.remove('choosing');['playBtn','setLobbyBtn','quitLobbyBtn'].forEach(function(id){document.getElementById(id).style.display='';});document.getElementById('newGameBtn').style.display=loadSave()?'inline-block':'none';if(setupPreviousLook){charLook=JSON.parse(JSON.stringify(setupPreviousLook));setupPreviousLook=null;}}
 document.getElementById('setupBack').onclick=setupToLobby;
 function requestGameClose(){if(closingGame)return;resetMovementInput();askConfirm('CLOSE ONE WORLD?', 'Save your world and close the beta app? Your last saved world will not be deleted.',saveAndClose,'SAVE & CLOSE');}
 function saveAndClose(){if(closingGame)return false;if(!saveGame()){toast('Could not save. App stays open. Free device storage and try again.');return false;}if(!window.OneWorldNative||typeof window.OneWorldNative.quit!=='function'){toast('World saved. Closing the app is available on Android.');return false;}closingGame=true;if(window.oneworldMenuMusic)window.oneworldMenuMusic.close();respawnToken++;respawnBusy=false;resetMovementInput();window.oneworldLifecyclePause();running=false;clearInterval(autosaveTimer);if(AC)AC.close().catch(function(){});[renderer,setupRenderer].forEach(function(r){if(r){r.dispose();r.forceContextLoss();}});window.OneWorldNative.quit();return true;}
