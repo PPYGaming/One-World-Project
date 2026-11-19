@@ -1,3 +1,7 @@
+## 1.3.52
+
+Visible inspection flight, continuous coastal appearance, Low foliage clarity and wide shrubs, contact and High terrain shadows. See docs/QA-1.3.52.md for measured costs and limits.
+
 # 1.3.51: offline security repair, cumulative Second Map
 
 - Removed the native APK downloader, installer provider and installation permission. Updates are optional through an explicit external-browser GitHub Releases button; there is no startup update lock.
