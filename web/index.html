@@ -585,7 +585,17 @@ body.referenceWorld #joy,body.referenceWorld #atk,body.referenceWorld #bagBtn,bo
 #loading h1{position:absolute!important;left:7vw!important;top:30%!important;right:auto!important;width:44vw!important;max-width:none!important;margin:0!important;transform:none!important}
 #loading .ownerWordmark{width:100%!important;height:auto!important}
 }
-</style><link rel="stylesheet" href="assets/ui/crafting48.css"></head>
+
+/* Keep the artwork crown visible on wide phones, including motion extremes. */
+@media(orientation:landscape){
+#tapToStart:before,#worldLoading:after{inset:0 -8px -24px!important;background-position:center top!important;transform:translate3d(clamp(-8px,var(--wall-x,0px),8px),0,0)!important}
+#loading:before{background-position:center 12px!important}
+#worldLoading:after{background-position:center 12px!important}
+}
+</style><link rel="stylesheet" href="assets/ui/crafting48.css"><style>
+#motionLabel49{position:absolute;left:max(12px,env(safe-area-inset-left));bottom:max(5px,env(safe-area-inset-bottom));display:flex;align-items:center;gap:5px;min-height:36px;padding:8px 4px;font:10px sans-serif;color:#d7e3dccc;z-index:4;cursor:pointer;touch-action:manipulation}#menuMotionToggle{all:revert!important;appearance:auto!important;width:11px!important;height:11px!important;margin:0!important;cursor:pointer!important;accent-color:#d9e7dc!important}#start.choosing #motionLabel49{display:none}@media(orientation:portrait){#start:not(.choosing)>.foot{bottom:56px}}#editCharacter49{position:absolute;left:24px;top:166px;z-index:4;width:36px;min-width:36px;height:36px;padding:0!important;font-size:23px!important}#start.choosing #editCharacter49{display:none!important}.needsChoice49>label,.needsChoice49>select,.needsChoice49>.visualOptions,.needsChoice49>.selectOptions{visibility:hidden}#start.choosing #menuMotionToggle{display:none!important}#setupNote49{color:#f3deab}
+@media(max-height:350px){#editCharacter49{left:24px;top:124px;width:30px;min-width:30px;height:30px}#setupNote49{font-size:10px!important;min-height:12px!important;margin:0!important}}
+</style><style>#start:not(.choosing)>#editCharacter49{position:absolute!important;left:24px!important;right:auto!important;top:162px!important;bottom:auto!important;width:32px!important;height:32px!important;min-width:32px!important;min-height:32px!important;max-width:32px!important;margin:0!important;padding:0!important;font:22px/1 sans-serif!important;display:block;border-radius:6px!important}</style></head>
 <body><div id="healthNotice" role="status" aria-live="polite"></div><div id="weaponAim" aria-hidden="true"></div>
 <canvas id="c"></canvas>
 
@@ -638,7 +648,7 @@ body.referenceWorld #joy,body.referenceWorld #atk,body.referenceWorld #bagBtn,bo
 <section data-settings-page="audio" class="hidden"><h4>AUDIO</h4><p class="settingsIntro">Adjust music and game effects separately.</p><div class="settingRow"><label for="musicVolume">Background music <output id="musicVolumeValue"></output></label><input id="musicVolume" type="range" min="0" max="100" step="1"></div><div class="settingRow"><label for="sfxVolume">Sound effects <output id="sfxVolumeValue"></output></label><input id="sfxVolume" type="range" min="0" max="100" step="1"></div><p id="musicPlaybackStatus" class="settingsNote" role="status"></p><p class="settingsNote">Music continues through all pregame panels and stops on world entry. Your music volume is kept. Device media volume and output are controlled by Android.</p></section><section data-settings-page="profile" class="hidden"><h4>PROFILE</h4><p class="settingsIntro">View your survivor profile.</p><button class="playbtn" id="menuProfileBtn">PROFILE</button></section><section data-settings-page="help" class="hidden"><h4>HELP &amp; BETA</h4><p class="settingsIntro">Your forest survival guide.</p><div id="setHelp" style="font-size:11px;line-height:1.6;margin-top:12px;max-width:420px;color:#baccdb">Move: joystick / WASD. Auto-run: hold the joystick and drag up to show its lock target. Reach the target and release there to lock. Release anywhere else to stop. Touch the joystick again to stop auto-run. Hold and drag the eye to look without steering; release to return. Move joystick to stop. Shift on keyboard. Look: drag. Attack: right button / Space. Bag: B. Quick tools: 1-3.<br>Drink at the river. Approach a coloured gate, then open Map to travel. Sleep at your placed bedroll.<br>Beta: original lowpoly enemies and animals; visual quality and phone performance are still being tested.</div><div id="studioCredits" class="settingsNote"><h4>CREDITS</h4>Tamil Crafters Studio<br>Original game: Smiley, reused and modified with permission.<br>Models: VRoid Project + Quaternius (CC0). Textures: Poly Haven (CC0). Three.js (MIT).<br>Original menu music supplied by the app owner. Anime wallpaper illustrations prepared for this project.<br>Full third-party license and provenance notices are bundled with the game source.</div><button id="debugBtn" class="playbtn secondary">BETA DEBUG CONSOLE</button></section><section data-settings-page="about" class="hidden"><h4>ABOUT</h4><p id="updateCheckStatus" class="settingsNote" role="status"></p><button id="retryUpdateCheck" class="playbtn secondary" style="font-size:12px">SAVE &amp; RESTART TO CHECK UPDATE</button><h3 style="margin:18px 0 14px">AUTHORS</h3><article class="authorCompact"><header><img src="assets/ui/ppy-gaming-logo.jpg" alt="PPY Gaming logo"><h4>PPYGaming</h4></header><nav aria-label="Author links"><button type="button" id="authorStudioLink" aria-label="Open Website"><svg viewBox="0 0 24 24" width="16" height="16" style="vertical-align:-3px;margin-right:6px" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/><ellipse cx="12" cy="12" rx="4" ry="9" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3 12h18M5 7h14M5 17h14" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span>Website</span></button><button type="button" class="authorSocial" data-profile="0" aria-label="Open YouTube"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" style="flex:none"><rect x="2" y="5" width="20" height="14" rx="4" fill="#f03"/><path d="m10 8 6 4-6 4z" fill="white"/></svg><span>YouTube</span></button><button type="button" class="authorSocial" data-profile="1" aria-label="Open Instagram"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" style="flex:none"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="#ef6ba8" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="#ef6ba8" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1" fill="#ef6ba8"/></svg><span>Instagram</span></button><button type="button" class="authorSocial" data-profile="2" aria-label="Open TikTok"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" style="flex:none"><path d="M14 3v12a4 4 0 1 1-4-4v3a1.5 1.5 0 1 0 1.5 1.5V3h2.5c0 3 2 5 5 5v3c-2 0-4-1-5-2" fill="#62f3ee"/></svg><span>TikTok</span></button></nav></article><p class="settingsNote">Third-party licenses and asset credits are listed separately in Help &amp; Beta.</p></section>
 </div></div>
 <footer id="settingActions"><span>Changes are saved on this device.</span><button class="playbtn closebtn" id="saveLobby">SAVE &amp; LOBBY</button></footer>
-</div><div id="profileBox" class="hidden" style="max-width:360px"><label>Survivor name</label><input id="profileName" maxlength="16" style="width:160px;padding:7px;background:#0b2b47;color:white;border:1px solid #6ea6ca"><button id="profileNameSave" style="padding:7px;background:#174c70;color:white;border:1px solid #75bce4">SAVE NAME</button><div id="profileStats" style="font-size:11px;line-height:1.6"></div></div><div id="confirmPanel" class="panel hidden"><h3 id="confirmTitle">ARE YOU SURE?</h3><div id="confirmMsg" style="font-size:14px;opacity:.85;margin:6px 0 4px"></div>
+</div><div id="profileList49" class="panel hidden" style="z-index:60;width:min(360px,90vw);max-height:80vh;overflow:auto"></div><div id="profileBox" class="hidden" style="max-width:360px"><label>Survivor name</label><input id="profileName" maxlength="16" style="width:160px;padding:7px;background:#0b2b47;color:white;border:1px solid #6ea6ca"><button id="profileNameSave" style="padding:7px;background:#174c70;color:white;border:1px solid #75bce4">SAVE NAME</button><div id="profileStats" style="font-size:11px;line-height:1.6"></div></div><div id="confirmPanel" class="panel hidden"><h3 id="confirmTitle">ARE YOU SURE?</h3><div id="confirmMsg" style="font-size:14px;opacity:.85;margin:6px 0 4px"></div>
 <button class="playbtn closebtn" id="confirmYes" style="background:#a04434">YES, ERASE</button>
 <button class="playbtn closebtn" id="confirmNo">CANCEL</button></div>
 <button id="freeLookBtn" aria-label="Hold and drag to look around without steering"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M2 16s5-9 14-9 14 9 14 9-5 9-14 9S2 16 2 16Z"/><circle cx="16" cy="16" r="5"/></svg></button><div id="sprintBtn" role="presentation" aria-hidden="true"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="m8 7 6 6 4 1 3 5 7 3v5H4v-7l3-5zM5 23h22M12 14l4 3m-6 0 4 3M2 8h5M1 12h4"/></svg></div><div id="sosNotice" class="hidden"></div><div id="toast"></div>
@@ -657,13 +667,13 @@ body.referenceWorld #joy,body.referenceWorld #atk,body.referenceWorld #bagBtn,bo
   <div class="ver">Loading build version...</div>
   <div class="tag"><span class="blt"></span>Enter the deep forest<br><span class="blt"></span>Fight the wolves, hunt the deer<br><span class="blt"></span>Deer and birds keep you company<br><span class="blt"></span>Watch day turn into night</div>
   <div id="worldChooser" style="display:flex;gap:6px;margin:8px 0;max-width:280px"><button class="playbtn" id="worldOld" style="font-size:11px;padding:9px">MAP 1<br>ORIGINAL</button><button class="playbtn" id="worldReference" style="font-size:11px;padding:9px">MAP 2<br>NEW ISLAND</button></div><button class="playbtn" id="playBtn"><svg viewBox="0 0 24 24" width="18" height="18" style="vertical-align:-3px;margin-right:8px"><path d="M6 3l14 9-14 9z" fill="#d2e6f7"/></svg>ENTER WORLD</button><br>
-  <button id="menuMotionToggle" type="button" aria-label="Menu motion" aria-pressed="false" title="Toggle character and background motion"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="4" width="10" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3 9l-2 3 2 3m18-6 2 3-2 3M2 12h3m14 0h3" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span>MOTION OFF</span></button>
-  <button class="playbtn" id="newGameBtn" style="display:none;font-size:13px;padding:10px 26px;margin-top:10px" aria-label="Reset current world" title="Reset current world"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M19 7a8 8 0 1 0 1 8M19 3v5h-5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
+  <label id="motionLabel49"><input id="menuMotionToggle" type="checkbox" aria-label="Motion Blur"><span>Motion Blur</span></label>
+  <button class="playbtn" id="editCharacter49" style="font-size:11px;padding:8px 14px" aria-label="Add profile">+</button><button class="playbtn" id="newGameBtn" style="display:none;font-size:13px;padding:10px 26px;margin-top:10px" aria-label="Reset current world" title="Reset current world"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M19 7a8 8 0 1 0 1 8M19 3v5h-5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
   <button class="playbtn" aria-label="Settings" id="setLobbyBtn" style="font-size:13px;padding:10px 26px;margin-top:10px;background:#2f506b"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M13 3h6l1 4 3 2 4-1 3 5-3 3v3l3 3-3 5-4-1-3 2-1 3h-6l-1-3-3-2-4 1-3-5 3-3v-3l-3-3 3-5 4 1 3-2z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="16" cy="17" r="5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
 
   <div id="charSetup" class="hidden" style="margin-top:14px">
     <div style="font-size:20px;font-weight:800;margin-bottom:10px"><button id="setupBack" aria-label="Back to lobby" style="position:absolute;left:12px;top:12px;min-width:76px;min-height:44px;border:1px solid #8bcbed;border-radius:10px;background:#174460;color:#edf8ff;font-weight:700;z-index:4">BACK</button>YOUR SURVIVOR</div>
-    <div id="charGrid"><div id="previewWrap"><canvas id="charPreview" width="360" height="300"></canvas><div id="zoomActions"><button id="zoomToggle" aria-label="Zoom to head"><svg viewBox="0 0 32 32" width="34" height="34"><circle cx="13" cy="13" r="9"/><path d="m20 20 9 9M8 13h10"/><path id="zoomPlus" d="M13 8v10"/></svg></button></div></div><div id="charControls">
+    <p id="setupNote49" role="status" style="font-size:12px;min-height:18px;margin:3px 0">Choose a character and enter your name.</p><div id="charGrid"><div id="previewWrap"><canvas id="charPreview" width="360" height="300"></canvas><div id="zoomActions"><button id="zoomToggle" aria-label="Zoom to head"><svg viewBox="0 0 32 32" width="34" height="34"><circle cx="13" cy="13" r="9"/><path d="m20 20 9 9M8 13h10"/><path id="zoomPlus" d="M13 8v10"/></svg></button></div></div><div id="charControls">
     <input id="nameInput" maxlength="16" placeholder="Your name" style="padding:12px 14px;border-radius:12px;border:2px solid rgba(140,203,255,.4);background:rgba(20,31,40,.8);color:#d2e6f7;font-size:16px;text-align:center;width:230px;outline:none">
     <div style="display:flex;gap:12px;justify-content:center;margin-top:12px">
       <button class="charCard" id="pickBoy" data-k="boy">BOY</button>
@@ -740,8 +750,8 @@ window.oneworldStartupReady=window.oneworldLoadingPainted.then(function(){return
  function move(nx){if(blocked()||!current()||!Number.isFinite(nx))return;targetX=Math.max(-12,Math.min(12,nx));if(!frame)frame=requestAnimationFrame(paint);}
  function reset(){origin=null;resumeOrigin=null;resumeX=0;x=targetX=0;if(frame)cancelAnimationFrame(frame);frame=0;document.querySelectorAll('#loading,#start,#tapToStart,#worldLoading').forEach(function(t){t.style.setProperty('--wall-x','0px');t.style.setProperty('--wall-y','0px');});}
  function sync(){var active=!!current();var menu=document.getElementById('start');if(menu.classList.contains('motionPaused')===active)menu.classList.toggle('motionPaused',!active);if(hasNative&&nativeActive!==active){nativeActive=active;native.setWallpaperMotionActive(active);}if(!active)reset();else if(!frame)frame=requestAnimationFrame(paint);}
- function setEnabled(enabled){motionEnabled=!!enabled;window.oneworldMenuMotionEnabled=motionEnabled;reset();var btn=document.getElementById('menuMotionToggle');btn.setAttribute('aria-pressed',String(motionEnabled));btn.querySelector('span').textContent=motionEnabled?'MOTION ON':'MOTION OFF';sync();if(window.oneworldMenuMotionFrame)window.oneworldMenuMotionFrame(0);}
- document.getElementById('menuMotionToggle').addEventListener('click',function(){setEnabled(!motionEnabled);});
+ function setEnabled(enabled){motionEnabled=!!enabled;window.oneworldMenuMotionEnabled=motionEnabled;reset();var btn=document.getElementById('menuMotionToggle');btn.checked=motionEnabled;sync();if(window.oneworldMenuMotionFrame)window.oneworldMenuMotionFrame(0);}
+ document.getElementById('menuMotionToggle').addEventListener('change',function(){setEnabled(this.checked);});
  window.oneworldNativeWallpaper=function(value){lastNative=performance.now();if(blocked())return;var n=Number(value);if(!Number.isFinite(n))return;if(resumeOrigin===null)resumeOrigin=n;move(resumeX+(n-resumeOrigin)*3);};
  function touchStart(e){if(e.pointerType==='mouse'&&e.buttons===0)return;touches.add(e.pointerId);quietUntil=Infinity;targetX=x;if(frame)cancelAnimationFrame(frame);frame=0;origin=null;resumeOrigin=null;resumeX=x;}
  function touchEnd(e){touches.delete(e.pointerId);if(!touches.size){quietUntil=performance.now()+300;origin=null;resumeOrigin=null;resumeX=x;}}
@@ -775,7 +785,8 @@ import {createReferenceSites,SAFE_AREAS,LAB,SITE_PLANS} from './assets/lib/Refer
 import {applyShoreDetail} from './assets/lib/ShoreDetail.js';
 import {legacyTreeCandidates,legacyTrees} from './assets/lib/legacy37/ResourceIdentity.js';
 import {REFERENCE_WORLD,referenceSample,referenceHeight,referenceBiome,referenceSurface} from './assets/lib/ReferenceIsland.js';
-var referenceMode=false;try{referenceMode=localStorage.getItem('oneworld-selected-world-v1')==='reference-island-v1';}catch(e){}
+// The owner retired the original circle map. Keep its save bytes, never route gameplay to it.
+var referenceMode=true;
 var referenceResourceLayout='stable38';
 var activeWorldId=referenceMode?'reference-island-v1':'original';
 var referenceStart={x:-3220,z:2570};
@@ -785,13 +796,14 @@ import { GLTFLoader } from './assets/lib/GLTFLoader.js';
 import { clone as skClone } from './assets/lib/SkeletonUtils.js';
 import { animeClips, applyAnimeColors, attachLeatherGarments, applyHairStyle, updateHairSway } from './assets/lib/AnimeCharacter.js';
 
-var BUILD_INFO={name:'1.3.48',code:null,native:false};
+var BUILD_INFO={name:'1.3.49',code:null,native:false};
 try{var nb=window.OneWorldNative;if(nb&&typeof nb.getBuildInfo==='function'){var bi=JSON.parse(nb.getBuildInfo());if(bi.package==='com.oneword.forest.beta'&&typeof bi.name==='string'&&/^\d+\.\d+\.\d+$/.test(bi.name)&&Number.isSafeInteger(bi.code)&&bi.code>0)BUILD_INFO={name:bi.name,code:bi.code,native:true};}}catch(e){}
 var DISPLAY_VERSION=BUILD_INFO.name+(BUILD_INFO.native?'':' preview');
 document.querySelector('#start .ver').textContent=DISPLAY_VERSION+' Beta - Work in progress';
 window.__errors=[];
 const boundedErrorPush=window.__errors.push.bind(window.__errors);window.__errors.push=function(...items){boundedErrorPush(...items.map(v=>String(v).slice(0,500)));while(this.length>60)this.shift();return this.length;};
-const betaEvents=[];function betaLog(msg){betaEvents.push(new Date().toLocaleTimeString('en-GB')+' '+String(msg).slice(0,160));if(betaEvents.length>60)betaEvents.shift();}
+var priorSession49=null;try{priorSession49=JSON.parse(localStorage.getItem('oneworld-session-diagnostic-v1')||'null');}catch(e){}
+var sessionStarted49=Date.now();const betaEvents=[];function betaLog(msg){betaEvents.push(new Date().toLocaleTimeString('en-GB')+' '+String(msg).slice(0,160));if(betaEvents.length>60)betaEvents.shift();try{localStorage.setItem('oneworld-session-diagnostic-v1',JSON.stringify({started:sessionStarted49,lastAt:Date.now(),events:betaEvents.slice(-12)}));}catch(e){}}
 betaLog('App starting: offline bundled assets');
 window.addEventListener('error', function(e){ window.__errors.push(String(e.message||e)); });
 
@@ -818,7 +830,8 @@ function startupStage(percent,label){
  startupPresentation=startupPresentation.then(async function(){var changed=percent>startupPercent;startupPercent=Math.max(startupPercent,percent);loadBar.style.width=startupPercent+'%';document.getElementById('loadNumber').textContent=startupPercent+'%';if(!window.oneworldStartupUpdate.pending)loadPct.textContent=(window.oneworldStartupUpdate.status==='offline'?'Offline mode - ':window.oneworldStartupUpdate.status==='unavailable'?'Update check unavailable - ':'')+label;window.oneworldTrace(label);window.oneworldStartupTrace[window.oneworldStartupTrace.length-1].percent=startupPercent;await window.oneworldYieldPaint();if(changed)await new Promise(function(done){setTimeout(done,480);});});
  return startupPresentation;
 }
-manager.onLoad=async function(){try{await startupStage(50,'Bundled assets ready; checking beta readiness');await window.oneworldStartupReady;await buildWorld();await startupStage(90,'Entry readiness complete');await startupStage(100,'World ready - 100%');await window.oneworldYieldPaint();document.getElementById('loading').classList.add('hidden');document.getElementById('start').classList.remove('hidden');window.oneworldTrace('menu-visible');}catch(err){window.__errors.push('buildWorld: '+(err&&err.stack||err));showLoadError(err);}};
+var initialBuildStarted49=false;
+manager.onLoad=async function(){if(initialBuildStarted49)return;initialBuildStarted49=true;try{await startupStage(50,'Bundled assets ready; checking beta readiness');await window.oneworldStartupReady;await buildWorld();await startupStage(90,'Entry readiness complete');await startupStage(100,'World ready - 100%');await window.oneworldYieldPaint();document.getElementById('loading').classList.add('hidden');window.oneworldEnterTitle();}catch(err){window.__errors.push('buildWorld: '+(err&&err.stack||err));showLoadError(err);}};
 window.addEventListener('unhandledrejection', function(e){ window.__errors.push('async: '+String(e.reason && e.reason.message || e.reason)); });
 function showLoadError(err){
   var msg = 'Load error: ' + (err && err.message ? err.message : String(err));
@@ -1285,7 +1298,7 @@ function disposeChunk(key){
 // Low quality prefetches an extra edge row only within 8m of a boundary.
 // Keep all neighbor collider checks intact; never walk into an unloaded cell.
 function wantedChunks(forJoin){
- var qt=qTier(),radius=forJoin?1:qt.loadR,margin=qt.loadR===1?8:0;
+ var qt=qTier(),radius=qt.loadR,margin=qt.loadR===1?8:0;
  var loX=Math.floor((P.x-margin)/CHUNK)-radius,hiX=Math.floor((P.x+margin)/CHUNK)+radius;
  var loZ=Math.floor((P.z-margin)/CHUNK)-radius,hiZ=Math.floor((P.z+margin)/CHUNK)+radius,list=[];
  for(var x=loX;x<=hiX;x++)for(var z=loZ;z<=hiZ;z++)list.push([x,z,Math.hypot((x+.5)*CHUNK-P.x,(z+.5)*CHUNK-P.z)]);
@@ -1746,7 +1759,7 @@ var P = { x: 0, z: 0, rotY: 0, walk: 0, speed: 0, hp: 6, maxHp: 6, atkT: -9, atk
 await startupStage(80,'Preparing saved settings');
 // ---------- settings (persisted), inventory, world save ----------
 var SET_KEY = 'oneword-settings-v1', SAVE_KEY = referenceMode?REFERENCE_WORLD.saveKey:'oneword-save-v1';
-var settings = { quality: 'medium', sens: 1 }; // default medium: mid-range phone smoothness first (user-reported stutter)
+var settings = { quality: 'low', sens: 1 }; // Fresh installs start with the existing lighter preset; saved graphics choices win.
 try { var sraw = localStorage.getItem(SET_KEY); if(sraw){ var sp = JSON.parse(sraw); if(sp && sp.quality) settings = sp; } } catch(e){}
 var appliedQuality=null,appliedShadows=null,appliedFancy=null;
 function fancyLeaves(){return settings.fancyLeaves==='on'||settings.fancyLeaves!=='off'&&settings.fancyLeaves!=='on'&&settings.quality!=='low';}
@@ -2564,9 +2577,9 @@ function renderProfile(){
  el.querySelectorAll('button').forEach(function(b){b.onclick=function(){spendPoint(b.dataset.stat);};});
 }
 var profilePanel=document.getElementById('profileBox');document.body.appendChild(profilePanel);profilePanel.classList.add('panel');profilePanel.insertAdjacentHTML('beforeend','<button id="profileClose" class="playbtn closebtn">CLOSE PROFILE</button>');var profileFromLobby=false;document.getElementById('profileClose').onclick=function(){profilePanel.classList.add('hidden');updatePause();if(profileFromLobby){profileFromLobby=false;return;}openSettings();};
-document.getElementById('lobbyProfile').onclick=function(){profileFromLobby=true;var saved=loadSave();if(saved){playerName=saved.pname||playerName;}renderProfile();document.getElementById('profileBox').classList.remove('hidden');};
+document.getElementById('lobbyProfile').onclick=showProfileList49;
 document.getElementById('profileBtn').onclick=function(){renderProfile();document.getElementById('profileBox').classList.toggle('hidden');};
-document.getElementById('profileNameSave').onclick=function(){playerName=document.getElementById('profileName').value.trim().slice(0,16)||'Survivor';localStorage.setItem('oneworld-profile-name',playerName);if(running)saveGame();else {var saved=loadSave();if(saved){saved.pname=playerName;localStorage.setItem(SAVE_KEY,JSON.stringify(saved));}}toast('Name saved');};
+document.getElementById('profileNameSave').onclick=function(){var name=document.getElementById('profileName').value.trim().slice(0,16);if(!name){toast('Enter a survivor name');return;}var oldRegistry=null,oldSave=null,read=false;try{oldRegistry=localStorage.getItem(PROFILE_KEY49);oldSave=localStorage.getItem(SAVE_KEY);read=true;var r=JSON.parse(JSON.stringify(profileRegistry49)),p=r.profiles.find(p=>p.id===r.active);p.name=name;var saved=running?worldSnapshot():loadSave();if(saved)saved=Object.assign({},saved,{pname:name});localStorage.setItem(PROFILE_KEY49,JSON.stringify(r));if(saved)localStorage.setItem(SAVE_KEY,JSON.stringify(saved));profileRegistry49=r;localProfile49=p;playerName=name;toast('Name saved');}catch(e){if(read)try{if(oldRegistry===null)localStorage.removeItem(PROFILE_KEY49);else localStorage.setItem(PROFILE_KEY49,oldRegistry);if(oldSave!==null)localStorage.setItem(SAVE_KEY,oldSave);}catch(ignored){}toast('Could not save name. Previous identity retained.');}};
 // ---------- game state ----------
 var running = false, now = 0, swimming = false;
 var heartsEl = document.getElementById('hearts'), wolfEl = document.getElementById('wolfCount'), dnEl = document.getElementById('dayNight');
@@ -2775,6 +2788,7 @@ function renderBetaDebug(){
  document.getElementById('debugStats').textContent='BETA '+DISPLAY_VERSION+(BUILD_INFO.native?' ('+BUILD_INFO.code+')':'')+' | '+(running?(paused?'Paused':'Playing'):'Lobby')+' | '+settings.quality+'\n'+
  'FPS '+(avg?Math.round(1000/avg):'-')+' | frame p95 '+percentile(betaFrames,.95).toFixed(1)+' ms | '+betaFrames.filter(function(v){return v>50;}).length+'/'+betaFrames.length+' frames >50ms\n'+
  'Tick p95 '+percentile(betaTick,.95).toFixed(2)+' ms | render CPU p95 '+percentile(betaRender,.95).toFixed(2)+' ms\n'+
+ 'Previous session: '+(priorSession49?JSON.stringify(priorSession49):'None captured')+'\n'+
  'Draw calls '+renderer.info.render.calls+' | triangles '+renderer.info.render.triangles+' | chunks '+Object.keys(chunks).length+'\n'+
  'Active: world, camera collision, character/wildlife, survival, weather, audio on events; autosave every 5s.\n'+
  'No background network. CPU render time is not GPU time. Recorder FPS is not game FPS.\n'+
@@ -3316,7 +3330,7 @@ function gameOver(){
  controlDraft=null;document.body.classList.remove('editingControls');
  betaLog('Death: simulation stopped, respawn map');deathMap();
 }
-function respawnLobby(){respawnToken++;respawnBusy=false;document.getElementById('mapPanel').classList.add('hidden');document.getElementById('mapPanel').classList.remove('respawning');document.getElementById('start').classList.remove('hidden');document.getElementById('charSetup').classList.add('hidden');document.getElementById('playBtn').textContent='CONTINUE';running=false;paused=false;resetMovementInput();syncInvOpen();menuMusicWorld(false);}
+function respawnLobby(){betaLog('Menu requested from respawn map');respawnToken++;respawnBusy=false;document.getElementById('mapPanel').classList.add('hidden');document.getElementById('mapPanel').classList.remove('respawning');document.getElementById('start').classList.remove('hidden');document.getElementById('charSetup').classList.add('hidden');document.getElementById('playBtn').textContent='CONTINUE';running=false;paused=false;resetMovementInput();syncInvOpen();menuMusicWorld(false);}
 async function respawnAt(kind){
  if(!respawnRequired||respawnBusy||kind==='bed'&&!bedPos)return false;respawnBusy=true;var token=++respawnToken;
  var old={x:P.x,z:P.z},target=kind==='bed'?{x:bedPos.x,z:bedPos.z}:referenceMode?{x:referenceStart.x,z:referenceStart.z}:{x:0,z:0};
@@ -3345,14 +3359,16 @@ if(existingSave){ document.getElementById('playBtn').textContent = 'CONTINUE'; d
 var setupKind = 'boy';var lobbySceneGroup=null,lobbyPreviewStamp='',lobbyFrameTime=0,lobbyElapsed=0,lobbyMotion=0,lobbySaveCache={key:null,raw:null,value:null};
 var setupPreviews=Object.create(null);
 var setupRenderer=null, setupScene=null, setupCamera=null, setupRoot=null, setupMixer=null, setupAngle=0, setupDrag=null,setupFocus="body",setupZoom=1;
+function releasePreviewGraphics49(){if(!setupRenderer)return;var oldCanvas=setupRenderer.domElement;setupRenderer.dispose();setupRenderer.forceContextLoss();var freshCanvas=oldCanvas.cloneNode(false);delete freshCanvas.dataset.previewPointers49;oldCanvas.replaceWith(freshCanvas);setupRenderer=null;setupScene=null;setupCamera=null;setupRoot=null;setupMixer=null;lobbySceneGroup=null;lobbyPreviewStamp='';setupDrag=null;}
 function buildSetupPreview(k){
  var cv=document.getElementById('charPreview');
  if(!setupRenderer){
   setupRenderer=new THREE.WebGLRenderer({canvas:cv,alpha:true,antialias:true});setupRenderer.setPixelRatio(Math.min(2,window.devicePixelRatio||1));setupRenderer.outputColorSpace=THREE.SRGBColorSpace;
   setupScene=new THREE.Scene();setupScene.add(new THREE.HemisphereLight(0xe9f4ff,0x4d5365,.75));var previewKey=new THREE.DirectionalLight(0xffedd9,.80);previewKey.position.set(-2,3,4);setupScene.add(previewKey);var previewRim=new THREE.DirectionalLight(0x9ad8ff,.25);previewRim.position.set(2,2,-3);setupScene.add(previewRim);setupCamera=new THREE.PerspectiveCamera(32,1.2,.1,20);setupCamera.position.set(0,1.0,3.45);setupCamera.lookAt(0,.9,0);
+  if(!cv.dataset.previewPointers49){cv.dataset.previewPointers49='yes';
   cv.addEventListener('pointerdown',function(e){if(document.getElementById('charSetup').classList.contains('hidden'))return;setupDrag=e.clientX;cv.setPointerCapture(e.pointerId);});
   cv.addEventListener('pointermove',function(e){if(setupDrag!==null){setupAngle-=(e.clientX-setupDrag)*.015;setupDrag=e.clientX;}});
-  cv.addEventListener('pointerup',function(){setupDrag=null;});cv.addEventListener('pointercancel',function(){setupDrag=null;});
+  cv.addEventListener('pointerup',function(){setupDrag=null;});cv.addEventListener('pointercancel',function(){setupDrag=null;});}
  }
  if(setupRoot)setupScene.remove(setupRoot);
  var cached=setupPreviews[k];
@@ -3387,7 +3403,7 @@ function renderSetupPreview(dt){
  if(!document.getElementById('start').classList.contains('hidden')&&!document.getElementById('start').classList.contains('choosing')){renderLobbyPreview(dt);return;}
  if(lobbySceneGroup)lobbySceneGroup.visible=false;setupScene&&(setupScene.background=null,setupScene.fog=null);
 
- if(setupRenderer){var editDpr=Math.min(2,window.devicePixelRatio||1);if(setupRenderer.getPixelRatio()!==editDpr)setupRenderer.setPixelRatio(editDpr);}
+ if(setupRenderer&&!document.getElementById('start').classList.contains('hidden')){var editDpr=Math.min(2,window.devicePixelRatio||1);if(setupRenderer.getPixelRatio()!==editDpr)setupRenderer.setPixelRatio(editDpr);}
  if(!setupRenderer || document.getElementById('charSetup').classList.contains('hidden') || document.getElementById('start').classList.contains('hidden'))return;
  var cv=document.getElementById('charPreview'), w=Math.round(cv.clientWidth),h=Math.round(cv.clientHeight);
  if(setupRenderer.getSize(new THREE.Vector2()).x!==w||setupRenderer.getSize(new THREE.Vector2()).y!==h){setupRenderer.setSize(w,h,false);setupCamera.aspect=w/h;setupCamera.updateProjectionMatrix();}
@@ -3426,9 +3442,10 @@ function buildLobbyStage(){
  var shadow=new THREE.Mesh(new THREE.CircleGeometry(.28,32),new THREE.MeshBasicMaterial({color:0x10170d,transparent:true,opacity:.27,depthWrite:false}));shadow.rotation.x=-Math.PI/2;shadow.scale.set(1,.6,1);shadow.position.y=-.004;lobbySceneGroup.add(shadow);
 }
 function renderLobbyPreview(dt,force){
+ if(document.getElementById('start').classList.contains('choosing'))return;
  if(document.hidden||document.getElementById('start').classList.contains('hidden')||!document.getElementById('setPanel').classList.contains('hidden')||!document.getElementById('profileBox').classList.contains('hidden')||!document.getElementById('worldLoading').classList.contains('hidden'))return;
  lobbyFrameTime+=dt;if(!force&&lobbyFrameTime<1/24)return;dt=Math.min(.08,lobbyFrameTime);lobbyFrameTime=0;lobbyElapsed+=dt;
- var rawLobbySave=localStorage.getItem(SAVE_KEY);if(lobbySaveCache.key!==SAVE_KEY||lobbySaveCache.raw!==rawLobbySave){lobbySaveCache={key:SAVE_KEY,raw:rawLobbySave,value:loadSave()};}var saved=lobbySaveCache.value,kind=saved&&saved.char==='girl'?'girl':saved&&saved.char==='boy'?'boy':charKind,name=saved&&saved.pname||playerName||localStorage.getItem('oneworld-profile-name')||'Survivor';
+ var rawLobbySave=localStorage.getItem(SAVE_KEY);if(lobbySaveCache.key!==SAVE_KEY||lobbySaveCache.raw!==rawLobbySave){lobbySaveCache={key:SAVE_KEY,raw:rawLobbySave,value:loadSave()};}var saved=lobbySaveCache.value,kind=saved&&saved.char==='girl'?'girl':saved&&saved.char==='boy'?'boy':charKind,name=saved&&saved.pname||playerName||'';
  var look=saved&&saved.look||charLook,armor=saved&&ARMORS[saved.armor]?saved.armor:null,stamp=kind+JSON.stringify(look)+'|'+armor;if(!setupRenderer||lobbyPreviewStamp!==stamp){var previous=charLook;charLook=Object.assign({},charLook,look);buildSetupPreview(kind);charLook=previous;var oldArmor=setupRoot.getObjectByName('ArmorMount');if(oldArmor){oldArmor.parent.remove(oldArmor);oldArmor.traverse(function(o){if(o.isMesh){o.geometry.dispose();o.material.dispose();}});}if(armor)createArmorVisual(setupRoot,armor,ARMORS[armor].tier);lobbyPreviewStamp=stamp;}
  var lobbyDpr=Math.min(1.25,window.devicePixelRatio||1);if(setupRenderer.getPixelRatio()!==lobbyDpr)setupRenderer.setPixelRatio(lobbyDpr);var cv=document.getElementById('charPreview'),holder=document.getElementById('lobbyStage');if(cv.parentNode!==holder)holder.appendChild(cv);buildLobbyStage();lobbySceneGroup.visible=true;setupScene.background=null;setupScene.fog=null;
  var w=holder.clientWidth,h=holder.clientHeight;if(w<1||h<1)return;var size=setupRenderer.getSize(new THREE.Vector2());if(size.x!==w||size.y!==h){setupRenderer.setSize(w,h,false);setupCamera.aspect=w/h;setupCamera.updateProjectionMatrix();}
@@ -3438,7 +3455,8 @@ function renderLobbyPreview(dt,force){
 }
 
 
-function showCharSetup(){
+function showCharSetup(required){
+  setupRequired49=!!required;setupConfirmed49=!required;document.getElementById('setupBack').style.display=required?'none':'';document.getElementById('editCharacter49').style.display='none';document.getElementById('setupNote49').textContent='Choose a character and enter your name.';
   lobbyPreviewStamp='';if(setupRoot){var previewArmor=setupRoot.getObjectByName('ArmorMount');if(previewArmor){previewArmor.parent.remove(previewArmor);var owned=new Set();previewArmor.traverse(function(o){if(o.isMesh){if(!owned.has(o.geometry)){owned.add(o.geometry);o.geometry.dispose();}var mats=Array.isArray(o.material)?o.material:[o.material];mats.forEach(function(m){if(m&&!owned.has(m)){owned.add(m);m.dispose();}});}});}}
   document.getElementById('previewWrap').prepend(document.getElementById('charPreview'));
   setupPreviousLook=JSON.parse(JSON.stringify(charLook));
@@ -3448,10 +3466,11 @@ function showCharSetup(){
   document.getElementById('charSetup').classList.remove('hidden');
   document.getElementById('start').classList.add('choosing');
   var ni = document.getElementById('nameInput'); ni.value = playerName || '';
-  pickCharCard(charKind || 'boy');
+  if(required){setupKind=null;document.getElementById('nameInput').value='';document.querySelectorAll('#pickBoy,#pickGirl').forEach(b=>b.classList.remove('on'));document.getElementById('charPreview').style.visibility='hidden';document.getElementById('zoomActions').style.visibility='hidden';document.getElementById('charControls').classList.add('needsChoice49');}else{pickCharCard(charKind || 'boy');}
   // Do not force mobile keyboard over the live preview.
 }
 function pickCharCard(k){
+  setupConfirmed49=true;document.getElementById('zoomActions').style.visibility='';document.getElementById('charPreview').style.visibility='';document.getElementById('charControls').classList.remove('needsChoice49');document.getElementById('setupNote49').textContent='';
   setupAngle=0;setupFocus="body";setupZoom=1;
   setupKind=k;
   var sel=document.getElementById('hairStyle'),styles=k==='girl'?[['original','Original twin tails'],['short','Rear ponytail'],['long','Long twin tails'],['front','Front locks'],['loose','Loose with side locks']]:[['original','Medium hair'],['short','Clean shaved'],['long','Center strip']];
@@ -3465,20 +3484,21 @@ function pickCharCard(k){
 document.getElementById('pickBoy').addEventListener('click', function(){ pickCharCard('boy'); });
 document.getElementById('pickGirl').addEventListener('click', function(){ pickCharCard('girl'); });
 document.getElementById('beginBtn').addEventListener('click', function(){
-  var nm = document.getElementById('nameInput').value.trim().slice(0, 16) || 'Survivor';
-  playerName = nm;
-  document.getElementById('start').classList.remove('choosing');
-  buildPlayerChar(setupKind);
-  joinReadyWorld(function(){resetGame();}, 'Welcome, '+nm);
+  var nm=document.getElementById('nameInput').value.trim().slice(0,16),note=document.getElementById('setupNote49');
+  if(!setupConfirmed49||!['boy','girl'].includes(setupKind)){note.textContent='Choose Boy or Girl.';return;}
+  if(!nm){note.textContent='Enter your survivor name.';return;}
+  var chosen={v:1,confirmed:true,name:nm,kind:setupKind,look:JSON.parse(JSON.stringify(charLook))};
+  var savedProfile=saveProfile49(chosen);if(!savedProfile){note.textContent='Could not save. Free device storage and try again. Your previous character is unchanged.';return;}
+  useProfile49(savedProfile);creatingProfile49=false;setupRequired49=false;setupPreviousLook=null;buildPlayerChar(savedProfile.kind);setupToLobby();lobbyPreviewStamp='';renderLobbyPreview(.016,true);
 });
-['worldOld','worldReference'].forEach(function(id,i){var b=document.getElementById(id);b.setAttribute('aria-pressed',String(referenceMode===!!i));b.style.borderColor=referenceMode===!!i?'#bcecff':'#6b8291';b.onclick=function(){if(running||joiningWorld)return;try{localStorage.setItem('oneworld-selected-world-v1',i?'reference-island-v1':'original');}catch(e){toast('Could not save map choice');return;}location.reload();};});
+document.getElementById('worldChooser').remove();
 document.getElementById('playBtn').addEventListener('click', function(){
   var sv = loadSave();
   if(sv && sv.v >= 1){
     joinReadyWorld(function(){restoreGame(sv);},'World restored');
-  } else {
-    showCharSetup();
-  }
+  } else if(localProfile49){
+    playerName=localProfile49.name;charLook=JSON.parse(JSON.stringify(localProfile49.look));buildPlayerChar(localProfile49.kind);joinReadyWorld(function(){resetGame();},'Welcome, '+playerName);
+  } else {showCharSetup(true);}
 });
 // Beta entry-only update boundary. Native verification/download is a separate flow.
 function cancelEntryUpdateGate(){} // No world-entry update work remains.
@@ -3486,10 +3506,10 @@ var joiningWorld=false,entryCameraT=0,joinToken=0;
 function joinProgress(n){document.getElementById('joinProgress').style.width=n+'%';document.getElementById('joinPercent').textContent=n+'%';}
 function yieldJoinPaint(){return new Promise(function(resolve){setTimeout(resolve,32);});}
 async function joinReadyWorld(prepare,message){
- if(joiningWorld)return;var attempt=++joinToken;function activeJoin(){if(appSuspended||attempt!==joinToken)throw new Error("App backgrounded during world preparation");}joiningWorld=true;running=false;document.body.classList.remove('playing');
+ if(joiningWorld)return;betaLog('World entry requested');var attempt=++joinToken;function activeJoin(){if(appSuspended||attempt!==joinToken)throw new Error("App backgrounded during world preparation");}joiningWorld=true;running=false;document.body.classList.remove('playing');
  var previousSave=localStorage.getItem(SAVE_KEY);var overlay=document.getElementById('worldLoading'),stage=document.getElementById('joinStage');overlay.classList.remove('hidden');document.getElementById('joinBack').classList.add('hidden');stage.textContent='Preparing survivor and saved world';joinProgress(0);
  try{
-  betaLog('World join: prepare survivor/save');await yieldJoinPaint();activeJoin();prepare();joinProgress(20);stage.textContent='Building terrain, plants and wildlife';await yieldJoinPaint();activeJoin();
+  betaLog('World join: prepare survivor/save');releasePreviewGraphics49();await yieldJoinPaint();activeJoin();prepare();joinProgress(20);stage.textContent='Building terrain, plants and wildlife';await yieldJoinPaint();activeJoin();
   resetMovementInput();
   var joinCells=wantedChunks(true);
   for(var ji=0;ji<joinCells.length;ji++){
@@ -3498,9 +3518,11 @@ async function joinReadyWorld(prepare,message){
   }
   player.position.set(P.x,referenceMode?referenceBodyGround(P.x,P.z):groundY(P.x,P.z),P.z);camera.position.set(P.x+Math.sin(cameraYaw)*5,groundY(P.x,P.z)+2.9,P.z+Math.cos(cameraYaw)*5);camera.lookAt(P.x,groundY(P.x,P.z)+1.35,P.z);scene.updateMatrixWorld(true);
   if(!Object.values(chunks).some(function(c){return !!c.ground;}))throw new Error('Terrain is not ready');
+  if(referenceSites){referenceSites.update(P.x,P.z);referenceSiteCell=Math.floor(P.x/128)+','+Math.floor(P.z/128);referenceSites.lootState(referenceElapsed,referenceLootTaken);}
   joinProgress(50);stage.textContent='Preparing materials and lighting';await yieldJoinPaint();activeJoin();
-  renderer.compile(scene,camera);joinProgress(90);
-  renderer.render(scene,camera);betaLog('World ready: terrain/materials/first render');joinProgress(100);stage.textContent='World ready';await yieldJoinPaint();activeJoin();
+  await warmRenderer(renderer,scene,camera,yieldJoinPaint);activeJoin();joinProgress(90);
+  if(wantedChunks(false).some(function(c){return !chunks[chunkKey(c[0],c[1])];}))throw new Error('Nearby terrain preparation did not finish');
+  renderer.render(scene,camera);renderer.getContext().finish();activeJoin();betaLog('World ready: selected-quality terrain/materials/first render; chunks '+joinCells.length);joinProgress(100);stage.textContent='World ready';await yieldJoinPaint();activeJoin();
   document.getElementById('start').classList.add('hidden');document.getElementById('over').classList.add('hidden');document.getElementById('charSetup').classList.add('hidden');document.getElementById('playBtn').style.display='';document.getElementById('setLobbyBtn').style.display='';document.getElementById('quitLobbyBtn').style.display='';
   menuMusicWorld(true);running=true;entryCameraT=1.2;document.body.classList.add('playing');sprintHint(true);last=performance.now();saveGame();overlay.classList.add('hidden');needsWorldRender=true;if(respawnRequired){P.dead=true;gameOver();}else toast(message||'World ready');
  }catch(err){if(previousSave!==null&&localStorage.getItem(SAVE_KEY)!==previousSave)localStorage.setItem(SAVE_KEY,previousSave);if(appSuspended||attempt!==joinToken)return;stage.textContent='Could not enter world: '+err.message+'. Your last saved world is unchanged.';document.getElementById('joinBack').classList.remove('hidden');window.__errors.push('join: '+err.message);}
@@ -3606,7 +3628,7 @@ document.getElementById('setLobbyBtn').addEventListener('click', openSettings);
 document.getElementById('menuProfileBtn').onclick=function(){document.getElementById('profileBtn').click();};
 document.getElementById('quitLobbyBtn').addEventListener('click',requestGameClose);
 document.getElementById('setClose').addEventListener('click', closeSettings);
- document.getElementById('saveLobby').onclick=function(){if(!running){closeSettings();return;}if(!saveGame()){toast('Could not save. Stay here and free device storage.');return;}closeSettings();running=false;document.body.classList.remove('playing');var lobby=document.getElementById('start');lobby.classList.remove('hidden','choosing');document.getElementById('charSetup').classList.add('hidden');document.getElementById('playBtn').textContent='CONTINUE';document.getElementById('newGameBtn').style.display='inline-block';menuMusicWorld(false);};
+ document.getElementById('saveLobby').onclick=function(){betaLog('Save and lobby clicked');if(!running){closeSettings();return;}if(!saveGame()){toast('Could not save. Stay here and free device storage.');return;}closeSettings();running=false;document.body.classList.remove('playing');var lobby=document.getElementById('start');lobby.classList.remove('hidden','choosing');document.getElementById('charSetup').classList.add('hidden');document.getElementById('playBtn').textContent='CONTINUE';document.getElementById('newGameBtn').style.display='inline-block';menuMusicWorld(false);};
 document.getElementById('setSens').addEventListener('input', function(){ settings.sens = parseFloat(this.value) || 1; persistSettings(); });
 document.getElementById('setShadows').addEventListener('change',function(){settings.shadows=this.value;persistSettings();applySettings();});
 document.getElementById('setFancyLeaves').addEventListener('change',function(){settings.fancyLeaves=this.value;persistSettings();applySettings();});
@@ -3629,8 +3651,20 @@ window.oneworldAppLifecycle.configure({
  resume:function(){if(closingGame)return;appSuspended=false;if(window.oneworldWallpaperMotion)window.oneworldWallpaperMotion.sync();menuMusicSuspend(false);last=performance.now();needsWorldRender=true;scheduleFrame();}
 });
 // Exit navigation stays inside this beta and never clears the saved world.
-var closingGame=false,setupPreviousLook=null;
-function setupToLobby(){lobbyPreviewStamp='';document.getElementById('charSetup').classList.add('hidden');document.getElementById('start').classList.remove('choosing');['playBtn','setLobbyBtn','quitLobbyBtn'].forEach(function(id){document.getElementById(id).style.display='';});document.getElementById('newGameBtn').style.display=loadSave()?'inline-block':'none';if(setupPreviousLook){charLook=JSON.parse(JSON.stringify(setupPreviousLook));setupPreviousLook=null;}}
+var closingGame=false,setupPreviousLook=null,setupRequired49=false,setupConfirmed49=false,localProfile49=null,creatingProfile49=false;
+var PROFILE_KEY49='oneworld-profiles-v1',profileRegistry49=null,baseSaveKey49=SAVE_KEY;
+function validProfile49(p){return p&&typeof p.id==='string'&&/^(legacy|p[1-9][0-9]*)$/.test(p.id)&&['boy','girl'].includes(p.kind)&&typeof p.name==='string'&&p.name.trim().length>0&&p.name.length<=16&&p.look&&typeof p.look==='object';}
+function validRegistry49(r){return r&&r.v===1&&Array.isArray(r.profiles)&&r.profiles.length>0&&r.profiles.every(validProfile49)&&new Set(r.profiles.map(p=>p.id)).size===r.profiles.length&&r.profiles.some(p=>p.id===r.active)&&Number.isSafeInteger(r.next)&&r.next>=1;}
+function legacyProfile49(){var keys=[baseSaveKey49,baseSaveKey49==='oneword-save-v1'?'oneword-save-reference-island-v1':'oneword-save-v1'];for(var key of keys){try{var p=JSON.parse(localStorage.getItem(key));if(p&&p.v>=1&&['boy','girl'].includes(p.char)&&typeof p.pname==='string'&&p.pname.trim())return {id:'legacy',name:p.pname.slice(0,16),kind:p.char,look:p.look&&typeof p.look==='object'?p.look:JSON.parse(JSON.stringify(charLook))};}catch(e){}}return null;}
+function readRegistry49(){var raw=localStorage.getItem(PROFILE_KEY49);if(!raw)return null;var r=JSON.parse(raw);if(!validRegistry49(r))throw Error('Saved profile list could not be read. No saved worlds changed.');return r;}
+function writeRegistry49(r){try{if(!validRegistry49(r))return false;localStorage.setItem(PROFILE_KEY49,JSON.stringify(r));return true;}catch(e){return false;}}
+function useProfile49(p){localProfile49=p;playerName=p.name;charKind=p.kind;charLook=JSON.parse(JSON.stringify(p.look));SAVE_KEY=p.id==='legacy'?baseSaveKey49:baseSaveKey49+'-profile-'+p.id;lobbySaveCache={key:null,raw:null,value:null};lobbyPreviewStamp='';}
+function saveProfile49(p){try{var r=profileRegistry49?JSON.parse(JSON.stringify(profileRegistry49)):{v:1,active:null,next:1,profiles:[]};var id='p'+r.next;while(r.profiles.some(p=>p.id===id)||Object.keys(localStorage).some(k=>k==='oneword-save-v1-profile-'+id||k==='oneword-save-reference-island-v1-profile-'+id||k.startsWith('oneword-save-v1-profile-'+id+'-')||k.startsWith('oneword-save-reference-island-v1-profile-'+id+'-'))){r.next++;id='p'+r.next;}var chosen={id:id,name:p.name,kind:p.kind,look:p.look};r.next++;r.profiles.push(chosen);r.active=id;if(!writeRegistry49(r))return null;profileRegistry49=r;return chosen;}catch(e){return null;}}
+function showProfileList49(){if(running||joiningWorld)return;var panel=document.getElementById('profileList49');panel.replaceChildren();var title=document.createElement('h3');title.textContent='CHOOSE PROFILE';panel.appendChild(title);for(var p of profileRegistry49?.profiles||[]){var b=document.createElement('button');b.className='playbtn closebtn';b.textContent=p.name+(p.id===profileRegistry49.active?' · Current':'');b.dataset.profile49=p.id;b.onclick=function(){var id=this.dataset.profile49,r=JSON.parse(JSON.stringify(profileRegistry49));r.active=id;if(!writeRegistry49(r)){toast('Could not save profile choice. No worlds changed.');return;}profileRegistry49=r;useProfile49(r.profiles.find(x=>x.id===id));panel.classList.add('hidden');renderLobbyPreview(.016,true);};panel.appendChild(b);}var close=document.createElement('button');close.className='playbtn closebtn';close.textContent='CLOSE';close.onclick=()=>panel.classList.add('hidden');panel.appendChild(close);panel.classList.remove('hidden');}
+window.oneworldEnterTitle=function(){betaLog('Title route requested; running='+!!running);if(running||joiningWorld){betaLog('Ignored title route while world active');return;}try{profileRegistry49=readRegistry49();if(!profileRegistry49){var legacy=legacyProfile49();if(legacy)profileRegistry49={v:1,active:'legacy',next:1,profiles:[legacy]};}if(profileRegistry49){var p=profileRegistry49.profiles.find(p=>p.id===profileRegistry49.active);useProfile49(p);setupRequired49=false;setupToLobby();document.getElementById('start').classList.remove('hidden');renderLobbyPreview(.016,true);window.oneworldTrace('menu-visible');}else{creatingProfile49=true;showCharSetup(true);document.getElementById('start').classList.remove('hidden');window.oneworldTrace('first-character-visible');}}catch(e){document.getElementById('start').classList.remove('hidden');showCharSetup(true);document.getElementById('setupNote49').textContent=e.message;document.getElementById('beginBtn').disabled=true;}};
+document.getElementById('editCharacter49').onclick=function(){creatingProfile49=true;showCharSetup(false);setupConfirmed49=false;setupKind=null;document.getElementById('nameInput').value='';document.querySelectorAll('#pickBoy,#pickGirl').forEach(b=>b.classList.remove('on'));document.getElementById('charPreview').style.visibility='hidden';document.getElementById('zoomActions').style.visibility='hidden';document.getElementById('charControls').classList.add('needsChoice49');};
+
+function setupToLobby(){if(setupRequired49){document.getElementById('setupNote49').textContent='Choose a character and name to continue.';return;}creatingProfile49=false;document.getElementById('charPreview').style.visibility='';document.getElementById('zoomActions').style.visibility='';document.getElementById('editCharacter49').style.display='';lobbyPreviewStamp='';document.getElementById('charSetup').classList.add('hidden');document.getElementById('start').classList.remove('choosing');['playBtn','setLobbyBtn','quitLobbyBtn'].forEach(function(id){document.getElementById(id).style.display='';});document.getElementById('newGameBtn').style.display=loadSave()?'inline-block':'none';if(setupPreviousLook){charLook=JSON.parse(JSON.stringify(setupPreviousLook));setupPreviousLook=null;}}
 document.getElementById('setupBack').onclick=setupToLobby;
 function requestGameClose(){if(closingGame)return;resetMovementInput();askConfirm('CLOSE ONE WORLD?', 'Save your world and close the beta app? Your last saved world will not be deleted.',saveAndClose,'SAVE & CLOSE');}
 function saveAndClose(){if(closingGame)return false;if(!saveGame()){toast('Could not save. App stays open. Free device storage and try again.');return false;}if(!window.OneWorldNative||typeof window.OneWorldNative.quit!=='function'){toast('World saved. Closing the app is available on Android.');return false;}closingGame=true;if(window.oneworldMenuMusic)window.oneworldMenuMusic.close();respawnToken++;respawnBusy=false;resetMovementInput();window.oneworldLifecyclePause();running=false;clearInterval(autosaveTimer);if(AC)AC.close().catch(function(){});[renderer,setupRenderer].forEach(function(r){if(r){r.dispose();r.forceContextLoss();}});window.OneWorldNative.quit();return true;}
@@ -3641,6 +3675,7 @@ window.oneworldHandleBack=function(){
  if(shown('worldLoading')){toast('World is preparing. Please wait before leaving.');return;}
  if(shown('confirmPanel')){document.getElementById('confirmNo').click();return;}
  if(controlDraft){closeControlEditor(false);return;}
+ if(shown('profileList49')){document.getElementById('profileList49').classList.add('hidden');return;}
  if(shown('profileBox')){document.getElementById('profileClose').click();return;}
  if(shown('betaDebug')){document.getElementById('debugClose').click();openSettings();return;}
  if(shown('setPanel')){closeSettings();return;}

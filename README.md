@@ -4,7 +4,7 @@ Station crafting, 200-slot/999-stack inventory and reusable waterskins. See docs
 
 # One World Project
 
-Development source for the modified One World Android beta. Historical 1.3.29 notes follow; the current prepared source is 1.3.48 (versionCode 70). Cumulative reviewed poses, distinct skin options and matched preview lighting, native sensor-only wallpaper movement, head-safe wallpaper framing, uninterrupted pregame-panel music, studio/tap/loading/home flow and own-brand About card. See CHANGELOG.md for test scope and unresolved device issues.
+Development source for the modified One World Android beta. Historical 1.3.29 notes follow; the current prepared source is 1.3.49 (versionCode 71). Cumulative reviewed poses, distinct skin options and matched preview lighting, native sensor-only wallpaper movement, head-safe wallpaper framing, uninterrupted pregame-panel music, studio/tap/loading/home flow and own-brand About card. See CHANGELOG.md for test scope and unresolved device issues.
 
 This is a testing beta, not a stable release. Original game by Smiley, used and modified with permission. Preserve the asset and third-party notices in `web/assets/licenses/` and the music provenance in `web/assets/music/PROVENANCE.txt`. This repository does not grant a blanket license over all game code or the AI-generated track.
 

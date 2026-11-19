@@ -1,0 +1,1 @@
+The First/Original map is retired as a playable route. Preserve old local saves; do not delete, migrate or merge them. Second Map is the only active world, including existing installations with stale Original selected-world preferences. The complete cumulative 48 map assets remain unchanged.
