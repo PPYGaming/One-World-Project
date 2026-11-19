@@ -15,7 +15,6 @@ import java.util.Map;
 
 public class MainActivity extends Activity implements android.hardware.SensorEventListener {
     private WebView wv;
-    private BetaUpdater updater;
     private String previousAppExit="No previous app exit reported";
     private boolean rendererRecovery=false;
     private final android.os.Handler ui = new android.os.Handler(android.os.Looper.getMainLooper());
@@ -71,17 +70,16 @@ public class MainActivity extends Activity implements android.hardware.SensorEve
         MIME.put("jpeg", "image/jpeg"); MIME.put("png", "image/png");
         MIME.put("txt", "text/plain"); MIME.put("css", "text/css"); MIME.put("webp", "image/webp"); MIME.put("json", "application/json"); MIME.put("bin", "application/octet-stream"); MIME.put("gltf", "model/gltf+json");
     }
+    private static WebResourceResponse blockedResource(){return new WebResourceResponse("text/plain","utf-8",403,"Blocked",null,new java.io.ByteArrayInputStream(new byte[0]));}
     private void immersive(){
         if(android.os.Build.VERSION.SDK_INT>=30){android.view.WindowInsetsController c=getWindow().getInsetsController();if(c!=null){c.setSystemBarsBehavior(android.view.WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);c.hide(android.view.WindowInsets.Type.systemBars());}}
         else getWindow().getDecorView().setSystemUiVisibility(android.view.View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY|android.view.View.SYSTEM_UI_FLAG_FULLSCREEN|android.view.View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE|android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|android.view.View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
     }
     @Override public void onWindowFocusChanged(boolean focus){super.onWindowFocusChanged(focus);windowFocused=focus;syncWallpaperSensor();if(focus)immersive();if(wv!=null&&!closing)wv.evaluateJavascript("window.oneworldWindowFocus&&window.oneworldWindowFocus("+focus+")",null);}
-    private void resetUpdater(){if(updater!=null)updater.close();updater=new BetaUpdater(this);updater.display=(state,title,detail)->{if(wv!=null&&!closing)wv.evaluateJavascript("window.oneworldUpdateUI&&window.oneworldUpdateUI("+org.json.JSONObject.quote(state)+","+org.json.JSONObject.quote(title)+","+org.json.JSONObject.quote(detail)+")",null);};}
     @Override public void onCreate(Bundle b) {
         super.onCreate(b);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         readPreviousExit();
-        resetUpdater();
         createGameView(false);
     }
     private void createGameView(boolean recovery){
@@ -96,17 +94,14 @@ public class MainActivity extends Activity implements android.hardware.SensorEve
         s.setAllowContentAccess(false);
         s.setMediaPlaybackRequiresUserGesture(false);
         wv.addJavascriptInterface(new Object() {
-            @JavascriptInterface public void restartAtTitle(){ui.post(()->{if(wv==null||closing)return;rendererRecovery=false;wallpaperRequested=false;syncWallpaperSensor();resetUpdater();wv.stopLoading();wv.loadUrl(ORIGIN+"/index.html");});}
-            @JavascriptInterface public void openAuthorProfile(final int index){final String[] profiles={"https://youtube.com/@ppygamingtamil?si=8RIKZbY8TQfFwu6r","https://www.instagram.com/tamilcrafters_studio?psln=MW5ic3F3NmFmNGlxMA==","http://tiktok.com/@tamilcrafters"};if(index<0||index>=profiles.length)return;ui.post(()->{try{startActivity(new android.content.Intent(android.content.Intent.ACTION_VIEW,android.net.Uri.parse(profiles[index])));}catch(android.content.ActivityNotFoundException e){android.widget.Toast.makeText(MainActivity.this,"No browser is available",android.widget.Toast.LENGTH_SHORT).show();}});}
+            @JavascriptInterface public void restartAtTitle(){ui.post(()->{if(wv==null||closing)return;rendererRecovery=false;wallpaperRequested=false;syncWallpaperSensor();wv.stopLoading();wv.loadUrl(ORIGIN+"/index.html");});}
+            @JavascriptInterface public void openAuthorProfile(final int index){final String[] profiles={"https://youtube.com/@ppygamingtamil?si=8RIKZbY8TQfFwu6r","https://www.instagram.com/tamilcrafters_studio?psln=MW5ic3F3NmFmNGlxMA==","https://tiktok.com/@tamilcrafters"};if(index<0||index>=profiles.length)return;ui.post(()->{try{startActivity(new android.content.Intent(android.content.Intent.ACTION_VIEW,android.net.Uri.parse(profiles[index])));}catch(android.content.ActivityNotFoundException e){android.widget.Toast.makeText(MainActivity.this,"No browser is available",android.widget.Toast.LENGTH_SHORT).show();}});}
+            @JavascriptInterface public void openBetaReleases(){ui.post(()->{if(closing)return;try{startActivity(new android.content.Intent(android.content.Intent.ACTION_VIEW,android.net.Uri.parse("https://github.com/PPYGaming/One-World-Beta/releases")));}catch(android.content.ActivityNotFoundException e){android.widget.Toast.makeText(MainActivity.this,"No browser is available",android.widget.Toast.LENGTH_SHORT).show();}});}
             @JavascriptInterface public void openStudioWebsite(){ui.post(()->{try{startActivity(new android.content.Intent(android.content.Intent.ACTION_VIEW,android.net.Uri.parse("https://tamilcraftersstudio.in/")));}catch(android.content.ActivityNotFoundException e){android.widget.Toast.makeText(MainActivity.this,"No browser is available",android.widget.Toast.LENGTH_SHORT).show();}});}
             @JavascriptInterface public void setWallpaperMotionActive(final boolean active){ui.post(()->{wallpaperRequested=active;syncWallpaperSensor();});}
-            @JavascriptInterface public void betaUpdateAction(final String value){ui.post(()->updater.action(value));}
-            @JavascriptInterface public String getUpdateInfo(){return updater==null?"{}":updater.diagnostics();}
             @JavascriptInterface public void graphicsContextLost(){getPreferences(MODE_PRIVATE).edit().putString("rendererExit","WebGL graphics context was lost; cause not reported").putLong("rendererExitAt",System.currentTimeMillis()).commit();}
             @JavascriptInterface public String getSafetyInfo(){return safetyInfo();}
             @JavascriptInterface public String getBuildInfo(){try{android.content.pm.PackageInfo p=getPackageManager().getPackageInfo(getPackageName(),0);org.json.JSONObject j=new org.json.JSONObject();j.put("name",p.versionName);j.put("code",p.getLongVersionCode());j.put("package",p.packageName);return j.toString();}catch(Exception e){return "{}";}}
-            @JavascriptInterface public void checkBetaAtEntry(final int id){ui.post(()->updater.entry(id,(n,result)->{if(wv!=null&&!closing)wv.evaluateJavascript("window.oneworldEntryUpdateResult&&window.oneworldEntryUpdateResult("+n+","+org.json.JSONObject.quote(result)+")",null);}));}
-            @JavascriptInterface public void cancelBetaEntry(final int id){ui.post(()->updater.cancelEntry(id));}
             @JavascriptInterface public void quit() {
                 runOnUiThread(new Runnable() { @Override public void run() { if(closing)return;closing=true;if(backTimeout!=null)ui.removeCallbacks(backTimeout);finishAndRemoveTask(); } });
             }
@@ -127,9 +122,9 @@ public class MainActivity extends Activity implements android.hardware.SensorEve
             }
             @Override public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest req) { return !ORIGIN.equals(req.getUrl().getScheme()+"://"+req.getUrl().getAuthority()); }
             @Override public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest req) {
-                if (!ORIGIN.equals(req.getUrl().getScheme() + "://" + req.getUrl().getAuthority())) return null;
+                if (!ORIGIN.equals(req.getUrl().getScheme() + "://" + req.getUrl().getAuthority())) return blockedResource();
                 String path = req.getUrl().getPath();
-                if (path == null || path.contains("..")) return null;
+                if (path == null || path.contains("..")) return blockedResource();
                 if (path.startsWith("/")) path = path.substring(1);
                 if (path.isEmpty()) path = "index.html";
                 String ext = path.contains(".") ? path.substring(path.lastIndexOf('.') + 1) : "";
@@ -184,7 +179,6 @@ public class MainActivity extends Activity implements android.hardware.SensorEve
         super.onResume();immersive();
         foreground=true;syncWallpaperSensor();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        if(updater!=null)updater.resumed();
         if (wv != null) {
             wv.resumeTimers();
             wv.onResume();
@@ -193,7 +187,6 @@ public class MainActivity extends Activity implements android.hardware.SensorEve
     }
     @Override protected void onDestroy() {
         closing=true;foreground=false;syncWallpaperSensor();
-        if(updater!=null)updater.close();
         if(backTimeout!=null)ui.removeCallbacks(backTimeout);
         if (wv != null) {
             if(wv.getParent() instanceof android.view.ViewGroup)((android.view.ViewGroup)wv.getParent()).removeView(wv);

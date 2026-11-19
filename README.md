@@ -1,23 +1,23 @@
-## Latest testing beta: 1.3.50 / code72
+## Latest testing beta: 1.3.51 / code73
 
-Connected Second Map landforms and distant canopy, beta Settings inspection flight, pre-update local save archive, and direct profile switching. See docs/QA-1.3.50.md for scope and test limits.
+Complete cumulative offline game, optional external updates, restricted local WebView and recovery-archive guards. Second Map terrain and canopy remain bundled. See docs/QA-1.3.51.md for scope and test limits.
 
 Historical release notes below are retained for development context.
 
 # One World Project
 
-Development source for the modified One World Android beta. Historical 1.3.29 notes follow; the current prepared source is 1.3.50 (versionCode 72). Cumulative reviewed poses, distinct skin options and matched preview lighting, native sensor-only wallpaper movement, head-safe wallpaper framing, uninterrupted pregame-panel music, studio/tap/loading/home flow and own-brand About card. See CHANGELOG.md for test scope and unresolved device issues.
+Development source for the modified One World Android beta. Historical 1.3.29 notes follow; the current prepared source is 1.3.51 (versionCode 73). Cumulative reviewed poses, distinct skin options and matched preview lighting, native sensor-only wallpaper movement, head-safe wallpaper framing, uninterrupted pregame-panel music, studio/tap/loading/home flow and own-brand About card. See CHANGELOG.md for test scope and unresolved device issues.
 
 This is a testing beta, not a stable release. Original game by Smiley, used and modified with permission. Preserve the asset and third-party notices in `web/assets/licenses/` and the music provenance in `web/assets/music/PROVENANCE.txt`. This repository does not grant a blanket license over all game code or the AI-generated track.
 
 ## Source layout
 
 - `web/`: complete bundled HTML, game JavaScript, licensed models/textures/UI/audio and notices.
-- `android/src/`: Android host, verified updater, asset range handling and APK provider.
+- `android/src/`: offline Android host, local asset range handling and fixed external-browser actions.
 - `android/res/`, `android/AndroidManifest.xml`: original app icons/resources and package configuration.
 - `scripts/build-unsigned.py`: Android API 36 / Java 17 build without signing credentials.
 
-The existing One-World-Beta repository remains the app's update origin. Do not rename it, move the updater endpoint, change the package `com.oneword.forest.beta`, change the saved-world keys or replace published release files as part of ordinary development.
+The existing One-World-Beta repository remains the release origin. This build no longer downloads or installs APKs itself. Do not rename it, move the updater endpoint, change the package `com.oneword.forest.beta`, change the saved-world keys or replace published release files as part of ordinary development.
 
 ## Local preview
 
