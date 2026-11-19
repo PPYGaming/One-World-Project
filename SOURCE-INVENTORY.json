@@ -7,8 +7,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 54670,
-      "sha256": "11e62a6b46323f376cac87d1386f4e65cc128729e437564352d88671d7aee547"
+      "size": 56469,
+      "sha256": "4452998fa25291db48bca40774afd7dd00d2b5c9547f72a7ab3a4927f895aeee"
     },
     {
       "path": "CONTRIBUTING.md",
@@ -18,12 +18,12 @@
     {
       "path": "README.md",
       "size": 3804,
-      "sha256": "1cc8811185238890ebce77d6321cd6280bdd0b76a997b48ddf4c18a9c898a658"
+      "sha256": "68a1fb4a80a4dbfb02d09b5c2064450a83b4d8eb0c317927102cc1b6646963af"
     },
     {
       "path": "android/AndroidManifest.xml",
       "size": 918,
-      "sha256": "80b86725aa01f550a365cd2720a1c6f83046b65ffcda89d1ed89987619b97604"
+      "sha256": "3f0131aaae1d6b6ee194bef85eff839c29312b02c3d288ede7643f2435b52033"
     },
     {
       "path": "android/res/drawable/ic_face.png",
@@ -246,6 +246,11 @@
       "sha256": "5872c9e1ce573893548f8d84faafb88280bee62ac87b434b68ce5b54b60f671d"
     },
     {
+      "path": "docs/QA-1.3.56.md",
+      "size": 1367,
+      "sha256": "55da1a3acb07b8f6180b83cd0aea0235657e1315ea5bf6c67b855daef8d5f88b"
+    },
+    {
       "path": "docs/QA-MENU-PRIVATE.md",
       "size": 4124,
       "sha256": "2de07ab8833f5d07a38d1a9c13cd7637871df35290404e07866af4ca92aace27"
@@ -324,6 +329,11 @@
       "path": "web/assets/lib/Mutants.js",
       "size": 6331,
       "sha256": "69c014dfc2f3867cc98bb4059d72a9aba1aad696ca9b2d9f8b3498a741225110"
+    },
+    {
+      "path": "web/assets/lib/Placement56.js",
+      "size": 2300,
+      "sha256": "7f55a90b00a249ed778d3e7890b8b8f708dd72f592bb17cb2ec749f096e06de6"
     },
     {
       "path": "web/assets/lib/ReferenceCoast.js",
@@ -902,8 +912,8 @@
     },
     {
       "path": "web/assets/ui/items48/anvil.webp",
-      "size": 8708,
-      "sha256": "e1276b8e1c5c81d45b20b08acd2f026deda589bf41ae015f008d9b35835ac593"
+      "size": 4250,
+      "sha256": "6f5cb250e974d94553110aad29157f28248a93e4ef2402eae4233a512b67c024"
     },
     {
       "path": "web/assets/ui/items48/axe.webp",
@@ -922,13 +932,13 @@
     },
     {
       "path": "web/assets/ui/items48/bed.webp",
-      "size": 9430,
-      "sha256": "e5d1f636503d4a2e2c43abf5730b0802be1b2789052fa1001c38dd98208c60e6"
+      "size": 4286,
+      "sha256": "b2578364cab229d41f626a602707b00bb1942b822a4b42c3cde48d31c4cefec2"
     },
     {
       "path": "web/assets/ui/items48/bench.webp",
-      "size": 13580,
-      "sha256": "06e3468257b2dd3ed425a77250423265c2bc1e9c30ef2df8257ddb2b86a95463"
+      "size": 5322,
+      "sha256": "e7323e275e7388ef3d9c5117311559c18d7992e2cc8d9cc793b85f8e531b2d00"
     },
     {
       "path": "web/assets/ui/items48/berry.webp",
@@ -972,13 +982,13 @@
     },
     {
       "path": "web/assets/ui/items48/fire.webp",
-      "size": 14288,
-      "sha256": "4717c4df82245e076dc1b7b52d4f6e2858cdfd255eb910bea1fe64f7108a0e9f"
+      "size": 5402,
+      "sha256": "8e296fcce3b368ec4422f78d47e7f4f08d8f241ac8b0391f0b8c9a56b15d7bdf"
     },
     {
       "path": "web/assets/ui/items48/furnace.webp",
-      "size": 14810,
-      "sha256": "8d9d80f63fd684af1963d2f1002bfb9d3fff2ee757b9e26858272539e5a19bbb"
+      "size": 5054,
+      "sha256": "5bd679e3dc2528e6c4a1f70896df69003d227b97dd31df62c153c3bd73ecf1d8"
     },
     {
       "path": "web/assets/ui/items48/hand.webp",
@@ -1072,8 +1082,8 @@
     },
     {
       "path": "web/assets/ui/items48/torch.webp",
-      "size": 7252,
-      "sha256": "94614eb4637cfa918915e04b53a44699d29ec736f668d9d9311fbfe0169cce3d"
+      "size": 3718,
+      "sha256": "c35021865bbe5b6c4a3b22c610a662882a4796f194cbcbe445f128cf16d9130b"
     },
     {
       "path": "web/assets/ui/items48/waterbottle.webp",
@@ -1152,8 +1162,8 @@
     },
     {
       "path": "web/index.html",
-      "size": 407575,
-      "sha256": "4fc8a05d0bc16bf1c01c263ce7a60b8a76a2122672285cf2ff24d42b200a2b48"
+      "size": 418068,
+      "sha256": "32f7c4acaad2d99461610175cf2bc798258005e08775ddfc86071d35b93ef0c2"
     },
     {
       "path": "web/renderer-recovery.html",

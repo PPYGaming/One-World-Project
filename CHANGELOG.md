@@ -1,3 +1,12 @@
+## 1.3.56, physical item and placement flow
+
+- Shared geometry for campfire, bedroll, workbench, furnace and anvil: placed object, held miniature and green/red placement preview. Recipe/inventory icons rendered from the same geometry. Torch icon rendered from the existing held torch.
+- Inventory PLACE starts a preview, not an immediate placement. Move using the joystick and drag the world view to aim. Explicit PLACE HERE or CANCEL. Footprint dry-ground, slope, streaming, collision, item and save checks. Item consumption and placement share a save-first transaction. Existing single-bed/single-campfire limits remain.
+- Placed stations retain physical crafting. Collected crafting output awards 10 XP per item in the same save as output removal and inventory addition; failed/repeated claims do not awardXP. Bed pack is save-first; sleep/pack flow retained.
+- Local tests:68 placement-unit checks,19 claim-transaction checks; exact game tests for cancellation, invalid blocking, save failure, all five placements, station use, furnace smelting, bed sleep/pack and prior-station restoration. Mobile touch joystick movement and drag-to-aim verified at852 x 393;430 x 240 layout inspected and placement panel raised to keep vital bars visible.
+- App script integrity hashes verified. Latest game startup and interactions had no captured game errors; browser security log contained no CSP errors. Local test server was stopped between test calls and produced expected connection errors for music retries, not an Android network dependency.
+- Full Android install, physical touch/sensor performance, phoneFPS, long-session stability and GPU behavior are not verified. No geography, resource layout, clothing, survival balance or existing55loading/motion changes intended. Testing beta, not stable.
+
 # One World beta 1.3.55: visible loading progress and two-artwork pacing
 
 - Replaces the long stationary 50% milestone during terrain setup with work-based progress: terrain color rows, detail-grid work, terrain-mesh tiles and distant-forest samples. Stage labels include live work counts. These are weighted setup stages, not a time estimate or download-byte percentage.
