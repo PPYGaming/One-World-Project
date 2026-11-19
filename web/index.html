@@ -576,7 +576,7 @@ body.referenceWorld #joy,body.referenceWorld #atk,body.referenceWorld #bagBtn,bo
 #settingsContent .authorCompact nav{gap:4px;}
 }
 #menuMotionToggle{white-space:nowrap;box-sizing:border-box;justify-content:center;width:auto!important;min-width:0!important;max-width:130px!important;margin:0!important;position:absolute;right:max(24px,env(safe-area-inset-right));bottom:calc(max(24px,env(safe-area-inset-bottom)) + 56px);z-index:4;display:flex;align-items:center;gap:6px;padding:7px 9px;min-height:36px;border:1px solid #c8e0d580;border-radius:8px;background:#102820b8;color:#e5efe5;font:600 10px sans-serif;letter-spacing:.5px;touch-action:manipulation}#menuMotionToggle svg{width:17px;height:17px}#menuMotionToggle[aria-pressed="true"]{background:#49694ce8;border-color:#e0efb5}#start.choosing #menuMotionToggle{display:none}#lobbyBackdrop:before{animation:none!important;transform:none!important}#lobbyMist{animation:none!important;transform:none!important}
-</style>
+#betaFlightHud50{position:fixed;z-index:98;left:50%;top:12px;transform:translateX(-50%);display:flex;gap:8px;align-items:center;background:#10272de8;padding:8px;border:1px solid #bce3df88;border-radius:9px;font:10px sans-serif;color:#e5f4f4}#betaFlightHud50.hidden{display:none}#betaFlightHud50 button{min-height:44px;min-width:50px;background:#23434b;color:white;border:1px solid #accbc9;border-radius:6px;touch-action:none}body:not(.playing) #betaFlightHud50{display:none}</style>
 <style>/* Owner approved landscape startup framing, 2026-11-18 22:04 preview. */
 @media(orientation:landscape){
 #loading .loadingUnderlay{display:none!important}
@@ -593,9 +593,9 @@ body.referenceWorld #joy,body.referenceWorld #atk,body.referenceWorld #bagBtn,bo
 #worldLoading:after{background-position:center 12px!important}
 }
 </style><link rel="stylesheet" href="assets/ui/crafting48.css"><style>
-#motionLabel49{position:absolute;left:max(12px,env(safe-area-inset-left));bottom:max(5px,env(safe-area-inset-bottom));display:flex;align-items:center;gap:5px;min-height:36px;padding:8px 4px;font:10px sans-serif;color:#d7e3dccc;z-index:4;cursor:pointer;touch-action:manipulation}#menuMotionToggle{all:revert!important;appearance:auto!important;width:11px!important;height:11px!important;margin:0!important;cursor:pointer!important;accent-color:#d9e7dc!important}#start.choosing #motionLabel49{display:none}@media(orientation:portrait){#start:not(.choosing)>.foot{bottom:56px}}#editCharacter49{position:absolute;left:24px;top:166px;z-index:4;width:36px;min-width:36px;height:36px;padding:0!important;font-size:23px!important}#start.choosing #editCharacter49{display:none!important}.needsChoice49>label,.needsChoice49>select,.needsChoice49>.visualOptions,.needsChoice49>.selectOptions{visibility:hidden}#start.choosing #menuMotionToggle{display:none!important}#setupNote49{color:#f3deab}
+#motionLabel49{position:absolute;left:max(12px,env(safe-area-inset-left));bottom:max(5px,env(safe-area-inset-bottom));display:flex;align-items:center;gap:5px;min-height:36px;padding:8px 4px;font:10px sans-serif;color:#d7e3dccc;z-index:4;cursor:pointer;touch-action:manipulation}#menuMotionToggle{all:revert!important;appearance:auto!important;width:11px!important;height:11px!important;margin:0!important;cursor:pointer!important;accent-color:#d9e7dc!important}#start.choosing #motionLabel49{display:none}@media(orientation:portrait){#start:not(.choosing)>.foot{bottom:56px}}#editCharacter49{position:absolute;left:24px;top:166px;z-index:4;width:36px;min-width:36px;height:36px;padding:0!important;font-size:23px!important}#editCharacter49:disabled{opacity:.35;cursor:default}#start.choosing #editCharacter49{display:none!important}.needsChoice49>label,.needsChoice49>select,.needsChoice49>.visualOptions,.needsChoice49>.selectOptions{visibility:hidden}#start.choosing #menuMotionToggle{display:none!important}#setupNote49{color:#f3deab}
 @media(max-height:350px){#editCharacter49{left:24px;top:124px;width:30px;min-width:30px;height:30px}#setupNote49{font-size:10px!important;min-height:12px!important;margin:0!important}}
-</style><style>#start:not(.choosing)>#editCharacter49{position:absolute!important;left:24px!important;right:auto!important;top:162px!important;bottom:auto!important;width:32px!important;height:32px!important;min-width:32px!important;min-height:32px!important;max-width:32px!important;margin:0!important;padding:0!important;font:22px/1 sans-serif!important;display:block;border-radius:6px!important}</style></head>
+</style><style>#start:not(.choosing)>#editCharacter49{position:absolute!important;left:24px!important;right:auto!important;top:162px!important;bottom:auto!important;width:32px!important;height:32px!important;min-width:32px!important;min-height:32px!important;max-width:32px!important;margin:0!important;padding:0!important;font:22px/1 sans-serif!important;display:block;border-radius:6px!important}</style><style>#setupNote49{position:relative;z-index:1;flex-shrink:0;line-height:1.35;white-space:normal}#charControls.needsChoice49 #setupHint50{display:none}#setupHint50{clear:both;line-height:1.4;padding:4px 0 6px;min-height:14px;flex-shrink:0}#charControls{scroll-padding-bottom:16px}</style><style>#start:not(.choosing)>#editCharacter49.otherProfile50{width:auto!important;max-width:230px!important;min-width:32px!important;padding:0 9px!important;font:600 16px/1.3 sans-serif!important;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}</style><style>#charSetup>#setupHint50{position:relative;z-index:1;align-self:flex-end;width:45%;max-width:440px;min-height:14px;flex:0 0 auto;margin:4px 4% 0 0!important;padding:2px 0;line-height:1.35;overflow-wrap:anywhere}@media(max-height:350px){#charSetup>#setupHint50{font-size:9px!important;margin-top:2px!important}}</style></head>
 <body><div id="healthNotice" role="status" aria-live="polite"></div><div id="weaponAim" aria-hidden="true"></div>
 <canvas id="c"></canvas>
 
@@ -645,14 +645,14 @@ body.referenceWorld #joy,body.referenceWorld #atk,body.referenceWorld #bagBtn,bo
 <div class="settingRow"><label for="setSens">Camera sensitivity <output id="setSensValue">1.0&#215;</output></label><input type="range" id="setSens" min="0.4" max="2" step="0.1" value="1"></div>
 <div class="settingsButtonRow"><button class="playbtn" id="controlsBtn">CUSTOMIZE LAYOUT</button><button class="playbtn secondary" id="controlsRecovery">RESET SAVED LAYOUT</button></div><p class="settingsNote">Move and resize gameplay controls here, safely from the menu or a paused world.</p></section>
 <section data-settings-page="survivor" class="hidden"><h4>SURVIVOR</h4><p class="settingsIntro">View your survivor and manage your current session.</p><div class="settingsButtonRow"><button class="playbtn" id="profileBtn">PROFILE</button><button class="playbtn secondary" id="sosBtn">SOS - UNSTUCK</button></div><p class="settingsNote">Use SOS only if your survivor is stuck in the terrain.</p></section>
-<section data-settings-page="audio" class="hidden"><h4>AUDIO</h4><p class="settingsIntro">Adjust music and game effects separately.</p><div class="settingRow"><label for="musicVolume">Background music <output id="musicVolumeValue"></output></label><input id="musicVolume" type="range" min="0" max="100" step="1"></div><div class="settingRow"><label for="sfxVolume">Sound effects <output id="sfxVolumeValue"></output></label><input id="sfxVolume" type="range" min="0" max="100" step="1"></div><p id="musicPlaybackStatus" class="settingsNote" role="status"></p><p class="settingsNote">Music continues through all pregame panels and stops on world entry. Your music volume is kept. Device media volume and output are controlled by Android.</p></section><section data-settings-page="profile" class="hidden"><h4>PROFILE</h4><p class="settingsIntro">View your survivor profile.</p><button class="playbtn" id="menuProfileBtn">PROFILE</button></section><section data-settings-page="help" class="hidden"><h4>HELP &amp; BETA</h4><p class="settingsIntro">Your forest survival guide.</p><div id="setHelp" style="font-size:11px;line-height:1.6;margin-top:12px;max-width:420px;color:#baccdb">Move: joystick / WASD. Auto-run: hold the joystick and drag up to show its lock target. Reach the target and release there to lock. Release anywhere else to stop. Touch the joystick again to stop auto-run. Hold and drag the eye to look without steering; release to return. Move joystick to stop. Shift on keyboard. Look: drag. Attack: right button / Space. Bag: B. Quick tools: 1-3.<br>Drink at the river. Approach a coloured gate, then open Map to travel. Sleep at your placed bedroll.<br>Beta: original lowpoly enemies and animals; visual quality and phone performance are still being tested.</div><div id="studioCredits" class="settingsNote"><h4>CREDITS</h4>Tamil Crafters Studio<br>Original game: Smiley, reused and modified with permission.<br>Models: VRoid Project + Quaternius (CC0). Textures: Poly Haven (CC0). Three.js (MIT).<br>Original menu music supplied by the app owner. Anime wallpaper illustrations prepared for this project.<br>Full third-party license and provenance notices are bundled with the game source.</div><button id="debugBtn" class="playbtn secondary">BETA DEBUG CONSOLE</button></section><section data-settings-page="about" class="hidden"><h4>ABOUT</h4><p id="updateCheckStatus" class="settingsNote" role="status"></p><button id="retryUpdateCheck" class="playbtn secondary" style="font-size:12px">SAVE &amp; RESTART TO CHECK UPDATE</button><h3 style="margin:18px 0 14px">AUTHORS</h3><article class="authorCompact"><header><img src="assets/ui/ppy-gaming-logo.jpg" alt="PPY Gaming logo"><h4>PPYGaming</h4></header><nav aria-label="Author links"><button type="button" id="authorStudioLink" aria-label="Open Website"><svg viewBox="0 0 24 24" width="16" height="16" style="vertical-align:-3px;margin-right:6px" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/><ellipse cx="12" cy="12" rx="4" ry="9" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3 12h18M5 7h14M5 17h14" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span>Website</span></button><button type="button" class="authorSocial" data-profile="0" aria-label="Open YouTube"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" style="flex:none"><rect x="2" y="5" width="20" height="14" rx="4" fill="#f03"/><path d="m10 8 6 4-6 4z" fill="white"/></svg><span>YouTube</span></button><button type="button" class="authorSocial" data-profile="1" aria-label="Open Instagram"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" style="flex:none"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="#ef6ba8" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="#ef6ba8" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1" fill="#ef6ba8"/></svg><span>Instagram</span></button><button type="button" class="authorSocial" data-profile="2" aria-label="Open TikTok"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" style="flex:none"><path d="M14 3v12a4 4 0 1 1-4-4v3a1.5 1.5 0 1 0 1.5 1.5V3h2.5c0 3 2 5 5 5v3c-2 0-4-1-5-2" fill="#62f3ee"/></svg><span>TikTok</span></button></nav></article><p class="settingsNote">Third-party licenses and asset credits are listed separately in Help &amp; Beta.</p></section>
+<section data-settings-page="audio" class="hidden"><h4>AUDIO</h4><p class="settingsIntro">Adjust music and game effects separately.</p><div class="settingRow"><label for="musicVolume">Background music <output id="musicVolumeValue"></output></label><input id="musicVolume" type="range" min="0" max="100" step="1"></div><div class="settingRow"><label for="sfxVolume">Sound effects <output id="sfxVolumeValue"></output></label><input id="sfxVolume" type="range" min="0" max="100" step="1"></div><p id="musicPlaybackStatus" class="settingsNote" role="status"></p><p class="settingsNote">Music continues through all pregame panels and stops on world entry. Your music volume is kept. Device media volume and output are controlled by Android.</p></section><section data-settings-page="profile" class="hidden"><h4>PROFILE</h4><p class="settingsIntro">View your survivor profile.</p><button class="playbtn" id="menuProfileBtn">PROFILE</button></section><section data-settings-page="help" class="hidden"><h4>HELP &amp; BETA</h4><p class="settingsIntro">Your forest survival guide.</p><div id="setHelp" style="font-size:11px;line-height:1.6;margin-top:12px;max-width:420px;color:#baccdb">Move: joystick / WASD. Auto-run: hold the joystick and drag up to show its lock target. Reach the target and release there to lock. Release anywhere else to stop. Touch the joystick again to stop auto-run. Hold and drag the eye to look without steering; release to return. Move joystick to stop. Shift on keyboard. Look: drag. Attack: right button / Space. Bag: B. Quick tools: 1-3.<br>Drink at the river. Approach a coloured gate, then open Map to travel. Sleep at your placed bedroll.<br>Beta: original lowpoly enemies and animals; visual quality and phone performance are still being tested.</div><div id="studioCredits" class="settingsNote"><h4>CREDITS</h4>Tamil Crafters Studio<br>Original game: Smiley, reused and modified with permission.<br>Models: VRoid Project + Quaternius (CC0). Textures: Poly Haven (CC0). Three.js (MIT).<br>Original menu music supplied by the app owner. Anime wallpaper illustrations prepared for this project.<br>Full third-party license and provenance notices are bundled with the game source.</div><div class="settingRow" id="betaFlightSetting50"><label>Beta inspection flight<small>Inspect the whole world without spending stamina or changing your saved location. Stop returns to where you started.</small></label><button class="playbtn secondary" id="betaFlightToggle50">START FLYING</button></div><button id="debugBtn" class="playbtn secondary">BETA DEBUG CONSOLE</button></section><section data-settings-page="about" class="hidden"><h4>ABOUT</h4><p id="updateCheckStatus" class="settingsNote" role="status"></p><button id="retryUpdateCheck" class="playbtn secondary" style="font-size:12px">SAVE &amp; RESTART TO CHECK UPDATE</button><h3 style="margin:18px 0 14px">AUTHORS</h3><article class="authorCompact"><header><img src="assets/ui/ppy-gaming-logo.jpg" alt="PPY Gaming logo"><h4>PPYGaming</h4></header><nav aria-label="Author links"><button type="button" id="authorStudioLink" aria-label="Open Website"><svg viewBox="0 0 24 24" width="16" height="16" style="vertical-align:-3px;margin-right:6px" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/><ellipse cx="12" cy="12" rx="4" ry="9" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3 12h18M5 7h14M5 17h14" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span>Website</span></button><button type="button" class="authorSocial" data-profile="0" aria-label="Open YouTube"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" style="flex:none"><rect x="2" y="5" width="20" height="14" rx="4" fill="#f03"/><path d="m10 8 6 4-6 4z" fill="white"/></svg><span>YouTube</span></button><button type="button" class="authorSocial" data-profile="1" aria-label="Open Instagram"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" style="flex:none"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="#ef6ba8" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="#ef6ba8" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1" fill="#ef6ba8"/></svg><span>Instagram</span></button><button type="button" class="authorSocial" data-profile="2" aria-label="Open TikTok"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" style="flex:none"><path d="M14 3v12a4 4 0 1 1-4-4v3a1.5 1.5 0 1 0 1.5 1.5V3h2.5c0 3 2 5 5 5v3c-2 0-4-1-5-2" fill="#62f3ee"/></svg><span>TikTok</span></button></nav></article><p class="settingsNote">Third-party licenses and asset credits are listed separately in Help &amp; Beta.</p></section>
 </div></div>
 <footer id="settingActions"><span>Changes are saved on this device.</span><button class="playbtn closebtn" id="saveLobby">SAVE &amp; LOBBY</button></footer>
-</div><div id="profileList49" class="panel hidden" style="z-index:60;width:min(360px,90vw);max-height:80vh;overflow:auto"></div><div id="profileBox" class="hidden" style="max-width:360px"><label>Survivor name</label><input id="profileName" maxlength="16" style="width:160px;padding:7px;background:#0b2b47;color:white;border:1px solid #6ea6ca"><button id="profileNameSave" style="padding:7px;background:#174c70;color:white;border:1px solid #75bce4">SAVE NAME</button><div id="profileStats" style="font-size:11px;line-height:1.6"></div></div><div id="confirmPanel" class="panel hidden"><h3 id="confirmTitle">ARE YOU SURE?</h3><div id="confirmMsg" style="font-size:14px;opacity:.85;margin:6px 0 4px"></div>
+</div><div id="profileBox" class="hidden" style="max-width:360px"><label>Survivor name</label><input id="profileName" maxlength="16" style="width:160px;padding:7px;background:#0b2b47;color:white;border:1px solid #6ea6ca"><button id="profileNameSave" style="padding:7px;background:#174c70;color:white;border:1px solid #75bce4">SAVE NAME</button><div id="profileStats" style="font-size:11px;line-height:1.6"></div></div><div id="confirmPanel" class="panel hidden"><h3 id="confirmTitle">ARE YOU SURE?</h3><div id="confirmMsg" style="font-size:14px;opacity:.85;margin:6px 0 4px"></div>
 <button class="playbtn closebtn" id="confirmYes" style="background:#a04434">YES, ERASE</button>
 <button class="playbtn closebtn" id="confirmNo">CANCEL</button></div>
 <button id="freeLookBtn" aria-label="Hold and drag to look around without steering"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M2 16s5-9 14-9 14 9 14 9-5 9-14 9S2 16 2 16Z"/><circle cx="16" cy="16" r="5"/></svg></button><div id="sprintBtn" role="presentation" aria-hidden="true"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="m8 7 6 6 4 1 3 5 7 3v5H4v-7l3-5zM5 23h22M12 14l4 3m-6 0 4 3M2 8h5M1 12h4"/></svg></div><div id="sosNotice" class="hidden"></div><div id="toast"></div>
-<div id="flash"></div><aside id="betaDebug" class="hidden"><div class="debugHead">BETA DIAGNOSTICS <button id="debugClear">CLEAR</button><button id="debugClose">CLOSE</button></div><pre id="debugStats"></pre></aside>
+<div id="betaFlightHud50" class="hidden"><span>BETA FLIGHT</span><button id="flightDown50" aria-label="Fly down">DOWN</button><button id="flightUp50" aria-label="Fly up">UP</button><button id="flightExit50">RETURN</button></div><div id="flash"></div><aside id="betaDebug" class="hidden"><div class="debugHead">BETA DIAGNOSTICS <button id="debugClear">CLEAR</button><button id="debugClose">CLOSE</button></div><pre id="debugStats"></pre></aside>
 
 <div id="tapToStart" class="hidden" role="button" tabindex="0" aria-label="Tap anywhere to start One World"><h1 class="titleMark"><img class="ownerWordmark" src="assets/ui/one-world-owner-logo.png" alt="One World" draggable="false" width="512" height="188"></h1><p class="titleStudio">Tamil Crafters Studio</p><span id="tapStartBtn">Tap anywhere to start</span></div>
 <div id="studioIntro" aria-label="Tamil Craft Studio"><img src="assets/ui/tc-studio.png" alt="Tamil Craft Studio" draggable="false"></div>
@@ -683,8 +683,8 @@ body.referenceWorld #joy,body.referenceWorld #atk,body.referenceWorld #bagBtn,bo
     <label for="hairColor">Hair color</label><select id="hairColor"><option value="original">Original black</option><option value="#8a4526">Chestnut</option><option value="#e4c177">Honey blond</option><option value="#c0c5d8">Silver</option><option value="#546cc2">Blue</option></select>
     <label for="eyeColor">Eye color</label><select id="eyeColor"><option value="original">Original</option><option value="#547edf">Blue</option><option value="#3d8a62">Green</option><option value="#9c67c6">Violet</option><option value="#98653f">Brown</option></select>
     <label for="skinColor">Skin tone</label><select id="skinColor"><option value="original">Original</option><option value="#ffe7d8">Light warm</option><option value="#dba17b">Tan</option><option value="#a96846">Brown</option><option value="#77452f">Deep brown</option></select>
-    <div style="font-size:10px;color:#9faebb;margin-top:7px">Drag to rotate. Tap hair or eyes for a closer look.</div>
-    </div></div><button class="playbtn" id="beginBtn" style="margin-top:10px">DONE</button>
+    
+    </div></div><div id="setupHint50" style="font-size:10px;color:#9faebb;margin-top:7px">Drag to rotate. Tap hair or eyes for a closer look.</div><button class="playbtn" id="beginBtn" style="margin-top:10px">DONE</button>
   </div>
   <div class="keys">Joystick to run | knife, axe and torch to survive | bag button for items<br>WASD / arrows to run | Space to attack | B for bag</div>
   <div class="foot">Tamil Crafters Studio</div>
@@ -778,6 +778,7 @@ import {mutant} from './assets/lib/Mutants.js';
 import {wildlife} from './assets/lib/Wildlife.js';
 import * as THREE from 'three';
 import {warmRenderer} from './assets/lib/RendererWarmup.js';
+import {createDistantForest50} from './assets/lib/DistantForest50.js';
 import {referenceMutantAnimal} from './assets/lib/ReferenceMutantAnimal.js';
 import {buildWetlands} from './assets/lib/ReferenceWetlands.js';
 import {createReferenceHorizon} from './assets/lib/ReferenceHorizon.js';
@@ -796,7 +797,7 @@ import { GLTFLoader } from './assets/lib/GLTFLoader.js';
 import { clone as skClone } from './assets/lib/SkeletonUtils.js';
 import { animeClips, applyAnimeColors, attachLeatherGarments, applyHairStyle, updateHairSway } from './assets/lib/AnimeCharacter.js';
 
-var BUILD_INFO={name:'1.3.49',code:null,native:false};
+var BUILD_INFO={name:'1.3.50',code:null,native:false};
 try{var nb=window.OneWorldNative;if(nb&&typeof nb.getBuildInfo==='function'){var bi=JSON.parse(nb.getBuildInfo());if(bi.package==='com.oneword.forest.beta'&&typeof bi.name==='string'&&/^\d+\.\d+\.\d+$/.test(bi.name)&&Number.isSafeInteger(bi.code)&&bi.code>0)BUILD_INFO={name:bi.name,code:bi.code,native:true};}}catch(e){}
 var DISPLAY_VERSION=BUILD_INFO.name+(BUILD_INFO.native?'':' preview');
 document.querySelector('#start .ver').textContent=DISPLAY_VERSION+' Beta - Work in progress';
@@ -1085,7 +1086,7 @@ function referenceEarthMaterial(mat){
 }
 if(referenceMode){A.tex.floor.wrapS=A.tex.floor.wrapT=THREE.RepeatWrapping;A.tex.floor.colorSpace=THREE.SRGBColorSpace;referenceEarthMaterial(terrainMatPlain);}
 function groundColor(x, z, y){
-  if(referenceMode){var s=referenceSample(x,z),b=s.biome,n=forestNoise(x,z);if(b==='swamp')return [.055+n*.05,.10+n*.07,.035+n*.04];if(b==='desert')return [.42+n*.045,.30+n*.035,.16+n*.025];if(y<.8||s.surface.sand>.3&&s.coastDistance<260&&b!=='swamp'&&b!=='volcanic')return [.43+n*.025,.36+n*.025,.245+n*.02];if(b==='snow'&&s.surface.snow<.27)return [.30+n*.13,.35+n*.13,.27+n*.1];if(b==='snow'){var rock=Math.sin(x*.043+z*.026)+Math.sin(x*.013-z*.031);return y>100&&rock>1.0?[.35+n*.12,.39+n*.12,.41+n*.12]:[.76+n*.12,.83+n*.1,.90+n*.08];}if(b==='volcanic')return [.20+n*.15,.15+n*.06,.13+n*.05];if(b==='desert')return [.31+n*.08,.19+n*.06,.075+n*.035];if(b==='swamp')return [.25+n*.1,.32+n*.1,.19+n*.08];if(y>70)return [.45,.48,.40];return [.16+n*.10,.205+n*.10,.10+n*.055];}
+  if(referenceMode){var s=referenceSample(x,z),b=s.biome,n=forestNoise(x,z);if(b==='swamp')return [.055+n*.05,.10+n*.07,.035+n*.04];if(b==='desert')return [.42+n*.045,.30+n*.035,.16+n*.025];if(y<.8||s.surface.sand>.3&&s.coastDistance<260&&b!=='swamp'&&b!=='volcanic')return [.43+n*.025,.36+n*.025,.245+n*.02];if(b==='snow'&&y<28&&s.surface.snow<.27)return [.30+n*.13,.35+n*.13,.27+n*.1];if(b==='snow'){var slope50=Math.hypot(referenceHeight(x+6,z)-referenceHeight(x-6,z),referenceHeight(x,z+6)-referenceHeight(x,z-6))/12;if(slope50>.7&&y>80)return [.23+n*.10,.27+n*.10,.29+n*.10];var rock=Math.sin(x*.043+z*.026)+Math.sin(x*.013-z*.031);return y>100&&rock>1.0?[.35+n*.12,.39+n*.12,.41+n*.12]:[.76+n*.12,.83+n*.1,.90+n*.08];}if(b==='volcanic')return [.20+n*.15,.15+n*.06,.13+n*.05];if(b==='desert')return [.31+n*.08,.19+n*.06,.075+n*.035];if(b==='swamp')return [.25+n*.1,.32+n*.1,.19+n*.08];if(y>70)return [.45,.48,.40];return [.16+n*.10,.205+n*.10,.10+n*.055];}
 
   if(z < 2700 && z > -6500 && riverDist(x, z) < 44 && y < riverBedY(z) + 0.9) return [0.58, 0.51, 0.39]; // wet riverbed
   if(y < 0.7) return [0.86, 0.78, 0.55];                       // sand / beach / seabed
@@ -1139,6 +1140,7 @@ var riverWaterRuns = [];
 var referenceHorizon=referenceMode?await createReferenceHorizon(scene,referenceHeight,groundColor,window.oneworldYieldPaint):null;
 if(referenceMode){referenceEarthMaterial(referenceHorizon.mesh.material);camera.near=.3;camera.far=18000;camera.updateProjectionMatrix();}
 var shoreDetail=referenceMode?applyShoreDetail(THREE,water,referenceHorizon,A.models.rocks.scene):null;
+var distantForest50=referenceMode?await createDistantForest50(scene,referenceSample,(x,z)=>referenceHorizon.smoothHeight(x,z),window.oneworldYieldPaint):null;
 var chunks = {};
 function chunkKey(cx, cz){ return cx + ',' + cz; }
 function buildChunk(cx, cz){
@@ -1186,7 +1188,7 @@ function buildChunk(cx, cz){
     if(beacons&&beacons.some(function(b){return Math.hypot(x-b.x,z-b.z)<25;}))continue;
     if(referenceMode&&referenceSurface(x,z).sand>.24)continue;
     if(forestScore(x, z) < (referenceMode?.22:.15)) continue;
-    var y = groundY(x,z);if(y<(referenceMode&&bio==='swamp'?.12:1.2))continue;if(referenceMode&&bio==='volcanic'&&y>85)continue;
+    var y = groundY(x,z);if(y<(referenceMode&&bio==='swamp'?.12:1.2))continue;if(referenceMode&&bio==='volcanic'&&y>85)continue;if(referenceMode&&bio==='snow'&&y>210)continue;
     if(groundSlope(x, z) > 1.2) continue;
     var hero = (referenceMode||near) && hash3(cx, cz, i*7+6) < (referenceMode?.06:.15);
     var k = bio === 'snow' ? 'PF' : (hero ? 'NH' : (i % 2 === 0 ? 'NF' : 'PF'));
@@ -1758,9 +1760,21 @@ var P = { x: 0, z: 0, rotY: 0, walk: 0, speed: 0, hp: 6, maxHp: 6, atkT: -9, atk
 
 await startupStage(80,'Preparing saved settings');
 // ---------- settings (persisted), inventory, world save ----------
+var upgradeBackup50=true;
+try{if(!localStorage.getItem('oneworld-pre1350-backup-v1')){var b50={version:'pre-1.3.50',created:Date.now(),entries:{}};Object.keys(localStorage).filter(k=>/^oneword-save|^oneworld-profiles/.test(k)).forEach(k=>b50.entries[k]=localStorage.getItem(k));localStorage.setItem('oneworld-pre1350-backup-v1',JSON.stringify(b50));}}catch(e){upgradeBackup50=false;window.__errors.push('Pre-update save backup unavailable; saving is paused until storage is available.');}
 var SET_KEY = 'oneword-settings-v1', SAVE_KEY = referenceMode?REFERENCE_WORLD.saveKey:'oneword-save-v1';
 var settings = { quality: 'low', sens: 1 }; // Fresh installs start with the existing lighter preset; saved graphics choices win.
 try { var sraw = localStorage.getItem(SET_KEY); if(sraw){ var sp = JSON.parse(sraw); if(sp && sp.quality) settings = sp; } } catch(e){}
+var betaBuild50=!BUILD_INFO.native||JSON.parse(window.OneWorldNative.getBuildInfo()).package==='com.oneword.forest.beta';
+var betaFlight50={active:false,y:0,vertical:0,anchor:null};
+function setBetaFlight50(on){
+ if(!betaBuild50||!running||P.dead)return false;
+ if(!!on===betaFlight50.active)return true;
+ resetMovementInput();
+ if(on){betaFlight50.anchor={x:P.x,z:P.z};betaFlight50.y=Math.max(surfaceY(P.x,P.z)+180,220);betaFlight50.active=true;cameraPitch=.72;swimming=false;}
+ else{P.x=betaFlight50.anchor.x;P.z=betaFlight50.anchor.z;betaFlight50.active=false;betaFlight50.vertical=0;player.position.set(P.x,referenceBodyGround(P.x,P.z),P.z);ensureChunks();}
+ document.getElementById('betaFlightHud50').classList.toggle('hidden',!betaFlight50.active);document.getElementById('betaFlightToggle50').textContent=betaFlight50.active?'STOP & RETURN':'START FLYING';return true;
+}
 var appliedQuality=null,appliedShadows=null,appliedFancy=null;
 function fancyLeaves(){return settings.fancyLeaves==='on'||settings.fancyLeaves!=='off'&&settings.fancyLeaves!=='on'&&settings.quality!=='low';}
 function applySettings(){
@@ -2256,9 +2270,10 @@ function toast(msg,health){ var t = document.getElementById('toast'); t.classLis
 
 function saveGame(){
   if(!running || P.dead) return true;
+  if(!upgradeBackup50)return false;
   try{var data=JSON.stringify(worldSnapshot());if(data!==localStorage.getItem(SAVE_KEY))localStorage.setItem(SAVE_KEY,data);return true;}catch(e){return false;}
 }
-function worldSnapshot(){ return { world:activeWorldId, resourceLayout:referenceMode?referenceResourceLayout:undefined, referenceElapsed:referenceElapsed,referenceLootTaken:referenceLootTaken,deathPending:!!respawnRequired, v:3,stations48:stationStore,stationPlaced48:stationPlaced,stationSerial48:stationSerial,progress:progress,legacyTools:legacyTools, weatherClock:weatherClock, x: P.x, z: P.z, rotY: P.rotY, hp: P.hp, wolvesDefeated: wolvesDefeated, dayT: dayT, cameraYaw: cameraYaw, inv: inv, marks: userMarks, bed: bedPos, campfire: campfirePos, equipped: equipped, chopped: Object.keys(choppedTrees), mined: Object.keys(minedNodes), bushes: Object.keys(harvestedBushes), char: charKind, look:charLook, pname: playerName, armor: armorName, stam: P.stam, food: P.food, water:P.water, quickSlots:quickSlots, temp: P.temp };
+function worldSnapshot(){ return { world:activeWorldId, resourceLayout:referenceMode?referenceResourceLayout:undefined, referenceElapsed:referenceElapsed,referenceLootTaken:referenceLootTaken,deathPending:!!respawnRequired, v:3,stations48:stationStore,stationPlaced48:stationPlaced,stationSerial48:stationSerial,progress:progress,legacyTools:legacyTools, weatherClock:weatherClock, x: betaFlight50.active?betaFlight50.anchor.x:P.x, z: betaFlight50.active?betaFlight50.anchor.z:P.z, rotY: P.rotY, hp: P.hp, wolvesDefeated: wolvesDefeated, dayT: dayT, cameraYaw: cameraYaw, inv: inv, marks: userMarks, bed: bedPos, campfire: campfirePos, equipped: equipped, chopped: Object.keys(choppedTrees), mined: Object.keys(minedNodes), bushes: Object.keys(harvestedBushes), char: charKind, look:charLook, pname: playerName, armor: armorName, stam: P.stam, food: P.food, water:P.water, quickSlots:quickSlots, temp: P.temp };
 }
 function loadSave(){ try{ var s = localStorage.getItem(SAVE_KEY),data=s?JSON.parse(s):null;return data&&(!data.world||data.world===activeWorldId)?data:null; }catch(e){ return null; } }
 function clearSave(){ try{ localStorage.removeItem(SAVE_KEY); }catch(e){} }
@@ -2595,6 +2610,7 @@ function heartSVG(mode){
 function drawHearts(){drawVitals();}
 
 function tryAttack(){
+ if(betaFlight50.active)return;
   if(paused || !running || P.dead) return;
   if(now - P.atkT < P.atkCd) return;
   P.atkT=now;slashT=0;sfx('hit');betaLog('Attack: '+equipped);
@@ -2798,6 +2814,11 @@ function renderBetaDebug(){
 
 document.getElementById('sosBtn').onclick=startSos;
 document.addEventListener('visibilitychange',function(){if(document.hidden&&sosPending)cancelSos('SOS cancelled');});
+document.getElementById('betaFlightSetting50').classList.toggle('hidden',!betaBuild50);
+document.getElementById('betaFlightToggle50').onclick=function(){if(!running){toast('Enter the world first, then open Help & Beta.');return;}setBetaFlight50(!betaFlight50.active);if(betaFlight50.active)closeSettings();};
+document.getElementById('flightExit50').onclick=()=>setBetaFlight50(false);
+for(const [id,dir]of [['flightUp50',1],['flightDown50',-1]]){const el=document.getElementById(id);el.addEventListener('pointerdown',e=>{e.preventDefault();el.setPointerCapture(e.pointerId);betaFlight50.vertical=dir;});for(const event of ['pointerup','pointercancel','lostpointercapture'])el.addEventListener(event,()=>betaFlight50.vertical=0);}
+window.addEventListener('blur',()=>betaFlight50.vertical=0);
 document.getElementById('debugBtn').onclick=function(){document.getElementById('setPanel').classList.add('hidden');document.getElementById('betaDebug').classList.remove('hidden');updatePause();resetMovementInput();betaLog('Diagnostics opened');renderBetaDebug();};
 document.getElementById('debugClose').onclick=function(){document.getElementById('betaDebug').classList.add('hidden');openSettings();};
 document.getElementById('debugClear').onclick=function(){betaEvents.length=0;window.__errors.length=0;renderBetaDebug();};
@@ -2843,11 +2864,12 @@ function tick(dt){
   eagles2.forEach(function(e){ e.mesh.userData.anim.mixer.update(dt); });
 
   if(running){
+    if(distantForest50)distantForest50.update(P.x,P.z);
     dayT = (dayT + dt/CYCLE) % 1;
     if(referenceSites){referenceElapsed+=dt;referenceSites.update(P.x,P.z);referenceSites.lootState(referenceElapsed,referenceLootTaken);var gather=nearestGatherTarget();var gb=document.getElementById('lootCollect');gb.classList.toggle('available',!P.dead&&!!gather);if(gather){var ar=document.getElementById('atk').getBoundingClientRect();gb.style.left=Math.max(8,Math.min(innerWidth-56,ar.left-58))+'px';gb.style.top=Math.max(8,Math.min(innerHeight-56,ar.top+ar.height/2-24))+'px';}}
 
     // --- survival stats ---
-    if(!P.dead){
+    if(!P.dead&&!betaFlight50.active){
       if(P.speed > 0){ P.stam = Math.max(0, P.stam - 5*dt); } else { P.stam = Math.min(maxStamina(),P.stam+12*dt); }
       P.water=Math.max(0,P.water-dt*(P.speed>0?100/1100:100/1600)*Math.pow(.985,progress.spent.water));
       var drinkable=waterInfo(P.x,P.z);if(drinkable.depth>0)P.water=100;document.getElementById('drinkBtn').style.display='none';
@@ -2882,16 +2904,17 @@ function tick(dt){
     var mx = fs*inF + rs*inR, mz = fc*inF + rc*inR;
     if(autoRun){autoRunHeading=movementViewYaw()+Math.PI;mx=Math.sin(autoRunHeading);mz=Math.cos(autoRunHeading);ml=1;}
     var localWater=waterInfo(P.x,P.z);
-    swimming=localWater.depth>(swimming?.9:1.15);
+    swimming=!betaFlight50.active&&localWater.depth>(swimming?.9:1.15);
     if(swimming!==wasSwimming){sfx('water');wasSwimming=swimming;}
-    P.speed = ml > 0.08 ? (swimming ? 2.7 : ((sprintOn||keys['ShiftLeft']||keys['ShiftRight'])&&P.stam>.5?7:3.2)) : 0;
+    P.speed = ml > 0.08 ? (betaFlight50.active?90:swimming ? 2.7 : ((sprintOn||keys['ShiftLeft']||keys['ShiftRight'])&&P.stam>.5?7:3.2)) : 0;
     if(!P.dead && P.speed > 0){
       var ppx = P.x, ppz = P.z;
       P.x += mx * P.speed * dt; P.z += mz * P.speed * dt;
       if(referenceMode?(Math.abs(P.x)>REFERENCE_WORLD.halfWidth+180||Math.abs(P.z)>REFERENCE_WORLD.halfHeight+180):Math.hypot(P.x,P.z)>ISLAND_R+180){P.x=ppx;P.z=ppz;} // bounded ocean swimming margin
-      var pc=collideXZ(P.x,P.z,.45);
+      if(!betaFlight50.active){var pc=collideXZ(P.x,P.z,.45);
       if(solidFree(pc[0],pc[1],.45)){P.x=pc[0];P.z=pc[1];}else{P.x=ppx;P.z=ppz;}
       if(referenceMode&&!swimming){var dy=referenceBodyGround(P.x,P.z)-referenceBodyGround(ppx,ppz),dist=Math.hypot(P.x-ppx,P.z-ppz);if(dy>Math.max(.22,dist*1.1)){P.x=ppx;P.z=ppz;}}
+      }
       if(Math.hypot(P.x-ppx,P.z-ppz)<.001)P.speed=0;
       var targetRot = Math.atan2(mx, mz), dr = targetRot - P.rotY;
       while(dr > Math.PI) dr -= Math.PI*2; while(dr < -Math.PI) dr += Math.PI*2;
@@ -2899,22 +2922,24 @@ function tick(dt){
       P.walk += dt * 11;
     } else { P.walk += dt * 2; }
 
-    if(P.speed>0&&!P.dead){stepSoundT-=dt;if(stepSoundT<=0){sfx(swimming?'water':'step');stepSoundT=swimming?.8:P.speed>4.5?.32:.52;}}else stepSoundT=0;
+    if(P.speed>0&&!P.dead&&!betaFlight50.active){stepSoundT-=dt;if(stepSoundT<=0){sfx(swimming?'water':'step');stepSoundT=swimming?.8:P.speed>4.5?.32:.52;}}else stepSoundT=0;
     if(P.stam<24&&!P.dead){breathSoundT-=dt;if(breathSoundT<=0){sfx('breath');breathSoundT=1.5;}}
     // player animation state
     var atkAnim = Math.min(1, (now - P.atkT)/0.32);
     if(P.dead){ playAnim(pAnim, 'Death', 0.2, true); }
     else if(atkAnim < 1){ /* Slash once, triggered in tryAttack */ }
+    else if(betaFlight50.active){playAnim(pAnim,'Idle',.2);}
     else if(swimming){ playAnim(pAnim, P.speed>.08?'Swim':'Float', 0.25); }
     else if(P.speed > 0){ playAnim(pAnim, Math.hypot(mx,mz)*P.speed<4.5?'Walk':'Run', 0.15); }
     else { playAnim(pAnim, 'Idle', 0.2); }
 
     localWater=waterInfo(P.x,P.z);
-    swimming=localWater.depth>(swimming?.9:1.15);
+    swimming=!betaFlight50.active&&localWater.depth>(swimming?.9:1.15);
     var swimMove=P.speed>.08;
     charRoot.userData.swimMotion=THREE.MathUtils.lerp(charRoot.userData.swimMotion||0,swimming&&swimMove?1:0,Math.min(1,8*dt));
     var swimRootY=THREE.MathUtils.lerp(-1.28,-.35,charRoot.userData.swimMotion);
-    var gy = swimming ? localWater.surface+swimRootY : referenceMode?referenceBodyGround(P.x,P.z):surfaceY(P.x,P.z);
+    if(betaFlight50.active){var fv=betaFlight50.vertical+(keys['KeyE']?1:0)-(keys['KeyQ']?1:0);betaFlight50.y=Math.max(surfaceY(P.x,P.z)+70,Math.min(1400,betaFlight50.y+fv*70*dt));}
+    var gy = betaFlight50.active?betaFlight50.y:swimming ? localWater.surface+swimRootY : referenceMode?referenceBodyGround(P.x,P.z):surfaceY(P.x,P.z);
     var sw = P.speed > 0 ? Math.sin(P.walk) : 0, idle = Math.sin(P.walk*0.5)*0.05;
     player.position.set(P.x, gy + (swimming?0:Math.abs(sw)*0.018 + (P.speed>0?0:idle*0.4)), P.z);
     player.rotation.y = P.rotY;
@@ -2924,7 +2949,7 @@ function tick(dt){
       charRoot.userData.swimHead.getWorldPosition(swimHeadPoint);
       player.position.y+=localWater.surface+THREE.MathUtils.lerp(.24,.08,charRoot.userData.swimMotion)-swimHeadPoint.y;
     }
-    supportSurvivorSoles();
+    if(!betaFlight50.active)supportSurvivorSoles();
     pShadow.visible=false;
     pShadow.position.set(P.x, gy + 0.04, P.z);
     if(P.invuln > 0)P.invuln-=dt;
@@ -3073,7 +3098,7 @@ function tick(dt){
         w.t += dt; anim = 'Attack';
         if(w.t < 0.3){ /* windup */ }
         else if(w.t < 0.48){ w.x += dx/Math.max(dd,0.001)*10*dt; w.z += dz/Math.max(dd,0.001)*10*dt; spd = 6;
-          if(dd < 2.0 && P.invuln <= 0 && !P.dead){
+          if(dd < 2.0 && P.invuln <= 0 && !P.dead&&!betaFlight50.active){
             if(armorBlocks()){ P.invuln = 1.0; sfx('hit'); toast('Armor blocked!'); }
             else {
               P.hp--; P.invuln = 1.0; sfx('hurt'); drawHearts();
@@ -3154,7 +3179,7 @@ function tick(dt){
             else { var wa = rand(0, Math.PI*2), wr = rand(3, 10); c.tx = c.x + Math.cos(wa)*wr; c.tz = c.z + Math.sin(wa)*wr; } }
           var wx = c.tx - c.x, wz = c.tz - c.z, wl = Math.hypot(wx, wz);
           if(wl > 0.5){ c.x += wx/wl*cfg.speed*dt; c.z += wz/wl*cfg.speed*dt; c.mesh.rotation.y = Math.atan2(wx, wz); anim = cfg.anims.walk; }
-          if(!P.dead && dd < cfg.aggro) c.state = 'chase';
+          if(!betaFlight50.active&&!P.dead && dd < cfg.aggro) c.state = 'chase';
         } else if(c.state === 'chase'){
           if(P.dead){ c.state = 'wander'; }
           else if(dd > cfg.atkRange){ c.x += dx/dd*cfg.chase*dt; c.z += dz/dd*cfg.chase*dt; c.mesh.rotation.y = Math.atan2(dx, dz); anim = cfg.anims.run || cfg.anims.walk; }
@@ -3164,7 +3189,7 @@ function tick(dt){
           if(dd > cfg.aggro*1.6) c.state = 'wander';
         }
         if(c.pendingDmg && now >= c.pendingDmg){ c.pendingDmg = 0;
-          if(dd < cfg.atkRange + 0.5 && P.invuln <= 0 && !P.dead){
+          if(dd < cfg.atkRange + 0.5 && P.invuln <= 0 && !P.dead&&!betaFlight50.active){
             if(armorBlocks()){ P.invuln = 1.0; sfx('hit'); toast('Armor blocked!'); }
             else {
               P.hp -= cfg.dmg; P.invuln = 1.0; sfx('hurt'); drawHearts();
@@ -3234,8 +3259,8 @@ function tick(dt){
     // Continuous target-centred orbit. Ground contact slides the endpoint along
     // the surface instead of switching aim or replacing the orbit with a high view.
     // Back/strafe are camera-relative: recentering here creates a turn loop.
-    if(P.speed>.08&&!P.dead&&!autoRun&&lookPointerId===null&&!freeLookActive&&!freeLookReturning&&inF>.5&&Math.abs(inR)<.08){var behind=P.rotY-Math.PI,turn=behind-cameraYaw;while(turn>Math.PI)turn-=Math.PI*2;while(turn< -Math.PI)turn+=Math.PI*2;cameraYaw+=turn*(1-Math.exp(-dt*7));}
-    entryCameraT=Math.max(0,entryCameraT-dt);var camDist=(5+4*entryCameraT/1.2)*camZoom,targetY=swimming?localWater.surface+.05:gy+1.15,camTarget=new THREE.Vector3(P.x,targetY,P.z);
+    if(!betaFlight50.active&&P.speed>.08&&!P.dead&&!autoRun&&lookPointerId===null&&!freeLookActive&&!freeLookReturning&&inF>.5&&Math.abs(inR)<.08){var behind=P.rotY-Math.PI,turn=behind-cameraYaw;while(turn>Math.PI)turn-=Math.PI*2;while(turn< -Math.PI)turn+=Math.PI*2;cameraYaw+=turn*(1-Math.exp(-dt*7));}
+    entryCameraT=Math.max(0,entryCameraT-dt);var camDist=betaFlight50.active?80:(5+4*entryCameraT/1.2)*camZoom,targetY=swimming?localWater.surface+.05:gy+1.15,camTarget=new THREE.Vector3(P.x,targetY,P.z);
     var cx=P.x+Math.sin(cameraYaw)*Math.cos(cameraPitch)*camDist;
     var cz=P.z+Math.cos(cameraYaw)*Math.cos(cameraPitch)*camDist;
     var cy=targetY+Math.sin(cameraPitch)*camDist;
@@ -3466,7 +3491,7 @@ function showCharSetup(required){
   document.getElementById('charSetup').classList.remove('hidden');
   document.getElementById('start').classList.add('choosing');
   var ni = document.getElementById('nameInput'); ni.value = playerName || '';
-  if(required){setupKind=null;document.getElementById('nameInput').value='';document.querySelectorAll('#pickBoy,#pickGirl').forEach(b=>b.classList.remove('on'));document.getElementById('charPreview').style.visibility='hidden';document.getElementById('zoomActions').style.visibility='hidden';document.getElementById('charControls').classList.add('needsChoice49');}else{pickCharCard(charKind || 'boy');}
+  document.getElementById('nameInput').value='';pickCharCard('boy');
   // Do not force mobile keyboard over the live preview.
 }
 function pickCharCard(k){
@@ -3488,7 +3513,7 @@ document.getElementById('beginBtn').addEventListener('click', function(){
   if(!setupConfirmed49||!['boy','girl'].includes(setupKind)){note.textContent='Choose Boy or Girl.';return;}
   if(!nm){note.textContent='Enter your survivor name.';return;}
   var chosen={v:1,confirmed:true,name:nm,kind:setupKind,look:JSON.parse(JSON.stringify(charLook))};
-  var savedProfile=saveProfile49(chosen);if(!savedProfile){note.textContent='Could not save. Free device storage and try again. Your previous character is unchanged.';return;}
+  var savedProfile=saveProfile49(chosen);if(!savedProfile){if(!note.textContent)note.textContent='Could not save. Free device storage and try again. Your previous character is unchanged.';return;}
   useProfile49(savedProfile);creatingProfile49=false;setupRequired49=false;setupPreviousLook=null;buildPlayerChar(savedProfile.kind);setupToLobby();lobbyPreviewStamp='';renderLobbyPreview(.016,true);
 });
 document.getElementById('worldChooser').remove();
@@ -3604,6 +3629,7 @@ function updateSensitivityLabel(){document.getElementById('setSensValue').textCo
 document.getElementById('setSens').addEventListener('input',updateSensitivityLabel);
 document.getElementById('settingsNav').addEventListener('keydown',function(e){if(!['ArrowDown','ArrowUp','Home','End'].includes(e.key))return;e.preventDefault();var b=Array.from(this.querySelectorAll('button')).filter(function(e){return !e.classList.contains('hidden');}),i=b.indexOf(document.activeElement);i=e.key==='Home'?0:e.key==='End'?b.length-1:(i+(e.key==='ArrowDown'?1:-1)+b.length)%b.length;b[i].focus();if(b[i].dataset.settingsTab)b[i].click();});
 function openSettings(){
+ betaFlight50.vertical=0;
  document.getElementById('quitLobbyBtn').style.display='';
  document.querySelector('[data-settings-tab=survivor]').classList.toggle('hidden',!running);
  document.querySelector('[data-settings-tab=profile]').classList.toggle('hidden',running);
@@ -3628,7 +3654,7 @@ document.getElementById('setLobbyBtn').addEventListener('click', openSettings);
 document.getElementById('menuProfileBtn').onclick=function(){document.getElementById('profileBtn').click();};
 document.getElementById('quitLobbyBtn').addEventListener('click',requestGameClose);
 document.getElementById('setClose').addEventListener('click', closeSettings);
- document.getElementById('saveLobby').onclick=function(){betaLog('Save and lobby clicked');if(!running){closeSettings();return;}if(!saveGame()){toast('Could not save. Stay here and free device storage.');return;}closeSettings();running=false;document.body.classList.remove('playing');var lobby=document.getElementById('start');lobby.classList.remove('hidden','choosing');document.getElementById('charSetup').classList.add('hidden');document.getElementById('playBtn').textContent='CONTINUE';document.getElementById('newGameBtn').style.display='inline-block';menuMusicWorld(false);};
+ document.getElementById('saveLobby').onclick=function(){if(betaFlight50.active)setBetaFlight50(false);betaLog('Save and lobby clicked');if(!running){closeSettings();return;}if(!saveGame()){toast('Could not save. Stay here and free device storage.');return;}closeSettings();running=false;document.body.classList.remove('playing');var lobby=document.getElementById('start');lobby.classList.remove('hidden','choosing');document.getElementById('charSetup').classList.add('hidden');document.getElementById('playBtn').textContent='CONTINUE';document.getElementById('newGameBtn').style.display='inline-block';menuMusicWorld(false);};
 document.getElementById('setSens').addEventListener('input', function(){ settings.sens = parseFloat(this.value) || 1; persistSettings(); });
 document.getElementById('setShadows').addEventListener('change',function(){settings.shadows=this.value;persistSettings();applySettings();});
 document.getElementById('setFancyLeaves').addEventListener('change',function(){settings.fancyLeaves=this.value;persistSettings();applySettings();});
@@ -3659,12 +3685,14 @@ function legacyProfile49(){var keys=[baseSaveKey49,baseSaveKey49==='oneword-save
 function readRegistry49(){var raw=localStorage.getItem(PROFILE_KEY49);if(!raw)return null;var r=JSON.parse(raw);if(!validRegistry49(r))throw Error('Saved profile list could not be read. No saved worlds changed.');return r;}
 function writeRegistry49(r){try{if(!validRegistry49(r))return false;localStorage.setItem(PROFILE_KEY49,JSON.stringify(r));return true;}catch(e){return false;}}
 function useProfile49(p){localProfile49=p;playerName=p.name;charKind=p.kind;charLook=JSON.parse(JSON.stringify(p.look));SAVE_KEY=p.id==='legacy'?baseSaveKey49:baseSaveKey49+'-profile-'+p.id;lobbySaveCache={key:null,raw:null,value:null};lobbyPreviewStamp='';}
-function saveProfile49(p){try{var r=profileRegistry49?JSON.parse(JSON.stringify(profileRegistry49)):{v:1,active:null,next:1,profiles:[]};var id='p'+r.next;while(r.profiles.some(p=>p.id===id)||Object.keys(localStorage).some(k=>k==='oneword-save-v1-profile-'+id||k==='oneword-save-reference-island-v1-profile-'+id||k.startsWith('oneword-save-v1-profile-'+id+'-')||k.startsWith('oneword-save-reference-island-v1-profile-'+id+'-'))){r.next++;id='p'+r.next;}var chosen={id:id,name:p.name,kind:p.kind,look:p.look};r.next++;r.profiles.push(chosen);r.active=id;if(!writeRegistry49(r))return null;profileRegistry49=r;return chosen;}catch(e){return null;}}
-function showProfileList49(){if(running||joiningWorld)return;var panel=document.getElementById('profileList49');panel.replaceChildren();var title=document.createElement('h3');title.textContent='CHOOSE PROFILE';panel.appendChild(title);for(var p of profileRegistry49?.profiles||[]){var b=document.createElement('button');b.className='playbtn closebtn';b.textContent=p.name+(p.id===profileRegistry49.active?' · Current':'');b.dataset.profile49=p.id;b.onclick=function(){var id=this.dataset.profile49,r=JSON.parse(JSON.stringify(profileRegistry49));r.active=id;if(!writeRegistry49(r)){toast('Could not save profile choice. No worlds changed.');return;}profileRegistry49=r;useProfile49(r.profiles.find(x=>x.id===id));panel.classList.add('hidden');renderLobbyPreview(.016,true);};panel.appendChild(b);}var close=document.createElement('button');close.className='playbtn closebtn';close.textContent='CLOSE';close.onclick=()=>panel.classList.add('hidden');panel.appendChild(close);panel.classList.remove('hidden');}
+function profileLimitReached50(){return !!(profileRegistry49&&profileRegistry49.profiles.length>=2);}
+function updateProfileLimit50(){var b=document.getElementById('editCharacter49'),r=profileRegistry49,others=r&&r.profiles.length>1?[r.profiles[(r.profiles.findIndex(p=>p.id===r.active)+1)%r.profiles.length]]:[];b.disabled=false;b.classList.toggle('otherProfile50',others.length>0);b.textContent=others.length?others[0].name:'+';b.title=others.length?'Switch to '+others[0].name:'Create another local profile';b.setAttribute('aria-label',b.title);}
+function saveProfile49(p){try{var latest=readRegistry49()||profileRegistry49;var r=latest?JSON.parse(JSON.stringify(latest)):{v:1,active:null,next:1,profiles:[]};if(r.profiles.length>=2){document.getElementById('setupNote49').textContent='Maximum 2 profiles. Existing profiles and saved worlds are kept.';return null;}var id='p'+r.next;while(r.profiles.some(p=>p.id===id)||Object.keys(localStorage).some(k=>k==='oneword-save-v1-profile-'+id||k==='oneword-save-reference-island-v1-profile-'+id||k.startsWith('oneword-save-v1-profile-'+id+'-')||k.startsWith('oneword-save-reference-island-v1-profile-'+id+'-'))){r.next++;id='p'+r.next;}var chosen={id:id,name:p.name,kind:p.kind,look:p.look};r.next++;r.profiles.push(chosen);r.active=id;if(!writeRegistry49(r))return null;profileRegistry49=r;return chosen;}catch(e){return null;}}
+function showProfileList49(){if(running||joiningWorld||!profileRegistry49)return;var r=JSON.parse(JSON.stringify(profileRegistry49)),i=r.profiles.findIndex(p=>p.id===r.active);if(r.profiles.length<2)return;r.active=r.profiles[(i+1)%r.profiles.length].id;if(!writeRegistry49(r)){toast('Could not save profile choice. No worlds changed.');return;}profileRegistry49=r;useProfile49(r.profiles.find(p=>p.id===r.active));updateProfileLimit50();renderLobbyPreview(.016,true);}
 window.oneworldEnterTitle=function(){betaLog('Title route requested; running='+!!running);if(running||joiningWorld){betaLog('Ignored title route while world active');return;}try{profileRegistry49=readRegistry49();if(!profileRegistry49){var legacy=legacyProfile49();if(legacy)profileRegistry49={v:1,active:'legacy',next:1,profiles:[legacy]};}if(profileRegistry49){var p=profileRegistry49.profiles.find(p=>p.id===profileRegistry49.active);useProfile49(p);setupRequired49=false;setupToLobby();document.getElementById('start').classList.remove('hidden');renderLobbyPreview(.016,true);window.oneworldTrace('menu-visible');}else{creatingProfile49=true;showCharSetup(true);document.getElementById('start').classList.remove('hidden');window.oneworldTrace('first-character-visible');}}catch(e){document.getElementById('start').classList.remove('hidden');showCharSetup(true);document.getElementById('setupNote49').textContent=e.message;document.getElementById('beginBtn').disabled=true;}};
-document.getElementById('editCharacter49').onclick=function(){creatingProfile49=true;showCharSetup(false);setupConfirmed49=false;setupKind=null;document.getElementById('nameInput').value='';document.querySelectorAll('#pickBoy,#pickGirl').forEach(b=>b.classList.remove('on'));document.getElementById('charPreview').style.visibility='hidden';document.getElementById('zoomActions').style.visibility='hidden';document.getElementById('charControls').classList.add('needsChoice49');};
+document.getElementById('editCharacter49').onclick=function(){if(profileLimitReached50()){showProfileList49();return;}creatingProfile49=true;showCharSetup(false);};
 
-function setupToLobby(){if(setupRequired49){document.getElementById('setupNote49').textContent='Choose a character and name to continue.';return;}creatingProfile49=false;document.getElementById('charPreview').style.visibility='';document.getElementById('zoomActions').style.visibility='';document.getElementById('editCharacter49').style.display='';lobbyPreviewStamp='';document.getElementById('charSetup').classList.add('hidden');document.getElementById('start').classList.remove('choosing');['playBtn','setLobbyBtn','quitLobbyBtn'].forEach(function(id){document.getElementById(id).style.display='';});document.getElementById('newGameBtn').style.display=loadSave()?'inline-block':'none';if(setupPreviousLook){charLook=JSON.parse(JSON.stringify(setupPreviousLook));setupPreviousLook=null;}}
+function setupToLobby(){if(setupRequired49){document.getElementById('setupNote49').textContent='Choose a character and name to continue.';return;}creatingProfile49=false;updateProfileLimit50();document.getElementById('charPreview').style.visibility='';document.getElementById('zoomActions').style.visibility='';document.getElementById('editCharacter49').style.display='';lobbyPreviewStamp='';document.getElementById('charSetup').classList.add('hidden');document.getElementById('start').classList.remove('choosing');['playBtn','setLobbyBtn','quitLobbyBtn'].forEach(function(id){document.getElementById(id).style.display='';});document.getElementById('newGameBtn').style.display=loadSave()?'inline-block':'none';if(setupPreviousLook){charLook=JSON.parse(JSON.stringify(setupPreviousLook));setupPreviousLook=null;}}
 document.getElementById('setupBack').onclick=setupToLobby;
 function requestGameClose(){if(closingGame)return;resetMovementInput();askConfirm('CLOSE ONE WORLD?', 'Save your world and close the beta app? Your last saved world will not be deleted.',saveAndClose,'SAVE & CLOSE');}
 function saveAndClose(){if(closingGame)return false;if(!saveGame()){toast('Could not save. App stays open. Free device storage and try again.');return false;}if(!window.OneWorldNative||typeof window.OneWorldNative.quit!=='function'){toast('World saved. Closing the app is available on Android.');return false;}closingGame=true;if(window.oneworldMenuMusic)window.oneworldMenuMusic.close();respawnToken++;respawnBusy=false;resetMovementInput();window.oneworldLifecyclePause();running=false;clearInterval(autosaveTimer);if(AC)AC.close().catch(function(){});[renderer,setupRenderer].forEach(function(r){if(r){r.dispose();r.forceContextLoss();}});window.OneWorldNative.quit();return true;}
@@ -3675,7 +3703,6 @@ window.oneworldHandleBack=function(){
  if(shown('worldLoading')){toast('World is preparing. Please wait before leaving.');return;}
  if(shown('confirmPanel')){document.getElementById('confirmNo').click();return;}
  if(controlDraft){closeControlEditor(false);return;}
- if(shown('profileList49')){document.getElementById('profileList49').classList.add('hidden');return;}
  if(shown('profileBox')){document.getElementById('profileClose').click();return;}
  if(shown('betaDebug')){document.getElementById('debugClose').click();openSettings();return;}
  if(shown('setPanel')){closeSettings();return;}
@@ -3718,7 +3745,7 @@ window.addEventListener('keydown',function(e){if(controlDraft&&e.code==='Escape'
 applyControlLayout();
 
 
-window.oneword = {legacyTreeCandidates:legacyTreeCandidates,legacyTrees:legacyTrees,resourceLayout:()=>referenceResourceLayout,gatherTarget:nearestGatherTarget,mapState:function(){return {view:referenceMapView,rect:referenceMapRect,position:{x:P.x,z:P.z},heading:P.rotY};},worldIdentity:function(){return {elapsed:referenceElapsed,loot:referenceLootTaken,cycle:CYCLE,id:activeWorldId,saveKey:SAVE_KEY,sites:referenceSites,lab:LAB,safeAreas:SAFE_AREAS};},supportSurvivorSoles:supportSurvivorSoles,entryUpdateState:function(){return {pending:window.oneworldStartupUpdate.pending,generation:window.oneworldStartupUpdate.id,status:window.oneworldStartupUpdate.status};},cancelEntryUpdateGate:cancelEntryUpdateGate,freeLookState:function(){return {active:freeLookActive,returning:freeLookReturning,travelYaw:movementViewYaw(),cameraYaw:cameraYaw,pointer:freeLookId};},readiness:function(){return {chunks:Object.keys(chunks).length,required:wantedChunks(true).length,missing:wantedChunks(true).filter(function(c){return !chunks[chunkKey(c[0],c[1])];}).length,joining:joiningWorld,structures:structGroup.children.length,structColliders:structColliders.length};},saveGame:saveGame,requestGameClose:requestGameClose,saveAndClose:saveAndClose,controlsState:function(){return {layout:JSON.parse(JSON.stringify(controlLayout)),draft:controlDraft?JSON.parse(JSON.stringify(controlDraft)):null,paused:paused};},lifecycleState:function(){return {suspended:appSuspended,frameHandle:frameHandle,paused:paused,respawn:respawnRequired,deathShown:deathShown};},respawnAt:respawnAt,movementInput:function(){return {autoRun:autoRun,sprint:sprintOn,joy:{x:joyVec.x,y:joyVec.y},pointer:joyId,blocked:joyBlocked,target:{x:joyTarget.x,y:joyTarget.y,r:joyTarget.r,ready:joyTargetReady,visible:sprintEl.classList.contains('available')}};},renderSetupPreview:renderSetupPreview,previewState:function(){return {root:setupRoot,camera:setupCamera,angle:setupAngle,focus:setupFocus,zoom:setupZoom};},startSos:startSos,sosState:function(){return sosPending;},safeSosSpot:safeSosSpot,solidFree:solidFree,testDeath:function(){P.hp=0;P.dead=true;gameOver();},nearestTree:function(){var best=null,dist=1e9;for(var k in chunks)(chunks[k].treeRefs||[]).forEach(function(t){var d=Math.hypot(t.x-P.x,t.z-P.z);if(d<dist){dist=d;best={x:t.x,z:t.z,key:t.key,hits:t.hits};}});return best;},debugInfo:function(){return {events:betaEvents.slice(),errors:window.__errors.slice(),frameCount:betaFrames.length};},getProgress:function(){return JSON.parse(JSON.stringify(progress));},spendPoint:spendPoint,progressLevel:progressLevel,testAddWall:function(x,y,z){var wall=new THREE.Mesh(new THREE.BoxGeometry(5,4,.25),new THREE.MeshStandardMaterial({color:0x52708a}));wall.position.set(x,y,z);wall.userData.cameraSolid=true;scene.add(wall);cameraWalls.push(wall);return wall.uuid;},soundEvents:soundEvents, testSound:sfx, beacons:beacons,travelBeacon:travelBeacon,weather:function(){return {kind:weatherKind,clock:weatherClock,wet:weatherWet};},setWeather:function(v){weatherOverride=v;},setWeatherClock:function(v){weatherClock=v;}, P: P, wolves: wolves, assets: A, renderer: renderer, deer: deer, critters: critters, eagles2: eagles2, player: player, slash: slash, scene: scene, camera: camera, THREE: THREE, groundY: groundY,surfaceY:surfaceY,groundMeshes:function(){return Object.values(chunks).map(c=>c.ground);},
+window.oneword = {distantForest:()=>distantForest50?.stats,setBetaFlight:setBetaFlight50,betaFlightState:()=>JSON.parse(JSON.stringify(betaFlight50)),backupReady:()=>upgradeBackup50,legacyTreeCandidates:legacyTreeCandidates,legacyTrees:legacyTrees,resourceLayout:()=>referenceResourceLayout,gatherTarget:nearestGatherTarget,mapState:function(){return {view:referenceMapView,rect:referenceMapRect,position:{x:P.x,z:P.z},heading:P.rotY};},worldIdentity:function(){return {elapsed:referenceElapsed,loot:referenceLootTaken,cycle:CYCLE,id:activeWorldId,saveKey:SAVE_KEY,sites:referenceSites,lab:LAB,safeAreas:SAFE_AREAS};},supportSurvivorSoles:supportSurvivorSoles,entryUpdateState:function(){return {pending:window.oneworldStartupUpdate.pending,generation:window.oneworldStartupUpdate.id,status:window.oneworldStartupUpdate.status};},cancelEntryUpdateGate:cancelEntryUpdateGate,freeLookState:function(){return {active:freeLookActive,returning:freeLookReturning,travelYaw:movementViewYaw(),cameraYaw:cameraYaw,pointer:freeLookId};},readiness:function(){return {chunks:Object.keys(chunks).length,required:wantedChunks(true).length,missing:wantedChunks(true).filter(function(c){return !chunks[chunkKey(c[0],c[1])];}).length,joining:joiningWorld,structures:structGroup.children.length,structColliders:structColliders.length};},saveGame:saveGame,requestGameClose:requestGameClose,saveAndClose:saveAndClose,controlsState:function(){return {layout:JSON.parse(JSON.stringify(controlLayout)),draft:controlDraft?JSON.parse(JSON.stringify(controlDraft)):null,paused:paused};},lifecycleState:function(){return {suspended:appSuspended,frameHandle:frameHandle,paused:paused,respawn:respawnRequired,deathShown:deathShown};},respawnAt:respawnAt,movementInput:function(){return {autoRun:autoRun,sprint:sprintOn,joy:{x:joyVec.x,y:joyVec.y},pointer:joyId,blocked:joyBlocked,target:{x:joyTarget.x,y:joyTarget.y,r:joyTarget.r,ready:joyTargetReady,visible:sprintEl.classList.contains('available')}};},renderSetupPreview:renderSetupPreview,previewState:function(){return {root:setupRoot,camera:setupCamera,angle:setupAngle,focus:setupFocus,zoom:setupZoom};},startSos:startSos,sosState:function(){return sosPending;},safeSosSpot:safeSosSpot,solidFree:solidFree,testDeath:function(){P.hp=0;P.dead=true;gameOver();},nearestTree:function(){var best=null,dist=1e9;for(var k in chunks)(chunks[k].treeRefs||[]).forEach(function(t){var d=Math.hypot(t.x-P.x,t.z-P.z);if(d<dist){dist=d;best={x:t.x,z:t.z,key:t.key,hits:t.hits};}});return best;},debugInfo:function(){return {events:betaEvents.slice(),errors:window.__errors.slice(),frameCount:betaFrames.length};},getProgress:function(){return JSON.parse(JSON.stringify(progress));},spendPoint:spendPoint,progressLevel:progressLevel,testAddWall:function(x,y,z){var wall=new THREE.Mesh(new THREE.BoxGeometry(5,4,.25),new THREE.MeshStandardMaterial({color:0x52708a}));wall.position.set(x,y,z);wall.userData.cameraSolid=true;scene.add(wall);cameraWalls.push(wall);return wall.uuid;},soundEvents:soundEvents, testSound:sfx, beacons:beacons,travelBeacon:travelBeacon,weather:function(){return {kind:weatherKind,clock:weatherClock,wet:weatherWet};},setWeather:function(v){weatherOverride=v;},setWeatherClock:function(v){weatherClock=v;}, P: P, wolves: wolves, assets: A, renderer: renderer, deer: deer, critters: critters, eagles2: eagles2, player: player, slash: slash, scene: scene, camera: camera, THREE: THREE, groundY: groundY,surfaceY:surfaceY,groundMeshes:function(){return Object.values(chunks).map(c=>c.ground);},
   attack: function(){ tryAttack(); }, reset: function(){ resetGame(); },
   step: function(n, dt){ dt = dt || 0.05; for(var i = 0; i < n; i++){ now += dt; tick(dt); } },
   defeated: function(){ return wolvesDefeated; },

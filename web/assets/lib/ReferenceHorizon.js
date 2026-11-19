@@ -1,3 +1,4 @@
+import {landformDetail50} from './BiomeLandforms50.js';
 import * as T from './three.module.js';
 import {SITE_PLANS} from './ReferenceLocations.js';
 import {referenceCoast} from './ReferenceCoast.js';
@@ -7,11 +8,11 @@ export async function createReferenceHorizon(scene,height,color,yieldPaint){
  const colorMap=new T.DataTexture(cd,cw,ch,T.RGBAFormat);colorMap.minFilter=colorMap.magFilter=T.LinearFilter;colorMap.needsUpdate=true;
  const verts=[],norms=[],colors=[],indices=[],vertexIds=new Map(),cells=new Map();let start=performance.now();
  const colsX=200,rowsZ=136,base=64,divisions=new Map();
- for(let iz=0;iz<rowsZ;iz++)for(let ix=0;ix<colsX;ix++){const x0=ix*base-6400,z0=iz*base-4352,coast=Math.abs(referenceCoast(x0+32,z0+32)),nearSite=SITE_PLANS.some(p=>Math.abs(p.x-x0-32)<115&&Math.abs(p.z-z0-32)<115);divisions.set(ix+','+iz,nearSite?8:coast<65?4:coast<140?2:1);}
+ for(let iz=0;iz<rowsZ;iz++)for(let ix=0;ix<colsX;ix++){const x0=ix*base-6400,z0=iz*base-4352,coast=Math.abs(referenceCoast(x0+32,z0+32)),nearSite=SITE_PLANS.some(p=>Math.abs(p.x-x0-32)<115&&Math.abs(p.z-z0-32)<115);divisions.set(ix+','+iz,nearSite?8:coast<65?4:landformDetail50(x0+32,z0+32)?4:coast<140?2:1);}
  function edgeY(x,z,step,vertical){const v=vertical?z+4352:x+6400,a=Math.floor(v/step)*step,t=v/step-Math.floor(v/step);return vertical?height(x,a-4352)*(1-t)+height(x,a+step-4352)*t:height(a-6400,z)*(1-t)+height(a+step-6400,z)*t;}
 
  for(let iz=0;iz<rowsZ;iz++)for(let ix=0;ix<colsX;ix++){
-  const x0=ix*base-6400,z0=iz*base-4352,coast=Math.abs(referenceCoast(x0+32,z0+32)),nearSite=SITE_PLANS.some(p=>Math.abs(p.x-x0-32)<115&&Math.abs(p.z-z0-32)<115),div=nearSite?8:coast<65?4:coast<140?2:1,step=base/div,n=div+1,local=[],ys=new Float32Array(n*n);
+  const x0=ix*base-6400,z0=iz*base-4352,coast=Math.abs(referenceCoast(x0+32,z0+32)),nearSite=SITE_PLANS.some(p=>Math.abs(p.x-x0-32)<115&&Math.abs(p.z-z0-32)<115),div=nearSite?8:coast<65?4:landformDetail50(x0+32,z0+32)?4:coast<140?2:1,step=base/div,n=div+1,local=[],ys=new Float32Array(n*n);
   for(let j=0;j<n;j++)for(let i=0;i<n;i++){const x=x0+i*step,z=z0+j*step;let y=height(x,z);if(i===0||i===div){const other=divisions.get((ix+(i===0?-1:1))+','+iz)||div;if(other<div)y=edgeY(x,z,base/other,true);}if(j===0||j===div){const other=divisions.get(ix+','+(iz+(j===0?-1:1)))||div;if(other<div)y=edgeY(x,z,base/other,false);}y=Math.fround(y);const c=color(x,z,y),v=new T.Vector3(height(x-5,z)-height(x+5,z),10,height(x,z-5)-height(x,z+5)).normalize();const key=x+","+z+","+y;let id=vertexIds.get(key);if(id===undefined){id=verts.length/3;vertexIds.set(key,id);verts.push(x,y,z);norms.push(v.x,v.y,v.z);colors.push(...c);}local.push(id);ys[j*n+i]=y;}
   for(let j=0;j<div;j++)for(let i=0;i<div;i++){const a=j*n+i,b=a+1,c=a+n,d=c+1;indices.push(local[a],local[c],local[b],local[b],local[c],local[d]);}
   cells.set(ix+','+iz,{div,ys});

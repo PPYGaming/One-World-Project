@@ -1,3 +1,4 @@
+import {landform50} from './BiomeLandforms50.js';
 import {referenceRelief} from './ReferenceRelief.js';
 import {referenceSurface} from './ReferenceSurface.js';
 export {referenceSurface};
@@ -24,6 +25,7 @@ export function referenceSample(worldX,worldZ,noPads=false){
  h+=referenceRelief(worldX,worldZ,biome);
  if(biome==='swamp')h=.45+wave(x*1.7,z*1.7)*1.0;
  if(biome==='forest'&&surface.sand>.18&&shore>0&&shore<260&&referenceRelief(worldX,worldZ,biome)<25){const blend=smooth(.18,.65,surface.sand);h=h*(1-blend)+(1.4+Math.max(0,shore)*.003)*blend;}
+ h=landform50(worldX,worldZ,biome,h);
  if(shore<85)h=h*smooth(0,85,shore);if(shore<0)h=-Math.min(20,-shore*.12);
  
  if(!noPads)for(let i=0;i<landmarkPads.length;i++){const p=landmarkPads[i],d=Math.hypot(worldX-p[0],worldZ-p[1]);const padOuter=i===2?65:32,padInner=i===2?44:13;if(d<padOuter){let py=padHeights.get(i);if(py===undefined){py=Math.max(2,referenceSample(p[0],p[1],true).height);padHeights.set(i,py);}h=py+(h-py)*smooth(padInner,padOuter,d);}}

@@ -1,3 +1,11 @@
+# 1.3.50 (beta, code 72)
+
+- Complete-world terrain integration with connected regional landforms and distant forest canopy.
+- Beta-only inspection flight in Help & Beta, with safe return and saved-location protection.
+- Automatic pre-update world/profile archive without clearing progress.
+- Default Boy and required name, two-profile creation cap with existing profiles retained, direct inline profile switching.
+- Local checks only; Android crash/performance resolution not claimed.
+
 # One World Beta 1.3.49 (71)
 
 Testing beta, not a stable release. Update over the existing beta without uninstalling or clearing app data.
