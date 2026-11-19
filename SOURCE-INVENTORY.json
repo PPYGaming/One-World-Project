@@ -7,8 +7,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 49143,
-      "sha256": "427a3ad765b4ccaad9e226fa438e8eb409c44154893352c1b0755d376132a8d5"
+      "size": 50666,
+      "sha256": "9f59fd620453cf80bdd616f73dd6dc5280e85b71fb530d9dd360659dafad3bbb"
     },
     {
       "path": "CONTRIBUTING.md",
@@ -23,7 +23,7 @@
     {
       "path": "android/AndroidManifest.xml",
       "size": 918,
-      "sha256": "91443d2150353315eeae4b241510bf809fe741a2cfc969c0ea20149691576fc7"
+      "sha256": "3bd949129d6f30eecdf43829a65dc96b1c585282d9bf9521939c0b2a920a1b0c"
     },
     {
       "path": "android/res/drawable/ic_face.png",
@@ -229,6 +229,11 @@
       "path": "docs/QA-1.3.52.md",
       "size": 1789,
       "sha256": "7cfa5de4779edd80b995a1fc0d64ebc00759dc6fcbd326d0b3e7ac7fcbb541e8"
+    },
+    {
+      "path": "docs/QA-1.3.53.md",
+      "size": 1522,
+      "sha256": "2c3e9b995d26d10d9175fb6b2d0ec0b8ce934a6579e59d7ce52adadb3bd9b91e"
     },
     {
       "path": "docs/QA-MENU-PRIVATE.md",
@@ -1137,8 +1142,8 @@
     },
     {
       "path": "web/index.html",
-      "size": 403928,
-      "sha256": "2a120beddcfe82cf5ee9270b7b2246cbff02d216eb9e1428f4fd36f14681e247"
+      "size": 405138,
+      "sha256": "95f968b51c5433d108bc36d7c63115a43d28c4eb876c70c7381d3eb489e7177f"
     },
     {
       "path": "web/renderer-recovery.html",

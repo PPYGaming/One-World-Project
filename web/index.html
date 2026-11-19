@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-SRZyjb6zjJafSKE9HxeLJPPimmQV8tcyT6kp9XnYMoI=' 'sha256-mLo1maUhgBmyiU30EqQIJVZdAZ9xJDEqUCjdIofhSzw=' 'sha256-0Iyxvb8Ra4pNm8HijWbbltYV7/qjXDXkvawWesWEntU=' 'sha256-u8dKog/E7zR26Vt8vkT6JPgoAkwXFzJIRZP31+FV7p8=' 'sha256-WtD8QWhd2khTQ1P93fROj6Dfo0YrXNFxa1Nx3kSIkgo='                    ; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' blob: data:; font-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; worker-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-SRZyjb6zjJafSKE9HxeLJPPimmQV8tcyT6kp9XnYMoI=' 'sha256-mLo1maUhgBmyiU30EqQIJVZdAZ9xJDEqUCjdIofhSzw=' 'sha256-0Iyxvb8Ra4pNm8HijWbbltYV7/qjXDXkvawWesWEntU=' 'sha256-u8dKog/E7zR26Vt8vkT6JPgoAkwXFzJIRZP31+FV7p8=' 'sha256-V/tOq+MJan4jcUhqFHs79cHP8WnWvOVMO5c+o7cyUYw='                         ; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' blob: data:; font-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; worker-src 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>One World</title>
 <style>
@@ -590,13 +590,17 @@ body.referenceWorld #joy,body.referenceWorld #atk,body.referenceWorld #bagBtn,bo
 /* Keep the artwork crown visible on wide phones, including motion extremes. */
 @media(orientation:landscape){
 #tapToStart:before,#worldLoading:after{inset:0 -8px -24px!important;background-position:center top!important;transform:translate3d(clamp(-8px,var(--wall-x,0px),8px),0,0)!important}
-#loading:before{background-position:center 12px!important}
-#worldLoading:after{background-position:center 12px!important}
+#loading:before{background-position:center top!important}
+#worldLoading:after{background-position:center top!important}
 }
 </style><link rel="stylesheet" href="assets/ui/crafting48.css"><style>
 #motionLabel49{position:absolute;left:max(12px,env(safe-area-inset-left));bottom:max(5px,env(safe-area-inset-bottom));display:flex;align-items:center;gap:5px;min-height:36px;padding:8px 4px;font:10px sans-serif;color:#d7e3dccc;z-index:4;cursor:pointer;touch-action:manipulation}#menuMotionToggle{all:revert!important;appearance:auto!important;width:11px!important;height:11px!important;margin:0!important;cursor:pointer!important;accent-color:#d9e7dc!important}#start.choosing #motionLabel49{display:none}@media(orientation:portrait){#start:not(.choosing)>.foot{bottom:56px}}#editCharacter49{position:absolute;left:24px;top:166px;z-index:4;width:36px;min-width:36px;height:36px;padding:0!important;font-size:23px!important}#editCharacter49:disabled{opacity:.35;cursor:default}#start.choosing #editCharacter49{display:none!important}.needsChoice49>label,.needsChoice49>select,.needsChoice49>.visualOptions,.needsChoice49>.selectOptions{visibility:hidden}#start.choosing #menuMotionToggle{display:none!important}#setupNote49{color:#f3deab}
 @media(max-height:350px){#editCharacter49{left:24px;top:124px;width:30px;min-width:30px;height:30px}#setupNote49{font-size:10px!important;min-height:12px!important;margin:0!important}}
-</style><style>#start:not(.choosing)>#editCharacter49{position:absolute!important;left:24px!important;right:auto!important;top:162px!important;bottom:auto!important;width:32px!important;height:32px!important;min-width:32px!important;min-height:32px!important;max-width:32px!important;margin:0!important;padding:0!important;font:22px/1 sans-serif!important;display:block;border-radius:6px!important}</style><style>#setupNote49{position:relative;z-index:1;flex-shrink:0;line-height:1.35;white-space:normal}#charControls.needsChoice49 #setupHint50{display:none}#setupHint50{clear:both;line-height:1.4;padding:4px 0 6px;min-height:14px;flex-shrink:0}#charControls{scroll-padding-bottom:16px}</style><style>#start:not(.choosing)>#editCharacter49.otherProfile50{width:auto!important;max-width:230px!important;min-width:32px!important;padding:0 9px!important;font:600 16px/1.3 sans-serif!important;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}</style><style>#charSetup>#setupHint50{position:relative;z-index:1;align-self:flex-end;width:45%;max-width:440px;min-height:14px;flex:0 0 auto;margin:4px 4% 0 0!important;padding:2px 0;line-height:1.35;overflow-wrap:anywhere}@media(max-height:350px){#charSetup>#setupHint50{font-size:9px!important;margin-top:2px!important}}</style><style>#flightStart52{position:fixed;z-index:97;right:18px;top:112px;min-width:54px;min-height:44px;border:1px solid #bce3df88;border-radius:9px;background:#163b45dc;color:white;font:bold 12px sans-serif;touch-action:none}#flightStart52.hidden,body:not(.playing) #flightStart52{display:none}</style></head>
+</style><style>#start:not(.choosing)>#editCharacter49{position:absolute!important;left:24px!important;right:auto!important;top:162px!important;bottom:auto!important;width:32px!important;height:32px!important;min-width:32px!important;min-height:32px!important;max-width:32px!important;margin:0!important;padding:0!important;font:22px/1 sans-serif!important;display:block;border-radius:6px!important}</style><style>#setupNote49{position:relative;z-index:1;flex-shrink:0;line-height:1.35;white-space:normal}#charControls.needsChoice49 #setupHint50{display:none}#setupHint50{clear:both;line-height:1.4;padding:4px 0 6px;min-height:14px;flex-shrink:0}#charControls{scroll-padding-bottom:16px}</style><style>#start:not(.choosing)>#editCharacter49.otherProfile50{width:auto!important;max-width:230px!important;min-width:32px!important;padding:0 9px!important;font:600 16px/1.3 sans-serif!important;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}</style><style>#charSetup>#setupHint50{position:relative;z-index:1;align-self:flex-end;width:45%;max-width:440px;min-height:14px;flex:0 0 auto;margin:4px 4% 0 0!important;padding:2px 0;line-height:1.35;overflow-wrap:anywhere}@media(max-height:350px){#charSetup>#setupHint50{font-size:9px!important;margin-top:2px!important}}</style><style>#flightStart52{position:fixed;z-index:97;right:18px;top:112px;min-width:54px;min-height:44px;border:1px solid #bce3df88;border-radius:9px;background:#163b45dc;color:white;font:bold 12px sans-serif;touch-action:none}#flightStart52.hidden,body:not(.playing) #flightStart52{display:none}</style><style>
+/* Both loading artworks touch the top edge. Only horizontal overscan moves. */
+#loading:before,#worldLoading:after{inset:0 -12px!important;background-size:cover!important;background-repeat:no-repeat!important;background-position:center top!important;transform:translate3d(clamp(-8px,var(--wall-x,0px),8px),0,0)!important}
+@media(orientation:portrait){#loading:before{background-image:url('assets/tex/loading-anime-preview.jpg')!important;background-position:85% top!important}#worldLoading:after{background-position:95% top!important}}
+</style></head>
 <body><div id="healthNotice" role="status" aria-live="polite"></div><div id="weaponAim" aria-hidden="true"></div>
 <canvas id="c"></canvas>
 
@@ -777,7 +781,7 @@ import { GLTFLoader } from './assets/lib/GLTFLoader.js';
 import { clone as skClone } from './assets/lib/SkeletonUtils.js';
 import { animeClips, applyAnimeColors, attachLeatherGarments, applyHairStyle, updateHairSway } from './assets/lib/AnimeCharacter.js';
 
-var BUILD_INFO={name:'1.3.52',code:null,native:false};
+var BUILD_INFO={name:'1.3.53',code:null,native:false};
 try{var nb=window.OneWorldNative;if(nb&&typeof nb.getBuildInfo==='function'){var bi=JSON.parse(nb.getBuildInfo());if(bi.package==='com.oneword.forest.beta'&&typeof bi.name==='string'&&/^\d+\.\d+\.\d+$/.test(bi.name)&&Number.isSafeInteger(bi.code)&&bi.code>0)BUILD_INFO={name:bi.name,code:bi.code,native:true};}}catch(e){}
 var DISPLAY_VERSION=BUILD_INFO.name+(BUILD_INFO.native?'':' preview');
 document.querySelector('#start .ver').textContent=DISPLAY_VERSION+' Beta - Work in progress';
@@ -2832,7 +2836,7 @@ function frame(){
  // Fullscreen menus/paused world are static. Avoid re-drawing the expensive
  // world at display refresh while it cannot move. Preview remains animated.
  if(referenceSites){var siteCell=Math.floor(P.x/128)+','+Math.floor(P.z/128);if(siteCell!==referenceSiteCell){referenceSiteCell=siteCell;referenceSites.update(P.x,P.z);}}
- var draw=live||needsWorldRender;if(draw){needsWorldRender=false;a=performance.now();renderer.render(scene,camera);lastGameRender=t;}
+ var draw=live||entryCover53||needsWorldRender;if(draw){needsWorldRender=false;a=performance.now();renderer.render(scene,camera);lastGameRender=t;if(entryCover53)window.oneworldEntryCover53.frames++;}
  if(live){ringSample(betaFrames,raw);ringSample(betaTick,tickCost);ringSample(betaRender,draw?performance.now()-a:0);}
  if(referenceMode&&!document.getElementById('mapPanel').classList.contains('hidden')&&referenceMapStamp!==[P.x,P.z,P.rotY,innerWidth,innerHeight].join(','))renderReferenceMap();
  renderSetupPreview(dt);if(t-lastDebugPaint>250){lastDebugPaint=t;renderBetaDebug();}
@@ -3531,7 +3535,7 @@ document.getElementById('playBtn').addEventListener('click', function(){
 });
 // Beta entry-only update boundary. Native verification/download is a separate flow.
 function cancelEntryUpdateGate(){} // No world-entry update work remains.
-var joiningWorld=false,entryCameraT=0,joinToken=0;
+var joiningWorld=false,entryCameraT=0,joinToken=0,entryCover53=false;window.oneworldEntryCover53={readyAt:0,frames:0,revealedAt:0};
 function joinProgress(n){document.getElementById('joinProgress').style.width=n+'%';document.getElementById('joinPercent').textContent=n+'%';}
 function yieldJoinPaint(){return new Promise(function(resolve){setTimeout(resolve,32);});}
 async function joinReadyWorld(prepare,message){
@@ -3551,11 +3555,16 @@ async function joinReadyWorld(prepare,message){
   joinProgress(50);stage.textContent='Preparing materials and lighting';await yieldJoinPaint();activeJoin();
   await warmRenderer(renderer,scene,camera,yieldJoinPaint);activeJoin();joinProgress(90);
   if(wantedChunks(false).some(function(c){return !chunks[chunkKey(c[0],c[1])];}))throw new Error('Nearby terrain preparation did not finish');
-  renderer.render(scene,camera);renderer.getContext().finish();activeJoin();betaLog('World ready: selected-quality terrain/materials/first render; chunks '+joinCells.length);joinProgress(100);stage.textContent='World ready';await yieldJoinPaint();activeJoin();
+  renderer.render(scene,camera);renderer.getContext().finish();activeJoin();betaLog('World ready: selected-quality terrain/materials/first render; chunks '+joinCells.length);joinProgress(100);stage.textContent='World ready';
+  // World is already initialized and rendered. Keep its real scene frames
+  // covered for 1.5s; controls and survival do not advance before reveal.
+  window.oneworldEntryCover53={readyAt:performance.now(),frames:0,revealedAt:0};entryCover53=true;needsWorldRender=true;scheduleFrame();
+  while(performance.now()-window.oneworldEntryCover53.readyAt<1500||window.oneworldEntryCover53.frames<3){await yieldJoinPaint();activeJoin();}
+  entryCover53=false;window.oneworldEntryCover53.revealedAt=performance.now();activeJoin();
   document.getElementById('start').classList.add('hidden');document.getElementById('over').classList.add('hidden');document.getElementById('charSetup').classList.add('hidden');document.getElementById('playBtn').style.display='';document.getElementById('setLobbyBtn').style.display='';document.getElementById('quitLobbyBtn').style.display='';
   menuMusicWorld(true);running=true;entryCameraT=1.2;document.body.classList.add('playing');sprintHint(true);last=performance.now();saveGame();overlay.classList.add('hidden');needsWorldRender=true;if(respawnRequired){P.dead=true;gameOver();}else toast(message||'World ready');
  }catch(err){if(previousSave!==null&&localStorage.getItem(SAVE_KEY)!==previousSave)localStorage.setItem(SAVE_KEY,previousSave);if(appSuspended||attempt!==joinToken)return;stage.textContent='Could not enter world: '+err.message+'. Your last saved world is unchanged.';document.getElementById('joinBack').classList.remove('hidden');window.__errors.push('join: '+err.message);}
- finally{joiningWorld=false;}
+ finally{entryCover53=false;joiningWorld=false;}
 }
 document.getElementById('joinBack').addEventListener('click',function(){cancelEntryUpdateGate();document.getElementById('worldLoading').classList.add('hidden');document.getElementById('start').classList.remove('hidden');});
 function startNewWorld(){joinReadyWorld(function(){resetGame();},'World ready');}
