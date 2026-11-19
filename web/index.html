@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-SRZyjb6zjJafSKE9HxeLJPPimmQV8tcyT6kp9XnYMoI=' 'sha256-mLo1maUhgBmyiU30EqQIJVZdAZ9xJDEqUCjdIofhSzw=' 'sha256-0Iyxvb8Ra4pNm8HijWbbltYV7/qjXDXkvawWesWEntU=' 'sha256-u8dKog/E7zR26Vt8vkT6JPgoAkwXFzJIRZP31+FV7p8=' 'sha256-V/tOq+MJan4jcUhqFHs79cHP8WnWvOVMO5c+o7cyUYw='                         ; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' blob: data:; font-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; worker-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-SRZyjb6zjJafSKE9HxeLJPPimmQV8tcyT6kp9XnYMoI=' 'sha256-fMoCxtzHvXbXozDh+J/tOgKGGYLbao0ks0T71d1OmDk=' 'sha256-0Iyxvb8Ra4pNm8HijWbbltYV7/qjXDXkvawWesWEntU=' 'sha256-u8dKog/E7zR26Vt8vkT6JPgoAkwXFzJIRZP31+FV7p8=' 'sha256-CxT6tL4flEkHxBg3xUEj6J1buDaPqt9zrNbS/Qt30Mw='                              ; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' blob: data:; font-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; worker-src 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>One World</title>
 <style>
@@ -598,9 +598,9 @@ body.referenceWorld #joy,body.referenceWorld #atk,body.referenceWorld #bagBtn,bo
 @media(max-height:350px){#editCharacter49{left:24px;top:124px;width:30px;min-width:30px;height:30px}#setupNote49{font-size:10px!important;min-height:12px!important;margin:0!important}}
 </style><style>#start:not(.choosing)>#editCharacter49{position:absolute!important;left:24px!important;right:auto!important;top:162px!important;bottom:auto!important;width:32px!important;height:32px!important;min-width:32px!important;min-height:32px!important;max-width:32px!important;margin:0!important;padding:0!important;font:22px/1 sans-serif!important;display:block;border-radius:6px!important}</style><style>#setupNote49{position:relative;z-index:1;flex-shrink:0;line-height:1.35;white-space:normal}#charControls.needsChoice49 #setupHint50{display:none}#setupHint50{clear:both;line-height:1.4;padding:4px 0 6px;min-height:14px;flex-shrink:0}#charControls{scroll-padding-bottom:16px}</style><style>#start:not(.choosing)>#editCharacter49.otherProfile50{width:auto!important;max-width:230px!important;min-width:32px!important;padding:0 9px!important;font:600 16px/1.3 sans-serif!important;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}</style><style>#charSetup>#setupHint50{position:relative;z-index:1;align-self:flex-end;width:45%;max-width:440px;min-height:14px;flex:0 0 auto;margin:4px 4% 0 0!important;padding:2px 0;line-height:1.35;overflow-wrap:anywhere}@media(max-height:350px){#charSetup>#setupHint50{font-size:9px!important;margin-top:2px!important}}</style><style>#flightStart52{position:fixed;z-index:97;right:18px;top:112px;min-width:54px;min-height:44px;border:1px solid #bce3df88;border-radius:9px;background:#163b45dc;color:white;font:bold 12px sans-serif;touch-action:none}#flightStart52.hidden,body:not(.playing) #flightStart52{display:none}</style><style>
 /* Both loading artworks touch the top edge. Only horizontal overscan moves. */
-#loading:before,#worldLoading:after{inset:0 -12px!important;background-size:cover!important;background-repeat:no-repeat!important;background-position:center top!important;transform:translate3d(clamp(-8px,var(--wall-x,0px),8px),0,0)!important}
+#loading:before,#worldLoading:after{inset:0 -16px!important;background-size:cover!important;background-repeat:no-repeat!important;background-position:center top!important;transform:translate3d(clamp(-12px,var(--wall-x,0px),12px),0,0)!important}
 @media(orientation:portrait){#loading:before{background-image:url('assets/tex/loading-anime-preview.jpg')!important;background-position:85% top!important}#worldLoading:after{background-position:95% top!important}}
-</style></head>
+</style><style>#tapToStart:before{inset:0 -16px -24px!important;transform:translate3d(clamp(-12px,var(--wall-x,0px),12px),0,0)!important}</style></head>
 <body><div id="healthNotice" role="status" aria-live="polite"></div><div id="weaponAim" aria-hidden="true"></div>
 <canvas id="c"></canvas>
 
@@ -728,7 +728,7 @@ window.oneworldStartupReady=window.oneworldLoadingPainted.then(function(){return
  var motionEnabled=false;window.oneworldMenuMotionEnabled=false;
  var reduced=window.matchMedia('(prefers-reduced-motion: reduce)'),origin=null,x=0,targetX=0,frame=0,lastNative=0,nativeActive=null,touches=new Set(),quietUntil=0,resumeOrigin=null,resumeX=0;
  var native=window.OneWorldNative,hasNative=!!(native&&typeof native.setWallpaperMotionActive==='function');
- function current(){if(!motionEnabled||!window.oneworldAppLifecycle.state.focused||document.hidden||(window.oneworldAppLifecycle&&window.oneworldAppLifecycle.state.suspended)||reduced.matches||['setPanel','profileBox','confirmPanel','betaUpdatePanel'].some(function(id){var el=document.getElementById(id);return el&&!el.classList.contains('hidden');})||!document.getElementById('studioIntro').classList.contains('hidden'))return null;var ids=['tapToStart','worldLoading','loading','start'];for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el&&!el.classList.contains('hidden')&&!(ids[i]==='start'&&el.classList.contains('choosing')))return el;}return null;}
+ function current(){if(!window.oneworldAppLifecycle.state.focused||document.hidden||(window.oneworldAppLifecycle&&window.oneworldAppLifecycle.state.suspended)||reduced.matches||['setPanel','profileBox','confirmPanel','betaUpdatePanel'].some(function(id){var el=document.getElementById(id);return el&&!el.classList.contains('hidden');})||!document.getElementById('studioIntro').classList.contains('hidden'))return null;var ids=['tapToStart','worldLoading','loading','start'];for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el&&!el.classList.contains('hidden')&&!(ids[i]==='start'&&el.classList.contains('choosing')))return ids[i]==='start'&&!motionEnabled?null:el;}return null;}
  function paint(){frame=0;var target=current();if(!target)return;x+=(targetX-x)*.30;if(Math.abs(targetX-x)<.015)x=targetX;target.style.setProperty('--wall-x',x.toFixed(2)+'px');target.style.setProperty('--wall-y','0px');if(target.id==='start'&&window.oneworldMenuMotionFrame)window.oneworldMenuMotionFrame(x);if(x!==targetX)frame=requestAnimationFrame(paint);}
  function blocked(){return touches.size>0||performance.now()<quietUntil;}
  function move(nx){if(blocked()||!current()||!Number.isFinite(nx))return;targetX=Math.max(-12,Math.min(12,nx));if(!frame)frame=requestAnimationFrame(paint);}
@@ -781,7 +781,7 @@ import { GLTFLoader } from './assets/lib/GLTFLoader.js';
 import { clone as skClone } from './assets/lib/SkeletonUtils.js';
 import { animeClips, applyAnimeColors, attachLeatherGarments, applyHairStyle, updateHairSway } from './assets/lib/AnimeCharacter.js';
 
-var BUILD_INFO={name:'1.3.53',code:null,native:false};
+var BUILD_INFO={name:'1.3.54',code:null,native:false};
 try{var nb=window.OneWorldNative;if(nb&&typeof nb.getBuildInfo==='function'){var bi=JSON.parse(nb.getBuildInfo());if(bi.package==='com.oneword.forest.beta'&&typeof bi.name==='string'&&/^\d+\.\d+\.\d+$/.test(bi.name)&&Number.isSafeInteger(bi.code)&&bi.code>0)BUILD_INFO={name:bi.name,code:bi.code,native:true};}}catch(e){}
 var DISPLAY_VERSION=BUILD_INFO.name+(BUILD_INFO.native?'':' preview');
 document.querySelector('#start .ver').textContent=DISPLAY_VERSION+' Beta - Work in progress';
