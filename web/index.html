@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-SRZyjb6zjJafSKE9HxeLJPPimmQV8tcyT6kp9XnYMoI=' 'sha256-fMoCxtzHvXbXozDh+J/tOgKGGYLbao0ks0T71d1OmDk=' 'sha256-0Iyxvb8Ra4pNm8HijWbbltYV7/qjXDXkvawWesWEntU=' 'sha256-u8dKog/E7zR26Vt8vkT6JPgoAkwXFzJIRZP31+FV7p8=' 'sha256-CxT6tL4flEkHxBg3xUEj6J1buDaPqt9zrNbS/Qt30Mw='                              ; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' blob: data:; font-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; worker-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-SRZyjb6zjJafSKE9HxeLJPPimmQV8tcyT6kp9XnYMoI=' 'sha256-fMoCxtzHvXbXozDh+J/tOgKGGYLbao0ks0T71d1OmDk=' 'sha256-0Iyxvb8Ra4pNm8HijWbbltYV7/qjXDXkvawWesWEntU=' 'sha256-u8dKog/E7zR26Vt8vkT6JPgoAkwXFzJIRZP31+FV7p8=' 'sha256-E7eGnAWcS55XWD9/Zs0oct7skWkImFhr82vSEWC7E9U='                                                  ; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' blob: data:; font-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; worker-src 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>One World</title>
 <style>
@@ -600,7 +600,10 @@ body.referenceWorld #joy,body.referenceWorld #atk,body.referenceWorld #bagBtn,bo
 /* Both loading artworks touch the top edge. Only horizontal overscan moves. */
 #loading:before,#worldLoading:after{inset:0 -16px!important;background-size:cover!important;background-repeat:no-repeat!important;background-position:center top!important;transform:translate3d(clamp(-12px,var(--wall-x,0px),12px),0,0)!important}
 @media(orientation:portrait){#loading:before{background-image:url('assets/tex/loading-anime-preview.jpg')!important;background-position:85% top!important}#worldLoading:after{background-position:95% top!important}}
-</style><style>#tapToStart:before{inset:0 -16px -24px!important;transform:translate3d(clamp(-12px,var(--wall-x,0px),12px),0,0)!important}</style></head>
+</style><style>#tapToStart:before{inset:0 -16px -24px!important;transform:translate3d(clamp(-12px,var(--wall-x,0px),12px),0,0)!important}</style><style>
+#loading.loadingBoy55:before{background-image:url('assets/tex/menu-anime-preview.jpg')!important}
+@media(orientation:portrait){#loading.loadingBoy55:before{background-position:95% top!important}}
+</style></head>
 <body><div id="healthNotice" role="status" aria-live="polite"></div><div id="weaponAim" aria-hidden="true"></div>
 <canvas id="c"></canvas>
 
@@ -781,7 +784,7 @@ import { GLTFLoader } from './assets/lib/GLTFLoader.js';
 import { clone as skClone } from './assets/lib/SkeletonUtils.js';
 import { animeClips, applyAnimeColors, attachLeatherGarments, applyHairStyle, updateHairSway } from './assets/lib/AnimeCharacter.js';
 
-var BUILD_INFO={name:'1.3.54',code:null,native:false};
+var BUILD_INFO={name:'1.3.55',code:null,native:false};
 try{var nb=window.OneWorldNative;if(nb&&typeof nb.getBuildInfo==='function'){var bi=JSON.parse(nb.getBuildInfo());if(bi.package==='com.oneword.forest.beta'&&typeof bi.name==='string'&&/^\d+\.\d+\.\d+$/.test(bi.name)&&Number.isSafeInteger(bi.code)&&bi.code>0)BUILD_INFO={name:bi.name,code:bi.code,native:true};}}catch(e){}
 var DISPLAY_VERSION=BUILD_INFO.name+(BUILD_INFO.native?'':' preview');
 document.querySelector('#start .ver').textContent=DISPLAY_VERSION+' Beta - Work in progress';
@@ -815,8 +818,28 @@ function startupStage(percent,label){
  startupPresentation=startupPresentation.then(async function(){var changed=percent>startupPercent;startupPercent=Math.max(startupPercent,percent);loadBar.style.width=startupPercent+'%';document.getElementById('loadNumber').textContent=startupPercent+'%';if(!window.oneworldStartupUpdate.pending)loadPct.textContent=(window.oneworldStartupUpdate.status==='offline'?'Offline mode - ':window.oneworldStartupUpdate.status==='unavailable'?'Update check unavailable - ':'')+label;window.oneworldTrace(label);window.oneworldStartupTrace[window.oneworldStartupTrace.length-1].percent=startupPercent;await window.oneworldYieldPaint();if(changed)await new Promise(function(done){setTimeout(done,480);});});
  return startupPresentation;
 }
+// Pacing covers fast devices only. World setup continues while these clocks run.
+var loadingPacing55=window.oneworldLoadingPacing55={girlAt:0,boyAt:0,timer:0,readyAt:0,revealedAt:0};
+function showBoyLoading55(){
+ if(loadingPacing55.boyAt||loadingPacing55.timer)return;
+ if(!loadingPacing55.girlAt){var painted=window.oneworldStartupTrace.find(function(e){return e.phase==='loading-painted';});loadingPacing55.girlAt=painted?painted.time:performance.now();}
+ var remaining=1500-(performance.now()-loadingPacing55.girlAt);
+ function show(){loadingPacing55.timer=0;loadingPacing55.boyAt=performance.now();document.getElementById('loading').classList.add('loadingBoy55');}
+ if(remaining>0)loadingPacing55.timer=setTimeout(show,remaining);else show();
+}
+async function settleInitialLoading55(){
+ loadingPacing55.readyAt=performance.now();showBoyLoading55();
+ while(!loadingPacing55.boyAt||performance.now()-loadingPacing55.boyAt<1500){needsWorldRender=true;scheduleFrame();await new Promise(function(done){setTimeout(done,32);});}
+ loadingPacing55.revealedAt=performance.now();
+}
+// Work-based startup increments. No fake time ramp and no extra presentation hold.
+function startupWorkProgress55(percent,label){
+ var next=Math.max(startupPercent,Math.min(99,Math.floor(percent)));
+ var changed=next>startupPercent;if(next>=60)showBoyLoading55();startupPercent=next;loadBar.style.width=next+'%';document.getElementById('loadNumber').textContent=next+'%';loadPct.textContent=label;
+ if(changed){window.oneworldTrace(label);window.oneworldStartupTrace[window.oneworldStartupTrace.length-1].percent=next;}
+}
 var initialBuildStarted49=false;
-manager.onLoad=async function(){if(initialBuildStarted49)return;initialBuildStarted49=true;try{await startupStage(50,'Bundled assets ready; checking beta readiness');await window.oneworldStartupReady;await buildWorld();await startupStage(90,'Entry readiness complete');await startupStage(100,'World ready - 100%');await window.oneworldYieldPaint();document.getElementById('loading').classList.add('hidden');window.oneworldEnterTitle();}catch(err){window.__errors.push('buildWorld: '+(err&&err.stack||err));showLoadError(err);}};
+manager.onLoad=async function(){if(initialBuildStarted49)return;initialBuildStarted49=true;try{await startupStage(50,'Bundled assets ready; checking beta readiness');await window.oneworldStartupReady;await buildWorld();startupWorkProgress55(99,'Entry readiness complete');await window.oneworldYieldPaint();await startupStage(100,'World ready - 100%');await settleInitialLoading55();await window.oneworldYieldPaint();document.getElementById('loading').classList.add('hidden');window.oneworldEnterTitle();}catch(err){window.__errors.push('buildWorld: '+(err&&err.stack||err));showLoadError(err);}};
 window.addEventListener('unhandledrejection', function(e){ window.__errors.push('async: '+String(e.reason && e.reason.message || e.reason)); });
 function showLoadError(err){
   var msg = 'Load error: ' + (err && err.message ? err.message : String(err));
@@ -1121,10 +1144,10 @@ var riverWaterRuns = [];
   }
 })();
 
-var referenceHorizon=referenceMode?await createReferenceHorizon(scene,referenceHeight,groundColor,window.oneworldYieldPaint):null;
+var referenceHorizon=referenceMode?await createReferenceHorizon(scene,referenceHeight,groundColor,window.oneworldYieldPaint,function(f,label){startupWorkProgress55(50+f*24,label);}):null;
 if(referenceMode){referenceEarthMaterial(referenceHorizon.mesh.material);camera.near=.3;camera.far=18000;camera.updateProjectionMatrix();}
 var shoreDetail=referenceMode?applyShoreDetail(THREE,water,referenceHorizon,A.models.rocks.scene):null;
-var distantForest50=referenceMode?await createDistantForest50(scene,referenceSample,(x,z)=>referenceHorizon.smoothHeight(x,z),window.oneworldYieldPaint):null;
+var distantForest50=referenceMode?await createDistantForest50(scene,referenceSample,(x,z)=>referenceHorizon.smoothHeight(x,z),window.oneworldYieldPaint,function(f,label){startupWorkProgress55(75+f*4,label);}):null;
 var chunks = {};
 function chunkKey(cx, cz){ return cx + ',' + cz; }
 function buildChunk(cx, cz){
@@ -1366,7 +1389,7 @@ function landSpotNear(cx, cz, minD, maxD){
   return [cx, cz];
 }
 
-await startupStage(50,'Preparing forest materials');
+startupWorkProgress55(79,'Preparing forest materials');await window.oneworldYieldPaint();
 // ---------- GLB decor instancing ----------
 function forestNoise(x, z){ return fbm(x*0.018+31.7, z*0.018+17.2, 3); }
 
@@ -1636,7 +1659,7 @@ function supportSurvivorSoles(){
  if(Number.isFinite(lift)&&(lift>0||referenceMode)){player.position.y+=lift;player.updateMatrixWorld(true);}return lift;
 }
 
-await startupStage(80,'Preparing survivor');
+startupWorkProgress55(82,'Preparing survivor');await window.oneworldYieldPaint();
 // ---------- player (KayKit animated character, boy/girl selectable) ----------
 var player = new THREE.Group();
 var charKind = 'boy', playerName = '';
@@ -1755,7 +1778,7 @@ scene.add(player);
 var pShadow = blobShadow(0.55); pShadow.name='PlayerContactShadow52';pShadow.visible=false;var shadowCV52=document.createElement('canvas');shadowCV52.width=shadowCV52.height=64;var shadowCX52=shadowCV52.getContext('2d'),shadowGradient52=shadowCX52.createRadialGradient(32,32,2,32,32,32);shadowGradient52.addColorStop(0,'rgba(0,0,0,.7)');shadowGradient52.addColorStop(1,'rgba(0,0,0,0)');shadowCX52.fillStyle=shadowGradient52;shadowCX52.fillRect(0,0,64,64);pShadow.material.map=new THREE.CanvasTexture(shadowCV52);pShadow.material.opacity=.38;pShadow.material.color.setHex(0x142117);pShadow.material.depthWrite=false;
 var P = { x: 0, z: 0, rotY: 0, walk: 0, speed: 0, hp: 6, maxHp: 6, atkT: -9, atkCd: 0.55, invuln: 0, dead: false, stam: 100, food: 100, water: 100, temp: 50, hpF: 0 };
 
-await startupStage(80,'Preparing saved settings');
+startupWorkProgress55(84,'Preparing saved settings');await window.oneworldYieldPaint();
 // ---------- settings (persisted), inventory, world save ----------
 var upgradeBackup50=false;
 function ensureUpgradeBackup51(){
@@ -2312,7 +2335,7 @@ function burst(x, y, z, n){
   parts.userData.life = 0;
 }
 
-await startupStage(80,'Preparing wildlife');
+startupWorkProgress55(86,'Preparing wildlife');await window.oneworldYieldPaint();
 // ---------- wolves (animated GLB replaces box wolf) ----------
 function healthBar(){
   var g = new THREE.Group();
@@ -2472,7 +2495,7 @@ for(var bi=0; bi<5; bi++){
   birds.push({ mesh: bg2, wl: wl, wr: wr, a: rand(0,Math.PI*2), r: rand(14,40), h: rand(9,16), speed: rand(0.15,0.35)*(Math.random()<0.5?-1:1), flap: rand(0,6) });
 }
 
-await startupStage(80,'Preparing controls');
+startupWorkProgress55(88,'Preparing controls');await window.oneworldYieldPaint();
 // ---------- input ----------
 var keys = {};
 function typingTarget(e){ return e.target && /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName); }
@@ -3772,7 +3795,7 @@ window.oneword = {distantForest:()=>distantForest50?.stats,setBetaFlight:setBeta
 
 await startupStage(90,'Applying saved graphics');
 applySettings();
-await startupStage(90,'Preparing survivor previews');
+startupWorkProgress55(92,'Preparing survivor previews');await window.oneworldYieldPaint();
 // Warm both bounded preview entries at their actual layout size under the
 // existing loading screen. Visibility stays hidden until the chooser is used.
 if(referenceMode){
@@ -3796,7 +3819,7 @@ for(var previewKind of ['boy','girl']){
  buildSetupPreview(previewKind);var warmCanvas=document.getElementById('charPreview'),warmWidth=Math.max(1,Math.round(warmCanvas.clientWidth)),warmHeight=Math.max(1,Math.round(warmCanvas.clientHeight));setupRenderer.setSize(warmWidth,warmHeight,false);setupCamera.aspect=warmWidth/warmHeight;setupCamera.updateProjectionMatrix();setupCamera.position.set(0,.88,Math.max(3.8,2.2/setupCamera.aspect));setupCamera.lookAt(0,.88,0);setupRoot.updateMatrixWorld(true);await warmRenderer(setupRenderer,setupScene,setupCamera,window.oneworldYieldPaint);setupRenderer.render(setupScene,setupCamera);await window.oneworldYieldPaint();
 }
 buildSetupPreview(charKind||'boy');warmChooser.classList.add('hidden');warmLobby.classList.add('hidden');warmLobby.classList.remove('prewarming','choosing');warmLobby.style.visibility=warmVisibility;
-await startupStage(90,'Preparing first frame');
+startupWorkProgress55(96,'Preparing first frame');await window.oneworldYieldPaint();
 camera.position.set(0, groundY(0,0) + 2.6, 5.0);
 await warmRenderer(renderer,scene,camera,window.oneworldYieldPaint);
 drawHearts();
