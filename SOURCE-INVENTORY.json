@@ -7,8 +7,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 42955,
-      "sha256": "94c70760945d86cba90cd069d2f10d96c494cd2a014128ada8ba0433830a255e"
+      "size": 44683,
+      "sha256": "0173a096270ba545e036b20c5d22810d1fb70fe85f84cfd5ae05b7fa58eec6a2"
     },
     {
       "path": "CONTRIBUTING.md",
@@ -17,13 +17,13 @@
     },
     {
       "path": "README.md",
-      "size": 3675,
-      "sha256": "dc1d431121262a2000d543b97c77ef6ec8b26c8b88e09360fba3a495b947087e"
+      "size": 3580,
+      "sha256": "79030b302a2ddad043c3854431a60c5ce4bcb38857c8272aabeb2816312043bf"
     },
     {
       "path": "android/AndroidManifest.xml",
       "size": 1298,
-      "sha256": "cdd42d2b737b8635d56d203c7461abb577569c6606fc282e0ea437c3255591c0"
+      "sha256": "baaf9affd5736eea696c8721221090dfe3c3306b18d24faf9b107d859ae781ba"
     },
     {
       "path": "android/res/drawable/ic_face.png",
@@ -117,13 +117,18 @@
     },
     {
       "path": "android/src/com/oneword/forest/MainActivity.java",
-      "size": 18764,
-      "sha256": "451ac15103e668e3a32c464b8430ced8841a0440edc4a45f7b8660dec54ecca7"
+      "size": 18796,
+      "sha256": "80c59755a053610ae7cc69e45b0c2f16f38ca9d0d2c9b006a3742f49610b238d"
     },
     {
       "path": "android/src/com/oneword/forest/MenuTiltMath.java",
       "size": 1213,
       "sha256": "cbd8478849126a1bc698981087dc1cc7aeffb0eee079c603b66d0e18c21cd0d7"
+    },
+    {
+      "path": "docs/ITEM-ART-1.3.48.md",
+      "size": 387,
+      "sha256": "8fd193e2dad4777ceebb75fec68da5d78263d7a2823e956e0ff1d043eb340330"
     },
     {
       "path": "docs/OWNER-REQUIREMENTS-2026-11-18.md",
@@ -216,6 +221,11 @@
       "sha256": "d439cf652547e8aa03ebb73179de5968f8a52846e26f27b6d7e56724426d842f"
     },
     {
+      "path": "docs/QA-1.3.48.md",
+      "size": 2179,
+      "sha256": "bb8b1ed21312e4c7d3b2c1732b8ff347e73cc94ce0b80ea6fed59cbd2593539e"
+    },
+    {
       "path": "docs/QA-MENU-PRIVATE.md",
       "size": 4124,
       "sha256": "2de07ab8833f5d07a38d1a9c13cd7637871df35290404e07866af4ca92aace27"
@@ -259,6 +269,11 @@
       "path": "web/assets/lib/AppLifecycle.js",
       "size": 2926,
       "sha256": "0e62bcd69c1e86818b4405422b28775756a7b3e747023d03f8523cf0fea9979a"
+    },
+    {
+      "path": "web/assets/lib/Crafting48.js",
+      "size": 11328,
+      "sha256": "8e41abd9c301fd16de50cb6ed4208258f6857030b6383f63d63f97284b3dfca2"
     },
     {
       "path": "web/assets/lib/GLTFLoader.js",
@@ -334,6 +349,11 @@
       "path": "web/assets/lib/SkeletonUtils.js",
       "size": 8007,
       "sha256": "83748c5072a5ce96e9d68d8efda908a1f1a06c0b5fd2618edc3e54a361a8fd5b"
+    },
+    {
+      "path": "web/assets/lib/StationState.js",
+      "size": 3923,
+      "sha256": "7fc2fe6af674c8985d9bdcf1720709999095c4b8bb84f0e7c0e00c955f2d955d"
     },
     {
       "path": "web/assets/lib/Wildlife.js",
@@ -691,6 +711,11 @@
       "sha256": "80133b554e6af33888bf8b2051991503f4a3c963c6512db282dbff727553394f"
     },
     {
+      "path": "web/assets/ui/crafting48.css",
+      "size": 5228,
+      "sha256": "5f52f5d459f3f8e98dc5a7ef24a8621b02660c5d0a9df8c15e3f826d12c2820f"
+    },
+    {
       "path": "web/assets/ui/eye-0.svg",
       "size": 525,
       "sha256": "c40627b300a8769e28a3c2484581ddd62aeb4a4697fc7f6a63ce6bfa9f6147d2"
@@ -841,6 +866,206 @@
       "sha256": "b0f95e58fedcd9088f33387a0af0471b820d4e2bd7661e60921af744162d2e6f"
     },
     {
+      "path": "web/assets/ui/items48/anvil.webp",
+      "size": 8708,
+      "sha256": "e1276b8e1c5c81d45b20b08acd2f026deda589bf41ae015f008d9b35835ac593"
+    },
+    {
+      "path": "web/assets/ui/items48/axe.webp",
+      "size": 8518,
+      "sha256": "6bc19e79180905bc751abad3f4b1ce8b8b1120f4afd486971ef6fd371a683bc6"
+    },
+    {
+      "path": "web/assets/ui/items48/bag.webp",
+      "size": 14394,
+      "sha256": "0525227566e78404e612e0416e69b4a3edcda2079f07db055d034b1e202517d7"
+    },
+    {
+      "path": "web/assets/ui/items48/bandage.webp",
+      "size": 10038,
+      "sha256": "33dd0870b72cca262c2ccbfdbc332c01096cfd974d8711f179ce9a2c7d9d57b5"
+    },
+    {
+      "path": "web/assets/ui/items48/bed.webp",
+      "size": 9430,
+      "sha256": "e5d1f636503d4a2e2c43abf5730b0802be1b2789052fa1001c38dd98208c60e6"
+    },
+    {
+      "path": "web/assets/ui/items48/bench.webp",
+      "size": 13580,
+      "sha256": "06e3468257b2dd3ed425a77250423265c2bc1e9c30ef2df8257ddb2b86a95463"
+    },
+    {
+      "path": "web/assets/ui/items48/berry.webp",
+      "size": 10924,
+      "sha256": "a0bbcfebfe055b2de1a18b0ac240c90c9efe9e482b2a0114b4b65b102d7f045f"
+    },
+    {
+      "path": "web/assets/ui/items48/book.webp",
+      "size": 11784,
+      "sha256": "60ef6b9eaf1665afba5cb481f17595c767eb486956b47f1eb8a568732d9461ba"
+    },
+    {
+      "path": "web/assets/ui/items48/box.webp",
+      "size": 12302,
+      "sha256": "4f4be0e1fe30b8fdb98ceaa6f20f7c1a09023c2e4e1c57d66967c20294348f1e"
+    },
+    {
+      "path": "web/assets/ui/items48/cannedfood.webp",
+      "size": 9456,
+      "sha256": "7a06c57f44eb0db701584b59b9a8c5a0fe166e08326891cc766e78d935563d0e"
+    },
+    {
+      "path": "web/assets/ui/items48/chest.webp",
+      "size": 13308,
+      "sha256": "75f8c2db15842b64446f44cfb9d6842b83bea90fc061b51fbc0797a7126c63b9"
+    },
+    {
+      "path": "web/assets/ui/items48/collect.webp",
+      "size": 7930,
+      "sha256": "f84b0c46dc19132841739c17dd6a2ede534a4fb878fceaeafc977547311619d2"
+    },
+    {
+      "path": "web/assets/ui/items48/crystal.webp",
+      "size": 15036,
+      "sha256": "c5bd4aa45d4cb2cd7354c4ed328be286d4bea5dd68453eaae24afedd70bfa4d6"
+    },
+    {
+      "path": "web/assets/ui/items48/fiber.webp",
+      "size": 14692,
+      "sha256": "2941ee6fff9f9898437a8ac48176a4809d82a3364af16fcebcb98c0df7578f87"
+    },
+    {
+      "path": "web/assets/ui/items48/fire.webp",
+      "size": 14288,
+      "sha256": "4717c4df82245e076dc1b7b52d4f6e2858cdfd255eb910bea1fe64f7108a0e9f"
+    },
+    {
+      "path": "web/assets/ui/items48/furnace.webp",
+      "size": 14810,
+      "sha256": "8d9d80f63fd684af1963d2f1002bfb9d3fff2ee757b9e26858272539e5a19bbb"
+    },
+    {
+      "path": "web/assets/ui/items48/hand.webp",
+      "size": 6964,
+      "sha256": "9c060aa768ba22728f263e028338fbfe73b415ac52f6ab1b3dedf71b1eae0d47"
+    },
+    {
+      "path": "web/assets/ui/items48/hourglass.webp",
+      "size": 7712,
+      "sha256": "0872020e667fde8eabe0f34b71a834a40d42f56e883992461e6fcd3428e94e0c"
+    },
+    {
+      "path": "web/assets/ui/items48/ingot.webp",
+      "size": 9786,
+      "sha256": "98d5837907ef24a1d529780ddbadf40e2babed0f939c63d71ece627d1531d5a5"
+    },
+    {
+      "path": "web/assets/ui/items48/iron.webp",
+      "size": 14106,
+      "sha256": "4c78279af7d3485b7aebaadc830cd740ac6e6c7347992d462647eb502f64c4ea"
+    },
+    {
+      "path": "web/assets/ui/items48/ironarmor.webp",
+      "size": 16750,
+      "sha256": "1c0dfb51f01ef9aa337591ddcfa2cac8471162371a9dee8b765db8dce949fbd1"
+    },
+    {
+      "path": "web/assets/ui/items48/knife.webp",
+      "size": 7398,
+      "sha256": "40c0052565d7091000c82a843be3bb318e17b11ce36673a8114e62c1997dc313"
+    },
+    {
+      "path": "web/assets/ui/items48/leatherarmor.webp",
+      "size": 14402,
+      "sha256": "1635eb0ddd2c02f1e794a2a684573be8caf7b7196c2ea72b16f58f38d683c529"
+    },
+    {
+      "path": "web/assets/ui/items48/map.webp",
+      "size": 17160,
+      "sha256": "5d70e1a68a47852d490cf304bc7f698176d716a63c24eecf6ee6cf2807a6e5b1"
+    },
+    {
+      "path": "web/assets/ui/items48/meal.webp",
+      "size": 14424,
+      "sha256": "55a1e73d963cfd18823da3ebfe6572f0305c6432c2958609e89a4f054b8b4fa4"
+    },
+    {
+      "path": "web/assets/ui/items48/meat.webp",
+      "size": 10714,
+      "sha256": "2a6bd1e464d756b69a34d9c851aec722125008f5a7334a81cc05afe5d42c0239"
+    },
+    {
+      "path": "web/assets/ui/items48/meatc.webp",
+      "size": 11658,
+      "sha256": "0e0e9832aaa9700f5302f1b7d42c71cd3fafbdbe535a7b79dd4724aede2ac714"
+    },
+    {
+      "path": "web/assets/ui/items48/pelt.webp",
+      "size": 12928,
+      "sha256": "f1394b750b828dd6b8a9e8f2859447d0d1b5b495dfc6c43142c38805c1dcf61b"
+    },
+    {
+      "path": "web/assets/ui/items48/pickaxe.webp",
+      "size": 7482,
+      "sha256": "b6d27842ba5c08204502420dfe9428223e50e21f23103dc344d16a8f9dc7498c"
+    },
+    {
+      "path": "web/assets/ui/items48/planks.webp",
+      "size": 11050,
+      "sha256": "b440aa0c7d6def05b4e31c6c5030e34217d894e80fb226493174ce97e422234d"
+    },
+    {
+      "path": "web/assets/ui/items48/rope.webp",
+      "size": 13918,
+      "sha256": "446c7c0c63f66a730b05cd9b335583d46598eee04e3246e4f2f780d546255d8f"
+    },
+    {
+      "path": "web/assets/ui/items48/silver.webp",
+      "size": 14718,
+      "sha256": "aa02af1cf2e09a7bf3d16f0dfbc51568bf58e01093f5e9fdfd5af5582ebe519d"
+    },
+    {
+      "path": "web/assets/ui/items48/stone.webp",
+      "size": 10494,
+      "sha256": "ba5c63dcf48d64426d994a0bdaa6f4b42abf3321fd4998a2245342ae1c456d3a"
+    },
+    {
+      "path": "web/assets/ui/items48/stonearmor.webp",
+      "size": 16530,
+      "sha256": "60c60986fe234b49744fa513f12983cf5f864d89dc8b86b777d0f6f11d5c0b79"
+    },
+    {
+      "path": "web/assets/ui/items48/torch.webp",
+      "size": 7252,
+      "sha256": "94614eb4637cfa918915e04b53a44699d29ec736f668d9d9311fbfe0169cce3d"
+    },
+    {
+      "path": "web/assets/ui/items48/waterbottle.webp",
+      "size": 7844,
+      "sha256": "2246598a8471f29ddeccc6be666d60b20eaffa367cb4dbf860efa1899ac815d2"
+    },
+    {
+      "path": "web/assets/ui/items48/waterskin.webp",
+      "size": 8662,
+      "sha256": "a0c58b6a5d73d89e537b5111c078e4640dfae4fe6df6e5bcd27b5609f9fa277b"
+    },
+    {
+      "path": "web/assets/ui/items48/waterskinempty.webp",
+      "size": 9886,
+      "sha256": "89f47668a1d2977f697310346b60fc433975b24ad2be8f9667b9232cbba8b1cd"
+    },
+    {
+      "path": "web/assets/ui/items48/waterskinfull.webp",
+      "size": 8814,
+      "sha256": "47174db0b671acb3fc15d36044143ae74490f63d96e4e105fbf249ec68e2c34c"
+    },
+    {
+      "path": "web/assets/ui/items48/wood.webp",
+      "size": 12838,
+      "sha256": "bd1dc48ff44661d55e0eaccc8fd750728a6cbb678669d5a1d9a107f6fc7acea4"
+    },
+    {
       "path": "web/assets/ui/one-world-owner-logo.png",
       "size": 91924,
       "sha256": "b8ab30efa9512868bc40fdfb078f5356cbda5a101f99d235348dea0c7bd40be5"
@@ -892,8 +1117,8 @@
     },
     {
       "path": "web/index.html",
-      "size": 375453,
-      "sha256": "7d79e2bc320bc3c8054974c2731866496a9abd0495ef3695506120417b01d909"
+      "size": 386465,
+      "sha256": "176126487d78328239a325397d0addc96137bba216abb3ffcfd6fa6e989c444f"
     },
     {
       "path": "web/renderer-recovery.html",

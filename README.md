@@ -1,10 +1,10 @@
-## Latest testing beta: 1.3.47 / code68
+## Latest testing beta: 1.3.48 / code70
 
-Three inventory safety fixes: manual craft capacity, cooking capacity, and stack-boundary insertion when the full incoming yield fits. See docs/QA-1.3.47.md for limitations. Requested 200-slot station system remains pending.
+Station crafting, 200-slot/999-stack inventory and reusable waterskins. See docs/QA-1.3.48.md for scope and test limits.
 
 # One World Project
 
-Development source for the modified One World Android beta. Historical 1.3.29 notes follow; the current prepared source is 1.3.47 (versionCode 68). Cumulative reviewed poses, distinct skin options and matched preview lighting, native sensor-only wallpaper movement, head-safe wallpaper framing, uninterrupted pregame-panel music, studio/tap/loading/home flow and own-brand About card. See CHANGELOG.md for test scope and unresolved device issues.
+Development source for the modified One World Android beta. Historical 1.3.29 notes follow; the current prepared source is 1.3.48 (versionCode 70). Cumulative reviewed poses, distinct skin options and matched preview lighting, native sensor-only wallpaper movement, head-safe wallpaper framing, uninterrupted pregame-panel music, studio/tap/loading/home flow and own-brand About card. See CHANGELOG.md for test scope and unresolved device issues.
 
 This is a testing beta, not a stable release. Original game by Smiley, used and modified with permission. Preserve the asset and third-party notices in `web/assets/licenses/` and the music provenance in `web/assets/music/PROVENANCE.txt`. This repository does not grant a blanket license over all game code or the AI-generated track.
 
@@ -27,7 +27,7 @@ Install Java 17 and Android SDK platform 36 plus build-tools 36.0.0. Set `ANDROI
 
 ## Current baseline and pending requests
 
-The original face/body/upper dress/model files, icon, package, save schema and native updater origin are preserved. Pending larger work includes hair qualification, skirt, contextual pickup, survival progression, inventory expansion and a new island. Intermittent startup crackle and recording autocut cause remain unresolved. Loading pauses are intentionally gradual at the owner's request; an actual failure or hang is distinct. Local browser and compile checks do not prove Android physical motion, playback or performance.
+The original face/body/upper dress/model files, icon, package, save schema and native updater origin are preserved. Pending larger work includes hair qualification, skirt, contextual pickup, survival progression, seven-stat progression and further world work. Intermittent startup crackle and recording autocut cause remain unresolved. Loading pauses are intentionally gradual at the owner's request; an actual failure or hang is distinct. Local browser and compile checks do not prove Android physical motion, playback or performance.
 
 ## Testing releases
 

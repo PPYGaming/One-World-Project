@@ -69,7 +69,7 @@ public class MainActivity extends Activity implements android.hardware.SensorEve
         MIME.put("ogg","audio/ogg"); MIME.put("svg","image/svg+xml"); MIME.put("html", "text/html"); MIME.put("js", "text/javascript");
         MIME.put("glb", "model/gltf-binary"); MIME.put("jpg", "image/jpeg");
         MIME.put("jpeg", "image/jpeg"); MIME.put("png", "image/png");
-        MIME.put("txt", "text/plain"); MIME.put("css", "text/css"); MIME.put("json", "application/json"); MIME.put("bin", "application/octet-stream"); MIME.put("gltf", "model/gltf+json");
+        MIME.put("txt", "text/plain"); MIME.put("css", "text/css"); MIME.put("webp", "image/webp"); MIME.put("json", "application/json"); MIME.put("bin", "application/octet-stream"); MIME.put("gltf", "model/gltf+json");
     }
     private void immersive(){
         if(android.os.Build.VERSION.SDK_INT>=30){android.view.WindowInsetsController c=getWindow().getInsetsController();if(c!=null){c.setSystemBarsBehavior(android.view.WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);c.hide(android.view.WindowInsets.Type.systemBars());}}

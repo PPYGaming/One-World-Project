@@ -585,7 +585,7 @@ body.referenceWorld #joy,body.referenceWorld #atk,body.referenceWorld #bagBtn,bo
 #loading h1{position:absolute!important;left:7vw!important;top:30%!important;right:auto!important;width:44vw!important;max-width:none!important;margin:0!important;transform:none!important}
 #loading .ownerWordmark{width:100%!important;height:auto!important}
 }
-</style></head>
+</style><link rel="stylesheet" href="assets/ui/crafting48.css"></head>
 <body><div id="healthNotice" role="status" aria-live="polite"></div><div id="weaponAim" aria-hidden="true"></div>
 <canvas id="c"></canvas>
 
@@ -619,7 +619,7 @@ body.referenceWorld #joy,body.referenceWorld #atk,body.referenceWorld #bagBtn,bo
 </div>
 <div id="tabBodyCraft" class="hidden"><p class="cap" style="width:100%;text-align:left">Use materials from your inventory.</p><div id="craftList"></div></div>
 <button class="playbtn closebtn" id="bagClose" style="margin-top:14px">CLOSE</button></div></div>
-<div id="equipHud">HAND</div><div id="quickbar" aria-label="Quick equipment"></div><button id="drinkBtn">Drink fresh water</button>
+<button id="stationOpen48" aria-label="Open nearby station" style="display:none"></button><div id="equipHud">HAND</div><div id="quickbar" aria-label="Quick equipment"></div><button id="drinkBtn">Drink fresh water</button>
 <button id="sleepBtn">SLEEP</button>
 <div id="controlEditor" class="hidden"><div id="controlSurface"></div><div class="controlToolbar"><select id="controlSelect" aria-label="Select control"></select><label>Size <span id="controlSizeValue"></span><br><input id="controlSize" type="range" min="50" max="200" value="100"></label><label>Opacity <span id="controlOpacityValue"></span><br><input id="controlOpacity" type="range" min="0" max="100" value="100"></label><button id="controlPanelMove">MOVE PANEL</button><button id="controlReset">RESET ALL</button><button id="controlCancel">CANCEL</button><button id="controlSave">SAVE</button><p id="controlPreviewLabel">Drag any outlined control. Hidden controls stay outlined here. Layout is saved on this device.</p></div></div><div id="setPanel" class="panel hidden" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
 <header id="settingsHeader"><div><span class="settingsEyebrow"><img class="ownerWordmark" src="assets/ui/one-world-owner-logo.png" alt="One World" draggable="false" width="512" height="188"></span><h3 id="settingsTitle">GAME SETTINGS</h3></div><button id="setClose" class="playbtn" aria-label="Close settings">&#215;</button></header>
@@ -763,7 +763,7 @@ window.oneworldMenuMusic=createOneWorldMenuMusic('assets/music/iris-of-the-end.o
 window.oneworldMenuMusic.volume(audioLevels.music);window.oneworldMenuMusic.sync();
 </script>
 <script type="importmap">{"imports":{"three":"./assets/lib/three.module.js"}}</script>
-<script type="module">
+<script src="assets/lib/StationState.js"></script><script type="module">
 import {mutant} from './assets/lib/Mutants.js';
 import {wildlife} from './assets/lib/Wildlife.js';
 import * as THREE from 'three';
@@ -785,7 +785,7 @@ import { GLTFLoader } from './assets/lib/GLTFLoader.js';
 import { clone as skClone } from './assets/lib/SkeletonUtils.js';
 import { animeClips, applyAnimeColors, attachLeatherGarments, applyHairStyle, updateHairSway } from './assets/lib/AnimeCharacter.js';
 
-var BUILD_INFO={name:'1.3.47',code:null,native:false};
+var BUILD_INFO={name:'1.3.48',code:null,native:false};
 try{var nb=window.OneWorldNative;if(nb&&typeof nb.getBuildInfo==='function'){var bi=JSON.parse(nb.getBuildInfo());if(bi.package==='com.oneword.forest.beta'&&typeof bi.name==='string'&&/^\d+\.\d+\.\d+$/.test(bi.name)&&Number.isSafeInteger(bi.code)&&bi.code>0)BUILD_INFO={name:bi.name,code:bi.code,native:true};}}catch(e){}
 var DISPLAY_VERSION=BUILD_INFO.name+(BUILD_INFO.native?'':' preview');
 document.querySelector('#start .ver').textContent=DISPLAY_VERSION+' Beta - Work in progress';
@@ -1802,7 +1802,7 @@ function updatePause(){
   document.body.classList.toggle('gamePaused',paused);
   if(paused)resetMovementInput();
 }
-var INV_CAP = 12, STACK_MAX = 10;
+var INV_CAP = 200, STACK_MAX = 999;
 var inv = [];
 function plannedItemAddition(items,name,icon,qty){
   if(!Number.isInteger(qty)||qty<=0)return null;
@@ -1836,6 +1836,48 @@ function removeItem(name, qty){
   }
   renderBag(); return qty <= 0;
 }
+// Physical station crafting. Active play time only, no offline catch-up.
+var stationStore={},stationPlaced={},stationSerial=1,craftSource='hand',craftSelected=0,craftContext=null,craftNote='',craftClock=0;
+var sourceNames48={hand:'Hand',bench:'Workbench',furnace:'Furnace',campfire:'Campfire',anvil:'Anvil'},sourceIcons48={hand:'hand',bench:'bench',furnace:'furnace',campfire:'fire',anvil:'anvil'};
+var itemIcons48={'Leather Armor':'leatherarmor','Stone Armor':'stonearmor','Iron Armor':'ironarmor','Waterskin':'waterskinempty','Workbench Kit':'bench','Furnace Kit':'furnace','Anvil Kit':'anvil'};
+var costsIcons48={Wood:'wood',Stone:'stone','Wolf Pelt':'pelt','Iron Ore':'iron','Cooked Meat':'meatc',Berries:'berry','Iron Ingot':'ingot'};
+var recipes48=[
+{name:'Torch',icon:'torch',station:'hand',seconds:.5,cost:{Wood:2}},
+{name:'Campfire Kit',icon:'fire',station:'hand',seconds:3,cost:{Wood:3}},
+{name:'Workbench Kit',icon:'bench',station:'hand',seconds:5,cost:{Wood:8,Stone:4}},
+{name:'Bedroll Kit',icon:'bed',station:'hand',seconds:3,cost:{Wood:2}},
+{name:'Waterskin',icon:'waterskinempty',station:'hand',seconds:4,cost:{'Wolf Pelt':2}},
+{name:'Furnace Kit',icon:'furnace',station:'bench',seconds:10,cost:{Stone:12,Wood:6}},
+{name:'Anvil Kit',icon:'anvil',station:'bench',seconds:10,cost:{'Iron Ore':8,Stone:4}},
+{name:'Pickaxe',icon:'pickaxe',station:'bench',seconds:4,cost:{Wood:2,Stone:2}},
+{name:'Axe',icon:'axe',station:'bench',seconds:4,cost:{Wood:2,Stone:2}},
+{name:'Knife',icon:'knife',station:'bench',seconds:3,cost:{Wood:1,Stone:1}},
+{name:'Leather Armor',icon:'leatherarmor',station:'bench',seconds:10,cost:{'Wolf Pelt':3}},
+{name:'Stone Armor',icon:'stonearmor',station:'bench',seconds:10,cost:{Stone:5}},
+{name:'Iron Armor',icon:'ironarmor',station:'anvil',seconds:15,cost:{'Iron Ingot':4}},
+{name:'Iron Ingot',icon:'ingot',station:'furnace',seconds:10,cost:{'Iron Ore':2}},
+{name:'Cooked Meat',icon:'meatc',station:'campfire',seconds:8,cost:{'Raw Meat':1}},
+{name:'Hearty Meal',icon:'meal',station:'campfire',seconds:12,cost:{'Cooked Meat':1,Berries:2}}
+];
+function image48(icon,alt){return '<img class="itemArt48" src="assets/ui/items48/'+(icon==='fibre'?'fiber':icon)+'.webp" alt="'+(alt||'')+'">';}
+function physical48(id){if(id==='hand')return {id:'hand',kind:'hand'};if(id==='campfire'&&campfirePos)return {id:id,kind:'campfire',x:campfirePos.x,z:campfirePos.z};return stationPlaced[id]||null;}
+function allowed48(){if(!craftContext)return false;var p=physical48(craftContext.id);return !!p&&(p.kind==='hand'||Math.hypot(P.x-p.x,P.z-p.z)<3.2)&&p.kind===craftSource&&!P.dead;}
+function getStation48(id,kind){return stationStore[id]||(stationStore[id]=StationState.create(id,kind));}
+function persist48(overrides){if(!running||P.dead)return false;try{var s=Object.assign(worldSnapshot(),overrides||{});localStorage.setItem(SAVE_KEY,JSON.stringify(s));return true;}catch(e){toast('Could not save. No items changed.');return false;}}
+function queue48(count){if(!allowed48()){craftNote='Visit this station';renderCraft();return false;}var list=recipes48.filter(r=>r.station===craftSource),r=list[craftSelected],s=getStation48(craftContext.id,craftSource),q=StationState.enqueue(s,inv,r,count,craftContext);if(!q.ok){craftNote=q.reason;renderCraft();return false;}var next=Object.assign({},stationStore);next[s.id]=q.state;if(!persist48({stations48:next,inv:q.inventory}))return false;stationStore=next;inv=q.inventory;craftNote='Materials reserved';selSlot=-1;renderBag();return true;}
+function claim48(name){if(!allowed48()){craftNote='Visit this station';renderCraft();return false;}var s=getStation48(craftContext.id,craftSource),q=StationState.claim(s,inv,name,craftContext,INV_CAP,STACK_MAX);if(!q.ok){craftNote=q.reason;toast(q.reason);renderCraft();return false;}var next=Object.assign({},stationStore);next[s.id]=q.state;if(!persist48({stations48:next,inv:q.inventory}))return false;stationStore=next;inv=q.inventory;selSlot=-1;craftNote='Collected';renderBag();return true;}
+function openCraft48(id,kind){craftSource=kind||'hand';craftSelected=0;craftContext=id?{id:id,kind:craftSource}:null;craftNote='';setInvTab('craft');document.getElementById('bag').classList.remove('hidden');syncInvOpen();resetMovementInput();updatePause();renderCraft();}
+function renderCraft48(){var el=document.getElementById('craftList');if(!el)return;var list=recipes48.filter(r=>r.station===craftSource),r=list[Math.min(craftSelected,list.length-1)],s=craftContext?getStation48(craftContext.id,craftSource):null;
+ el.innerHTML='<div class="craftMode48"><button data-mode48="book">'+image48('book')+'<small>Recipes</small></button><button data-mode48="hand">'+image48('hand')+'<small>Handcraft</small></button></div><div class="craftGrid48"><nav>'+Object.keys(sourceNames48).map(k=>'<button class="'+(k===craftSource?'on':'')+'" data-source48="'+k+'">'+image48(sourceIcons48[k])+'<small>'+sourceNames48[k]+'</small></button>').join('')+'</nav><section class="recipes48">'+list.map((x,i)=>'<button class="'+(i===craftSelected?'on':'')+'" data-recipe48="'+i+'">'+image48(x.icon)+'<small>'+x.name+'</small></button>').join('')+'</section><section class="craftDetail48"><div class="craftHero48">'+image48(r.icon)+'<div>'+r.name+'<small>'+r.seconds+'s each</small></div></div><div class="materials48">'+Object.entries(r.cost).map(([n,v])=>'<div>'+image48(costsIcons48[n]||'meat')+'<small>'+countItem(n)+' / '+v+'</small></div>').join('')+'</div><div class="craftNote48">'+craftNote+'</div><div class="craftActions48">'+(allowed48()?'<button data-count48="1">Craft 1</button><button data-count48="3">Queue 3</button>':'<small>Recipes only · visit '+sourceNames48[craftSource]+'</small>')+'</div><div class="queue48">'+(s&&s.queue.length?image48(s.queue[0].icon)+'<span>'+s.queue[0].remaining.toFixed(1)+'s · '+s.queue.length+' queued</span>':'<small>Queue empty</small>')+'</div><div class="progress48"><i style="width:'+(s&&s.queue.length?(1-s.queue[0].remaining/s.queue[0].seconds)*100:0)+'%"></i></div><small class="outputTitle48">OUTPUT</small><div class="output48">'+(s&&s.output.length?s.output.map(x=>'<button data-claim48="'+x.name+'" '+(!allowed48()?'disabled':'')+'>'+image48(x.icon)+'<small>× '+x.qty+' · Collect</small></button>').join(''):'<small>No completed items</small>')+'</div></section></div>';
+ el.querySelectorAll('[data-source48]').forEach(b=>b.onclick=()=>{craftSource=b.dataset.source48;craftSelected=0;craftContext=null;craftNote='';renderCraft();});el.querySelectorAll('[data-recipe48]').forEach(b=>b.onclick=()=>{craftSelected=+b.dataset.recipe48;renderCraft();});el.querySelectorAll('[data-mode48]').forEach(b=>b.onclick=()=>{if(b.dataset.mode48==='hand')openCraft48('hand','hand');else {craftContext=null;craftNote='';renderCraft();}});el.querySelectorAll('[data-count48]').forEach(b=>b.onclick=()=>queue48(+b.dataset.count48));el.querySelectorAll('[data-claim48]').forEach(b=>b.onclick=()=>claim48(b.dataset.claim48));
+}
+function advanceCraft48(dt){var changed=false,completed=false,next={};for(var id in stationStore){var old=stationStore[id];if(!old.queue.length){next[id]=old;continue;}next[id]=StationState.advance(old,dt);changed=true;if(JSON.stringify(next[id].output)!==JSON.stringify(old.output))completed=true;}if(changed){if(!completed||persist48({stations48:next}))stationStore=next;}craftClock+=dt;if(completed)craftClock=1;if(craftClock>.2){craftClock=0;if(!document.getElementById('bag').classList.contains('hidden')&&invTab==='craft'){var s=craftContext&&stationStore[craftContext.id];if(completed||s&&!s.queue.length)renderCraft();else if(s&&s.queue.length){var q=document.querySelector('.queue48 span'),bar=document.querySelector('.progress48 i');if(q)q.textContent=s.queue[0].remaining.toFixed(1)+'s · '+s.queue.length+' queued';if(bar)bar.style.width=(1-s.queue[0].remaining/s.queue[0].seconds)*100+'%';}}}var b=document.getElementById('stationOpen48'),near=nearestStation48();b.style.display=near&&!P.dead?'flex':'none';b.dataset.id=near?near.id:'';if(near)b.innerHTML=image48(sourceIcons48[near.kind]);}
+function nearestStation48(){var list=Object.values(stationPlaced);if(campfirePos)list.push({id:'campfire',kind:'campfire',...campfirePos});var near=null,dist=3.2;list.forEach(s=>{var d=Math.hypot(P.x-s.x,P.z-s.z);if(d<dist){near=s;dist=d;}});return near;}
+function buildMachine48(s){var g=new THREE.Group(),wood=new THREE.MeshStandardMaterial({color:0x725036,roughness:.9}),stone=new THREE.MeshStandardMaterial({color:0x727a7b,roughness:.9}),iron=new THREE.MeshStandardMaterial({color:0x555e63,roughness:.6});function box(w,h,d,x,y,z,m){var o=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);o.position.set(x,y,z);g.add(o);}if(s.kind==='bench'){box(1.9,.18,.9,0,.95,0,wood);for(var x of [-.72,.72])for(var z of [-.3,.3])box(.13,.9,.13,x,.45,z,wood);box(.35,.18,.3,.5,1.1,0,iron);}else if(s.kind==='furnace'){var body=new THREE.Mesh(new THREE.CylinderGeometry(.58,.72,1.5,10),stone);body.position.y=.75;g.add(body);box(.42,.45,.04,0,.6,.66,iron);box(.25,.26,.05,0,.6,.69,new THREE.MeshBasicMaterial({color:0xc9652f}));}else{box(.5,.25,.4,0,.14,0,wood);box(.3,.55,.3,0,.5,0,iron);box(1,.22,.42,0,.85,0,iron);}g.position.set(s.x,groundY(s.x,s.z),s.z);g.rotation.y=s.rot||0;structGroup.add(g);structColliders.push({x:s.x,z:s.z,r:1});}
+function placeMachine48(kind){var names={bench:'Workbench Kit',furnace:'Furnace Kit',anvil:'Anvil Kit'},name=names[kind],i=inv.findIndex(x=>x.name===name&&x.qty>0);if(i<0)return false;var x=P.x+Math.sin(P.rotY)*2.3,z=P.z+Math.cos(P.rotY)*2.3;if(groundY(x,z)<1||groundSlope(x,z)>1.1){toast('Need flat dry ground');return false;}var pc=collideXZ(x,z,1.15);if(Math.hypot(pc[0]-x,pc[1]-z)>.05){toast('Too close to trees or rocks');return false;}var ni=inv.map(x=>({...x}));ni[i].qty--;if(!ni[i].qty)ni.splice(i,1);var id=kind+'-'+stationSerial,s={id:id,kind:kind,x:x,z:z,rot:P.rotY},placed=Object.assign({},stationPlaced);placed[id]=s;if(!persist48({inv:ni,stationPlaced48:placed,stationSerial48:stationSerial+1}))return false;inv=ni;stationPlaced=placed;stationSerial++;buildMachine48(s);renderBag();toast(sourceNames48[kind]+' placed');return true;}
+function restoreCraft48(s){stationStore={};for(var id in s.stations48||{}){try{var v=StationState.decode(JSON.stringify(s.stations48[id]));if(v.id===id)stationStore[id]=v;}catch(e){throw Error('Invalid crafting save; original retained');}}stationPlaced={};for(var id in s.stationPlaced48||{}){var p=s.stationPlaced48[id];if(p&&p.id===id&&['bench','furnace','anvil'].includes(p.kind)&&Number.isFinite(p.x)&&Number.isFinite(p.z))stationPlaced[id]=p;}stationSerial=Number.isSafeInteger(s.stationSerial48)?s.stationSerial48:1;craftContext=null;Object.values(stationPlaced).forEach(buildMachine48);}
+function useWaterskin48(){var it=inv[selSlot];if(!it||it.name!=='Waterskin')return false;var filled=!!it.filled,inWater=waterInfo(P.x,P.z).depth>0;if(!filled&&!inWater){toast('Stand in water to refill');return false;}if(filled&&P.water>=100){toast('Already hydrated');return false;}var next=inv.map(x=>({...x}));next[selSlot].filled=!filled;next[selSlot].icon=filled?'waterskinempty':'waterskinfull';var water=filled?100:P.water;if(!persist48({inv:next,water:water}))return false;inv=next;P.water=water;renderBag();drawVitals();toast(filled?'Water restored':'Waterskin filled');return true;}
+
 var RECIPES = [
   { name: 'Torch', icon: 'torch', cost: { Wood: 2 } },
   { name: 'Campfire Kit', icon: 'fire', cost: { Wood: 3 } },
@@ -1864,14 +1906,7 @@ function plannedCraftInventory(r,items){
   }
   return plannedItemAddition(next,r.name,r.icon,1);
 }
-function craftRecipe(ri){
-  var r=RECIPES[ri];if(!r||!canCraft(r))return false;
-  var next=plannedCraftInventory(r,inv);
-  if(!next){toast('Inventory is full');return false;}
-  inv=next;
-  betaLog('Crafted '+r.name);addXP(10);sfx('cook');toast('+1 '+r.name);
-  renderBag();return true;
-}
+function craftRecipe(ri){return false;}
 
 var invTab='select', pvKey='';
 function maybeRenderInvPreview(){
@@ -1882,7 +1917,7 @@ function maybeRenderInvPreview(){
 }
 function setInvTab(tab){
   invTab = tab === 'craft' ? 'craft' : 'select';
-  var sel = invTab === 'select';
+  var sel = invTab === 'select';document.getElementById('bag').classList.toggle('crafting48',!sel);
   document.querySelector('#bag .bagHead h3').textContent=sel?'INVENTORY':'CRAFTING';
   document.getElementById('bagScroll').scrollTop=0;
   document.getElementById('tabBodySelect').classList.toggle('hidden', !sel);
@@ -1891,7 +1926,7 @@ function setInvTab(tab){
   else renderCraft();
 }
 function syncInvOpen(){ document.body.classList.toggle('invOpen', !document.getElementById('bag').classList.contains('hidden')); }
-function toggleCraft(){
+function toggleCraft(){openCraft48(null,'hand');return;
   if(respawnRequired)return;
   var p = document.getElementById('bag');
   if(p.classList.contains('hidden')){
@@ -1902,17 +1937,7 @@ function toggleCraft(){
     setInvTab('craft');
   }
 }
-function renderCraft(){
-  var el = document.getElementById('craftList'); if(!el) return;
-  var html = '';
-  RECIPES.forEach(function(r, ri){
-    var costHtml = Object.keys(r.cost).map(function(cn){
-      return '<span class="cost' + (countItem(cn) >= r.cost[cn] ? '' : ' lack') + '" title="' + cn + '" aria-label="' + cn + ' x' + r.cost[cn] + '">' + (ICONS[{ Wood: 'wood', Stone: 'stone', 'Wolf Pelt': 'pelt', 'Iron Ore': 'iron', 'Cooked Meat': 'meatc', Berries: 'berry' }[cn] || 'box'] || '') + 'x' + r.cost[cn] + '</span>';
-    }).join(' ');
-    html += '<div class="craftRow"><span class="ic">' + (ICONS[r.icon] || ICONS.box) + '</span><span class="nm2">' + r.name + '</span>' + costHtml + '<button class="playbtn closebtn craftGo" data-r="' + ri + '"' + (canCraft(r) ? '' : ' disabled') + '>CRAFT</button></div>';
-  });
-  el.innerHTML = html;
-}
+function renderCraft(){renderCraft48();}
 var ARMORS = { 'Leather Armor': { tier: 1, color: 0x8a5a30 }, 'Stone Armor': { tier: 2, color: 0x909090 }, 'Iron Armor': { tier: 3, color: 0x59606a } };
 var armorName = null, armorTier = 0, armorHits = 0, armorMesh = null;
 function armorBlocks(){
@@ -2041,7 +2066,7 @@ function renderBag(){
   var html = '';
   for(var i = 0; i < INV_CAP; i++){
     var it = inv[i];
-    if(it) html += '<div class="slot' + (i === selSlot ? ' sel' : '') + '" data-i="' + i + '">' + (ICONS[it.icon] || ICONS.box) + '<span class="nm">' + it.name + '</span><span class="q">x' + it.qty + '</span></div>';
+    if(it) html += '<div class="slot' + (i === selSlot ? ' sel' : '') + '" data-i="' + i + '">' + image48(it.name==='Waterskin'?(it.filled?'waterskinfull':'waterskinempty'):(itemIcons48[it.name]||it.icon||'box')) + '<span class="nm">' + it.name + '</span><span class="q">x' + it.qty + '</span></div>';
     else html += '<div class="slot empty"></div>';
   }
   grid.innerHTML = html;
@@ -2049,8 +2074,8 @@ function renderBag(){
   document.getElementById('chipKnife').style.display=toolAvailable('knife')?'block':'none';document.getElementById('chipAxe').style.display=toolAvailable('axe')?'block':'none';
   document.getElementById('chipTorch').style.display = inv.some(function(it){ return it.name === 'Torch' && it.qty > 0; }) ? 'block' : 'none';
   document.getElementById('chipPick').style.display = inv.some(function(it){ return it.name === 'Pickaxe' && it.qty > 0; }) ? 'block' : 'none';
-  document.getElementById('actPlace').style.display = (sel && (sel.name === 'Campfire Kit' || sel.name === 'Bedroll Kit')) ? 'inline-block' : 'none';
-  document.getElementById('actEat').textContent=sel&&sel.name==='Water Bottle'?'DRINK':sel&&sel.name==='Bandage'?'USE BANDAGE':'EAT';document.getElementById('actEat').style.display = (sel && (sel.name === 'Raw Meat' || sel.name === 'Cooked Meat' || sel.name === 'Berries' || sel.name === 'Hearty Meal'||sel.name==='Water Bottle'||sel.name==='Bandage'||sel.name==='Canned Food')) ? 'inline-block' : 'none';
+  document.getElementById('actPlace').style.display = (sel && (['Campfire Kit','Bedroll Kit','Workbench Kit','Furnace Kit','Anvil Kit'].includes(sel.name))) ? 'inline-block' : 'none';
+  document.getElementById('actEat').textContent=sel&&sel.name==='Waterskin'?(sel.filled?'DRINK':'REFILL'):sel&&sel.name==='Water Bottle'?'DRINK':sel&&sel.name==='Bandage'?'USE BANDAGE':'EAT';document.getElementById('actEat').style.display = (sel && (sel.name === 'Raw Meat' || sel.name === 'Cooked Meat' || sel.name === 'Berries' || sel.name === 'Hearty Meal'||sel.name==='Waterskin'||sel.name==='Water Bottle'||sel.name==='Bandage'||sel.name==='Canned Food')) ? 'inline-block' : 'none';
   var wb = document.getElementById('actWear'); wb.style.display = (sel && ARMORS[sel.name]) ? 'inline-block' : 'none'; if(sel && ARMORS[sel.name]) wb.textContent = (armorName === sel.name ? 'REMOVE' : 'WEAR');
   Array.prototype.forEach.call(grid.children, function(cell){
     if(cell.classList.contains('empty')) return;
@@ -2220,7 +2245,7 @@ function saveGame(){
   if(!running || P.dead) return true;
   try{var data=JSON.stringify(worldSnapshot());if(data!==localStorage.getItem(SAVE_KEY))localStorage.setItem(SAVE_KEY,data);return true;}catch(e){return false;}
 }
-function worldSnapshot(){ return { world:activeWorldId, resourceLayout:referenceMode?referenceResourceLayout:undefined, referenceElapsed:referenceElapsed,referenceLootTaken:referenceLootTaken,deathPending:!!respawnRequired, v:3,progress:progress,legacyTools:legacyTools, weatherClock:weatherClock, x: P.x, z: P.z, rotY: P.rotY, hp: P.hp, wolvesDefeated: wolvesDefeated, dayT: dayT, cameraYaw: cameraYaw, inv: inv, marks: userMarks, bed: bedPos, campfire: campfirePos, equipped: equipped, chopped: Object.keys(choppedTrees), mined: Object.keys(minedNodes), bushes: Object.keys(harvestedBushes), char: charKind, look:charLook, pname: playerName, armor: armorName, stam: P.stam, food: P.food, water:P.water, quickSlots:quickSlots, temp: P.temp };
+function worldSnapshot(){ return { world:activeWorldId, resourceLayout:referenceMode?referenceResourceLayout:undefined, referenceElapsed:referenceElapsed,referenceLootTaken:referenceLootTaken,deathPending:!!respawnRequired, v:3,stations48:stationStore,stationPlaced48:stationPlaced,stationSerial48:stationSerial,progress:progress,legacyTools:legacyTools, weatherClock:weatherClock, x: P.x, z: P.z, rotY: P.rotY, hp: P.hp, wolvesDefeated: wolvesDefeated, dayT: dayT, cameraYaw: cameraYaw, inv: inv, marks: userMarks, bed: bedPos, campfire: campfirePos, equipped: equipped, chopped: Object.keys(choppedTrees), mined: Object.keys(minedNodes), bushes: Object.keys(harvestedBushes), char: charKind, look:charLook, pname: playerName, armor: armorName, stam: P.stam, food: P.food, water:P.water, quickSlots:quickSlots, temp: P.temp };
 }
 function loadSave(){ try{ var s = localStorage.getItem(SAVE_KEY),data=s?JSON.parse(s):null;return data&&(!data.world||data.world===activeWorldId)?data:null; }catch(e){ return null; } }
 function clearSave(){ try{ localStorage.removeItem(SAVE_KEY); }catch(e){} }
@@ -2563,7 +2588,7 @@ function tryAttack(){
   playAnim(pAnim, EQUIPS[equipped].anim, 0.08, true);
 }
 
-function resetGame(){
+function resetGame(){stationStore={};stationPlaced={};stationSerial=1;craftContext=null;
  referenceResourceLayout='stable38';
  respawnToken++;respawnBusy=false;respawnRequired=false;deathShown=false;document.getElementById('mapPanel').classList.add('hidden');document.getElementById('mapPanel').classList.remove('respawning');document.querySelector('#mapPanel h3').textContent='ISLAND MAP';document.getElementById('mapClose').textContent='CLOSE';updatePause();
   progress=freshProgress();applyProgress();referenceElapsed=0;referenceLootTaken={};
@@ -2575,7 +2600,7 @@ function resetGame(){
   for(var oldChunk in chunks)disposeChunk(oldChunk);
   dayT=0.08;inv=[]; choppedTrees = {}; minedNodes = {}; harvestedBushes = {}; armorName = null; armorTier = 0; armorHits = 0; updateArmorVisual(); renderBag(); setEquip('hand');
   campfirePos = null; bedPos = null; structColliders = []; fireFlame = null; fireLight = null;
-  structGroup.clear();
+  stationStore={};stationPlaced={};stationSerial=1;craftContext=null;structGroup.clear();
   playAnim(pAnim, 'Idle', 0.1);
   drawHearts();
 }
@@ -2598,7 +2623,7 @@ function restoreGame(s){
   bedPos = (s.bed && typeof s.bed.x === 'number') ? s.bed : null;
   campfirePos = (s.campfire && typeof s.campfire.x === 'number') ? s.campfire : null;
   if(bedPos) buildBed();
-  if(campfirePos) buildCampfire();
+  if(campfirePos) buildCampfire();restoreCraft48(s);
   if(inv.length > INV_CAP) inv.length = INV_CAP; // corrupt/oversized save guard
   renderBag();
   choppedTrees = {}; if(Array.isArray(s.chopped)) s.chopped.forEach(function(k){ choppedTrees[k] = true; });
@@ -2713,14 +2738,11 @@ function placeKit(kind){
   else { bedPos = { x: x, z: z, rot: P.rotY }; buildBed(); toast('Bedroll placed'); }
   saveGame(); return true;
 }
-function cookOneMeat(){
-  var next=plannedCraftInventory({name:'Cooked Meat',icon:'meatc',cost:{'Raw Meat':1}},inv);
-  if(!next)return false;
-  inv=next;renderBag();sfx('cook');toast('+1 Cooked Meat');return true;
-}
+function cookOneMeat(){return false;}
 function eatFromInv(name){ var i = inv.findIndex(function(it){ return it.name === name && it.qty > 0; }); if(i < 0) return false; removeOneAt(i); return true; }
 function eatSelected(){
   var it = inv[selSlot]; if(!it) return;
+  if(it.name==='Waterskin'){useWaterskin48();return;}
   if(it.name==='Water Bottle'){if(P.water>=99){toast('Already hydrated');return;}if(eatFromInv(it.name)){P.water=Math.min(100,P.water+40);drawVitals();sfx('eat');saveGame();}return;}
   if(it.name==='Bandage'){if(P.hp>=P.maxHp){toast('Already full health');return;}if(eatFromInv(it.name)){P.hp=Math.min(P.maxHp,P.hp+2);drawHearts();saveGame();}return;}
   if(it.name==='Canned Food'){if(P.food>=99){toast('Already full');return;}if(eatFromInv(it.name)){P.food=Math.min(100,P.food+25);drawVitals();sfx('eat');saveGame();}return;}
@@ -3188,10 +3210,7 @@ function tick(dt){
       animateFlame(torchFlame,now);var tf = 0.9 + Math.sin(now*15+2)*0.18; torchFlame.scale.set(tf, 1 + Math.sin(now*19)*0.18, tf); torchLight.intensity = 1.3 + Math.sin(now*15)*0.3;
     }
     if(fireFlame){animateFlame(fireFlame,now);var fl = 0.9 + Math.sin(now*13)*0.16 + Math.sin(now*29)*0.08; fireFlame.scale.set(fl, 1 + Math.sin(now*17)*0.15, fl); if(fireLight) fireLight.intensity = 1.35 + Math.sin(now*13)*0.35 + Math.sin(now*7)*0.15; }
-    if(campfirePos && Math.hypot(P.x - campfirePos.x, P.z - campfirePos.z) < 3.2){
-      cookT += dt;
-      if(cookT >= 8){ cookT = 0; cookOneMeat(); }
-    } else cookT = 0;
+    advanceCraft48(dt);
     // sleep button: near bed at night
     var nightNow = dayT > 0.56 || dayT < 0.04;
     var canSleep = !!bedPos && nightNow && !P.dead && Math.hypot(P.x - bedPos.x, P.z - bedPos.z) < 2.8;
@@ -3505,11 +3524,11 @@ document.getElementById('actEquip').onclick=function(){var e=selectedTool();if(e
 document.getElementById('drinkBtn').onclick=function(){};
 document.querySelectorAll('#pinQuick button').forEach(function(b){b.onclick=function(){var e=selectedTool()||equipped;quickSlots[+b.dataset.q]=e;renderQuickbar();saveGame();toast(e+' in slot '+(+b.dataset.q+1));};});
 document.getElementById('bagBtn').addEventListener('click', toggleBag);
-document.getElementById('craftBtn').onclick=toggleCraft;
+document.getElementById('craftBtn').onclick=toggleCraft;document.getElementById('stationOpen48').onclick=function(){var near=nearestStation48();if(near)openCraft48(near.id,near.kind);};
 document.getElementById('chipHand').addEventListener('click', function(){ setEquip('hand'); });
 sleepBtn = document.getElementById('sleepBtn');
 sleepBtn.addEventListener('click', trySleep);
-document.getElementById('actPlace').addEventListener('click', function(){ var it = inv[selSlot]; if(!it) return; var kind = it.name === 'Campfire Kit' ? 'campfire' : 'bed'; toggleBag(); placeKit(kind); });
+document.getElementById('actPlace').addEventListener('click', function(){ var it = inv[selSlot]; if(!it) return; var kind=({'Campfire Kit':'campfire','Bedroll Kit':'bed','Workbench Kit':'bench','Furnace Kit':'furnace','Anvil Kit':'anvil'})[it.name];if(!kind)return;toggleBag();if(kind==='campfire'||kind==='bed')placeKit(kind);else placeMachine48(kind); });
 document.getElementById('actEat').addEventListener('click', eatSelected);
 function nearestGatherTarget(){
  if(!referenceSites)return null;if(bedPos&&Math.hypot(P.x-bedPos.x,P.z-bedPos.z)<2.8)return {kind:'bed'};var hit=referenceSites.nearestLoot(P.x,P.z),best=hit?{kind:'supplies',hit:hit}:null,dist=hit?Math.hypot(hit.x-P.x,hit.z-P.z):2.3;
