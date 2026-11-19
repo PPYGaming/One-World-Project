@@ -7,8 +7,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size": 42437,
-      "sha256": "de60ec5146fe960e06733aa4555838fcf2818b3f76a32d9388b7f6ca4df6370a"
+      "size": 42955,
+      "sha256": "94c70760945d86cba90cd069d2f10d96c494cd2a014128ada8ba0433830a255e"
     },
     {
       "path": "CONTRIBUTING.md",
@@ -18,12 +18,12 @@
     {
       "path": "README.md",
       "size": 3675,
-      "sha256": "6a553f8b3cef410ab82f5b7deb9b20d7ecec583e584b532855c48b185241efd9"
+      "sha256": "dc1d431121262a2000d543b97c77ef6ec8b26c8b88e09360fba3a495b947087e"
     },
     {
       "path": "android/AndroidManifest.xml",
       "size": 1298,
-      "sha256": "ea2794d5a5c3405321c29169f433649b7d3ca013df762a99df188e7ed1ab83c6"
+      "sha256": "cdd42d2b737b8635d56d203c7461abb577569c6606fc282e0ea437c3255591c0"
     },
     {
       "path": "android/res/drawable/ic_face.png",
@@ -117,8 +117,13 @@
     },
     {
       "path": "android/src/com/oneword/forest/MainActivity.java",
-      "size": 17783,
-      "sha256": "6c1f65c6b9c4bd7edddc342c14d1534e3faea24a6556dc74cab44db345a4b5fe"
+      "size": 18764,
+      "sha256": "451ac15103e668e3a32c464b8430ced8841a0440edc4a45f7b8660dec54ecca7"
+    },
+    {
+      "path": "android/src/com/oneword/forest/MenuTiltMath.java",
+      "size": 1213,
+      "sha256": "cbd8478849126a1bc698981087dc1cc7aeffb0eee079c603b66d0e18c21cd0d7"
     },
     {
       "path": "docs/OWNER-REQUIREMENTS-2026-11-18.md",
@@ -887,8 +892,8 @@
     },
     {
       "path": "web/index.html",
-      "size": 372816,
-      "sha256": "8cd78db95c401cce5e6e6c257144d88d2e28ca1965f1523640c24038ac9d6880"
+      "size": 375453,
+      "sha256": "7d79e2bc320bc3c8054974c2731866496a9abd0495ef3695506120417b01d909"
     },
     {
       "path": "web/renderer-recovery.html",

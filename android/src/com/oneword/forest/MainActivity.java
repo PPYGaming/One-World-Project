@@ -26,32 +26,41 @@ public class MainActivity extends Activity implements android.hardware.SensorEve
     private boolean wallpaperRequested=false,foreground=false,wallpaperListening=false,haveGravity=false,haveCenter=false;
     private final float[] gravity=new float[3];
     private float wallpaperCenter;
+    private float[] wallpaperQuaternionCenter;
     private int wallpaperRotation=-1;
     private long lastWallpaperSend=0,wallpaperTouchQuietUntil=0;
     private boolean wallpaperTouching=false;
     @Override public boolean dispatchTouchEvent(android.view.MotionEvent event){
         int action=event.getActionMasked();
-        if(action==android.view.MotionEvent.ACTION_DOWN||action==android.view.MotionEvent.ACTION_POINTER_DOWN){wallpaperTouching=true;haveCenter=false;}
-        if(action==android.view.MotionEvent.ACTION_UP||action==android.view.MotionEvent.ACTION_CANCEL){wallpaperTouching=false;wallpaperTouchQuietUntil=android.os.SystemClock.uptimeMillis()+300;haveCenter=false;haveGravity=false;}
+        if(action==android.view.MotionEvent.ACTION_DOWN||action==android.view.MotionEvent.ACTION_POINTER_DOWN){wallpaperTouching=true;haveCenter=false;wallpaperQuaternionCenter=null;}
+        if(action==android.view.MotionEvent.ACTION_UP||action==android.view.MotionEvent.ACTION_CANCEL){wallpaperTouching=false;wallpaperTouchQuietUntil=android.os.SystemClock.uptimeMillis()+300;haveCenter=false;wallpaperQuaternionCenter=null;haveGravity=false;}
         return super.dispatchTouchEvent(event);
     }
     private void syncWallpaperSensor(){
         boolean wanted=foreground&&windowFocused&&wallpaperRequested&&!closing&&sensors!=null&&wallpaperSensor!=null;
-        if(wanted&&!wallpaperListening){haveGravity=false;haveCenter=false;lastWallpaperSend=0;wallpaperListening=sensors.registerListener(this,wallpaperSensor,50000);}
-        else if(!wanted&&wallpaperListening){sensors.unregisterListener(this);wallpaperListening=false;haveCenter=false;}
+        if(wanted&&!wallpaperListening){haveGravity=false;haveCenter=false;wallpaperQuaternionCenter=null;lastWallpaperSend=0;wallpaperListening=sensors.registerListener(this,wallpaperSensor,50000);}
+        else if(!wanted&&wallpaperListening){sensors.unregisterListener(this);wallpaperListening=false;haveCenter=false;wallpaperQuaternionCenter=null;}
     }
     @Override public void onAccuracyChanged(android.hardware.Sensor sensor,int accuracy){}
     @Override public void onSensorChanged(android.hardware.SensorEvent event){
         if(!wallpaperListening||wv==null||closing||event.values.length<3)return;
-        if(wallpaperTouching||android.os.SystemClock.uptimeMillis()<wallpaperTouchQuietUntil){haveCenter=false;return;}
-        for(int i=0;i<3;i++){float v=event.values[i];if(!Float.isFinite(v))return;gravity[i]=haveGravity?gravity[i]*.82f+v*.18f:v;}
-        haveGravity=true;
+        if(wallpaperTouching||android.os.SystemClock.uptimeMillis()<wallpaperTouchQuietUntil){haveCenter=false;wallpaperQuaternionCenter=null;return;}
         int rotation=getWindowManager().getDefaultDisplay().getRotation();
-        float horizontal=rotation==android.view.Surface.ROTATION_90?-gravity[1]:rotation==android.view.Surface.ROTATION_270?gravity[1]:rotation==android.view.Surface.ROTATION_180?-gravity[0]:gravity[0];
-        if(!haveCenter||rotation!=wallpaperRotation){wallpaperCenter=horizontal;wallpaperRotation=rotation;haveCenter=true;}
         long time=android.os.SystemClock.uptimeMillis();if(time-lastWallpaperSend<50)return;lastWallpaperSend=time;
-        float delta=horizontal-wallpaperCenter;float clean=Math.abs(delta)<.08f?0f:Math.copySign(Math.abs(delta)-.08f,delta);
-        float offset=Math.max(-4f,Math.min(4f,clean*1.6f));
+        boolean vector=wallpaperSensor.getType()==android.hardware.Sensor.TYPE_GAME_ROTATION_VECTOR||wallpaperSensor.getType()==android.hardware.Sensor.TYPE_ROTATION_VECTOR;
+        float offset;
+        if(vector){
+            float[] q=MenuTiltMath.quaternion(event.values);if(q==null)return;
+            if(wallpaperQuaternionCenter==null||rotation!=wallpaperRotation){wallpaperQuaternionCenter=q;wallpaperRotation=rotation;}
+            offset=MenuTiltMath.offset(wallpaperQuaternionCenter,q,rotation);
+        }else{
+            for(int i=0;i<3;i++){float v=event.values[i];if(!Float.isFinite(v))return;gravity[i]=haveGravity?gravity[i]*.82f+v*.18f:v;}
+            haveGravity=true;
+            float horizontal=rotation==android.view.Surface.ROTATION_90?-gravity[1]:rotation==android.view.Surface.ROTATION_270?gravity[1]:rotation==android.view.Surface.ROTATION_180?-gravity[0]:gravity[0];
+            if(!haveCenter||rotation!=wallpaperRotation){wallpaperCenter=horizontal;wallpaperRotation=rotation;haveCenter=true;}
+            float delta=horizontal-wallpaperCenter;float clean=Math.abs(delta)<.08f?0f:Math.copySign(Math.abs(delta)-.08f,delta);
+            offset=Math.max(-4f,Math.min(4f,clean*3.2f));
+        }
         wv.evaluateJavascript("window.oneworldNativeWallpaper&&window.oneworldNativeWallpaper("+Float.toString(offset)+")",null);
     }
     private static final String ORIGIN = "https://appassets.androidplatform.net";
@@ -79,7 +88,7 @@ public class MainActivity extends Activity implements android.hardware.SensorEve
         wv = new WebView(this);
         wv.setOverScrollMode(android.view.View.OVER_SCROLL_NEVER);
         sensors=(android.hardware.SensorManager)getSystemService(SENSOR_SERVICE);
-        if(sensors!=null){wallpaperSensor=sensors.getDefaultSensor(android.hardware.Sensor.TYPE_GRAVITY);if(wallpaperSensor==null)wallpaperSensor=sensors.getDefaultSensor(android.hardware.Sensor.TYPE_ACCELEROMETER);}
+        if(sensors!=null){wallpaperSensor=sensors.getDefaultSensor(android.hardware.Sensor.TYPE_GAME_ROTATION_VECTOR);if(wallpaperSensor==null)wallpaperSensor=sensors.getDefaultSensor(android.hardware.Sensor.TYPE_ROTATION_VECTOR);if(wallpaperSensor==null)wallpaperSensor=sensors.getDefaultSensor(android.hardware.Sensor.TYPE_GRAVITY);if(wallpaperSensor==null)wallpaperSensor=sensors.getDefaultSensor(android.hardware.Sensor.TYPE_ACCELEROMETER);}
         WebSettings s = wv.getSettings();
         s.setJavaScriptEnabled(true);
         s.setDomStorageEnabled(true);

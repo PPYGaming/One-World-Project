@@ -1,3 +1,9 @@
+## 1.3.47 (code 69)
+- Optional phone-driven illustrated menu background and independent character turn, controlled together by a small default-OFF toggle. Turning OFF immediately centers both.
+- Relative-orientation input with the existing touch, focus and menu guards. Device feel and performance still require handset testing.
+- Smaller 56px author logo and one compact row of Website, YouTube, Instagram and TikTok links.
+- No new 3D forest, gameplay map, HP indicator, sound contribution or recorder-restart fix.
+
 # One World Beta 1.3.46 (68)
 
 - Manual crafting no longer spends materials when its result cannot fit in the bag. A consumed whole material stack can free a result slot, and existing result stacks can be used.
